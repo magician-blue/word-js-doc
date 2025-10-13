@@ -1,0 +1,506 @@
+# Word.PageBorderArt enum
+
+Package: https://learn.microsoft.com/en-us/javascript/api/word
+
+Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+
+Specifies the graphical page border setting of a page.
+
+## Remarks
+
+[API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+
+## Fields
+
+- apples = "Apples"
+  - Represents a border with apple design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- archedScallops = "ArchedScallops"
+  - Represents a border with arched scallops design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- babyPacifier = "BabyPacifier"
+  - Represents a border with baby pacifier design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- babyRattle = "BabyRattle"
+  - Represents a border with baby rattle design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- balloons3Colors = "Balloons3Colors"
+  - Represents a border with three-color balloons design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- balloonsHotAir = "BalloonsHotAir"
+  - Represents a border with hot air balloons design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicBlackDashes = "BasicBlackDashes"
+  - Represents a border with basic black dashes design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicBlackDots = "BasicBlackDots"
+  - Represents a border with basic black dots design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicBlackSquares = "BasicBlackSquares"
+  - Represents a border with basic black squares design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicThinLines = "BasicThinLines"
+  - Represents a border with basic thin lines design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWhiteDashes = "BasicWhiteDashes"
+  - Represents a border with basic white dashes design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWhiteDots = "BasicWhiteDots"
+  - Represents a border with basic white dots design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWhiteSquares = "BasicWhiteSquares"
+  - Represents a border with basic white squares design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWideInline = "BasicWideInline"
+  - Represents a border with basic wide inline design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWideMidline = "BasicWideMidline"
+  - Represents a border with basic wide midline design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- basicWideOutline = "BasicWideOutline"
+  - Represents a border with basic wide outline design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bats = "Bats"
+  - Represents a border with bats design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- birds = "Birds"
+  - Represents a border with birds design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- birdsFlight = "BirdsFlight"
+  - Represents a border with birds in flight design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cabins = "Cabins"
+  - Represents a border with cabins design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cakeSlice = "CakeSlice"
+  - Represents a border with cake slice design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- candyCorn = "CandyCorn"
+  - Represents a border with candy corn design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- celticKnotwork = "CelticKnotwork"
+  - Represents a border with Celtic knotwork design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- certificateBanner = "CertificateBanner"
+  - Represents a border with certificate banner design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chainLink = "ChainLink"
+  - Represents a border with chain link design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- champagneBottle = "ChampagneBottle"
+  - Represents a border with champagne bottle design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- checkedBarBlack = "CheckedBarBlack"
+  - Represents a border with black checked bar design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- checkedBarColor = "CheckedBarColor"
+  - Represents a border with colored checked bar design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- checkered = "Checkered"
+  - Represents a border with checkered design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- christmasTree = "ChristmasTree"
+  - Represents a border with Christmas tree design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- circlesLines = "CirclesLines"
+  - Represents a border with circles and lines design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- circlesRectangles = "CirclesRectangles"
+  - Represents a border with circles and rectangles design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- classicalWave = "ClassicalWave"
+  - Represents a border with classical wave design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- clocks = "Clocks"
+  - Represents a border with clocks design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- compass = "Compass"
+  - Represents a border with compass design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- confetti = "Confetti"
+  - Represents a border with confetti design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- confettiGrays = "ConfettiGrays"
+  - Represents a border with gray confetti design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- confettiOutline = "ConfettiOutline"
+  - Represents a border with outline confetti design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- confettiStreamers = "ConfettiStreamers"
+  - Represents a border with confetti streamers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- confettiWhite = "ConfettiWhite"
+  - Represents a border with white confetti design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cornerTriangles = "CornerTriangles"
+  - Represents a border with corner triangles design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- couponCutoutDashes = "CouponCutoutDashes"
+  - Represents a border with coupon cutout dashes design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- couponCutoutDots = "CouponCutoutDots"
+  - Represents a border with coupon cutout dots design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- crazyMaze = "CrazyMaze"
+  - Represents a border with crazy maze design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- creaturesButterfly = "CreaturesButterfly"
+  - Represents a border with butterfly creatures design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- creaturesFish = "CreaturesFish"
+  - Represents a border with fish creatures design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- creaturesInsects = "CreaturesInsects"
+  - Represents a border with insects creatures design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- creaturesLadyBug = "CreaturesLadyBug"
+  - Represents a border with ladybug creatures design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- crossStitch = "CrossStitch"
+  - Represents a border with cross stitch design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cup = "Cup"
+  - Represents a border with cup design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- decoArch = "DecoArch"
+  - Represents a border with deco arch design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- decoArchColor = "DecoArchColor"
+  - Represents a border with colored deco arch design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- decoBlocks = "DecoBlocks"
+  - Represents a border with deco blocks design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- diamondsGray = "DiamondsGray"
+  - Represents a border with gray diamonds design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- doubleD = "DoubleD"
+  - Represents a border with double D design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- doubleDiamonds = "DoubleDiamonds"
+  - Represents a border with double diamonds design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- earth1 = "Earth1"
+  - Represents a border with Earth design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- earth2 = "Earth2"
+  - Represents a border with Earth design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- eclipsingSquares1 = "EclipsingSquares1"
+  - Represents a border with eclipsing squares design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- eclipsingSquares2 = "EclipsingSquares2"
+  - Represents a border with eclipsing squares design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- eggsBlack = "EggsBlack"
+  - Represents a border with black eggs design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- fans = "Fans"
+  - Represents a border with fans design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- film = "Film"
+  - Represents a border with film design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- firecrackers = "Firecrackers"
+  - Represents a border with firecrackers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersBlockPrint = "FlowersBlockPrint"
+  - Represents a border with block print flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersDaisies = "FlowersDaisies"
+  - Represents a border with daisies flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersModern1 = "FlowersModern1"
+  - Represents a border with modern 1 flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersModern2 = "FlowersModern2"
+  - Represents a border with modern 2 flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersPansy = "FlowersPansy"
+  - Represents a border with pansy flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersRedRose = "FlowersRedRose"
+  - Represents a border with red rose flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersRoses = "FlowersRoses"
+  - Represents a border with roses flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersTeacup = "FlowersTeacup"
+  - Represents a border with teacup and flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowersTiny = "FlowersTiny"
+  - Represents a border with tiny flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- gems = "Gems"
+  - Represents a border with gems design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- gingerbreadMan = "GingerbreadMan"
+  - Represents a border with gingerbread man design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- gradient = "Gradient"
+  - Represents a border with gradient design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- handmade1 = "Handmade1"
+  - Represents a border with handmade design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- handmade2 = "Handmade2"
+  - Represents a border with handmade design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- heartBalloon = "HeartBalloon"
+  - Represents a border with heart balloon design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- heartGray = "HeartGray"
+  - Represents a border with gray heart design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- hearts = "Hearts"
+  - Represents a border with hearts design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- heebieJeebies = "HeebieJeebies"
+  - Represents a border with heebie jeebies design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- holly = "Holly"
+  - Represents a border with holly design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- houseFunky = "HouseFunky"
+  - Represents a border with funky house design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- hypnotic = "Hypnotic"
+  - Represents a border with hypnotic design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- iceCreamCones = "IceCreamCones"
+  - Represents a border with ice cream cone design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- lightBulb = "LightBulb"
+  - Represents a border with light bulb design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- lightning1 = "Lightning1"
+  - Represents a border with lightning design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- lightning2 = "Lightning2"
+  - Represents a border with lightning design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mapleLeaf = "MapleLeaf"
+  - Represents a border with maple leaf design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mapleMuffins = "MapleMuffins"
+  - Represents a border with maple muffin design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mapPins = "MapPins"
+  - Represents a border with map pins design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- marquee = "Marquee"
+  - Represents a border with marquee design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- marqueeToothed = "MarqueeToothed"
+  - Represents a border with marquee toothed design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- moons = "Moons"
+  - Represents a border with moons design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mosaic = "Mosaic"
+  - Represents a border with mosaic design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- musicNotes = "MusicNotes"
+  - Represents a border with music notes design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- northwest = "Northwest"
+  - Represents a border with northwest design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ovals = "Ovals"
+  - Represents a border with ovals design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- packages = "Packages"
+  - Represents a border with packages design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- palmsBlack = "PalmsBlack"
+  - Represents a border with black palms design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- palmsColor = "PalmsColor"
+  - Represents a border with palm trees in color.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- paperClips = "PaperClips"
+  - Represents a border with paper clips design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- papyrus = "Papyrus"
+  - Represents a border with papyrus design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- partyFavor = "PartyFavor"
+  - Represents a border with party favor design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- partyGlass = "PartyGlass"
+  - Represents a border with party glass design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pencils = "Pencils"
+  - Represents a border with pencils design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- people = "People"
+  - Represents a border with people design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- peopleHats = "PeopleHats"
+  - Represents a border with people wearing hats design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- peopleWaving = "PeopleWaving"
+  - Represents a border with people waving design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- poinsettias = "Poinsettias"
+  - Represents a border with poinsettias flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- postageStamp = "PostageStamp"
+  - Represents a border with postage stamp design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pumpkin1 = "Pumpkin1"
+  - Represents a border with pumpkin design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pushPinNote1 = "PushPinNote1"
+  - Represents a border with push pin note design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pushPinNote2 = "PushPinNote2"
+  - Represents a border with push pin note design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pyramids = "Pyramids"
+  - Represents a border with pyramids design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pyramidsAbove = "PyramidsAbove"
+  - Represents a border with pyramids above design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- quadrants = "Quadrants"
+  - Represents a border with quadrants design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rings = "Rings"
+  - Represents a border with rings design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- safari = "Safari"
+  - Represents a border with safari design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sawtooth = "Sawtooth"
+  - Represents a border with sawtooth design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sawtoothGray = "SawtoothGray"
+  - Represents a border with gray sawtooth design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- scaredCat = "ScaredCat"
+  - Represents a border with scared cat design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- seattle = "Seattle"
+  - Represents a border with Seattle design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- shadowedSquares = "ShadowedSquares"
+  - Represents a border with shadowed squares design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sharksTeeth = "SharksTeeth"
+  - Represents a border with sharks teeth design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- shorebirdTracks = "ShorebirdTracks"
+  - Represents a border with shorebird tracks design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- skyrocket = "Skyrocket"
+  - Represents a border with skyrocket design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snowflakeFancy = "SnowflakeFancy"
+  - Represents a border with fancy snowflake design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snowflakes = "Snowflakes"
+  - Represents a border with snowflakes design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sombrero = "Sombrero"
+  - Represents a border with sombrero design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- southwest = "Southwest"
+  - Represents a border with southwest design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- stars = "Stars"
+  - Represents a border with stars design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- stars3D = "Stars3D"
+  - Represents a border with 3D stars design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- starsBlack = "StarsBlack"
+  - Represents a border with black stars design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- starsShadowed = "StarsShadowed"
+  - Represents a border with shadowed stars design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- starsTop = "StarsTop"
+  - Represents a border with top stars design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sun = "Sun"
+  - Represents a border with sun design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- swirligig = "Swirligig"
+  - Represents a border with swirligig design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tornPaper = "TornPaper"
+  - Represents a border with torn paper design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tornPaperBlack = "TornPaperBlack"
+  - Represents a border with black torn paper design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- trees = "Trees"
+  - Represents a border with trees design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- triangleParty = "TriangleParty"
+  - Represents a border with triangle party design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- triangles = "Triangles"
+  - Represents a border with triangles design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal1 = "Tribal1"
+  - Represents a border with tribal design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal2 = "Tribal2"
+  - Represents a border with tribal design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal3 = "Tribal3"
+  - Represents a border with tribal design (variant 3).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal4 = "Tribal4"
+  - Represents a border with tribal design (variant 4).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal5 = "Tribal5"
+  - Represents a border with tribal design (variant 5).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- tribal6 = "Tribal6"
+  - Represents a border with tribal design (variant 6).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- twistedLines1 = "TwistedLines1"
+  - Represents a border with twisted lines design (variant 1).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- twistedLines2 = "TwistedLines2"
+  - Represents a border with twisted lines design (variant 2).
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- vine = "Vine"
+  - Represents a border with vine design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- waveline = "Waveline"
+  - Represents a border with waveline design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- weavingAngles = "WeavingAngles"
+  - Represents a border with weaving angles design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- weavingBraid = "WeavingBraid"
+  - Represents a border with weaving braid design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- weavingRibbon = "WeavingRibbon"
+  - Represents a border with weaving ribbon design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- weavingStrips = "WeavingStrips"
+  - Represents a border with weaving strips design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- whiteFlowers = "WhiteFlowers"
+  - Represents a border with white flowers design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- woodwork = "Woodwork"
+  - Represents a border with woodwork design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- xillusions = "XIllusions"
+  - Represents a border with X illusions design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- zanyTriangles = "ZanyTriangles"
+  - Represents a border with zany triangles design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- zigZag = "ZigZag"
+  - Represents a border with zigzag design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- zigZagStitch = "ZigZagStitch"
+  - Represents a border with zigzag stitch design.
+  - [API set: WordApi BETA (PREVIEW ONLY)](https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)

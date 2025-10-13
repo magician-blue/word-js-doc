@@ -1,0 +1,543 @@
+# Word.GeometricShapeType enum
+
+Package: [word](/en-us/javascript/api/word)
+
+Specifies the shape type for a GeometricShape object.
+
+## Remarks
+
+[API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+
+## Fields
+
+- accentBorderCallout1 = "AccentBorderCallout1"
+  - Accent border callout 1 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- accentBorderCallout2 = "AccentBorderCallout2"
+  - Accent border callout 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- accentBorderCallout3 = "AccentBorderCallout3"
+  - Accent border callout 3 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- accentCallout1 = "AccentCallout1"
+  - Accent callout 1 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- accentCallout2 = "AccentCallout2"
+  - Accent callout 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- accentCallout3 = "AccentCallout3"
+  - Accent callout 3 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonBackPrevious = "ActionButtonBackPrevious"
+  - Action button back previous geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonBeginning = "ActionButtonBeginning"
+  - Action button beginning geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonBlank = "ActionButtonBlank"
+  - Action button blank geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonDocument = "ActionButtonDocument"
+  - Action button document geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonEnd = "ActionButtonEnd"
+  - Action button end geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonForwardNext = "ActionButtonForwardNext"
+  - Action button forward next geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonHelp = "ActionButtonHelp"
+  - Action button help geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonHome = "ActionButtonHome"
+  - Action button home geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonInformation = "ActionButtonInformation"
+  - Action button information geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonMovie = "ActionButtonMovie"
+  - Action button movie geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonReturn = "ActionButtonReturn"
+  - Action button return geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- actionButtonSound = "ActionButtonSound"
+  - Action button sound geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- arc = "Arc"
+  - Arc geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bentArrow = "BentArrow"
+  - Bent arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bentUpArrow = "BentUpArrow"
+  - Bent up arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bevel = "Bevel"
+  - Bevel geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- blockArc = "BlockArc"
+  - Block arc geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- borderCallout1 = "BorderCallout1"
+  - Border callout 1 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- borderCallout2 = "BorderCallout2"
+  - Border callout 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- borderCallout3 = "BorderCallout3"
+  - Border callout 3 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bracePair = "BracePair"
+  - Brace pair geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- bracketPair = "BracketPair"
+  - Bracket pair geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- callout1 = "Callout1"
+  - Callout 1 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- callout2 = "Callout2"
+  - Callout 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- callout3 = "Callout3"
+  - Callout 3 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- can = "Can"
+  - Can geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chartPlus = "ChartPlus"
+  - Chart plus geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chartStar = "ChartStar"
+  - Chart star geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chartX = "ChartX"
+  - Chart X geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chevron = "Chevron"
+  - Chevron geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- chord = "Chord"
+  - Chord geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- circularArrow = "CircularArrow"
+  - Circular arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cloud = "Cloud"
+  - Cloud geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cloudCallout = "CloudCallout"
+  - Cloud callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- corner = "Corner"
+  - Corner geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cornerTabs = "CornerTabs"
+  - Corner tabs geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- cube = "Cube"
+  - Cube geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- curvedDownArrow = "CurvedDownArrow"
+  - Curved down arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- curvedLeftArrow = "CurvedLeftArrow"
+  - Curved left arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- curvedRightArrow = "CurvedRightArrow"
+  - Curved right arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- curvedUpArrow = "CurvedUpArrow"
+  - Curved up arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- decagon = "Decagon"
+  - Decagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- diagonalStripe = "DiagonalStripe"
+  - Diagonal stripe geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- diamond = "Diamond"
+  - Diamond geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- dodecagon = "Dodecagon"
+  - Dodecagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- donut = "Donut"
+  - Donut geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- doubleWave = "DoubleWave"
+  - Double wave geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- downArrow = "DownArrow"
+  - Down arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- downArrowCallout = "DownArrowCallout"
+  - Down arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ellipse = "Ellipse"
+  - Ellipse geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ellipseRibbon = "EllipseRibbon"
+  - Ellipse ribbon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ellipseRibbon2 = "EllipseRibbon2"
+  - Ellipse ribbon 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartAlternateProcess = "FlowChartAlternateProcess"
+  - Flow chart alternate process geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartCollate = "FlowChartCollate"
+  - Flow chart collate geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartConnector = "FlowChartConnector"
+  - Flow chart connector geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartDecision = "FlowChartDecision"
+  - Flow chart decision geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartDelay = "FlowChartDelay"
+  - Flow chart delay geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartDisplay = "FlowChartDisplay"
+  - Flow chart display geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartDocument = "FlowChartDocument"
+  - Flow chart document geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartExtract = "FlowChartExtract"
+  - Flow chart extract geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartInputOutput = "FlowChartInputOutput"
+  - Flow chart input-output geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartInternalStorage = "FlowChartInternalStorage"
+  - Flow chart internal storage geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartMagneticDisk = "FlowChartMagneticDisk"
+  - Flow chart magnetic disk geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartMagneticDrum = "FlowChartMagneticDrum"
+  - Flow chart magnetic drum geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartMagneticTape = "FlowChartMagneticTape"
+  - Flow chart magnetic tape geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartManualInput = "FlowChartManualInput"
+  - Flow chart manual input geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartManualOperation = "FlowChartManualOperation"
+  - Flow chart manual operation geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartMerge = "FlowChartMerge"
+  - Flow chart merge geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartMultidocument = "FlowChartMultidocument"
+  - Flow chart multidocument geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartOfflineStorage = "FlowChartOfflineStorage"
+  - Flow chart offline storage geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartOffpageConnector = "FlowChartOffpageConnector"
+  - Flow chart off-page connector geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartOnlineStorage = "FlowChartOnlineStorage"
+  - Flow chart online storage geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartOr = "FlowChartOr"
+  - Flow chart OR geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartPredefinedProcess = "FlowChartPredefinedProcess"
+  - Flow chart predefined process geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartPreparation = "FlowChartPreparation"
+  - Flow chart preparation geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartProcess = "FlowChartProcess"
+  - Flow chart process geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartPunchedCard = "FlowChartPunchedCard"
+  - Flow chart punched card geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartPunchedTape = "FlowChartPunchedTape"
+  - Flow chart punched tape geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartSort = "FlowChartSort"
+  - Flow chart sort geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartSummingJunction = "FlowChartSummingJunction"
+  - Flow chart summing junction geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- flowChartTerminator = "FlowChartTerminator"
+  - Flow chart terminator geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- foldedCorner = "FoldedCorner"
+  - Folded corner geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- frame = "Frame"
+  - Frame geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- funnel = "Funnel"
+  - Funnel geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- gear6 = "Gear6"
+  - Gear 6 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- gear9 = "Gear9"
+  - Gear 9 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- halfFrame = "HalfFrame"
+  - Half frame geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- heart = "Heart"
+  - Heart geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- heptagon = "Heptagon"
+  - Heptagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- hexagon = "Hexagon"
+  - Hexagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- homePlate = "HomePlate"
+  - Home plate geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- horizontalScroll = "HorizontalScroll"
+  - Horizontal scroll geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- irregularSeal1 = "IrregularSeal1"
+  - Irregular seal 1 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- irregularSeal2 = "IrregularSeal2"
+  - Irregular seal 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftArrow = "LeftArrow"
+  - Left arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftArrowCallout = "LeftArrowCallout"
+  - Left arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftBrace = "LeftBrace"
+  - Left brace geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftBracket = "LeftBracket"
+  - Left bracket geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftCircularArrow = "LeftCircularArrow"
+  - Left circular arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftRightArrow = "LeftRightArrow"
+  - Left-right arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftRightArrowCallout = "LeftRightArrowCallout"
+  - Left-right arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftRightCircularArrow = "LeftRightCircularArrow"
+  - Left-right circular arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftRightRibbon = "LeftRightRibbon"
+  - Left-right ribbon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftRightUpArrow = "LeftRightUpArrow"
+  - Left-right-up arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- leftUpArrow = "LeftUpArrow"
+  - Left-up arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- lightningBolt = "LightningBolt"
+  - Lightning bolt geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- lineInverse = "LineInverse"
+  - Line inverse geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathDivide = "MathDivide"
+  - Math divide geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathEqual = "MathEqual"
+  - Math equal geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathMinus = "MathMinus"
+  - Math minus geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathMultiply = "MathMultiply"
+  - Math multiply geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathNotEqual = "MathNotEqual"
+  - Math not equal geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mathPlus = "MathPlus"
+  - Math plus geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- moon = "Moon"
+  - Moon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- nonIsoscelesTrapezoid = "NonIsoscelesTrapezoid"
+  - Non-isosceles trapezoid geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- noSmoking = "NoSmoking"
+  - No smoking geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- notchedRightArrow = "NotchedRightArrow"
+  - Notched right arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- octagon = "Octagon"
+  - Octagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- parallelogram = "Parallelogram"
+  - Parallelogram geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pentagon = "Pentagon"
+  - Pentagon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pie = "Pie"
+  - Pie geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- pieWedge = "PieWedge"
+  - Pie wedge geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- plaque = "Plaque"
+  - Plaque geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- plaqueTabs = "PlaqueTabs"
+  - Plaque tabs geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- plus = "Plus"
+  - Plus geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- quadArrow = "QuadArrow"
+  - Quad arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- quadArrowCallout = "QuadArrowCallout"
+  - Quad arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rectangle = "Rectangle"
+  - Rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ribbon = "Ribbon"
+  - Ribbon geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- ribbon2 = "Ribbon2"
+  - Ribbon 2 geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rightArrow = "RightArrow"
+  - Right arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rightArrowCallout = "RightArrowCallout"
+  - Right arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rightBrace = "RightBrace"
+  - Right brace geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rightBracket = "RightBracket"
+  - Right bracket geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- rightTriangle = "RightTriangle"
+  - Right triangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- round1Rectangle = "Round1Rectangle"
+  - Round one rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- round2DiagonalRectangle = "Round2DiagonalRectangle"
+  - Round two diagonal rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- round2SameRectangle = "Round2SameRectangle"
+  - Round two same rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- roundRectangle = "RoundRectangle"
+  - Round rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- smileyFace = "SmileyFace"
+  - Smiley face geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snip1Rectangle = "Snip1Rectangle"
+  - Snip one rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snip2DiagonalRectangle = "Snip2DiagonalRectangle"
+  - Snip two diagonal rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snip2SameRectangle = "Snip2SameRectangle"
+  - Snip two same rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- snipRoundRectangle = "SnipRoundRectangle"
+  - Snip round rectangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- squareTabs = "SquareTabs"
+  - Square tabs geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star10 = "Star10"
+  - Star 10-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star12 = "Star12"
+  - Star 12-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star16 = "Star16"
+  - Star 16-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star24 = "Star24"
+  - Star 24-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star32 = "Star32"
+  - Star 32-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star4 = "Star4"
+  - Star 4-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star5 = "Star5"
+  - Star 5-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star6 = "Star6"
+  - Star 6-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star7 = "Star7"
+  - Star 7-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- star8 = "Star8"
+  - Star 8-point geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- stripedRightArrow = "StripedRightArrow"
+  - Striped right arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- sun = "Sun"
+  - Sun geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- swooshArrow = "SwooshArrow"
+  - Swoosh arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- teardrop = "Teardrop"
+  - Teardrop geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- trapezoid = "Trapezoid"
+  - Trapezoid geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- triangle = "Triangle"
+  - Triangle geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- upArrow = "UpArrow"
+  - Up arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- upArrowCallout = "UpArrowCallout"
+  - Up arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- upDownArrow = "UpDownArrow"
+  - Up-down arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- upDownArrowCallout = "UpDownArrowCallout"
+  - Up-down arrow callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- uturnArrow = "UturnArrow"
+  - U-turn arrow geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- verticalScroll = "VerticalScroll"
+  - Vertical scroll geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- wave = "Wave"
+  - Wave geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- wedgeEllipseCallout = "WedgeEllipseCallout"
+  - Wedge ellipse callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- wedgeRectCallout = "WedgeRectCallout"
+  - Wedge rectangle callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- wedgeRRectCallout = "WedgeRRectCallout"
+  - Wedge rounded rectangle callout geometric shape.
+  - [API set: WordApiDesktop 1.2](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)

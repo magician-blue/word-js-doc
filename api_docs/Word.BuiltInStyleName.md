@@ -1,0 +1,340 @@
+# Word.BuiltInStyleName enum
+
+- Package: [word](/en-us/javascript/api/word)
+
+Represents the built-in style in a Word document.
+
+## Remarks
+
+[API set: WordApi 1.3]
+
+Important: This enum was renamed from Style to BuiltInStyleName in WordApi 1.5.
+
+## Examples
+
+```TypeScript
+// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/insert-formatted-text.yaml
+
+await Word.run(async (context) => {
+  const sentence: Word.Paragraph = context.document.body.insertParagraph(
+    "To be or not to be",
+    "End"
+  );
+
+  // Use styleBuiltIn to use an enumeration of existing styles. If your style is custom make sure to use: range.style = "name of your style";
+  sentence.styleBuiltIn = Word.BuiltInStyleName.intenseReference;
+
+  await context.sync();
+});
+```
+
+## Fields
+
+- bibliography = "Bibliography"
+  - [API set: WordApi 1.3]
+- bookTitle = "BookTitle"
+  - [API set: WordApi 1.3]
+- caption = "Caption"
+  - [API set: WordApi 1.3]
+- emphasis = "Emphasis"
+  - [API set: WordApi 1.3]
+- endnoteReference = "EndnoteReference"
+  - [API set: WordApi 1.3]
+- endnoteText = "EndnoteText"
+  - [API set: WordApi 1.3]
+- footer = "Footer"
+  - [API set: WordApi 1.3]
+- footnoteReference = "FootnoteReference"
+  - [API set: WordApi 1.3]
+- footnoteText = "FootnoteText"
+  - [API set: WordApi 1.3]
+- gridTable1Light = "GridTable1Light"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent1 = "GridTable1Light_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent2 = "GridTable1Light_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent3 = "GridTable1Light_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent4 = "GridTable1Light_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent5 = "GridTable1Light_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable1Light_Accent6 = "GridTable1Light_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable2 = "GridTable2"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent1 = "GridTable2_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent2 = "GridTable2_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent3 = "GridTable2_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent4 = "GridTable2_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent5 = "GridTable2_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable2_Accent6 = "GridTable2_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable3 = "GridTable3"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent1 = "GridTable3_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent2 = "GridTable3_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent3 = "GridTable3_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent4 = "GridTable3_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent5 = "GridTable3_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable3_Accent6 = "GridTable3_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable4 = "GridTable4"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent1 = "GridTable4_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent2 = "GridTable4_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent3 = "GridTable4_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent4 = "GridTable4_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent5 = "GridTable4_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable4_Accent6 = "GridTable4_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable5Dark = "GridTable5Dark"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent1 = "GridTable5Dark_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent2 = "GridTable5Dark_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent3 = "GridTable5Dark_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent4 = "GridTable5Dark_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent5 = "GridTable5Dark_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable5Dark_Accent6 = "GridTable5Dark_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful = "GridTable6Colorful"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent1 = "GridTable6Colorful_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent2 = "GridTable6Colorful_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent3 = "GridTable6Colorful_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent4 = "GridTable6Colorful_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent5 = "GridTable6Colorful_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable6Colorful_Accent6 = "GridTable6Colorful_Accent6"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful = "GridTable7Colorful"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent1 = "GridTable7Colorful_Accent1"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent2 = "GridTable7Colorful_Accent2"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent3 = "GridTable7Colorful_Accent3"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent4 = "GridTable7Colorful_Accent4"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent5 = "GridTable7Colorful_Accent5"
+  - [API set: WordApi 1.3]
+- gridTable7Colorful_Accent6 = "GridTable7Colorful_Accent6"
+  - [API set: WordApi 1.3]
+- header = "Header"
+  - [API set: WordApi 1.3]
+- heading1 = "Heading1"
+  - [API set: WordApi 1.3]
+- heading2 = "Heading2"
+  - [API set: WordApi 1.3]
+- heading3 = "Heading3"
+  - [API set: WordApi 1.3]
+- heading4 = "Heading4"
+  - [API set: WordApi 1.3]
+- heading5 = "Heading5"
+  - [API set: WordApi 1.3]
+- heading6 = "Heading6"
+  - [API set: WordApi 1.3]
+- heading7 = "Heading7"
+  - [API set: WordApi 1.3]
+- heading8 = "Heading8"
+  - [API set: WordApi 1.3]
+- heading9 = "Heading9"
+  - [API set: WordApi 1.3]
+- hyperlink = "Hyperlink"
+  - [API set: WordApi 1.3]
+- intenseEmphasis = "IntenseEmphasis"
+  - [API set: WordApi 1.3]
+- intenseQuote = "IntenseQuote"
+  - [API set: WordApi 1.3]
+- intenseReference = "IntenseReference"
+  - [API set: WordApi 1.3]
+- listParagraph = "ListParagraph"
+  - [API set: WordApi 1.3]
+- listTable1Light = "ListTable1Light"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent1 = "ListTable1Light_Accent1"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent2 = "ListTable1Light_Accent2"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent3 = "ListTable1Light_Accent3"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent4 = "ListTable1Light_Accent4"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent5 = "ListTable1Light_Accent5"
+  - [API set: WordApi 1.3]
+- listTable1Light_Accent6 = "ListTable1Light_Accent6"
+  - [API set: WordApi 1.3]
+- listTable2 = "ListTable2"
+  - [API set: WordApi 1.3]
+- listTable2_Accent1 = "ListTable2_Accent1"
+  - [API set: WordApi 1.3]
+- listTable2_Accent2 = "ListTable2_Accent2"
+  - [API set: WordApi 1.3]
+- listTable2_Accent3 = "ListTable2_Accent3"
+  - [API set: WordApi 1.3]
+- listTable2_Accent4 = "ListTable2_Accent4"
+  - [API set: WordApi 1.3]
+- listTable2_Accent5 = "ListTable2_Accent5"
+  - [API set: WordApi 1.3]
+- listTable2_Accent6 = "ListTable2_Accent6"
+  - [API set: WordApi 1.3]
+- listTable3 = "ListTable3"
+  - [API set: WordApi 1.3]
+- listTable3_Accent1 = "ListTable3_Accent1"
+  - [API set: WordApi 1.3]
+- listTable3_Accent2 = "ListTable3_Accent2"
+  - [API set: WordApi 1.3]
+- listTable3_Accent3 = "ListTable3_Accent3"
+  - [API set: WordApi 1.3]
+- listTable3_Accent4 = "ListTable3_Accent4"
+  - [API set: WordApi 1.3]
+- listTable3_Accent5 = "ListTable3_Accent5"
+  - [API set: WordApi 1.3]
+- listTable3_Accent6 = "ListTable3_Accent6"
+  - [API set: WordApi 1.3]
+- listTable4 = "ListTable4"
+  - [API set: WordApi 1.3]
+- listTable4_Accent1 = "ListTable4_Accent1"
+  - [API set: WordApi 1.3]
+- listTable4_Accent2 = "ListTable4_Accent2"
+  - [API set: WordApi 1.3]
+- listTable4_Accent3 = "ListTable4_Accent3"
+  - [API set: WordApi 1.3]
+- listTable4_Accent4 = "ListTable4_Accent4"
+  - [API set: WordApi 1.3]
+- listTable4_Accent5 = "ListTable4_Accent5"
+  - [API set: WordApi 1.3]
+- listTable4_Accent6 = "ListTable4_Accent6"
+  - [API set: WordApi 1.3]
+- listTable5Dark = "ListTable5Dark"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent1 = "ListTable5Dark_Accent1"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent2 = "ListTable5Dark_Accent2"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent3 = "ListTable5Dark_Accent3"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent4 = "ListTable5Dark_Accent4"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent5 = "ListTable5Dark_Accent5"
+  - [API set: WordApi 1.3]
+- listTable5Dark_Accent6 = "ListTable5Dark_Accent6"
+  - [API set: WordApi 1.3]
+- listTable6Colorful = "ListTable6Colorful"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent1 = "ListTable6Colorful_Accent1"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent2 = "ListTable6Colorful_Accent2"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent3 = "ListTable6Colorful_Accent3"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent4 = "ListTable6Colorful_Accent4"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent5 = "ListTable6Colorful_Accent5"
+  - [API set: WordApi 1.3]
+- listTable6Colorful_Accent6 = "ListTable6Colorful_Accent6"
+  - [API set: WordApi 1.3]
+- listTable7Colorful = "ListTable7Colorful"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent1 = "ListTable7Colorful_Accent1"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent2 = "ListTable7Colorful_Accent2"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent3 = "ListTable7Colorful_Accent3"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent4 = "ListTable7Colorful_Accent4"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent5 = "ListTable7Colorful_Accent5"
+  - [API set: WordApi 1.3]
+- listTable7Colorful_Accent6 = "ListTable7Colorful_Accent6"
+  - [API set: WordApi 1.3]
+- normal = "Normal"
+  - Reset character and paragraph style to default.
+  - [API set: WordApi 1.3]
+- noSpacing = "NoSpacing"
+  - [API set: WordApi 1.3]
+- other = "Other"
+  - Mixed styles or other style not in this list.
+  - [API set: WordApi 1.3]
+- plainTable1 = "PlainTable1"
+  - [API set: WordApi 1.3]
+- plainTable2 = "PlainTable2"
+  - [API set: WordApi 1.3]
+- plainTable3 = "PlainTable3"
+  - [API set: WordApi 1.3]
+- plainTable4 = "PlainTable4"
+  - [API set: WordApi 1.3]
+- plainTable5 = "PlainTable5"
+  - [API set: WordApi 1.3]
+- quote = "Quote"
+  - [API set: WordApi 1.3]
+- strong = "Strong"
+  - [API set: WordApi 1.3]
+- subtitle = "Subtitle"
+  - [API set: WordApi 1.3]
+- subtleEmphasis = "SubtleEmphasis"
+  - [API set: WordApi 1.3]
+- subtleReference = "SubtleReference"
+  - [API set: WordApi 1.3]
+- tableGrid = "TableGrid"
+  - [API set: WordApi 1.3]
+- tableGridLight = "TableGridLight"
+  - [API set: WordApi 1.3]
+- title = "Title"
+  - [API set: WordApi 1.3]
+- toc1 = "Toc1"
+  - Table-of-content level 1.
+  - [API set: WordApi 1.3]
+- toc2 = "Toc2"
+  - Table-of-content level 2.
+  - [API set: WordApi 1.3]
+- toc3 = "Toc3"
+  - Table-of-content level 3.
+  - [API set: WordApi 1.3]
+- toc4 = "Toc4"
+  - Table-of-content level 4.
+  - [API set: WordApi 1.3]
+- toc5 = "Toc5"
+  - Table-of-content level 5.
+  - [API set: WordApi 1.3]
+- toc6 = "Toc6"
+  - Table-of-content level 6.
+  - [API set: WordApi 1.3]
+- toc7 = "Toc7"
+  - Table-of-content level 7.
+  - [API set: WordApi 1.3]
+- toc8 = "Toc8"
+  - Table-of-content level 8.
+  - [API set: WordApi 1.3]
+- toc9 = "Toc9"
+  - Table-of-content level 9.
+  - [API set: WordApi 1.3]
+- tocHeading = "TocHeading"
+  - Table-of-content heading.
+  - [API set: WordApi 1.3]

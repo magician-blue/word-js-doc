@@ -1,0 +1,204 @@
+# Word.PresetCamera enum
+
+Package: [word](/en-us/javascript/api/word)
+
+Note:
+This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.
+
+Indicates the effects camera type used by the specified object.
+
+## Remarks
+
+[API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+
+## Fields
+
+- isometricBottomDown = "IsometricBottomDown"
+  - Represents an isometric bottom-down camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricBottomUp = "IsometricBottomUp"
+  - Represents an isometric bottom-up camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricLeftDown = "IsometricLeftDown"
+  - Represents an isometric left-down camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricLeftUp = "IsometricLeftUp"
+  - Represents an isometric left-up camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis1Left = "IsometricOffAxis1Left"
+  - Represents an isometric off-axis 1 left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis1Right = "IsometricOffAxis1Right"
+  - Represents an isometric off-axis 1 right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis1Top = "IsometricOffAxis1Top"
+  - Represents an isometric off-axis 1 top camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis2Left = "IsometricOffAxis2Left"
+  - Represents an isometric off-axis 2 left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis2Right = "IsometricOffAxis2Right"
+  - Represents an isometric off-axis 2 right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis2Top = "IsometricOffAxis2Top"
+  - Represents an isometric off-axis 2 top camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis3Bottom = "IsometricOffAxis3Bottom"
+  - Represents an isometric off-axis 3 bottom camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis3Left = "IsometricOffAxis3Left"
+  - Represents an isometric off-axis 3 left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis3Right = "IsometricOffAxis3Right"
+  - Represents an isometric off-axis 3 right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis4Bottom = "IsometricOffAxis4Bottom"
+  - Represents an isometric off-axis 4 bottom camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis4Left = "IsometricOffAxis4Left"
+  - Represents an isometric off-axis 4 left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricOffAxis4Right = "IsometricOffAxis4Right"
+  - Represents an isometric off-axis 4 right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricRightDown = "IsometricRightDown"
+  - Represents an isometric right-down camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricRightUp = "IsometricRightUp"
+  - Represents an isometric right-up camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricTopDown = "IsometricTopDown"
+  - Represents an isometric top-down camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- isometricTopUp = "IsometricTopUp"
+  - Represents an isometric top-up camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueBottom = "LegacyObliqueBottom"
+  - Represents a legacy oblique bottom camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueBottomLeft = "LegacyObliqueBottomLeft"
+  - Represents a legacy oblique bottom-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueBottomRight = "LegacyObliqueBottomRight"
+  - Represents a legacy oblique bottom-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueFront = "LegacyObliqueFront"
+  - Represents a legacy oblique front camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueLeft = "LegacyObliqueLeft"
+  - Represents a legacy oblique left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueRight = "LegacyObliqueRight"
+  - Represents a legacy oblique right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueTop = "LegacyObliqueTop"
+  - Represents a legacy oblique top camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueTopLeft = "LegacyObliqueTopLeft"
+  - Represents a legacy oblique top-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyObliqueTopRight = "LegacyObliqueTopRight"
+  - Represents a legacy oblique top-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveBottom = "LegacyPerspectiveBottom"
+  - Represents a legacy perspective bottom camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveBottomLeft = "LegacyPerspectiveBottomLeft"
+  - Represents a legacy perspective bottom-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveBottomRight = "LegacyPerspectiveBottomRight"
+  - Represents a legacy perspective bottom-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveFront = "LegacyPerspectiveFront"
+  - Represents a legacy perspective front camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveLeft = "LegacyPerspectiveLeft"
+  - Represents a legacy perspective left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveRight = "LegacyPerspectiveRight"
+  - Represents a legacy perspective right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveTop = "LegacyPerspectiveTop"
+  - Represents a legacy perspective top camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveTopLeft = "LegacyPerspectiveTopLeft"
+  - Represents a legacy perspective top-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- legacyPerspectiveTopRight = "LegacyPerspectiveTopRight"
+  - Represents a legacy perspective top-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- mixed = "Mixed"
+  - Represents a mixed camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueBottom = "ObliqueBottom"
+  - Represents an oblique bottom camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueBottomLeft = "ObliqueBottomLeft"
+  - Represents an oblique bottom-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueBottomRight = "ObliqueBottomRight"
+  - Represents an oblique bottom-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueLeft = "ObliqueLeft"
+  - Represents an oblique left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueRight = "ObliqueRight"
+  - Represents an oblique right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueTop = "ObliqueTop"
+  - Represents an oblique top camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueTopLeft = "ObliqueTopLeft"
+  - Represents an oblique top-left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- obliqueTopRight = "ObliqueTopRight"
+  - Represents an oblique top-right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- orthographicFront = "OrthographicFront"
+  - Represents an orthographic front camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveAbove = "PerspectiveAbove"
+  - Represents a perspective above camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveAboveLeftFacing = "PerspectiveAboveLeftFacing"
+  - Represents a perspective above-left facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveAboveRightFacing = "PerspectiveAboveRightFacing"
+  - Represents a perspective above-right facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveBelow = "PerspectiveBelow"
+  - Represents a perspective below camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveContrastingLeftFacing = "PerspectiveContrastingLeftFacing"
+  - Represents a perspective contrasting-left facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveContrastingRightFacing = "PerspectiveContrastingRightFacing"
+  - Represents a perspective contrasting-right facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveFront = "PerspectiveFront"
+  - Represents a perspective front camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveHeroicExtremeLeftFacing = "PerspectiveHeroicExtremeLeftFacing"
+  - Represents a perspective heroic-extreme left facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveHeroicExtremeRightFacing = "PerspectiveHeroicExtremeRightFacing"
+  - Represents a perspective heroic-extreme right facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveHeroicLeftFacing = "PerspectiveHeroicLeftFacing"
+  - Represents a perspective heroic-left facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveHeroicRightFacing = "PerspectiveHeroicRightFacing"
+  - Represents a perspective heroic-right facing camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveLeft = "PerspectiveLeft"
+  - Represents a perspective left camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveRelaxed = "PerspectiveRelaxed"
+  - Represents a relaxed perspective camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveRelaxedModerately = "PerspectiveRelaxedModerately"
+  - Represents a moderately relaxed perspective camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
+- perspectiveRight = "PerspectiveRight"
+  - Represents a perspective right camera type.
+  - [API set: WordApi BETA (PREVIEW ONLY)](/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets)
