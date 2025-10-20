@@ -1,0 +1,3719 @@
+{
+  "summary": {
+    "total_classes": 143,
+    "total_properties": 499,
+    "total_methods": 877,
+    "total_events": 5,
+    "unique_methods": 165,
+    "avg_properties_per_class": 3.49,
+    "avg_methods_per_class": 6.13
+  },
+  "classes": [
+    {
+      "class_name": "Word.Annotation",
+      "properties": [
+        "context",
+        "critiqueAnnotation",
+        "id",
+        "state"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.AnnotationCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Application",
+      "properties": [
+        "bibliography",
+        "checkLanguage",
+        "context",
+        "language",
+        "templates"
+      ],
+      "methods": [
+        "createDocument",
+        "load",
+        "load",
+        "load",
+        "newObject",
+        "openDocument",
+        "retrieveStylesFromBase64",
+        "set",
+        "set",
+        "toJSON"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Bibliography",
+      "properties": [
+        "bibliographyStyle",
+        "context",
+        "sources"
+      ],
+      "methods": [
+        "generateUniqueTag",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Body",
+      "properties": [
+        "contentControls",
+        "context",
+        "endnotes",
+        "fields",
+        "font",
+        "footnotes",
+        "inlinePictures",
+        "lists",
+        "paragraphs",
+        "parentBody",
+        "parentBodyOrNullObject",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentSection",
+        "parentSectionOrNullObject",
+        "shapes",
+        "style",
+        "styleBuiltIn",
+        "tables",
+        "text",
+        "type"
+      ],
+      "methods": [
+        "clear",
+        "getComments",
+        "getContentControls",
+        "getHtml",
+        "getOoxml",
+        "getRange",
+        "getReviewedText",
+        "getReviewedText",
+        "getTrackedChanges",
+        "insertBreak",
+        "insertContentControl",
+        "insertFileFromBase64",
+        "insertHtml",
+        "insertInlinePictureFromBase64",
+        "insertOoxml",
+        "insertParagraph",
+        "insertTable",
+        "insertText",
+        "load",
+        "load",
+        "load",
+        "search",
+        "select",
+        "select",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [
+        "onCommentAdded",
+        "onCommentChanged",
+        "onCommentDeleted",
+        "onCommentDeselected",
+        "onCommentSelected"
+      ],
+      "property_count": 21,
+      "method_count": 29,
+      "event_count": 5
+    },
+    {
+      "class_name": "Word.Bookmark",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BookmarkCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "exists",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Border",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BorderCollection",
+      "properties": [
+        "context",
+        "insideBorderColor",
+        "insideBorderType",
+        "insideBorderWidth",
+        "items",
+        "outsideBorderColor",
+        "outsideBorderType",
+        "outsideBorderWidth"
+      ],
+      "methods": [
+        "getByLocation",
+        "getFirst",
+        "getFirstOrNullObject",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 8,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BorderUniversal",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BorderUniversalCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "applyPageBordersToAllSections",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Break",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BreakCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 6,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlock",
+      "properties": [
+        "category",
+        "context",
+        "description",
+        "id",
+        "index",
+        "insertType",
+        "name",
+        "type",
+        "value"
+      ],
+      "methods": [
+        "delete",
+        "insert",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 9,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockCategory",
+      "properties": [
+        "buildingBlocks",
+        "context",
+        "index",
+        "name",
+        "type"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 5,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockCategoryCollection",
+      "properties": [
+        "context"
+      ],
+      "methods": [
+        "getCount",
+        "getItemAt",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 1,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockCollection",
+      "properties": [
+        "context"
+      ],
+      "methods": [
+        "add",
+        "add",
+        "getCount",
+        "getItemAt",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 1,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockEntryCollection",
+      "properties": [
+        "context"
+      ],
+      "methods": [
+        "add",
+        "add",
+        "getCount",
+        "getItemAt",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 1,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockGalleryContentControl",
+      "properties": [
+        "appearance",
+        "buildingBlockCategory",
+        "buildingBlockType",
+        "color",
+        "context",
+        "id",
+        "isTemporary",
+        "level",
+        "lockContentControl",
+        "lockContents",
+        "placeholderText",
+        "range",
+        "showingPlaceholderText",
+        "tag",
+        "title",
+        "xmlMapping"
+      ],
+      "methods": [
+        "copy",
+        "cut",
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setPlaceholderText",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 16,
+      "method_count": 12,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockTypeItem",
+      "properties": [
+        "categories",
+        "context",
+        "index",
+        "name"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 6,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.BuildingBlockTypeItemCollection",
+      "properties": [
+        "context"
+      ],
+      "methods": [
+        "getByType",
+        "getByType",
+        "getCount",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 1,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Canvas",
+      "properties": [
+        "context",
+        "id",
+        "shape",
+        "shapes"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CheckboxContentControl",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ColorFormat",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ComboBoxContentControl",
+      "properties": [
+        "context",
+        "listItems"
+      ],
+      "methods": [
+        "addListItem",
+        "deleteAllListItems",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Comment",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CommentCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CommentContentRange",
+      "properties": [
+        "bold",
+        "context",
+        "hyperlink",
+        "isEmpty",
+        "italic",
+        "strikeThrough",
+        "text",
+        "underline"
+      ],
+      "methods": [
+        "insertText",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 8,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CommentReply",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CommentReplyCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ContentControl",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ContentControlCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getByChangeTrackingStates",
+        "getById",
+        "getByIdOrNullObject",
+        "getByTag",
+        "getByTitle",
+        "getByTypes",
+        "getFirst",
+        "getFirstOrNullObject",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 15,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ContentControlListItem",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ContentControlListItemCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CritiqueAnnotation",
+      "properties": [
+        "context",
+        "critique",
+        "range"
+      ],
+      "methods": [
+        "accept",
+        "load",
+        "load",
+        "load",
+        "reject",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomProperty",
+      "properties": [
+        "context",
+        "key",
+        "type",
+        "value"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomPropertyCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlNode",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlNodeCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getCount",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlPart",
+      "properties": [
+        "builtIn",
+        "context",
+        "documentElement",
+        "errors",
+        "id",
+        "namespaceManager",
+        "namespaceUri",
+        "schemaCollection",
+        "xml"
+      ],
+      "methods": [
+        "addNode",
+        "delete",
+        "deleteAttribute",
+        "deleteElement",
+        "getXml",
+        "insertAttribute",
+        "insertElement",
+        "load",
+        "load",
+        "load",
+        "loadXml",
+        "query",
+        "selectNodes",
+        "selectSingleNode",
+        "set",
+        "set",
+        "setXml",
+        "toJSON",
+        "track",
+        "untrack",
+        "updateAttribute",
+        "updateElement"
+      ],
+      "events": [],
+      "property_count": 9,
+      "method_count": 22,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlPartCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [],
+      "events": [],
+      "property_count": 2,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlPartScopedCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlPrefixMapping",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlPrefixMappingCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlSchema",
+      "properties": [
+        "context",
+        "location",
+        "namespaceUri"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "reload",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlSchemaCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlValidationError",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.CustomXmlValidationErrorCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "getCount",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DatePickerContentControl",
+      "properties": [
+        "appearance",
+        "color",
+        "context",
+        "dateCalendarType",
+        "dateDisplayFormat",
+        "dateDisplayLocale",
+        "dateStorageFormat",
+        "id",
+        "isTemporary",
+        "level",
+        "lockContentControl",
+        "lockContents",
+        "placeholderText",
+        "range",
+        "showingPlaceholderText",
+        "tag",
+        "title",
+        "xmlMapping"
+      ],
+      "methods": [
+        "copy",
+        "cut",
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setPlaceholderText",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 18,
+      "method_count": 12,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Document",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DocumentCreated",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DocumentLibraryVersion",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DocumentLibraryVersionCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getItem",
+        "isVersioningEnabled",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DocumentProperties",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DropCap",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.DropDownListContentControl",
+      "properties": [
+        "context",
+        "listItems"
+      ],
+      "methods": [
+        "addListItem",
+        "deleteAllListItems",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Field",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.FieldCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getByTypes",
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.FillFormat",
+      "properties": [
+        "backgroundColor",
+        "context",
+        "foregroundColor",
+        "gradientAngle",
+        "gradientColorType",
+        "gradientDegree",
+        "gradientStyle",
+        "gradientVariant",
+        "isVisible",
+        "pattern",
+        "presetGradientType",
+        "presetTexture",
+        "rotateWithObject",
+        "textureAlignment",
+        "textureHorizontalScale",
+        "textureName",
+        "textureOffsetX",
+        "textureOffsetY",
+        "textureTile",
+        "textureType",
+        "textureVerticalScale",
+        "transparency",
+        "type"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setOneColorGradient",
+        "setOneColorGradient",
+        "setPatterned",
+        "setPatterned",
+        "setPresetGradient",
+        "setPresetGradient",
+        "setPresetTextured",
+        "setPresetTextured",
+        "setTwoColorGradient",
+        "setTwoColorGradient",
+        "solid",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 23,
+      "method_count": 19,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Font",
+      "properties": [
+        "allCaps",
+        "bold",
+        "boldBidirectional",
+        "borders",
+        "color",
+        "colorIndex",
+        "colorIndexBidirectional",
+        "context",
+        "contextualAlternates",
+        "diacriticColor",
+        "disableCharacterSpaceGrid",
+        "doubleStrikeThrough",
+        "emboss",
+        "emphasisMark",
+        "engrave",
+        "fill",
+        "glow",
+        "hidden",
+        "highlightColor",
+        "italic",
+        "italicBidirectional",
+        "kerning",
+        "ligature",
+        "line",
+        "name",
+        "nameAscii",
+        "nameBidirectional",
+        "nameFarEast",
+        "nameOther",
+        "numberForm",
+        "numberSpacing",
+        "outline",
+        "position",
+        "reflection",
+        "scaling",
+        "shadow",
+        "size",
+        "sizeBidirectional",
+        "smallCaps",
+        "spacing",
+        "strikeThrough",
+        "stylisticSet",
+        "subscript",
+        "superscript",
+        "textColor",
+        "textShadow",
+        "threeDimensionalFormat",
+        "underline",
+        "underlineColor"
+      ],
+      "methods": [
+        "decreaseFontSize",
+        "increaseFontSize",
+        "load",
+        "load",
+        "load",
+        "reset",
+        "set",
+        "set",
+        "setAsTemplateDefault",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 49,
+      "method_count": 12,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Frame",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.FrameCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.GlowFormat",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.GroupContentControl",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Hyperlink",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.HyperlinkCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Index",
+      "properties": [
+        "context",
+        "filter",
+        "headingSeparator",
+        "indexLanguage",
+        "numberOfColumns",
+        "range",
+        "rightAlignPageNumbers",
+        "separateAccentedLetterHeadings",
+        "sortBy",
+        "tabLeader",
+        "type"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 11,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.IndexCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "getFormat",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "markAllEntries",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.InlinePicture",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.InlinePictureCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.LineFormat",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.LineNumbering",
+      "properties": [
+        "context",
+        "countBy",
+        "distanceFromText",
+        "isActive",
+        "restartMode",
+        "startingNumber"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 6,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.LinkFormat",
+      "properties": [
+        "context",
+        "isAutoUpdated",
+        "isLocked",
+        "isPictureSavedWithDocument",
+        "sourceFullName",
+        "sourceName",
+        "sourcePath",
+        "type"
+      ],
+      "methods": [
+        "breakLink",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 8,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.List",
+      "properties": [
+        "context",
+        "id",
+        "levelExistences",
+        "levelTypes",
+        "paragraphs"
+      ],
+      "methods": [
+        "getLevelFont",
+        "getLevelParagraphs",
+        "getLevelPicture",
+        "getLevelString",
+        "insertParagraph",
+        "load",
+        "load",
+        "load",
+        "resetLevelFont",
+        "setLevelAlignment",
+        "setLevelBullet",
+        "setLevelIndents",
+        "setLevelNumbering",
+        "setLevelPicture",
+        "setLevelStartingNumber",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 18,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListFormat",
+      "properties": [
+        "context",
+        "isSingleList",
+        "isSingleListTemplate",
+        "list",
+        "listLevelNumber",
+        "listString",
+        "listTemplate",
+        "listType",
+        "listValue"
+      ],
+      "methods": [
+        "applyBulletDefault",
+        "applyBulletDefault",
+        "applyListTemplateWithLevel",
+        "applyNumberDefault",
+        "applyNumberDefault",
+        "applyOutlineNumberDefault",
+        "applyOutlineNumberDefault",
+        "canContinuePreviousList",
+        "convertNumbersToText",
+        "convertNumbersToText",
+        "countNumberedItems",
+        "listIndent",
+        "listOutdent",
+        "load",
+        "load",
+        "load",
+        "removeNumbers",
+        "removeNumbers",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 9,
+      "method_count": 23,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListItem",
+      "properties": [
+        "context",
+        "level",
+        "listString",
+        "siblingIndex"
+      ],
+      "methods": [
+        "getAncestor",
+        "getAncestorOrNullObject",
+        "getDescendants",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 11,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListLevel",
+      "properties": [
+        "alignment",
+        "context",
+        "font",
+        "linkedStyle",
+        "numberFormat",
+        "numberPosition",
+        "numberStyle",
+        "resetOnHigher",
+        "startAt",
+        "tabPosition",
+        "textPosition",
+        "trailingCharacter"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track"
+      ],
+      "events": [],
+      "property_count": 12,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListLevelCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ListTemplate",
+      "properties": [
+        "context",
+        "listLevels",
+        "outlineNumbered"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.NoteItem",
+      "properties": [
+        "body",
+        "context",
+        "reference",
+        "type"
+      ],
+      "methods": [
+        "delete",
+        "getNext",
+        "getNextOrNullObject",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 11,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.NoteItemCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.OleFormat",
+      "properties": [
+        "classType",
+        "context",
+        "iconIndex",
+        "iconLabel",
+        "iconName",
+        "iconPath",
+        "isDisplayedAsIcon",
+        "isFormattingPreservedOnUpdate",
+        "label",
+        "progID"
+      ],
+      "methods": [
+        "activate",
+        "activateAs",
+        "doVerb",
+        "doVerb",
+        "edit",
+        "load",
+        "load",
+        "load",
+        "open",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 10,
+      "method_count": 14,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Page",
+      "properties": [
+        "breaks",
+        "context",
+        "height",
+        "index",
+        "width"
+      ],
+      "methods": [
+        "getNext",
+        "getNextOrNullObject",
+        "getRange",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.PageCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.PageSetup",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Pane",
+      "properties": [
+        "context",
+        "pages",
+        "pagesEnclosingViewport"
+      ],
+      "methods": [
+        "getNext",
+        "getNextOrNullObject",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.PaneCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Paragraph",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ParagraphCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "closeUp",
+        "decreaseSpacing",
+        "getFirst",
+        "getFirstOrNullObject",
+        "getLast",
+        "getLastOrNullObject",
+        "increaseSpacing",
+        "indent",
+        "indentCharacterWidth",
+        "indentFirstLineCharacterWidth",
+        "load",
+        "load",
+        "load",
+        "openOrCloseUp",
+        "openUp",
+        "outdent",
+        "outlineDemote",
+        "outlineDemoteToBody",
+        "outlinePromote",
+        "space1",
+        "space1Pt5",
+        "space2",
+        "tabHangingIndent",
+        "tabIndent",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 28,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ParagraphFormat",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.PictureContentControl",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Range",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RangeCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ReflectionFormat",
+      "properties": [
+        "blur",
+        "context",
+        "offset",
+        "size",
+        "transparency",
+        "type"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 6,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RepeatingSectionContentControl",
+      "properties": [
+        "allowInsertDeleteSection",
+        "appearance",
+        "color",
+        "context",
+        "id",
+        "isTemporary",
+        "level",
+        "lockContentControl",
+        "lockContents",
+        "placeholderText",
+        "range",
+        "repeatingSectionItems",
+        "repeatingSectionItemTitle",
+        "showingPlaceholderText",
+        "tag",
+        "title",
+        "xmlapping"
+      ],
+      "methods": [
+        "copy",
+        "cut",
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setPlaceholderText",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 17,
+      "method_count": 12,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RepeatingSectionItem",
+      "properties": [
+        "context",
+        "range"
+      ],
+      "methods": [
+        "delete",
+        "insertItemAfter",
+        "insertItemBefore",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 11,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RepeatingSectionItemCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RequestContext",
+      "properties": [
+        "document"
+      ],
+      "methods": [],
+      "events": [],
+      "property_count": 1,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Reviewer",
+      "properties": [
+        "context",
+        "isVisible"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ReviewerCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.RevisionsFilter",
+      "properties": [
+        "context",
+        "markup",
+        "reviewers",
+        "view"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toggleShowAllReviewers",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.SearchOptions",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Section",
+      "properties": [
+        "body",
+        "borders",
+        "context",
+        "pageSetup",
+        "protectedForForms"
+      ],
+      "methods": [
+        "getFooter",
+        "getFooter",
+        "getHeader",
+        "getHeader",
+        "getNext",
+        "getNextOrNullObject",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 14,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.SectionCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [],
+      "events": [],
+      "property_count": 2,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Setting",
+      "properties": [
+        "context",
+        "key",
+        "value"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.SettingCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "deleteAll",
+        "getCount",
+        "getItem",
+        "getItemOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 11,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Shading",
+      "properties": [
+        "backgroundPatternColor",
+        "context",
+        "foregroundPatternColor",
+        "texture"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShadingUniversal",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShadowFormat",
+      "properties": [
+        "blur",
+        "context",
+        "foregroundColor",
+        "isVisible",
+        "obscured",
+        "offsetX",
+        "offsetY",
+        "rotateWithShape",
+        "size",
+        "style",
+        "transparency",
+        "type"
+      ],
+      "methods": [
+        "incrementOffsetX",
+        "incrementOffsetY",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 12,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Shape",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShapeCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getByGeometricTypes",
+        "getById",
+        "getByIdOrNullObject",
+        "getByIds",
+        "getByNames",
+        "getByTypes",
+        "getFirst",
+        "getFirstOrNullObject",
+        "group",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 15,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShapeFill",
+      "properties": [
+        "backgroundColor",
+        "context",
+        "foregroundColor",
+        "transparency",
+        "type"
+      ],
+      "methods": [
+        "clear",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setSolidColor",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 5,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShapeGroup",
+      "properties": [
+        "context",
+        "id",
+        "shape",
+        "shapes"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "ungroup",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ShapeTextWrap",
+      "properties": [
+        "bottomDistance",
+        "context",
+        "leftDistance",
+        "rightDistance",
+        "side",
+        "topDistance",
+        "type"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 7,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Source",
+      "properties": [
+        "context",
+        "isCited",
+        "tag",
+        "xml"
+      ],
+      "methods": [
+        "delete",
+        "getFieldByName",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 4,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.SourceCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Style",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.StyleCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getByName",
+        "getByNameOrNullObject",
+        "getCount",
+        "getItem",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Table",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableBorder",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableCell",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableCellCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableColumn",
+      "properties": [
+        "borders",
+        "columnIndex",
+        "context",
+        "isFirst",
+        "isLast",
+        "nestingLevel",
+        "preferredWidth",
+        "preferredWidthType",
+        "shading",
+        "width"
+      ],
+      "methods": [
+        "autoFit",
+        "delete",
+        "load",
+        "load",
+        "load",
+        "select",
+        "set",
+        "set",
+        "setWidth",
+        "setWidth",
+        "sort",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 10,
+      "method_count": 14,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableColumnCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "add",
+        "autoFit",
+        "delete",
+        "distributeWidth",
+        "load",
+        "load",
+        "load",
+        "select",
+        "setWidth",
+        "setWidth",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 13,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableRow",
+      "properties": [
+        "cellCount",
+        "cells",
+        "context",
+        "endnotes",
+        "fields",
+        "font",
+        "footnotes",
+        "horizontalAlignment",
+        "isHeader",
+        "parentTable",
+        "preferredHeight",
+        "rowIndex",
+        "shadingColor",
+        "values",
+        "verticalAlignment"
+      ],
+      "methods": [
+        "clear",
+        "delete",
+        "getBorder",
+        "getBorder",
+        "getCellPadding",
+        "getCellPadding",
+        "getNext",
+        "getNextOrNullObject",
+        "insertContentControl",
+        "insertRows",
+        "load",
+        "load",
+        "load",
+        "merge",
+        "search",
+        "select",
+        "select",
+        "set",
+        "set",
+        "setCellPadding",
+        "setCellPadding",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 15,
+      "method_count": 24,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableRowCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TableStyle",
+      "properties": [
+        "alignment",
+        "allowBreakAcrossPage",
+        "bottomCellMargin",
+        "cellSpacing",
+        "context",
+        "leftCellMargin",
+        "rightCellMargin",
+        "topCellMargin"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 8,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TabStop",
+      "properties": [
+        "alignment",
+        "context",
+        "customTab",
+        "leader",
+        "next",
+        "position",
+        "previous"
+      ],
+      "methods": [
+        "clear",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 7,
+      "method_count": 7,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TabStopCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Template",
+      "properties": [
+        "buildingBlockEntries",
+        "buildingBlockTypes",
+        "context",
+        "farEastLineBreakLanguage",
+        "farEastLineBreakLevel",
+        "fullName",
+        "hasNoProofing",
+        "justificationMode",
+        "kerningByAlgorithm",
+        "languageId",
+        "languageIdFarEast",
+        "name",
+        "noLineBreakAfter",
+        "noLineBreakBefore",
+        "path",
+        "saved",
+        "type"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "save",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 17,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TemplateCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getCount",
+        "getItemAt",
+        "importBuildingBlocks",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 9,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TextColumn",
+      "properties": [
+        "context",
+        "spaceAfter",
+        "width"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 3,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TextColumnCollection",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TextFrame",
+      "properties": [
+        "autoSizeSetting",
+        "bottomMargin",
+        "context",
+        "hasText",
+        "leftMargin",
+        "noTextRotation",
+        "orientation",
+        "rightMargin",
+        "topMargin",
+        "verticalAlignment",
+        "wordWrap"
+      ],
+      "methods": [
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 11,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.ThreeDimensionalFormat",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TrackedChange",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.TrackedChangeCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "acceptAll",
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "rejectAll",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 10,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.View",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.Window",
+      "properties": [],
+      "methods": [],
+      "events": [],
+      "property_count": 0,
+      "method_count": 0,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.WindowCollection",
+      "properties": [
+        "context",
+        "items"
+      ],
+      "methods": [
+        "getFirst",
+        "getFirstOrNullObject",
+        "load",
+        "load",
+        "load",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 2,
+      "method_count": 8,
+      "event_count": 0
+    },
+    {
+      "class_name": "Word.XmlMapping",
+      "properties": [
+        "context",
+        "customXmlNode",
+        "customXmlPart",
+        "isMapped",
+        "prefixMappings",
+        "xpath"
+      ],
+      "methods": [
+        "delete",
+        "load",
+        "load",
+        "load",
+        "set",
+        "set",
+        "setMapping",
+        "setMappingByNode",
+        "toJSON",
+        "track",
+        "untrack"
+      ],
+      "events": [],
+      "property_count": 6,
+      "method_count": 11,
+      "event_count": 0
+    }
+  ],
+  "duplicate_methods": {
+    "load": [
+      "Word.Annotation",
+      "Word.Annotation",
+      "Word.Annotation",
+      "Word.AnnotationCollection",
+      "Word.AnnotationCollection",
+      "Word.AnnotationCollection",
+      "Word.Application",
+      "Word.Application",
+      "Word.Application",
+      "Word.Bibliography",
+      "Word.Bibliography",
+      "Word.Bibliography",
+      "Word.Body",
+      "Word.Body",
+      "Word.Body",
+      "Word.BookmarkCollection",
+      "Word.BookmarkCollection",
+      "Word.BookmarkCollection",
+      "Word.BorderCollection",
+      "Word.BorderCollection",
+      "Word.BorderCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BreakCollection",
+      "Word.BreakCollection",
+      "Word.BreakCollection",
+      "Word.BuildingBlock",
+      "Word.BuildingBlock",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockCategory",
+      "Word.BuildingBlockCategory",
+      "Word.BuildingBlockCategory",
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.Canvas",
+      "Word.Canvas",
+      "Word.Canvas",
+      "Word.ComboBoxContentControl",
+      "Word.ComboBoxContentControl",
+      "Word.CommentContentRange",
+      "Word.CommentContentRange",
+      "Word.CommentContentRange",
+      "Word.ContentControlCollection",
+      "Word.ContentControlCollection",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.CritiqueAnnotation",
+      "Word.CritiqueAnnotation",
+      "Word.CritiqueAnnotation",
+      "Word.CustomProperty",
+      "Word.CustomProperty",
+      "Word.CustomProperty",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.DatePickerContentControl",
+      "Word.DatePickerContentControl",
+      "Word.DatePickerContentControl",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DropDownListContentControl",
+      "Word.DropDownListContentControl",
+      "Word.FieldCollection",
+      "Word.FieldCollection",
+      "Word.FieldCollection",
+      "Word.FillFormat",
+      "Word.FillFormat",
+      "Word.FillFormat",
+      "Word.Font",
+      "Word.Font",
+      "Word.Font",
+      "Word.Index",
+      "Word.Index",
+      "Word.Index",
+      "Word.IndexCollection",
+      "Word.IndexCollection",
+      "Word.IndexCollection",
+      "Word.InlinePictureCollection",
+      "Word.InlinePictureCollection",
+      "Word.InlinePictureCollection",
+      "Word.LineNumbering",
+      "Word.LineNumbering",
+      "Word.LineNumbering",
+      "Word.LinkFormat",
+      "Word.LinkFormat",
+      "Word.LinkFormat",
+      "Word.List",
+      "Word.List",
+      "Word.List",
+      "Word.ListFormat",
+      "Word.ListFormat",
+      "Word.ListFormat",
+      "Word.ListItem",
+      "Word.ListItem",
+      "Word.ListItem",
+      "Word.ListLevel",
+      "Word.ListLevel",
+      "Word.ListLevel",
+      "Word.ListLevelCollection",
+      "Word.ListLevelCollection",
+      "Word.ListLevelCollection",
+      "Word.ListTemplate",
+      "Word.ListTemplate",
+      "Word.ListTemplate",
+      "Word.NoteItem",
+      "Word.NoteItem",
+      "Word.NoteItem",
+      "Word.NoteItemCollection",
+      "Word.NoteItemCollection",
+      "Word.NoteItemCollection",
+      "Word.OleFormat",
+      "Word.OleFormat",
+      "Word.OleFormat",
+      "Word.Page",
+      "Word.Page",
+      "Word.Page",
+      "Word.PageCollection",
+      "Word.PageCollection",
+      "Word.PageCollection",
+      "Word.Pane",
+      "Word.Pane",
+      "Word.PaneCollection",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.ParagraphCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.RangeCollection",
+      "Word.RangeCollection",
+      "Word.ReflectionFormat",
+      "Word.ReflectionFormat",
+      "Word.ReflectionFormat",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.RepeatingSectionItem",
+      "Word.RepeatingSectionItem",
+      "Word.Reviewer",
+      "Word.Reviewer",
+      "Word.Reviewer",
+      "Word.ReviewerCollection",
+      "Word.ReviewerCollection",
+      "Word.ReviewerCollection",
+      "Word.RevisionsFilter",
+      "Word.RevisionsFilter",
+      "Word.RevisionsFilter",
+      "Word.Section",
+      "Word.Section",
+      "Word.Section",
+      "Word.Setting",
+      "Word.Setting",
+      "Word.Setting",
+      "Word.SettingCollection",
+      "Word.SettingCollection",
+      "Word.SettingCollection",
+      "Word.Shading",
+      "Word.Shading",
+      "Word.Shading",
+      "Word.ShadowFormat",
+      "Word.ShadowFormat",
+      "Word.ShadowFormat",
+      "Word.ShapeCollection",
+      "Word.ShapeCollection",
+      "Word.ShapeCollection",
+      "Word.ShapeFill",
+      "Word.ShapeFill",
+      "Word.ShapeFill",
+      "Word.ShapeGroup",
+      "Word.ShapeGroup",
+      "Word.ShapeGroup",
+      "Word.ShapeTextWrap",
+      "Word.ShapeTextWrap",
+      "Word.ShapeTextWrap",
+      "Word.Source",
+      "Word.Source",
+      "Word.Source",
+      "Word.SourceCollection",
+      "Word.SourceCollection",
+      "Word.SourceCollection",
+      "Word.StyleCollection",
+      "Word.StyleCollection",
+      "Word.StyleCollection",
+      "Word.TableCollection",
+      "Word.TableCollection",
+      "Word.TableCollection",
+      "Word.TableColumn",
+      "Word.TableColumn",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableColumnCollection",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.TableRow",
+      "Word.TableRow",
+      "Word.TableRowCollection",
+      "Word.TableRowCollection",
+      "Word.TableRowCollection",
+      "Word.TableStyle",
+      "Word.TableStyle",
+      "Word.TableStyle",
+      "Word.TabStop",
+      "Word.TabStop",
+      "Word.TabStop",
+      "Word.Template",
+      "Word.Template",
+      "Word.Template",
+      "Word.TemplateCollection",
+      "Word.TemplateCollection",
+      "Word.TemplateCollection",
+      "Word.TextColumn",
+      "Word.TextColumn",
+      "Word.TextColumn",
+      "Word.TextFrame",
+      "Word.TextFrame",
+      "Word.TextFrame",
+      "Word.TrackedChangeCollection",
+      "Word.TrackedChangeCollection",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection",
+      "Word.WindowCollection",
+      "Word.WindowCollection",
+      "Word.XmlMapping",
+      "Word.XmlMapping",
+      "Word.XmlMapping"
+    ],
+    "toJSON": [
+      "Word.Annotation",
+      "Word.AnnotationCollection",
+      "Word.Application",
+      "Word.Bibliography",
+      "Word.Body",
+      "Word.BookmarkCollection",
+      "Word.BorderCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BreakCollection",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockCategory",
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.Canvas",
+      "Word.ComboBoxContentControl",
+      "Word.CommentContentRange",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.CritiqueAnnotation",
+      "Word.CustomProperty",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.DatePickerContentControl",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DropDownListContentControl",
+      "Word.FieldCollection",
+      "Word.FillFormat",
+      "Word.Font",
+      "Word.Index",
+      "Word.IndexCollection",
+      "Word.InlinePictureCollection",
+      "Word.LineNumbering",
+      "Word.LinkFormat",
+      "Word.List",
+      "Word.ListFormat",
+      "Word.ListItem",
+      "Word.ListLevel",
+      "Word.ListLevelCollection",
+      "Word.ListTemplate",
+      "Word.NoteItem",
+      "Word.NoteItemCollection",
+      "Word.OleFormat",
+      "Word.Page",
+      "Word.PageCollection",
+      "Word.Pane",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.ReflectionFormat",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.Reviewer",
+      "Word.ReviewerCollection",
+      "Word.RevisionsFilter",
+      "Word.Section",
+      "Word.Setting",
+      "Word.SettingCollection",
+      "Word.Shading",
+      "Word.ShadowFormat",
+      "Word.ShapeCollection",
+      "Word.ShapeFill",
+      "Word.ShapeGroup",
+      "Word.ShapeTextWrap",
+      "Word.Source",
+      "Word.SourceCollection",
+      "Word.StyleCollection",
+      "Word.TableCollection",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.TableRowCollection",
+      "Word.TableStyle",
+      "Word.TabStop",
+      "Word.Template",
+      "Word.TemplateCollection",
+      "Word.TextColumn",
+      "Word.TextFrame",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection",
+      "Word.XmlMapping"
+    ],
+    "track": [
+      "Word.Annotation",
+      "Word.AnnotationCollection",
+      "Word.Bibliography",
+      "Word.Body",
+      "Word.BookmarkCollection",
+      "Word.BorderCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BreakCollection",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockCategory",
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.Canvas",
+      "Word.ComboBoxContentControl",
+      "Word.CommentContentRange",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.CritiqueAnnotation",
+      "Word.CustomProperty",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.DatePickerContentControl",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DropDownListContentControl",
+      "Word.FieldCollection",
+      "Word.FillFormat",
+      "Word.Font",
+      "Word.Index",
+      "Word.IndexCollection",
+      "Word.InlinePictureCollection",
+      "Word.LineNumbering",
+      "Word.LinkFormat",
+      "Word.List",
+      "Word.ListFormat",
+      "Word.ListItem",
+      "Word.ListLevel",
+      "Word.ListLevelCollection",
+      "Word.ListTemplate",
+      "Word.NoteItem",
+      "Word.NoteItemCollection",
+      "Word.OleFormat",
+      "Word.Page",
+      "Word.PageCollection",
+      "Word.Pane",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.ReflectionFormat",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.Reviewer",
+      "Word.ReviewerCollection",
+      "Word.RevisionsFilter",
+      "Word.Section",
+      "Word.Setting",
+      "Word.SettingCollection",
+      "Word.Shading",
+      "Word.ShadowFormat",
+      "Word.ShapeCollection",
+      "Word.ShapeFill",
+      "Word.ShapeGroup",
+      "Word.ShapeTextWrap",
+      "Word.Source",
+      "Word.SourceCollection",
+      "Word.StyleCollection",
+      "Word.TableCollection",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.TableRowCollection",
+      "Word.TableStyle",
+      "Word.TabStop",
+      "Word.Template",
+      "Word.TemplateCollection",
+      "Word.TextColumn",
+      "Word.TextFrame",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection",
+      "Word.XmlMapping"
+    ],
+    "untrack": [
+      "Word.Annotation",
+      "Word.AnnotationCollection",
+      "Word.Bibliography",
+      "Word.Body",
+      "Word.BookmarkCollection",
+      "Word.BorderCollection",
+      "Word.BorderUniversalCollection",
+      "Word.BreakCollection",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockTypeItem",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.Canvas",
+      "Word.ComboBoxContentControl",
+      "Word.CommentContentRange",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.CritiqueAnnotation",
+      "Word.CustomProperty",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlSchema",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.DatePickerContentControl",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.DropDownListContentControl",
+      "Word.FieldCollection",
+      "Word.FillFormat",
+      "Word.Font",
+      "Word.Index",
+      "Word.IndexCollection",
+      "Word.InlinePictureCollection",
+      "Word.LineNumbering",
+      "Word.LinkFormat",
+      "Word.List",
+      "Word.ListFormat",
+      "Word.ListItem",
+      "Word.ListLevelCollection",
+      "Word.NoteItem",
+      "Word.NoteItemCollection",
+      "Word.OleFormat",
+      "Word.Page",
+      "Word.PageCollection",
+      "Word.Pane",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.ReflectionFormat",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.Reviewer",
+      "Word.ReviewerCollection",
+      "Word.RevisionsFilter",
+      "Word.Section",
+      "Word.Setting",
+      "Word.SettingCollection",
+      "Word.Shading",
+      "Word.ShadowFormat",
+      "Word.ShapeCollection",
+      "Word.ShapeFill",
+      "Word.ShapeGroup",
+      "Word.ShapeTextWrap",
+      "Word.Source",
+      "Word.SourceCollection",
+      "Word.StyleCollection",
+      "Word.TableCollection",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.TableRowCollection",
+      "Word.TableStyle",
+      "Word.TabStop",
+      "Word.Template",
+      "Word.TemplateCollection",
+      "Word.TextColumn",
+      "Word.TextFrame",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection",
+      "Word.XmlMapping"
+    ],
+    "set": [
+      "Word.Application",
+      "Word.Application",
+      "Word.Bibliography",
+      "Word.Bibliography",
+      "Word.Body",
+      "Word.Body",
+      "Word.BuildingBlock",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.Canvas",
+      "Word.Canvas",
+      "Word.CommentContentRange",
+      "Word.CommentContentRange",
+      "Word.CustomProperty",
+      "Word.CustomProperty",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlPart",
+      "Word.DatePickerContentControl",
+      "Word.DatePickerContentControl",
+      "Word.FillFormat",
+      "Word.FillFormat",
+      "Word.Font",
+      "Word.Font",
+      "Word.Index",
+      "Word.Index",
+      "Word.LineNumbering",
+      "Word.LineNumbering",
+      "Word.LinkFormat",
+      "Word.LinkFormat",
+      "Word.ListFormat",
+      "Word.ListFormat",
+      "Word.ListItem",
+      "Word.ListItem",
+      "Word.ListLevel",
+      "Word.ListLevel",
+      "Word.ListTemplate",
+      "Word.ListTemplate",
+      "Word.NoteItem",
+      "Word.NoteItem",
+      "Word.OleFormat",
+      "Word.OleFormat",
+      "Word.ReflectionFormat",
+      "Word.ReflectionFormat",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.RepeatingSectionItem",
+      "Word.Reviewer",
+      "Word.Reviewer",
+      "Word.RevisionsFilter",
+      "Word.RevisionsFilter",
+      "Word.Section",
+      "Word.Section",
+      "Word.Setting",
+      "Word.Setting",
+      "Word.Shading",
+      "Word.Shading",
+      "Word.ShadowFormat",
+      "Word.ShadowFormat",
+      "Word.ShapeFill",
+      "Word.ShapeFill",
+      "Word.ShapeGroup",
+      "Word.ShapeGroup",
+      "Word.ShapeTextWrap",
+      "Word.ShapeTextWrap",
+      "Word.TableColumn",
+      "Word.TableColumn",
+      "Word.TableRow",
+      "Word.TableRow",
+      "Word.TableStyle",
+      "Word.TableStyle",
+      "Word.Template",
+      "Word.Template",
+      "Word.TextColumn",
+      "Word.TextColumn",
+      "Word.TextFrame",
+      "Word.TextFrame",
+      "Word.XmlMapping",
+      "Word.XmlMapping"
+    ],
+    "delete": [
+      "Word.Annotation",
+      "Word.BuildingBlock",
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.CustomProperty",
+      "Word.CustomXmlPart",
+      "Word.CustomXmlSchema",
+      "Word.DatePickerContentControl",
+      "Word.Index",
+      "Word.NoteItem",
+      "Word.RepeatingSectionContentControl",
+      "Word.RepeatingSectionItem",
+      "Word.Setting",
+      "Word.Source",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.XmlMapping"
+    ],
+    "getFirst": [
+      "Word.AnnotationCollection",
+      "Word.BorderCollection",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.FieldCollection",
+      "Word.InlinePictureCollection",
+      "Word.ListLevelCollection",
+      "Word.NoteItemCollection",
+      "Word.PageCollection",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.ShapeCollection",
+      "Word.TableCollection",
+      "Word.TableRowCollection",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection"
+    ],
+    "getFirstOrNullObject": [
+      "Word.AnnotationCollection",
+      "Word.BorderCollection",
+      "Word.ContentControlCollection",
+      "Word.ContentControlListItemCollection",
+      "Word.FieldCollection",
+      "Word.InlinePictureCollection",
+      "Word.ListLevelCollection",
+      "Word.NoteItemCollection",
+      "Word.PageCollection",
+      "Word.PaneCollection",
+      "Word.ParagraphCollection",
+      "Word.RangeCollection",
+      "Word.ShapeCollection",
+      "Word.TableCollection",
+      "Word.TableRowCollection",
+      "Word.TrackedChangeCollection",
+      "Word.WindowCollection"
+    ],
+    "getItem": [
+      "Word.BookmarkCollection",
+      "Word.BorderCollection",
+      "Word.BorderUniversalCollection",
+      "Word.ContentControlCollection",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.DocumentLibraryVersionCollection",
+      "Word.IndexCollection",
+      "Word.ReviewerCollection",
+      "Word.SettingCollection",
+      "Word.SourceCollection",
+      "Word.StyleCollection"
+    ],
+    "add": [
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.IndexCollection",
+      "Word.ParagraphCollection",
+      "Word.SettingCollection",
+      "Word.SourceCollection",
+      "Word.TableColumnCollection"
+    ],
+    "getCount": [
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.CustomXmlNodeCollection",
+      "Word.CustomXmlValidationErrorCollection",
+      "Word.SettingCollection",
+      "Word.StyleCollection",
+      "Word.TemplateCollection"
+    ],
+    "select": [
+      "Word.Body",
+      "Word.Body",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableRow",
+      "Word.TableRow"
+    ],
+    "getNext": [
+      "Word.NoteItem",
+      "Word.Page",
+      "Word.Pane",
+      "Word.Section",
+      "Word.TableRow"
+    ],
+    "getNextOrNullObject": [
+      "Word.NoteItem",
+      "Word.Page",
+      "Word.Pane",
+      "Word.Section",
+      "Word.TableRow"
+    ],
+    "clear": [
+      "Word.Body",
+      "Word.ShapeFill",
+      "Word.TableRow",
+      "Word.TabStop"
+    ],
+    "getItemAt": [
+      "Word.BuildingBlockCategoryCollection",
+      "Word.BuildingBlockCollection",
+      "Word.BuildingBlockEntryCollection",
+      "Word.TemplateCollection"
+    ],
+    "setWidth": [
+      "Word.TableColumn",
+      "Word.TableColumn",
+      "Word.TableColumnCollection",
+      "Word.TableColumnCollection"
+    ],
+    "copy": [
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.DatePickerContentControl",
+      "Word.RepeatingSectionContentControl"
+    ],
+    "cut": [
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.DatePickerContentControl",
+      "Word.RepeatingSectionContentControl"
+    ],
+    "setPlaceholderText": [
+      "Word.BuildingBlockGalleryContentControl",
+      "Word.DatePickerContentControl",
+      "Word.RepeatingSectionContentControl"
+    ],
+    "getByTypes": [
+      "Word.ContentControlCollection",
+      "Word.FieldCollection",
+      "Word.ShapeCollection"
+    ],
+    "getRange": [
+      "Word.Body",
+      "Word.Page"
+    ],
+    "getReviewedText": [
+      "Word.Body",
+      "Word.Body"
+    ],
+    "insertContentControl": [
+      "Word.Body",
+      "Word.TableRow"
+    ],
+    "insertParagraph": [
+      "Word.Body",
+      "Word.List"
+    ],
+    "insertText": [
+      "Word.Body",
+      "Word.CommentContentRange"
+    ],
+    "search": [
+      "Word.Body",
+      "Word.TableRow"
+    ],
+    "getByType": [
+      "Word.BuildingBlockTypeItemCollection",
+      "Word.BuildingBlockTypeItemCollection"
+    ],
+    "addListItem": [
+      "Word.ComboBoxContentControl",
+      "Word.DropDownListContentControl"
+    ],
+    "deleteAllListItems": [
+      "Word.ComboBoxContentControl",
+      "Word.DropDownListContentControl"
+    ],
+    "getById": [
+      "Word.ContentControlCollection",
+      "Word.ShapeCollection"
+    ],
+    "getByIdOrNullObject": [
+      "Word.ContentControlCollection",
+      "Word.ShapeCollection"
+    ],
+    "setOneColorGradient": [
+      "Word.FillFormat",
+      "Word.FillFormat"
+    ],
+    "setPatterned": [
+      "Word.FillFormat",
+      "Word.FillFormat"
+    ],
+    "setPresetGradient": [
+      "Word.FillFormat",
+      "Word.FillFormat"
+    ],
+    "setPresetTextured": [
+      "Word.FillFormat",
+      "Word.FillFormat"
+    ],
+    "setTwoColorGradient": [
+      "Word.FillFormat",
+      "Word.FillFormat"
+    ],
+    "applyBulletDefault": [
+      "Word.ListFormat",
+      "Word.ListFormat"
+    ],
+    "applyNumberDefault": [
+      "Word.ListFormat",
+      "Word.ListFormat"
+    ],
+    "applyOutlineNumberDefault": [
+      "Word.ListFormat",
+      "Word.ListFormat"
+    ],
+    "convertNumbersToText": [
+      "Word.ListFormat",
+      "Word.ListFormat"
+    ],
+    "removeNumbers": [
+      "Word.ListFormat",
+      "Word.ListFormat"
+    ],
+    "doVerb": [
+      "Word.OleFormat",
+      "Word.OleFormat"
+    ],
+    "getFooter": [
+      "Word.Section",
+      "Word.Section"
+    ],
+    "getHeader": [
+      "Word.Section",
+      "Word.Section"
+    ],
+    "autoFit": [
+      "Word.TableColumn",
+      "Word.TableColumnCollection"
+    ],
+    "getBorder": [
+      "Word.TableRow",
+      "Word.TableRow"
+    ],
+    "getCellPadding": [
+      "Word.TableRow",
+      "Word.TableRow"
+    ],
+    "setCellPadding": [
+      "Word.TableRow",
+      "Word.TableRow"
+    ]
+  },
+  "missing_files": []
+}

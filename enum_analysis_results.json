@@ -1,0 +1,3135 @@
+{
+  "summary": {
+    "total_enums": 165,
+    "total_fields": 2132,
+    "avg_fields_per_enum": 12.92,
+    "enums_with_fields": 158,
+    "enums_without_fields": 7
+  },
+  "field_count_distribution": {
+    "6-10 fields": 37,
+    "1-5 fields": 84,
+    "0 fields": 7,
+    "11-20 fields": 15,
+    "21-50 fields": 14,
+    "50+ fields": 8
+  },
+  "enums": [
+    {
+      "enum_name": "Word.Alignment",
+      "fields": [
+        "centered",
+        "justified",
+        "left",
+        "mixed",
+        "right",
+        "unknown"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.AnnotationState",
+      "fields": [
+        "accepted",
+        "created",
+        "rejected"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ArrowheadLength",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.ArrowheadStyle",
+      "fields": [
+        "diamond",
+        "mixed",
+        "none",
+        "open",
+        "oval",
+        "stealth",
+        "triangle"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.ArrowheadWidth",
+      "fields": [
+        "medium",
+        "mixed",
+        "narrow",
+        "wide"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.BaselineAlignment",
+      "fields": [
+        "auto",
+        "baseline",
+        "center",
+        "farEast50",
+        "top"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.BevelType",
+      "fields": [
+        "angle",
+        "artDeco",
+        "circle",
+        "convex",
+        "coolSlant",
+        "cross",
+        "divot",
+        "hardEdge",
+        "mixed",
+        "none",
+        "relaxedInset",
+        "riblet",
+        "slope",
+        "softRound"
+      ],
+      "field_count": 14
+    },
+    {
+      "enum_name": "Word.BodyType",
+      "fields": [
+        "endnote",
+        "footer",
+        "footnote",
+        "header",
+        "mainDoc",
+        "noteItem",
+        "section",
+        "shape",
+        "tableCell",
+        "unknown"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.BorderLineStyle",
+      "fields": [
+        "dashDot",
+        "dashDotDot",
+        "dashDotStroked",
+        "dashLargeGap",
+        "dashSmallGap",
+        "dot",
+        "double",
+        "doubleWavy",
+        "emboss3D",
+        "engrave3D",
+        "inset",
+        "none",
+        "outset",
+        "single",
+        "singleWavy",
+        "thickThinLargeGap",
+        "thickThinMedGap",
+        "thickThinSmallGap",
+        "thinThickLargeGap",
+        "thinThickMedGap",
+        "thinThickSmallGap",
+        "thinThickThinLargeGap",
+        "thinThickThinMedGap",
+        "thinThickThinSmallGap",
+        "triple"
+      ],
+      "field_count": 25
+    },
+    {
+      "enum_name": "Word.BorderLocation",
+      "fields": [
+        "all",
+        "bottom",
+        "inside",
+        "insideHorizontal",
+        "insideVertical",
+        "left",
+        "outside",
+        "right",
+        "top"
+      ],
+      "field_count": 9
+    },
+    {
+      "enum_name": "Word.BorderType",
+      "fields": [
+        "dashDotStroked",
+        "dashed",
+        "dashedSmall",
+        "dot2Dashed",
+        "dotDashed",
+        "dotted",
+        "double",
+        "doubleWave",
+        "mixed",
+        "none",
+        "single",
+        "thickThinLarge",
+        "thickThinMed",
+        "thickThinSmall",
+        "thinThickLarge",
+        "thinThickMed",
+        "thinThickSmall",
+        "thinThickThinLarge",
+        "thinThickThinMed",
+        "thinThickThinSmall",
+        "threeDEmboss",
+        "threeDEngrave",
+        "triple",
+        "wave"
+      ],
+      "field_count": 24
+    },
+    {
+      "enum_name": "Word.BorderWidth",
+      "fields": [
+        "mixed",
+        "none",
+        "pt025",
+        "pt050",
+        "pt075",
+        "pt100",
+        "pt150",
+        "pt225",
+        "pt300",
+        "pt450",
+        "pt600"
+      ],
+      "field_count": 11
+    },
+    {
+      "enum_name": "Word.BreakType",
+      "fields": [
+        "line",
+        "next",
+        "page",
+        "sectionContinuous",
+        "sectionEven",
+        "sectionNext",
+        "sectionOdd"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.BuildingBlockType",
+      "fields": [
+        "autoText",
+        "bibliography",
+        "coverPage",
+        "custom1",
+        "custom2",
+        "custom3",
+        "custom4",
+        "custom5",
+        "customAutoText",
+        "customBibliography",
+        "customCoverPage",
+        "customEquations",
+        "customFooters",
+        "customHeaders",
+        "customPageNumber",
+        "customPageNumberBottom",
+        "customPageNumberPage",
+        "customPageNumberTop",
+        "customQuickParts",
+        "customTableOfContents",
+        "customTables",
+        "customTextBox",
+        "customWatermarks",
+        "equations",
+        "footers",
+        "headers",
+        "pageNumber",
+        "pageNumberBottom",
+        "pageNumberPage",
+        "pageNumberTop",
+        "quickParts",
+        "tableOfContents",
+        "tables",
+        "textBox",
+        "watermarks"
+      ],
+      "field_count": 35
+    },
+    {
+      "enum_name": "Word.BuiltInStyleName",
+      "fields": [
+        "bibliography",
+        "bookTitle",
+        "caption",
+        "emphasis",
+        "endnoteReference",
+        "endnoteText",
+        "footer",
+        "footnoteReference",
+        "footnoteText",
+        "gridTable1Light",
+        "gridTable1Light_Accent1",
+        "gridTable1Light_Accent2",
+        "gridTable1Light_Accent3",
+        "gridTable1Light_Accent4",
+        "gridTable1Light_Accent5",
+        "gridTable1Light_Accent6",
+        "gridTable2",
+        "gridTable2_Accent1",
+        "gridTable2_Accent2",
+        "gridTable2_Accent3",
+        "gridTable2_Accent4",
+        "gridTable2_Accent5",
+        "gridTable2_Accent6",
+        "gridTable3",
+        "gridTable3_Accent1",
+        "gridTable3_Accent2",
+        "gridTable3_Accent3",
+        "gridTable3_Accent4",
+        "gridTable3_Accent5",
+        "gridTable3_Accent6",
+        "gridTable4",
+        "gridTable4_Accent1",
+        "gridTable4_Accent2",
+        "gridTable4_Accent3",
+        "gridTable4_Accent4",
+        "gridTable4_Accent5",
+        "gridTable4_Accent6",
+        "gridTable5Dark",
+        "gridTable5Dark_Accent1",
+        "gridTable5Dark_Accent2",
+        "gridTable5Dark_Accent3",
+        "gridTable5Dark_Accent4",
+        "gridTable5Dark_Accent5",
+        "gridTable5Dark_Accent6",
+        "gridTable6Colorful",
+        "gridTable6Colorful_Accent1",
+        "gridTable6Colorful_Accent2",
+        "gridTable6Colorful_Accent3",
+        "gridTable6Colorful_Accent4",
+        "gridTable6Colorful_Accent5",
+        "gridTable6Colorful_Accent6",
+        "gridTable7Colorful",
+        "gridTable7Colorful_Accent1",
+        "gridTable7Colorful_Accent2",
+        "gridTable7Colorful_Accent3",
+        "gridTable7Colorful_Accent4",
+        "gridTable7Colorful_Accent5",
+        "gridTable7Colorful_Accent6",
+        "header",
+        "heading1",
+        "heading2",
+        "heading3",
+        "heading4",
+        "heading5",
+        "heading6",
+        "heading7",
+        "heading8",
+        "heading9",
+        "hyperlink",
+        "intenseEmphasis",
+        "intenseQuote",
+        "intenseReference",
+        "listParagraph",
+        "listTable1Light",
+        "listTable1Light_Accent1",
+        "listTable1Light_Accent2",
+        "listTable1Light_Accent3",
+        "listTable1Light_Accent4",
+        "listTable1Light_Accent5",
+        "listTable1Light_Accent6",
+        "listTable2",
+        "listTable2_Accent1",
+        "listTable2_Accent2",
+        "listTable2_Accent3",
+        "listTable2_Accent4",
+        "listTable2_Accent5",
+        "listTable2_Accent6",
+        "listTable3",
+        "listTable3_Accent1",
+        "listTable3_Accent2",
+        "listTable3_Accent3",
+        "listTable3_Accent4",
+        "listTable3_Accent5",
+        "listTable3_Accent6",
+        "listTable4",
+        "listTable4_Accent1",
+        "listTable4_Accent2",
+        "listTable4_Accent3",
+        "listTable4_Accent4",
+        "listTable4_Accent5",
+        "listTable4_Accent6",
+        "listTable5Dark",
+        "listTable5Dark_Accent1",
+        "listTable5Dark_Accent2",
+        "listTable5Dark_Accent3",
+        "listTable5Dark_Accent4",
+        "listTable5Dark_Accent5",
+        "listTable5Dark_Accent6",
+        "listTable6Colorful",
+        "listTable6Colorful_Accent1",
+        "listTable6Colorful_Accent2",
+        "listTable6Colorful_Accent3",
+        "listTable6Colorful_Accent4",
+        "listTable6Colorful_Accent5",
+        "listTable6Colorful_Accent6",
+        "listTable7Colorful",
+        "listTable7Colorful_Accent1",
+        "listTable7Colorful_Accent2",
+        "listTable7Colorful_Accent3",
+        "listTable7Colorful_Accent4",
+        "listTable7Colorful_Accent5",
+        "listTable7Colorful_Accent6",
+        "normal",
+        "noSpacing",
+        "other",
+        "plainTable1",
+        "plainTable2",
+        "plainTable3",
+        "plainTable4",
+        "plainTable5",
+        "quote",
+        "strong",
+        "subtitle",
+        "subtleEmphasis",
+        "subtleReference",
+        "tableGrid",
+        "tableGridLight",
+        "title",
+        "toc1",
+        "toc2",
+        "toc3",
+        "toc4",
+        "toc5",
+        "toc6",
+        "toc7",
+        "toc8",
+        "toc9",
+        "tocHeading"
+      ],
+      "field_count": 148
+    },
+    {
+      "enum_name": "Word.CalendarType",
+      "fields": [
+        "arabic",
+        "hebrew",
+        "japan",
+        "korean",
+        "sakaEra",
+        "taiwan",
+        "thai",
+        "translitEnglish",
+        "translitFrench",
+        "umalqura",
+        "western"
+      ],
+      "field_count": 11
+    },
+    {
+      "enum_name": "Word.CellPaddingLocation",
+      "fields": [
+        "bottom",
+        "left",
+        "right",
+        "top"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.ChangeTrackingMode",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.ChangeTrackingState",
+      "fields": [
+        "added",
+        "deleted",
+        "normal",
+        "unknown"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.ChangeTrackingVersion",
+      "fields": [
+        "current",
+        "original"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.CharacterCase",
+      "fields": [
+        "fullWidth",
+        "halfWidth",
+        "hiragana",
+        "katakana",
+        "lower",
+        "next",
+        "titleSentence",
+        "titleWord",
+        "toggle",
+        "upper"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.CharacterWidth",
+      "fields": [
+        "full",
+        "half"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.CloseBehavior",
+      "fields": [
+        "save",
+        "skipSave"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.ColorIndex",
+      "fields": [
+        "auto",
+        "black",
+        "blue",
+        "brightGreen",
+        "byAuthor",
+        "classicBlue",
+        "classicRed",
+        "darkBlue",
+        "darkRed",
+        "darkYellow",
+        "gray25",
+        "gray50",
+        "green",
+        "pink",
+        "red",
+        "teal",
+        "turquoise",
+        "violet",
+        "white",
+        "yellow"
+      ],
+      "field_count": 20
+    },
+    {
+      "enum_name": "Word.ColorType",
+      "fields": [
+        "rgb",
+        "scheme"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.ColumnWidth",
+      "fields": [
+        "default",
+        "narrow",
+        "wide"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.CommentChangeType",
+      "fields": [
+        "edited",
+        "none",
+        "reopened",
+        "replyAdded",
+        "replyDeleted",
+        "replyEdited",
+        "resolved"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.CompareTarget",
+      "fields": [
+        "compareTargetCurrent",
+        "compareTargetNew",
+        "compareTargetSelected"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ContentControlAppearance",
+      "fields": [
+        "boundingBox",
+        "hidden",
+        "tags"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ContentControlDateStorageFormat",
+      "fields": [
+        "date",
+        "dateTime",
+        "text"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ContentControlLevel",
+      "fields": [
+        "cell",
+        "inline",
+        "paragraph",
+        "row"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.ContentControlState",
+      "fields": [
+        "error",
+        "warning"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.ContentControlType",
+      "fields": [
+        "buildingBlockGallery",
+        "checkBox",
+        "comboBox",
+        "datePicker",
+        "dropDownList",
+        "group",
+        "picture",
+        "plainText",
+        "plainTextInline",
+        "plainTextParagraph",
+        "repeatingSection",
+        "richText",
+        "richTextInline",
+        "richTextParagraphs",
+        "richTextTable",
+        "richTextTableCell",
+        "richTextTableRow",
+        "unknown"
+      ],
+      "field_count": 18
+    },
+    {
+      "enum_name": "Word.Continue",
+      "fields": [
+        "disabled",
+        "list",
+        "reset"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.CritiqueColorScheme",
+      "fields": [
+        "berry",
+        "blue",
+        "green",
+        "lavender",
+        "red"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.CustomXmlNodeType",
+      "fields": [
+        "attribute",
+        "cData",
+        "comment",
+        "document",
+        "element",
+        "processingInstruction",
+        "text"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.CustomXmlValidationErrorType",
+      "fields": [
+        "automaticallyCleared",
+        "manual",
+        "schemaGenerated"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.DefaultListBehavior",
+      "fields": [
+        "word2000",
+        "word2002",
+        "word97"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.DocPartInsertType",
+      "fields": [
+        "content",
+        "page",
+        "paragraph"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.DocumentPropertyType",
+      "fields": [
+        "boolean",
+        "date",
+        "number",
+        "string"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.DropPosition",
+      "fields": [
+        "margin",
+        "none",
+        "normal"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.EmphasisMark",
+      "fields": [
+        "none",
+        "overComma",
+        "overSolidCircle",
+        "overWhiteCircle",
+        "underSolidCircle"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.ErrorCodes",
+      "fields": [
+        "accessDenied",
+        "generalException",
+        "invalidArgument",
+        "itemNotFound",
+        "notAllowed",
+        "notImplemented",
+        "searchDialogIsOpen",
+        "searchStringInvalidOrTooLong"
+      ],
+      "field_count": 8
+    },
+    {
+      "enum_name": "Word.EventSource",
+      "fields": [
+        "local",
+        "remote"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.EventType",
+      "fields": [
+        "annotationClicked",
+        "annotationHovered",
+        "annotationInserted",
+        "annotationPopupAction",
+        "annotationRemoved",
+        "commentAdded",
+        "commentChanged",
+        "commentDeleted",
+        "commentDeselected",
+        "commentSelected",
+        "contentControlAdded",
+        "contentControlDataChanged",
+        "contentControlDeleted",
+        "contentControlEntered",
+        "contentControlExited",
+        "contentControlSelectionChanged",
+        "paragraphAdded",
+        "paragraphChanged",
+        "paragraphDeleted"
+      ],
+      "field_count": 19
+    },
+    {
+      "enum_name": "Word.ExtrusionColorType",
+      "fields": [
+        "automatic",
+        "custom",
+        "mixed"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.FarEastLineBreakLanguageId",
+      "fields": [
+        "japanese",
+        "korean",
+        "simplifiedChinese",
+        "traditionalChinese"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.FarEastLineBreakLevel",
+      "fields": [
+        "custom",
+        "normal",
+        "strict"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.FieldKind",
+      "fields": [
+        "cold",
+        "hot",
+        "none",
+        "warm"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.FieldShading",
+      "fields": [
+        "always",
+        "never",
+        "whenSelected"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.FieldType",
+      "fields": [
+        "addin",
+        "addressBlock",
+        "advance",
+        "ask",
+        "author",
+        "autoText",
+        "autoTextList",
+        "barCode",
+        "bibliography",
+        "bidiOutline",
+        "citation",
+        "comments",
+        "compare",
+        "createDate",
+        "data",
+        "database",
+        "date",
+        "displayBarcode",
+        "docProperty",
+        "docVariable",
+        "editTime",
+        "embedded",
+        "empty",
+        "eq",
+        "expression",
+        "fileName",
+        "fileSize",
+        "fillIn",
+        "formCheckbox",
+        "formDropdown",
+        "formText",
+        "gotoButton",
+        "greetingLine",
+        "hyperlink",
+        "if",
+        "import",
+        "include",
+        "includePicture",
+        "includeText",
+        "index",
+        "info",
+        "keywords",
+        "lastSavedBy",
+        "link",
+        "listNum",
+        "macroButton",
+        "mergeBarcode",
+        "mergeField",
+        "mergeRec",
+        "mergeSeq",
+        "next",
+        "nextIf",
+        "noteRef",
+        "numChars",
+        "numPages",
+        "numWords",
+        "ocx",
+        "others",
+        "page",
+        "pageRef",
+        "print",
+        "printDate",
+        "private",
+        "quote",
+        "rd",
+        "ref",
+        "revNum",
+        "saveDate",
+        "section",
+        "sectionPages",
+        "seq",
+        "set",
+        "shape",
+        "skipIf",
+        "styleRef",
+        "subject",
+        "subscriber",
+        "symbol",
+        "ta",
+        "tc",
+        "template",
+        "time",
+        "title",
+        "toa",
+        "toc",
+        "undefined",
+        "userAddress",
+        "userInitials",
+        "userName",
+        "xe"
+      ],
+      "field_count": 90
+    },
+    {
+      "enum_name": "Word.FillType",
+      "fields": [
+        "background",
+        "gradient",
+        "mixed",
+        "patterned",
+        "picture",
+        "solid",
+        "textured"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.FlowDirection",
+      "fields": [
+        "leftToRight",
+        "rightToLeft"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.FrameSizeRule",
+      "fields": [
+        "atLeast",
+        "auto",
+        "exact"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.GeometricShapeType",
+      "fields": [
+        "accentBorderCallout1",
+        "accentBorderCallout2",
+        "accentBorderCallout3",
+        "accentCallout1",
+        "accentCallout2",
+        "accentCallout3",
+        "actionButtonBackPrevious",
+        "actionButtonBeginning",
+        "actionButtonBlank",
+        "actionButtonDocument",
+        "actionButtonEnd",
+        "actionButtonForwardNext",
+        "actionButtonHelp",
+        "actionButtonHome",
+        "actionButtonInformation",
+        "actionButtonMovie",
+        "actionButtonReturn",
+        "actionButtonSound",
+        "arc",
+        "bentArrow",
+        "bentUpArrow",
+        "bevel",
+        "blockArc",
+        "borderCallout1",
+        "borderCallout2",
+        "borderCallout3",
+        "bracePair",
+        "bracketPair",
+        "callout1",
+        "callout2",
+        "callout3",
+        "can",
+        "chartPlus",
+        "chartStar",
+        "chartX",
+        "chevron",
+        "chord",
+        "circularArrow",
+        "cloud",
+        "cloudCallout",
+        "corner",
+        "cornerTabs",
+        "cube",
+        "curvedDownArrow",
+        "curvedLeftArrow",
+        "curvedRightArrow",
+        "curvedUpArrow",
+        "decagon",
+        "diagonalStripe",
+        "diamond",
+        "dodecagon",
+        "donut",
+        "doubleWave",
+        "downArrow",
+        "downArrowCallout",
+        "ellipse",
+        "ellipseRibbon",
+        "ellipseRibbon2",
+        "flowChartAlternateProcess",
+        "flowChartCollate",
+        "flowChartConnector",
+        "flowChartDecision",
+        "flowChartDelay",
+        "flowChartDisplay",
+        "flowChartDocument",
+        "flowChartExtract",
+        "flowChartInputOutput",
+        "flowChartInternalStorage",
+        "flowChartMagneticDisk",
+        "flowChartMagneticDrum",
+        "flowChartMagneticTape",
+        "flowChartManualInput",
+        "flowChartManualOperation",
+        "flowChartMerge",
+        "flowChartMultidocument",
+        "flowChartOfflineStorage",
+        "flowChartOffpageConnector",
+        "flowChartOnlineStorage",
+        "flowChartOr",
+        "flowChartPredefinedProcess",
+        "flowChartPreparation",
+        "flowChartProcess",
+        "flowChartPunchedCard",
+        "flowChartPunchedTape",
+        "flowChartSort",
+        "flowChartSummingJunction",
+        "flowChartTerminator",
+        "foldedCorner",
+        "frame",
+        "funnel",
+        "gear6",
+        "gear9",
+        "halfFrame",
+        "heart",
+        "heptagon",
+        "hexagon",
+        "homePlate",
+        "horizontalScroll",
+        "irregularSeal1",
+        "irregularSeal2",
+        "leftArrow",
+        "leftArrowCallout",
+        "leftBrace",
+        "leftBracket",
+        "leftCircularArrow",
+        "leftRightArrow",
+        "leftRightArrowCallout",
+        "leftRightCircularArrow",
+        "leftRightRibbon",
+        "leftRightUpArrow",
+        "leftUpArrow",
+        "lightningBolt",
+        "lineInverse",
+        "mathDivide",
+        "mathEqual",
+        "mathMinus",
+        "mathMultiply",
+        "mathNotEqual",
+        "mathPlus",
+        "moon",
+        "nonIsoscelesTrapezoid",
+        "noSmoking",
+        "notchedRightArrow",
+        "octagon",
+        "parallelogram",
+        "pentagon",
+        "pie",
+        "pieWedge",
+        "plaque",
+        "plaqueTabs",
+        "plus",
+        "quadArrow",
+        "quadArrowCallout",
+        "rectangle",
+        "ribbon",
+        "ribbon2",
+        "rightArrow",
+        "rightArrowCallout",
+        "rightBrace",
+        "rightBracket",
+        "rightTriangle",
+        "round1Rectangle",
+        "round2DiagonalRectangle",
+        "round2SameRectangle",
+        "roundRectangle",
+        "smileyFace",
+        "snip1Rectangle",
+        "snip2DiagonalRectangle",
+        "snip2SameRectangle",
+        "snipRoundRectangle",
+        "squareTabs",
+        "star10",
+        "star12",
+        "star16",
+        "star24",
+        "star32",
+        "star4",
+        "star5",
+        "star6",
+        "star7",
+        "star8",
+        "stripedRightArrow",
+        "sun",
+        "swooshArrow",
+        "teardrop",
+        "trapezoid",
+        "triangle",
+        "upArrow",
+        "upArrowCallout",
+        "upDownArrow",
+        "upDownArrowCallout",
+        "uturnArrow",
+        "verticalScroll",
+        "wave",
+        "wedgeEllipseCallout",
+        "wedgeRectCallout",
+        "wedgeRRectCallout"
+      ],
+      "field_count": 177
+    },
+    {
+      "enum_name": "Word.GradientColorType",
+      "fields": [
+        "mixed",
+        "multiColor",
+        "oneColor",
+        "presetColors",
+        "twoColors"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.GradientStyle",
+      "fields": [
+        "diagonalDown",
+        "diagonalUp",
+        "fromCenter",
+        "fromCorner",
+        "fromTitle",
+        "horizontal",
+        "mixed",
+        "vertical"
+      ],
+      "field_count": 8
+    },
+    {
+      "enum_name": "Word.GutterPosition",
+      "fields": [
+        "left",
+        "right",
+        "top"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.GutterStyle",
+      "fields": [
+        "bidirectional",
+        "latin"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.HeaderFooterType",
+      "fields": [
+        "evenPages",
+        "firstPage",
+        "primary"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.HeadingSeparator",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.HorizontalInVerticalType",
+      "fields": [
+        "fitInLine",
+        "none",
+        "resizeLine"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.HyperlinkType",
+      "fields": [
+        "inlineShape",
+        "range",
+        "shape"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ImageFormat",
+      "fields": [
+        "bmp",
+        "emf",
+        "exif",
+        "gif",
+        "icon",
+        "jpeg",
+        "pdf",
+        "pict",
+        "png",
+        "svg",
+        "tiff",
+        "undefined",
+        "unsupported",
+        "wmf"
+      ],
+      "field_count": 14
+    },
+    {
+      "enum_name": "Word.ImeMode",
+      "fields": [
+        "alpha",
+        "alphaFull",
+        "hangul",
+        "hangulFull",
+        "hiragana",
+        "katakana",
+        "katakanaHalf",
+        "noControl",
+        "off",
+        "on"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.ImportedStylesConflictBehavior",
+      "fields": [
+        "createNew",
+        "ignore",
+        "overwrite"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.IndexFilter",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.IndexFormat",
+      "fields": [
+        "bulleted",
+        "classic",
+        "fancy",
+        "formal",
+        "modern",
+        "simple",
+        "template"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.IndexSortBy",
+      "fields": [
+        "stroke",
+        "syllable"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.IndexType",
+      "fields": [
+        "indent",
+        "runin"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.InsertLocation",
+      "fields": [
+        "after",
+        "before",
+        "end",
+        "replace",
+        "start"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.JustificationMode",
+      "fields": [
+        "compress",
+        "compressKana",
+        "expand"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.Kana",
+      "fields": [
+        "hiragana",
+        "katakana"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.LanguageId",
+      "fields": [
+        "afrikaans",
+        "albanian",
+        "amharic",
+        "arabic",
+        "arabicAlgeria",
+        "arabicBahrain",
+        "arabicEgypt",
+        "arabicIraq",
+        "arabicJordan",
+        "arabicKuwait",
+        "arabicLebanon",
+        "arabicLibya",
+        "arabicMorocco",
+        "arabicOman",
+        "arabicQatar",
+        "arabicSyria",
+        "arabicTunisia",
+        "arabicUAE",
+        "arabicYemen",
+        "armenian",
+        "assamese",
+        "azeriCyrillic",
+        "azeriLatin",
+        "basque",
+        "belarusian",
+        "belgianDutch",
+        "belgianFrench",
+        "bengali",
+        "bulgarian",
+        "burmese",
+        "catalan",
+        "cherokee",
+        "chineseHongKongSAR",
+        "chineseMacaoSAR",
+        "chineseSingapore",
+        "croatian",
+        "czech",
+        "danish",
+        "divehi",
+        "dutch",
+        "edo",
+        "englishAUS",
+        "englishBelize",
+        "englishCanadian",
+        "englishCaribbean",
+        "englishIndonesia",
+        "englishIreland",
+        "englishJamaica",
+        "englishNewZealand",
+        "englishPhilippines",
+        "englishSouthAfrica",
+        "englishTrinidadTobago",
+        "englishUK",
+        "englishUS",
+        "englishZimbabwe",
+        "estonian",
+        "faeroese",
+        "filipino",
+        "finnish",
+        "french",
+        "frenchCameroon",
+        "frenchCanadian",
+        "frenchCongoDRC",
+        "frenchCotedIvoire",
+        "frenchHaiti",
+        "frenchLuxembourg",
+        "frenchMali",
+        "frenchMonaco",
+        "frenchMorocco",
+        "frenchReunion",
+        "frenchSenegal",
+        "frenchWestIndies",
+        "frisianNetherlands",
+        "fulfulde",
+        "gaelicIreland",
+        "gaelicScotland",
+        "galician",
+        "georgian",
+        "german",
+        "germanAustria",
+        "germanLiechtenstein",
+        "germanLuxembourg",
+        "greek",
+        "guarani",
+        "gujarati",
+        "hausa",
+        "hawaiian",
+        "hebrew",
+        "hindi",
+        "hungarian",
+        "ibibio",
+        "icelandic",
+        "igbo",
+        "indonesian",
+        "inuktitut",
+        "italian",
+        "japanese",
+        "kannada",
+        "kanuri",
+        "kashmiri",
+        "kazakh",
+        "khmer",
+        "kirghiz",
+        "konkani",
+        "korean",
+        "kyrgyz",
+        "languageNone",
+        "lao",
+        "latin",
+        "latvian",
+        "lithuanian",
+        "macedonianFYROM",
+        "malayalam",
+        "malayBruneiDarussalam",
+        "malaysian",
+        "maltese",
+        "manipuri",
+        "marathi",
+        "mexicanSpanish",
+        "mongolian",
+        "nepali",
+        "noProofing",
+        "norwegianBokmol",
+        "norwegianNynorsk",
+        "oriya",
+        "oromo",
+        "pashto",
+        "persian",
+        "polish",
+        "portuguese",
+        "portugueseBrazil",
+        "punjabi",
+        "rhaetoRomanic",
+        "romanian",
+        "romanianMoldova",
+        "russian",
+        "russianMoldova",
+        "samiLappish",
+        "sanskrit",
+        "serbianCyrillic",
+        "serbianLatin",
+        "sesotho",
+        "simplifiedChinese",
+        "sindhi",
+        "sindhiPakistan",
+        "sinhalese",
+        "slovak",
+        "slovenian",
+        "somali",
+        "sorbian",
+        "spanish",
+        "spanishArgentina",
+        "spanishBolivia",
+        "spanishChile",
+        "spanishColombia",
+        "spanishCostaRica",
+        "spanishDominicanRepublic",
+        "spanishEcuador",
+        "spanishElSalvador",
+        "spanishGuatemala",
+        "spanishHonduras",
+        "spanishModernSort",
+        "spanishNicaragua",
+        "spanishPanama",
+        "spanishParaguay",
+        "spanishPeru",
+        "spanishPuertoRico",
+        "spanishUruguay",
+        "spanishVenezuela",
+        "sutu",
+        "swahili",
+        "swedish",
+        "swedishFinland",
+        "swissFrench",
+        "swissGerman",
+        "swissItalian",
+        "syriac",
+        "tajik",
+        "tamazight",
+        "tamazightLatin",
+        "tamil",
+        "tatar",
+        "telugu",
+        "thai",
+        "tibetan",
+        "tigrignaEritrea",
+        "tigrignaEthiopic",
+        "traditionalChinese",
+        "tsonga",
+        "tswana",
+        "turkish",
+        "turkmen",
+        "ukrainian",
+        "urdu",
+        "uzbekCyrillic",
+        "uzbekLatin",
+        "venda",
+        "vietnamese",
+        "welsh",
+        "xhosa",
+        "yi",
+        "yiddish",
+        "yoruba",
+        "zulu"
+      ],
+      "field_count": 204
+    },
+    {
+      "enum_name": "Word.LayoutMode",
+      "fields": [
+        "default",
+        "genko",
+        "grid",
+        "lineGrid"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.Ligature",
+      "fields": [
+        "all",
+        "contextual",
+        "contextualDiscretional",
+        "contextualHistorical",
+        "contextualHistoricalDiscretional",
+        "discretional",
+        "historical",
+        "historicalDiscretional",
+        "none",
+        "standard",
+        "standardContextual",
+        "standardContextualDiscretional",
+        "standardContextualHistorical",
+        "standardDiscretional",
+        "standardHistorical",
+        "standardHistoricalDiscretional"
+      ],
+      "field_count": 16
+    },
+    {
+      "enum_name": "Word.LightRigType",
+      "fields": [
+        "balanced",
+        "brightRoom",
+        "chilly",
+        "contrasting",
+        "flat",
+        "flood",
+        "freezing",
+        "glow",
+        "harsh",
+        "legacyFlat1",
+        "legacyFlat2",
+        "legacyFlat3",
+        "legacyFlat4",
+        "legacyHarsh1",
+        "legacyHarsh2",
+        "legacyHarsh3",
+        "legacyHarsh4",
+        "legacyNormal1",
+        "legacyNormal2",
+        "legacyNormal3",
+        "legacyNormal4",
+        "mixed",
+        "morning",
+        "soft",
+        "sunrise",
+        "sunset",
+        "threePoint",
+        "twoPoint"
+      ],
+      "field_count": 28
+    },
+    {
+      "enum_name": "Word.LineDashStyle",
+      "fields": [
+        "dash",
+        "dashDot",
+        "dashDotDot",
+        "longDash",
+        "longDashDot",
+        "longDashDotDot",
+        "mixed",
+        "roundDot",
+        "solid",
+        "squareDot",
+        "sysDash",
+        "sysDashDot",
+        "sysDot"
+      ],
+      "field_count": 13
+    },
+    {
+      "enum_name": "Word.LineFormatStyle",
+      "fields": [
+        "mixed",
+        "single",
+        "thickBetweenThin",
+        "thickThin",
+        "thinThick",
+        "thinThin"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.LineSpacing",
+      "fields": [
+        "atLeast",
+        "double",
+        "exactly",
+        "multiple",
+        "onePt5",
+        "single"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.LineWidth",
+      "fields": [
+        "pt025",
+        "pt050",
+        "pt075",
+        "pt100",
+        "pt150",
+        "pt225",
+        "pt300",
+        "pt450",
+        "pt600"
+      ],
+      "field_count": 9
+    },
+    {
+      "enum_name": "Word.LinkType",
+      "fields": [
+        "chart",
+        "dde",
+        "ddeAuto",
+        "import",
+        "include",
+        "ole",
+        "picture",
+        "reference",
+        "text"
+      ],
+      "field_count": 9
+    },
+    {
+      "enum_name": "Word.ListApplyTo",
+      "fields": [
+        "selection",
+        "thisPointForward",
+        "wholeList"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ListBuiltInNumberStyle",
+      "fields": [
+        "aiueo",
+        "aiueoHalfWidth",
+        "arabic",
+        "arabic1",
+        "arabic2",
+        "arabicFullWidth",
+        "arabicLZ",
+        "arabicLZ2",
+        "arabicLZ3",
+        "arabicLZ4",
+        "bullet",
+        "cardinalText",
+        "chosung",
+        "ganada",
+        "gbnum1",
+        "gbnum2",
+        "gbnum3",
+        "gbnum4",
+        "hangul",
+        "hanja",
+        "hanjaRead",
+        "hanjaReadDigit",
+        "hebrew1",
+        "hebrew2",
+        "hindiArabic",
+        "hindiCardinalText",
+        "hindiLetter1",
+        "hindiLetter2",
+        "iroha",
+        "irohaHalfWidth",
+        "kanji",
+        "kanjiDigit",
+        "kanjiTraditional",
+        "kanjiTraditional2",
+        "legal",
+        "legalLZ",
+        "lowercaseBulgarian",
+        "lowercaseGreek",
+        "lowercaseRussian",
+        "lowercaseTurkish",
+        "lowerLetter",
+        "lowerRoman",
+        "none",
+        "numberInCircle",
+        "ordinal",
+        "ordinalText",
+        "pictureBullet",
+        "simpChinNum1",
+        "simpChinNum2",
+        "simpChinNum3",
+        "simpChinNum4",
+        "thaiArabic",
+        "thaiCardinalText",
+        "thaiLetter",
+        "tradChinNum1",
+        "tradChinNum2",
+        "tradChinNum3",
+        "tradChinNum4",
+        "uppercaseBulgarian",
+        "uppercaseGreek",
+        "uppercaseRussian",
+        "uppercaseTurkish",
+        "upperLetter",
+        "upperRoman",
+        "vietCardinalText",
+        "zodiac1",
+        "zodiac2",
+        "zodiac3"
+      ],
+      "field_count": 68
+    },
+    {
+      "enum_name": "Word.ListBullet",
+      "fields": [
+        "arrow",
+        "checkmark",
+        "custom",
+        "diamonds",
+        "hollow",
+        "solid",
+        "square"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.ListLevelType",
+      "fields": [
+        "bullet",
+        "number",
+        "picture"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ListNumbering",
+      "fields": [
+        "arabic",
+        "lowerLetter",
+        "lowerRoman",
+        "none",
+        "upperLetter",
+        "upperRoman"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.ListType",
+      "fields": [
+        "listBullet",
+        "listListNumOnly",
+        "listMixedNumbering",
+        "listNoNumbering",
+        "listOutlineNumbering",
+        "listPictureBullet",
+        "listSimpleNumbering"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.LocationRelation",
+      "fields": [
+        "adjacentAfter",
+        "adjacentBefore",
+        "after",
+        "before",
+        "contains",
+        "containsEnd",
+        "containsStart",
+        "equal",
+        "inside",
+        "insideEnd",
+        "insideStart",
+        "overlapsAfter",
+        "overlapsBefore",
+        "unrelated"
+      ],
+      "field_count": 14
+    },
+    {
+      "enum_name": "Word.NoteItemType",
+      "fields": [
+        "endnote",
+        "footnote"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.NumberForm",
+      "fields": [
+        "default",
+        "lining",
+        "oldStyle"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.NumberingRule",
+      "fields": [
+        "restartContinuous",
+        "restartPage",
+        "restartSection"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.NumberSpacing",
+      "fields": [
+        "default",
+        "proportional",
+        "tabular"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.NumberType",
+      "fields": [
+        "allNumbers",
+        "listNum",
+        "paragraph"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.OleVerb",
+      "fields": [
+        "discardUndoState",
+        "hide",
+        "inPlaceActivate",
+        "open",
+        "primary",
+        "show",
+        "uiActivate"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.OutlineLevel",
+      "fields": [
+        "outlineLevel1",
+        "outlineLevel2",
+        "outlineLevel3",
+        "outlineLevel4",
+        "outlineLevel5",
+        "outlineLevel6",
+        "outlineLevel7",
+        "outlineLevel8",
+        "outlineLevel9",
+        "outlineLevelBodyText"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.PageBorderArt",
+      "fields": [
+        "apples",
+        "archedScallops",
+        "babyPacifier",
+        "babyRattle",
+        "balloons3Colors",
+        "balloonsHotAir",
+        "basicBlackDashes",
+        "basicBlackDots",
+        "basicBlackSquares",
+        "basicThinLines",
+        "basicWhiteDashes",
+        "basicWhiteDots",
+        "basicWhiteSquares",
+        "basicWideInline",
+        "basicWideMidline",
+        "basicWideOutline",
+        "bats",
+        "birds",
+        "birdsFlight",
+        "cabins",
+        "cakeSlice",
+        "candyCorn",
+        "celticKnotwork",
+        "certificateBanner",
+        "chainLink",
+        "champagneBottle",
+        "checkedBarBlack",
+        "checkedBarColor",
+        "checkered",
+        "christmasTree",
+        "circlesLines",
+        "circlesRectangles",
+        "classicalWave",
+        "clocks",
+        "compass",
+        "confetti",
+        "confettiGrays",
+        "confettiOutline",
+        "confettiStreamers",
+        "confettiWhite",
+        "cornerTriangles",
+        "couponCutoutDashes",
+        "couponCutoutDots",
+        "crazyMaze",
+        "creaturesButterfly",
+        "creaturesFish",
+        "creaturesInsects",
+        "creaturesLadyBug",
+        "crossStitch",
+        "cup",
+        "decoArch",
+        "decoArchColor",
+        "decoBlocks",
+        "diamondsGray",
+        "doubleD",
+        "doubleDiamonds",
+        "earth1",
+        "earth2",
+        "eclipsingSquares1",
+        "eclipsingSquares2",
+        "eggsBlack",
+        "fans",
+        "film",
+        "firecrackers",
+        "flowersBlockPrint",
+        "flowersDaisies",
+        "flowersModern1",
+        "flowersModern2",
+        "flowersPansy",
+        "flowersRedRose",
+        "flowersRoses",
+        "flowersTeacup",
+        "flowersTiny",
+        "gems",
+        "gingerbreadMan",
+        "gradient",
+        "handmade1",
+        "handmade2",
+        "heartBalloon",
+        "heartGray",
+        "hearts",
+        "heebieJeebies",
+        "holly",
+        "houseFunky",
+        "hypnotic",
+        "iceCreamCones",
+        "lightBulb",
+        "lightning1",
+        "lightning2",
+        "mapleLeaf",
+        "mapleMuffins",
+        "mapPins",
+        "marquee",
+        "marqueeToothed",
+        "moons",
+        "mosaic",
+        "musicNotes",
+        "northwest",
+        "ovals",
+        "packages",
+        "palmsBlack",
+        "palmsColor",
+        "paperClips",
+        "papyrus",
+        "partyFavor",
+        "partyGlass",
+        "pencils",
+        "people",
+        "peopleHats",
+        "peopleWaving",
+        "poinsettias",
+        "postageStamp",
+        "pumpkin1",
+        "pushPinNote1",
+        "pushPinNote2",
+        "pyramids",
+        "pyramidsAbove",
+        "quadrants",
+        "rings",
+        "safari",
+        "sawtooth",
+        "sawtoothGray",
+        "scaredCat",
+        "seattle",
+        "shadowedSquares",
+        "sharksTeeth",
+        "shorebirdTracks",
+        "skyrocket",
+        "snowflakeFancy",
+        "snowflakes",
+        "sombrero",
+        "southwest",
+        "stars",
+        "stars3D",
+        "starsBlack",
+        "starsShadowed",
+        "starsTop",
+        "sun",
+        "swirligig",
+        "tornPaper",
+        "tornPaperBlack",
+        "trees",
+        "triangleParty",
+        "triangles",
+        "tribal1",
+        "tribal2",
+        "tribal3",
+        "tribal4",
+        "tribal5",
+        "tribal6",
+        "twistedLines1",
+        "twistedLines2",
+        "vine",
+        "waveline",
+        "weavingAngles",
+        "weavingBraid",
+        "weavingRibbon",
+        "weavingStrips",
+        "whiteFlowers",
+        "woodwork",
+        "xillusions",
+        "zanyTriangles",
+        "zigZag",
+        "zigZagStitch"
+      ],
+      "field_count": 164
+    },
+    {
+      "enum_name": "Word.PageColor",
+      "fields": [
+        "inverse",
+        "none",
+        "sepia"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.PageMovementType",
+      "fields": [
+        "sideToSide",
+        "vertical"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.PageOrientation",
+      "fields": [
+        "landscape",
+        "portrait"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.PageSetupVerticalAlignment",
+      "fields": [
+        "bottom",
+        "center",
+        "justify",
+        "top"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.PaperSize",
+      "fields": [
+        "a3",
+        "a4",
+        "a4Small",
+        "a5",
+        "b4",
+        "b5",
+        "csheet",
+        "custom",
+        "dsheet",
+        "envelope10",
+        "envelope11",
+        "envelope12",
+        "envelope14",
+        "envelope9",
+        "envelopeB4",
+        "envelopeB5",
+        "envelopeB6",
+        "envelopeC3",
+        "envelopeC4",
+        "envelopeC5",
+        "envelopeC6",
+        "envelopeC65",
+        "envelopeDL",
+        "envelopeItaly",
+        "envelopeMonarch",
+        "envelopePersonal",
+        "esheet",
+        "executive",
+        "fanfoldLegalGerman",
+        "fanfoldStdGerman",
+        "fanfoldUS",
+        "folio",
+        "ledger",
+        "legal",
+        "letter",
+        "letterSmall",
+        "note",
+        "quarto",
+        "size10x14",
+        "size11x17",
+        "statement",
+        "tabloid"
+      ],
+      "field_count": 42
+    },
+    {
+      "enum_name": "Word.PatternType",
+      "fields": [
+        "cross",
+        "darkDownwardDiagonal",
+        "darkHorizontal",
+        "darkUpwardDiagonal",
+        "darkVertical",
+        "dashedDownwardDiagonal",
+        "dashedHorizontal",
+        "dashedUpwardDiagonal",
+        "dashedVertical",
+        "diagonalBrick",
+        "diagonalCross",
+        "divot",
+        "dottedDiamond",
+        "dottedGrid",
+        "downwardDiagonal",
+        "horizontal",
+        "horizontalBrick",
+        "largeCheckerBoard",
+        "largeConfetti",
+        "largeGrid",
+        "lightDownwardDiagonal",
+        "lightHorizontal",
+        "lightUpwardDiagonal",
+        "lightVertical",
+        "mixed",
+        "narrowHorizontal",
+        "narrowVertical",
+        "outlinedDiamond",
+        "percent10",
+        "percent20",
+        "percent25",
+        "percent30",
+        "percent40",
+        "percent5",
+        "percent50",
+        "percent60",
+        "percent70",
+        "percent75",
+        "percent80",
+        "percent90",
+        "plaid",
+        "shingle",
+        "smallCheckerBoard",
+        "smallConfetti",
+        "smallGrid",
+        "solidDiamond",
+        "sphere",
+        "trellis",
+        "upwardDiagonal",
+        "vertical",
+        "wave",
+        "weave",
+        "wideDownwardDiagonal",
+        "wideUpwardDiagonal",
+        "zigZag"
+      ],
+      "field_count": 55
+    },
+    {
+      "enum_name": "Word.PreferredWidthType",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.PresetCamera",
+      "fields": [
+        "isometricBottomDown",
+        "isometricBottomUp",
+        "isometricLeftDown",
+        "isometricLeftUp",
+        "isometricOffAxis1Left",
+        "isometricOffAxis1Right",
+        "isometricOffAxis1Top",
+        "isometricOffAxis2Left",
+        "isometricOffAxis2Right",
+        "isometricOffAxis2Top",
+        "isometricOffAxis3Bottom",
+        "isometricOffAxis3Left",
+        "isometricOffAxis3Right",
+        "isometricOffAxis4Bottom",
+        "isometricOffAxis4Left",
+        "isometricOffAxis4Right",
+        "isometricRightDown",
+        "isometricRightUp",
+        "isometricTopDown",
+        "isometricTopUp",
+        "legacyObliqueBottom",
+        "legacyObliqueBottomLeft",
+        "legacyObliqueBottomRight",
+        "legacyObliqueFront",
+        "legacyObliqueLeft",
+        "legacyObliqueRight",
+        "legacyObliqueTop",
+        "legacyObliqueTopLeft",
+        "legacyObliqueTopRight",
+        "legacyPerspectiveBottom",
+        "legacyPerspectiveBottomLeft",
+        "legacyPerspectiveBottomRight",
+        "legacyPerspectiveFront",
+        "legacyPerspectiveLeft",
+        "legacyPerspectiveRight",
+        "legacyPerspectiveTop",
+        "legacyPerspectiveTopLeft",
+        "legacyPerspectiveTopRight",
+        "mixed",
+        "obliqueBottom",
+        "obliqueBottomLeft",
+        "obliqueBottomRight",
+        "obliqueLeft",
+        "obliqueRight",
+        "obliqueTop",
+        "obliqueTopLeft",
+        "obliqueTopRight",
+        "orthographicFront",
+        "perspectiveAbove",
+        "perspectiveAboveLeftFacing",
+        "perspectiveAboveRightFacing",
+        "perspectiveBelow",
+        "perspectiveContrastingLeftFacing",
+        "perspectiveContrastingRightFacing",
+        "perspectiveFront",
+        "perspectiveHeroicExtremeLeftFacing",
+        "perspectiveHeroicExtremeRightFacing",
+        "perspectiveHeroicLeftFacing",
+        "perspectiveHeroicRightFacing",
+        "perspectiveLeft",
+        "perspectiveRelaxed",
+        "perspectiveRelaxedModerately",
+        "perspectiveRight"
+      ],
+      "field_count": 63
+    },
+    {
+      "enum_name": "Word.PresetExtrusionDirection",
+      "fields": [
+        "bottom",
+        "bottomLeft",
+        "bottomRight",
+        "left",
+        "mixed",
+        "none",
+        "right",
+        "top",
+        "topLeft",
+        "topRight"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.PresetGradientType",
+      "fields": [
+        "brass",
+        "calmWater",
+        "chrome",
+        "chromeII",
+        "daybreak",
+        "desert",
+        "earlySunset",
+        "fire",
+        "fog",
+        "gold",
+        "goldII",
+        "horizon",
+        "lateSunset",
+        "mahogany",
+        "mixed",
+        "moss",
+        "nightfall",
+        "ocean",
+        "parchment",
+        "peacock",
+        "rainbow",
+        "rainbowII",
+        "sapphire",
+        "silver",
+        "wheat"
+      ],
+      "field_count": 25
+    },
+    {
+      "enum_name": "Word.PresetLightingDirection",
+      "fields": [
+        "bottom",
+        "bottomLeft",
+        "bottomRight",
+        "left",
+        "mixed",
+        "none",
+        "right",
+        "top",
+        "topLeft",
+        "topRight"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.PresetLightingSoftness",
+      "fields": [
+        "bright",
+        "dim",
+        "mixed",
+        "normal"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.PresetMaterial",
+      "fields": [
+        "clear",
+        "darkEdge",
+        "flat",
+        "matte",
+        "matte2",
+        "metal",
+        "metal2",
+        "mixed",
+        "plastic",
+        "plastic2",
+        "powder",
+        "softEdge",
+        "softMetal",
+        "translucentPowder",
+        "warmMatte",
+        "wireFrame"
+      ],
+      "field_count": 16
+    },
+    {
+      "enum_name": "Word.PresetTexture",
+      "fields": [
+        "blueTissuePaper",
+        "bouquet",
+        "brownMarble",
+        "canvas",
+        "cork",
+        "denim",
+        "fishFossil",
+        "granite",
+        "greenMarble",
+        "mediumWood",
+        "mixed",
+        "newsprint",
+        "oak",
+        "paperBag",
+        "papyrus",
+        "parchment",
+        "pinkTissuePaper",
+        "purpleMesh",
+        "recycledPaper",
+        "sand",
+        "stationery",
+        "walnut",
+        "waterDroplets",
+        "whiteMarble",
+        "wovenMat"
+      ],
+      "field_count": 25
+    },
+    {
+      "enum_name": "Word.PresetThreeDimensionalFormat",
+      "fields": [
+        "format1",
+        "format10",
+        "format11",
+        "format12",
+        "format13",
+        "format14",
+        "format15",
+        "format16",
+        "format17",
+        "format18",
+        "format19",
+        "format2",
+        "format20",
+        "format3",
+        "format4",
+        "format5",
+        "format6",
+        "format7",
+        "format8",
+        "format9",
+        "mixed"
+      ],
+      "field_count": 21
+    },
+    {
+      "enum_name": "Word.RangeLocation",
+      "fields": [
+        "after",
+        "before",
+        "content",
+        "end",
+        "start",
+        "whole"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.ReadingLayoutMargin",
+      "fields": [
+        "automatic",
+        "full",
+        "suppress"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ReadingOrder",
+      "fields": [
+        "leftToRight",
+        "rightToLeft"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.ReflectionType",
+      "fields": [
+        "mixed",
+        "none",
+        "type1",
+        "type2",
+        "type3",
+        "type4",
+        "type5",
+        "type6",
+        "type7",
+        "type8",
+        "type9"
+      ],
+      "field_count": 11
+    },
+    {
+      "enum_name": "Word.RelativeHorizontalPosition",
+      "fields": [
+        "character",
+        "column",
+        "insideMargin",
+        "leftMargin",
+        "margin",
+        "outsideMargin",
+        "page",
+        "rightMargin"
+      ],
+      "field_count": 8
+    },
+    {
+      "enum_name": "Word.RelativeSize",
+      "fields": [
+        "bottomMargin",
+        "insideMargin",
+        "margin",
+        "outsideMargin",
+        "page",
+        "topMargin"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.RelativeVerticalPosition",
+      "fields": [
+        "bottomMargin",
+        "insideMargin",
+        "line",
+        "margin",
+        "outsideMargin",
+        "page",
+        "paragraph",
+        "topMargin"
+      ],
+      "field_count": 8
+    },
+    {
+      "enum_name": "Word.RevisionsBalloonMargin",
+      "fields": [
+        "left",
+        "right"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.RevisionsBalloonWidthType",
+      "fields": [
+        "percent",
+        "points"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.RevisionsMarkup",
+      "fields": [
+        "all",
+        "none",
+        "simple"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.RevisionsMode",
+      "fields": [
+        "balloon",
+        "inline",
+        "mixed"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.RevisionsView",
+      "fields": [
+        "final",
+        "original"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.RevisionType",
+      "fields": [
+        "cellDeletion",
+        "cellInsertion",
+        "cellMerge",
+        "cellSplit",
+        "conflict",
+        "conflictDelete",
+        "conflictInsert",
+        "delete",
+        "displayField",
+        "insert",
+        "movedFrom",
+        "movedTo",
+        "none",
+        "paragraphNumber",
+        "paragraphProperty",
+        "property",
+        "reconcile",
+        "replace",
+        "sectionProperty",
+        "style",
+        "styleDefinition",
+        "tableProperty"
+      ],
+      "field_count": 22
+    },
+    {
+      "enum_name": "Word.RulerStyle",
+      "fields": [
+        "firstColumn",
+        "none",
+        "proportional",
+        "sameWidth"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.SaveBehavior",
+      "fields": [
+        "prompt",
+        "save"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.SaveConfiguration",
+      "fields": [
+        "doNotSaveChanges",
+        "promptToSaveChanges",
+        "saveChanges"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.SectionDirection",
+      "fields": [
+        "leftToRight",
+        "rightToLeft"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.SectionStart",
+      "fields": [
+        "continuous",
+        "evenPage",
+        "newColumn",
+        "newPage",
+        "oddPage"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.SeekView",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.SelectionMode",
+      "fields": [
+        "end",
+        "select",
+        "start"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ShadingTextureType",
+      "fields": [
+        "darkDiagonalDown",
+        "darkDiagonalUp",
+        "darkGrid",
+        "darkHorizontal",
+        "darkTrellis",
+        "darkVertical",
+        "lightDiagonalDown",
+        "lightDiagonalUp",
+        "lightGrid",
+        "lightHorizontal",
+        "lightTrellis",
+        "lightVertical",
+        "none",
+        "percent10",
+        "percent12Pt5",
+        "percent15",
+        "percent20",
+        "percent25",
+        "percent30",
+        "percent35",
+        "percent37Pt5",
+        "percent40",
+        "percent45",
+        "percent5",
+        "percent50",
+        "percent55",
+        "percent60",
+        "percent62Pt5",
+        "percent65",
+        "percent70",
+        "percent75",
+        "percent80",
+        "percent85",
+        "percent87Pt5",
+        "percent90",
+        "percent95",
+        "solid"
+      ],
+      "field_count": 37
+    },
+    {
+      "enum_name": "Word.ShadowStyle",
+      "fields": [
+        "innerShadow",
+        "mixed",
+        "outerShadow"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ShadowType",
+      "fields": [
+        "mixed",
+        "type1",
+        "type10",
+        "type11",
+        "type12",
+        "type13",
+        "type14",
+        "type15",
+        "type16",
+        "type17",
+        "type18",
+        "type19",
+        "type2",
+        "type20",
+        "type21",
+        "type22",
+        "type23",
+        "type24",
+        "type25",
+        "type26",
+        "type27",
+        "type28",
+        "type29",
+        "type3",
+        "type30",
+        "type31",
+        "type32",
+        "type33",
+        "type34",
+        "type35",
+        "type36",
+        "type37",
+        "type38",
+        "type39",
+        "type4",
+        "type40",
+        "type41",
+        "type42",
+        "type43",
+        "type5",
+        "type6",
+        "type7",
+        "type8",
+        "type9"
+      ],
+      "field_count": 44
+    },
+    {
+      "enum_name": "Word.ShapeAutoSize",
+      "fields": [
+        "mixed",
+        "none",
+        "shapeToFitText",
+        "textToFitShape"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.ShapeFillType",
+      "fields": [
+        "gradient",
+        "mixed",
+        "noFill",
+        "pattern",
+        "picture",
+        "solid",
+        "texture"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.ShapeScaleFrom",
+      "fields": [],
+      "field_count": 0
+    },
+    {
+      "enum_name": "Word.ShapeScaleType",
+      "fields": [
+        "currentSize",
+        "originalSize"
+      ],
+      "field_count": 2
+    },
+    {
+      "enum_name": "Word.ShapeTextOrientation",
+      "fields": [
+        "eastAsianHorizontalRotated",
+        "eastAsianVertical",
+        "horizontal",
+        "mixed",
+        "none",
+        "vertical",
+        "vertical270"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.ShapeTextVerticalAlignment",
+      "fields": [
+        "bottom",
+        "middle",
+        "top"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ShapeTextWrapSide",
+      "fields": [
+        "both",
+        "largest",
+        "left",
+        "none",
+        "right"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.ShapeTextWrapType",
+      "fields": [
+        "behind",
+        "front",
+        "inline",
+        "square",
+        "through",
+        "tight",
+        "topBottom"
+      ],
+      "field_count": 7
+    },
+    {
+      "enum_name": "Word.ShapeType",
+      "fields": [
+        "canvas",
+        "geometricShape",
+        "group",
+        "picture",
+        "textBox",
+        "unsupported"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.ShowSourceDocuments",
+      "fields": [
+        "both",
+        "none",
+        "original",
+        "revised"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.SpecialPane",
+      "fields": [
+        "comments",
+        "currentPageFooter",
+        "currentPageHeader",
+        "endnoteContinuationNotice",
+        "endnoteContinuationSeparator",
+        "endnotes",
+        "endnoteSeparator",
+        "evenPagesFooter",
+        "evenPagesHeader",
+        "firstPageFooter",
+        "firstPageHeader",
+        "footnoteContinuationNotice",
+        "footnoteContinuationSeparator",
+        "footnotes",
+        "footnoteSeparator",
+        "none",
+        "primaryFooter",
+        "primaryHeader",
+        "revisions",
+        "revisionsHoriz",
+        "revisionsVert"
+      ],
+      "field_count": 21
+    },
+    {
+      "enum_name": "Word.StoryType",
+      "fields": [
+        "comments",
+        "endnoteContinuationNotice",
+        "endnoteContinuationSeparator",
+        "endnotes",
+        "endnoteSeparator",
+        "evenPagesFooter",
+        "evenPagesHeader",
+        "firstPageFooter",
+        "firstPageHeader",
+        "footnoteContinuationNotice",
+        "footnoteContinuationSeparator",
+        "footnotes",
+        "footnoteSeparator",
+        "mainText",
+        "primaryFooter",
+        "primaryHeader",
+        "textFrame"
+      ],
+      "field_count": 17
+    },
+    {
+      "enum_name": "Word.StyleType",
+      "fields": [
+        "character",
+        "list",
+        "paragraph",
+        "table"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.StylisticSet",
+      "fields": [
+        "default",
+        "set01",
+        "set02",
+        "set03",
+        "set04",
+        "set05",
+        "set06",
+        "set07",
+        "set08",
+        "set09",
+        "set10",
+        "set11",
+        "set12",
+        "set13",
+        "set14",
+        "set15",
+        "set16",
+        "set17",
+        "set18",
+        "set19",
+        "set20"
+      ],
+      "field_count": 21
+    },
+    {
+      "enum_name": "Word.TabAlignment",
+      "fields": [
+        "bar",
+        "center",
+        "decimal",
+        "left",
+        "list",
+        "right"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.TabLeader",
+      "fields": [
+        "dashes",
+        "dots",
+        "heavy",
+        "lines",
+        "middleDot",
+        "spaces"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.TemplateType",
+      "fields": [
+        "attached",
+        "global",
+        "normal"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.TextboxTightWrap",
+      "fields": [
+        "all",
+        "firstAndLastLines",
+        "firstLineOnly",
+        "lastLineOnly",
+        "none"
+      ],
+      "field_count": 5
+    },
+    {
+      "enum_name": "Word.TextureAlignment",
+      "fields": [
+        "bottom",
+        "bottomLeft",
+        "bottomRight",
+        "center",
+        "left",
+        "mixed",
+        "right",
+        "top",
+        "topLeft",
+        "topRight"
+      ],
+      "field_count": 10
+    },
+    {
+      "enum_name": "Word.TextureType",
+      "fields": [
+        "mixed",
+        "preset",
+        "userDefined"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.ThemeColorIndex",
+      "fields": [
+        "accent1",
+        "accent2",
+        "accent3",
+        "accent4",
+        "accent5",
+        "accent6",
+        "background1",
+        "background2",
+        "hyperlink",
+        "hyperlinkFollowed",
+        "mainDark1",
+        "mainDark2",
+        "mainLight1",
+        "mainLight2",
+        "notThemeColor",
+        "text1",
+        "text2"
+      ],
+      "field_count": 17
+    },
+    {
+      "enum_name": "Word.TrackedChangeType",
+      "fields": [
+        "added",
+        "deleted",
+        "formatted",
+        "none"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.TrailingCharacter",
+      "fields": [
+        "trailingNone",
+        "trailingSpace",
+        "trailingTab"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.TwoLinesInOneType",
+      "fields": [
+        "angleBrackets",
+        "curlyBrackets",
+        "noBrackets",
+        "none",
+        "parentheses",
+        "squareBrackets"
+      ],
+      "field_count": 6
+    },
+    {
+      "enum_name": "Word.Underline",
+      "fields": [
+        "dash",
+        "dashHeavy",
+        "dashLong",
+        "dashLongHeavy",
+        "dotDash",
+        "dotDashHeavy",
+        "dotDotDash",
+        "dotDotDashHeavy",
+        "dotted",
+        "dottedHeavy",
+        "double",
+        "none",
+        "single",
+        "thick",
+        "wavy",
+        "wavyDouble",
+        "wavyHeavy",
+        "words"
+      ],
+      "field_count": 18
+    },
+    {
+      "enum_name": "Word.UnderlineType",
+      "fields": [
+        "dashLine",
+        "dashLineHeavy",
+        "dashLineLong",
+        "dashLineLongHeavy",
+        "dotDashLine",
+        "dotDashLineHeavy",
+        "dotLine",
+        "dotted",
+        "dottedHeavy",
+        "double",
+        "hidden",
+        "mixed",
+        "none",
+        "single",
+        "thick",
+        "twoDotDashLine",
+        "twoDotDashLineHeavy",
+        "wave",
+        "waveDouble",
+        "waveHeavy",
+        "word"
+      ],
+      "field_count": 21
+    },
+    {
+      "enum_name": "Word.VerticalAlignment",
+      "fields": [
+        "bottom",
+        "center",
+        "mixed",
+        "top"
+      ],
+      "field_count": 4
+    },
+    {
+      "enum_name": "Word.ViewType",
+      "fields": [
+        "conflict",
+        "master",
+        "normal",
+        "outline",
+        "print",
+        "printPreview",
+        "reading",
+        "web"
+      ],
+      "field_count": 8
+    },
+    {
+      "enum_name": "Word.WindowState",
+      "fields": [
+        "maximize",
+        "minimize",
+        "normal"
+      ],
+      "field_count": 3
+    },
+    {
+      "enum_name": "Word.WindowType",
+      "fields": [
+        "document",
+        "template"
+      ],
+      "field_count": 2
+    }
+  ],
+  "missing_files": []
+}

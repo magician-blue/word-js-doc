@@ -1,0 +1,4001 @@
+{
+  "summary": {
+    "total_interfaces": 436,
+    "total_properties": 1563,
+    "avg_properties_per_interface": 3.58,
+    "interfaces_with_properties": 238,
+    "interfaces_without_properties": 198
+  },
+  "categories": {
+    "Data": 138,
+    "LoadOptions": 134,
+    "UpdateData": 121,
+    "EventArgs": 14,
+    "Options": 26,
+    "Other": 3
+  },
+  "interfaces": [
+    {
+      "interface_name": "Word.AnnotationClickedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.AnnotationHoveredEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.AnnotationInsertedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.AnnotationPopupActionEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.AnnotationRemovedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.AnnotationSet",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.CommentDetail",
+      "properties": [
+        "id",
+        "replyIds"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.CommentEventArgs",
+      "properties": [
+        "changeType",
+        "commentDetails",
+        "source",
+        "type"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.ContentControlAddedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ContentControlDataChangedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ContentControlDeletedEventArgs",
+      "properties": [
+        "eventType",
+        "ids",
+        "source"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.ContentControlEnteredEventArgs",
+      "properties": [
+        "eventType",
+        "ids",
+        "source"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.ContentControlExitedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ContentControlOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ContentControlPlaceholderOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ContentControlSelectionChangedEventArgs",
+      "properties": [
+        "eventType",
+        "ids",
+        "source"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Critique",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.CritiquePopupOptions",
+      "properties": [
+        "brandingTextResourceId",
+        "subtitleResourceId",
+        "suggestions",
+        "titleResourceId"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.CustomXmlAddNodeOptions",
+      "properties": [
+        "name",
+        "namespaceUri",
+        "nextSibling",
+        "nodeType",
+        "nodeValue"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.CustomXmlAddSchemaOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.CustomXmlAddValidationErrorOptions",
+      "properties": [
+        "clearedOnUpdate",
+        "errorText"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.CustomXmlAppendChildNodeOptions",
+      "properties": [
+        "name",
+        "namespaceUri",
+        "nodeType",
+        "nodeValue"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.CustomXmlInsertNodeBeforeOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.CustomXmlInsertSubtreeBeforeOptions",
+      "properties": [
+        "nextSibling"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.CustomXmlReplaceChildNodeOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.DocumentCompareOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.GetTextOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.HyperlinkAddOptions",
+      "properties": [
+        "address",
+        "screenTip",
+        "subAddress",
+        "target",
+        "textToDisplay"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.IndexAddOptions",
+      "properties": [
+        "headingSeparator",
+        "indexLanguage",
+        "numberOfColumns",
+        "rightAlignPageNumbers",
+        "separateAccentedLetterHeadings",
+        "sortBy",
+        "type"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.IndexMarkAllEntriesOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.IndexMarkEntryOptions",
+      "properties": [
+        "bold",
+        "bookmarkName",
+        "crossReference",
+        "crossReferenceAutoText",
+        "entry",
+        "entryAutoText",
+        "italic",
+        "reading"
+      ],
+      "property_count": 8
+    },
+    {
+      "interface_name": "Word.InsertFileOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.InsertShapeOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.AnnotationCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.AnnotationCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.AnnotationCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.AnnotationData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.AnnotationLoadOptions",
+      "properties": [
+        "critiqueAnnotation",
+        "id",
+        "state"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ApplicationData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ApplicationLoadOptions",
+      "properties": [
+        "bibliography",
+        "checkLanguage",
+        "language"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ApplicationUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BibliographyData",
+      "properties": [
+        "bibliographyStyle",
+        "sources"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.BibliographyLoadOptions",
+      "properties": [
+        "bibliographyStyle"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BibliographyUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BodyData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BodyLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BodyUpdateData",
+      "properties": [
+        "font",
+        "style",
+        "styleBuiltIn"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkCollectionLoadOptions",
+      "properties": [
+        "end",
+        "isColumn",
+        "isEmpty",
+        "name",
+        "range",
+        "start",
+        "storyType"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkData",
+      "properties": [
+        "end",
+        "isColumn",
+        "isEmpty",
+        "name",
+        "range",
+        "start",
+        "storyType"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BookmarkUpdateData",
+      "properties": [
+        "end",
+        "range",
+        "start"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderCollectionLoadOptions",
+      "properties": [
+        "color",
+        "location",
+        "type",
+        "visible",
+        "width"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderCollectionUpdateData",
+      "properties": [
+        "insideBorderColor",
+        "insideBorderType",
+        "insideBorderWidth",
+        "items",
+        "outsideBorderColor",
+        "outsideBorderType",
+        "outsideBorderWidth"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderData",
+      "properties": [
+        "color",
+        "location",
+        "type",
+        "visible",
+        "width"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderLoadOptions",
+      "properties": [
+        "color",
+        "location",
+        "type",
+        "visible",
+        "width"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUniversalUpdateData",
+      "properties": [
+        "artStyle",
+        "artWidth",
+        "color",
+        "colorIndex",
+        "isVisible",
+        "lineStyle",
+        "lineWidth"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.BorderUpdateData",
+      "properties": [
+        "color",
+        "type",
+        "visible",
+        "width"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakCollectionLoadOptions",
+      "properties": [
+        "pageIndex",
+        "range"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakData",
+      "properties": [
+        "pageIndex",
+        "range"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakLoadOptions",
+      "properties": [
+        "pageIndex",
+        "range"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.BreakUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockCategoryData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockCategoryLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockGalleryContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockGalleryContentControlLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockGalleryContentControlUpdateData",
+      "properties": [
+        "appearance",
+        "buildingBlockCategory",
+        "buildingBlockType",
+        "color",
+        "isTemporary",
+        "lockContentControl",
+        "lockContents",
+        "placeholderText",
+        "range",
+        "tag",
+        "title",
+        "xmlMapping"
+      ],
+      "property_count": 12
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockTypeItemData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockTypeItemLoadOptions",
+      "properties": [
+        "index",
+        "name"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.BuildingBlockUpdateData",
+      "properties": [
+        "description",
+        "insertType",
+        "name",
+        "value"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.CanvasData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CanvasLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CanvasUpdateData",
+      "properties": [
+        "shape"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CheckboxContentControlData",
+      "properties": [
+        "isChecked"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CheckboxContentControlLoadOptions",
+      "properties": [
+        "isChecked"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CheckboxContentControlUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ColorFormatData",
+      "properties": [
+        "brightness",
+        "objectThemeColor",
+        "rgb",
+        "tintAndShade",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.ColorFormatLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ColorFormatUpdateData",
+      "properties": [
+        "brightness",
+        "objectThemeColor",
+        "rgb",
+        "tintAndShade"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.ComboBoxContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentCollectionLoadOptions",
+      "properties": [
+        "authorEmail",
+        "authorName",
+        "content",
+        "contentRange",
+        "creationDate",
+        "id",
+        "resolved"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentContentRangeData",
+      "properties": [
+        "bold",
+        "hyperlink",
+        "isEmpty",
+        "italic",
+        "strikeThrough",
+        "text",
+        "underline"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentContentRangeLoadOptions",
+      "properties": [
+        "bold",
+        "hyperlink",
+        "isEmpty",
+        "italic",
+        "strikeThrough",
+        "text",
+        "underline"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentContentRangeUpdateData",
+      "properties": [
+        "bold",
+        "hyperlink",
+        "italic",
+        "strikeThrough",
+        "underline"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentLoadOptions",
+      "properties": [
+        "authorEmail",
+        "authorName",
+        "content",
+        "contentRange",
+        "creationDate",
+        "id",
+        "resolved"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyCollectionLoadOptions",
+      "properties": [
+        "authorEmail",
+        "authorName",
+        "content",
+        "contentRange",
+        "creationDate",
+        "id",
+        "parentComment"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyData",
+      "properties": [
+        "authorEmail",
+        "authorName",
+        "content",
+        "contentRange",
+        "creationDate",
+        "id",
+        "parentComment"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentReplyUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CommentUpdateData",
+      "properties": [
+        "content",
+        "contentRange",
+        "resolved"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlCollectionLoadOptions",
+      "properties": [
+        "appearance",
+        "buildingBlockGalleryContentControl",
+        "cannotDelete",
+        "cannotEdit",
+        "checkboxContentControl",
+        "color",
+        "datePickerContentControl",
+        "font",
+        "groupContentControl",
+        "id",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "pictureContentControl",
+        "placeholderText",
+        "removeWhenEdited",
+        "repeatingSectionContentControl",
+        "style",
+        "styleBuiltIn",
+        "subtype",
+        "tag",
+        "text",
+        "title",
+        "type",
+        "xmlMapping"
+      ],
+      "property_count": 29
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlData",
+      "properties": [
+        "appearance",
+        "buildingBlockGalleryContentControl",
+        "cannotDelete",
+        "cannotEdit",
+        "checkboxContentControl",
+        "color",
+        "comboBoxContentControl",
+        "contentControls",
+        "datePickerContentControl",
+        "dropDownListContentControl",
+        "fields",
+        "font",
+        "groupContentControl",
+        "id",
+        "inlinePictures",
+        "lists",
+        "paragraphs",
+        "pictureContentControl",
+        "placeholderText",
+        "removeWhenEdited",
+        "repeatingSectionContentControl",
+        "style",
+        "styleBuiltIn",
+        "subtype",
+        "tables",
+        "tag",
+        "text",
+        "title",
+        "type",
+        "xmlMapping"
+      ],
+      "property_count": 30
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemCollectionLoadOptions",
+      "properties": [
+        "displayText",
+        "index",
+        "value"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemLoadOptions",
+      "properties": [
+        "displayText",
+        "index",
+        "value"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlListItemUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlLoadOptions",
+      "properties": [
+        "appearance",
+        "buildingBlockGalleryContentControl",
+        "cannotDelete",
+        "cannotEdit",
+        "checkboxContentControl",
+        "color",
+        "datePickerContentControl",
+        "font",
+        "groupContentControl",
+        "id",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "pictureContentControl",
+        "placeholderText",
+        "removeWhenEdited",
+        "repeatingSectionContentControl",
+        "style",
+        "styleBuiltIn",
+        "subtype",
+        "tag",
+        "text",
+        "title",
+        "type",
+        "xmlMapping"
+      ],
+      "property_count": 29
+    },
+    {
+      "interface_name": "Word.Interfaces.ContentControlUpdateData",
+      "properties": [
+        "appearance",
+        "buildingBlockGalleryContentControl",
+        "cannotDelete",
+        "cannotEdit",
+        "checkboxContentControl",
+        "color",
+        "datePickerContentControl",
+        "font",
+        "groupContentControl",
+        "pictureContentControl",
+        "placeholderText",
+        "removeWhenEdited",
+        "repeatingSectionContentControl",
+        "style",
+        "styleBuiltIn",
+        "tag",
+        "title",
+        "xmlMapping"
+      ],
+      "property_count": 18
+    },
+    {
+      "interface_name": "Word.Interfaces.CritiqueAnnotationData",
+      "properties": [
+        "critique"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CritiqueAnnotationLoadOptions",
+      "properties": [
+        "critique",
+        "range"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyCollectionLoadOptions",
+      "properties": [
+        "key",
+        "type",
+        "value"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyLoadOptions",
+      "properties": [
+        "key",
+        "type",
+        "value"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomPropertyUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeCollectionLoadOptions",
+      "properties": [
+        "baseName",
+        "firstChild",
+        "lastChild",
+        "namespaceUri",
+        "nextSibling",
+        "nodeType",
+        "nodeValue",
+        "ownerPart",
+        "parentNode",
+        "previousSibling",
+        "text",
+        "xml",
+        "xpath"
+      ],
+      "property_count": 13
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeLoadOptions",
+      "properties": [
+        "baseName",
+        "firstChild",
+        "lastChild",
+        "namespaceUri",
+        "nextSibling",
+        "nodeType",
+        "nodeValue",
+        "ownerPart",
+        "parentNode",
+        "previousSibling",
+        "text",
+        "xml",
+        "xpath"
+      ],
+      "property_count": 13
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlNodeUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartData",
+      "properties": [
+        "builtIn",
+        "documentElement",
+        "errors",
+        "id",
+        "namespaceManager",
+        "namespaceUri",
+        "schemaCollection",
+        "xml"
+      ],
+      "property_count": 8
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartScopedCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartScopedCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartScopedCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPartUpdateData",
+      "properties": [
+        "documentElement"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPrefixMappingCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPrefixMappingCollectionLoadOptions",
+      "properties": [
+        "namespaceUri",
+        "prefix"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPrefixMappingCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPrefixMappingData",
+      "properties": [
+        "namespaceUri",
+        "prefix"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlPrefixMappingLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlSchemaCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlSchemaCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlSchemaCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlSchemaData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlSchemaLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorCollectionLoadOptions",
+      "properties": [
+        "errorCode",
+        "name",
+        "node",
+        "text",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorData",
+      "properties": [
+        "errorCode",
+        "name",
+        "node",
+        "text",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorLoadOptions",
+      "properties": [
+        "errorCode",
+        "name",
+        "node",
+        "text",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.CustomXmlValidationErrorUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DatePickerContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DatePickerContentControlLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DatePickerContentControlUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentCreatedData",
+      "properties": [
+        "body",
+        "contentControls",
+        "customXmlParts",
+        "properties",
+        "saved",
+        "sections",
+        "settings"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentCreatedLoadOptions",
+      "properties": [
+        "body",
+        "properties",
+        "saved"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentCreatedUpdateData",
+      "properties": [
+        "body",
+        "properties"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLibraryVersionCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLibraryVersionCollectionLoadOptions",
+      "properties": [
+        "comments",
+        "modified",
+        "modifiedBy"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLibraryVersionCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLibraryVersionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLibraryVersionLoadOptions",
+      "properties": [
+        "comments",
+        "modified",
+        "modifiedBy"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentPropertiesData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentPropertiesLoadOptions",
+      "properties": [
+        "applicationName",
+        "author",
+        "category",
+        "comments",
+        "company",
+        "creationDate",
+        "format",
+        "keywords",
+        "lastAuthor",
+        "lastPrintDate",
+        "lastSaveTime",
+        "manager",
+        "revisionNumber",
+        "security"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentPropertiesUpdateData",
+      "properties": [
+        "author",
+        "category",
+        "comments",
+        "company",
+        "format",
+        "keywords",
+        "manager",
+        "subject",
+        "title"
+      ],
+      "property_count": 9
+    },
+    {
+      "interface_name": "Word.Interfaces.DocumentUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.DropCapData",
+      "properties": [
+        "distanceFromText",
+        "fontName",
+        "linesToDrop",
+        "position"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.DropCapLoadOptions",
+      "properties": [
+        "distanceFromText",
+        "fontName",
+        "linesToDrop",
+        "position"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.DropDownListContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldCollectionLoadOptions",
+      "properties": [
+        "code",
+        "data",
+        "kind",
+        "linkFormat",
+        "locked",
+        "oleFormat",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "result",
+        "showCodes",
+        "type"
+      ],
+      "property_count": 16
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldLoadOptions",
+      "properties": [
+        "code",
+        "data",
+        "kind",
+        "linkFormat",
+        "locked",
+        "oleFormat",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "result",
+        "showCodes",
+        "type"
+      ],
+      "property_count": 16
+    },
+    {
+      "interface_name": "Word.Interfaces.FieldUpdateData",
+      "properties": [
+        "code",
+        "data",
+        "locked",
+        "result",
+        "showCodes"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.FillFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FillFormatLoadOptions",
+      "properties": [
+        "backgroundColor",
+        "foregroundColor",
+        "gradientAngle",
+        "gradientColorType",
+        "gradientDegree",
+        "gradientStyle",
+        "gradientVariant",
+        "isVisible",
+        "pattern",
+        "presetGradientType",
+        "presetTexture",
+        "rotateWithObject",
+        "textureAlignment",
+        "textureHorizontalScale",
+        "textureName",
+        "textureOffsetX",
+        "textureOffsetY",
+        "textureTile",
+        "textureType",
+        "textureVerticalScale",
+        "transparency",
+        "type"
+      ],
+      "property_count": 22
+    },
+    {
+      "interface_name": "Word.Interfaces.FillFormatUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FontData",
+      "properties": [
+        "allCaps",
+        "bold",
+        "boldBidirectional",
+        "borders",
+        "color",
+        "colorIndex",
+        "colorIndexBidirectional",
+        "contextualAlternates",
+        "diacriticColor",
+        "disableCharacterSpaceGrid",
+        "doubleStrikeThrough",
+        "emboss",
+        "emphasisMark",
+        "engrave",
+        "fill",
+        "glow",
+        "hidden",
+        "highlightColor",
+        "italic",
+        "italicBidirectional",
+        "kerning",
+        "ligature",
+        "line",
+        "name",
+        "nameAscii",
+        "nameBidirectional",
+        "nameFarEast",
+        "nameOther",
+        "numberForm",
+        "numberSpacing",
+        "outline",
+        "position",
+        "reflection",
+        "scaling",
+        "shadow",
+        "size",
+        "sizeBidirectional",
+        "smallCaps",
+        "spacing",
+        "strikeThrough",
+        "stylisticSet",
+        "subscript",
+        "superscript",
+        "textColor",
+        "textShadow",
+        "threeDimensionalFormat",
+        "underline",
+        "underlineColor"
+      ],
+      "property_count": 48
+    },
+    {
+      "interface_name": "Word.Interfaces.FontLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FontUpdateData",
+      "properties": [
+        "allCaps",
+        "bold",
+        "boldBidirectional",
+        "color",
+        "colorIndex",
+        "colorIndexBidirectional",
+        "contextualAlternates",
+        "diacriticColor",
+        "disableCharacterSpaceGrid",
+        "doubleStrikeThrough",
+        "emboss",
+        "emphasisMark",
+        "engrave",
+        "fill",
+        "glow",
+        "hidden",
+        "highlightColor",
+        "italic",
+        "italicBidirectional",
+        "kerning",
+        "ligature",
+        "line",
+        "name",
+        "nameAscii",
+        "nameBidirectional",
+        "nameFarEast",
+        "nameOther",
+        "numberForm",
+        "numberSpacing",
+        "outline",
+        "position",
+        "reflection",
+        "scaling",
+        "shadow",
+        "size",
+        "sizeBidirectional",
+        "smallCaps",
+        "spacing",
+        "strikeThrough",
+        "stylisticSet",
+        "subscript",
+        "superscript",
+        "textColor",
+        "textShadow",
+        "threeDimensionalFormat",
+        "underline",
+        "underlineColor"
+      ],
+      "property_count": 47
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameCollectionLoadOptions",
+      "properties": [
+        "height",
+        "heightRule",
+        "horizontalDistanceFromText",
+        "horizontalPosition",
+        "lockAnchor",
+        "range",
+        "relativeHorizontalPosition",
+        "relativeVerticalPosition",
+        "shading",
+        "textWrap",
+        "verticalDistanceFromText",
+        "verticalPosition",
+        "width",
+        "widthRule"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.FrameUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.GlowFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.GlowFormatLoadOptions",
+      "properties": [
+        "color",
+        "radius",
+        "transparency"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.GlowFormatUpdateData",
+      "properties": [
+        "color",
+        "radius",
+        "transparency"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.GroupContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.GroupContentControlLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.GroupContentControlUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkLoadOptions",
+      "properties": [
+        "address",
+        "emailSubject",
+        "isExtraInfoRequired",
+        "name",
+        "range",
+        "screenTip",
+        "subAddress",
+        "target",
+        "textToDisplay",
+        "type"
+      ],
+      "property_count": 10
+    },
+    {
+      "interface_name": "Word.Interfaces.HyperlinkUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexCollectionLoadOptions",
+      "properties": [
+        "filter",
+        "headingSeparator",
+        "indexLanguage",
+        "numberOfColumns",
+        "range",
+        "rightAlignPageNumbers",
+        "separateAccentedLetterHeadings",
+        "sortBy",
+        "tabLeader",
+        "type"
+      ],
+      "property_count": 10
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexData",
+      "properties": [
+        "filter",
+        "headingSeparator",
+        "indexLanguage",
+        "numberOfColumns",
+        "range",
+        "rightAlignPageNumbers",
+        "separateAccentedLetterHeadings",
+        "sortBy",
+        "tabLeader",
+        "type"
+      ],
+      "property_count": 10
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexLoadOptions",
+      "properties": [
+        "filter",
+        "headingSeparator",
+        "indexLanguage",
+        "numberOfColumns",
+        "range",
+        "rightAlignPageNumbers",
+        "separateAccentedLetterHeadings",
+        "sortBy",
+        "tabLeader",
+        "type"
+      ],
+      "property_count": 10
+    },
+    {
+      "interface_name": "Word.Interfaces.IndexUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureLoadOptions",
+      "properties": [
+        "altTextDescription",
+        "altTextTitle",
+        "height",
+        "hyperlink",
+        "imageFormat",
+        "lockAspectRatio",
+        "paragraph",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "width"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.InlinePictureUpdateData",
+      "properties": [
+        "altTextDescription",
+        "altTextTitle",
+        "height",
+        "hyperlink",
+        "lockAspectRatio",
+        "width"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.LineFormatData",
+      "properties": [
+        "backgroundColor",
+        "beginArrowheadLength",
+        "beginArrowheadStyle",
+        "beginArrowheadWidth",
+        "dashStyle",
+        "endArrowheadLength",
+        "endArrowheadStyle",
+        "endArrowheadWidth",
+        "foregroundColor",
+        "insetPen",
+        "isVisible",
+        "pattern",
+        "style",
+        "transparency",
+        "weight"
+      ],
+      "property_count": 15
+    },
+    {
+      "interface_name": "Word.Interfaces.LineFormatLoadOptions",
+      "properties": [
+        "backgroundColor",
+        "beginArrowheadLength",
+        "beginArrowheadStyle",
+        "beginArrowheadWidth",
+        "dashStyle",
+        "endArrowheadLength",
+        "endArrowheadStyle",
+        "endArrowheadWidth",
+        "foregroundColor",
+        "insetPen",
+        "isVisible",
+        "pattern",
+        "style",
+        "transparency",
+        "weight"
+      ],
+      "property_count": 15
+    },
+    {
+      "interface_name": "Word.Interfaces.LineFormatUpdateData",
+      "properties": [
+        "backgroundColor",
+        "beginArrowheadLength",
+        "beginArrowheadStyle",
+        "beginArrowheadWidth",
+        "dashStyle",
+        "endArrowheadLength",
+        "endArrowheadStyle",
+        "endArrowheadWidth",
+        "foregroundColor",
+        "insetPen",
+        "isVisible",
+        "pattern",
+        "style",
+        "transparency",
+        "weight"
+      ],
+      "property_count": 15
+    },
+    {
+      "interface_name": "Word.Interfaces.LineNumberingData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.LineNumberingLoadOptions",
+      "properties": [
+        "countBy",
+        "distanceFromText",
+        "isActive",
+        "restartMode",
+        "startingNumber"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.LineNumberingUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.LinkFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.LinkFormatLoadOptions",
+      "properties": [
+        "isAutoUpdated",
+        "isLocked",
+        "isPictureSavedWithDocument",
+        "sourceFullName",
+        "sourceName",
+        "sourcePath",
+        "type"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.LinkFormatUpdateData",
+      "properties": [
+        "isAutoUpdated",
+        "isLocked",
+        "isPictureSavedWithDocument",
+        "sourceFullName"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.ListCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ListData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListFormatLoadOptions",
+      "properties": [
+        "isSingleList",
+        "isSingleListTemplate",
+        "list",
+        "listLevelNumber",
+        "listString",
+        "listTemplate",
+        "listType",
+        "listValue"
+      ],
+      "property_count": 8
+    },
+    {
+      "interface_name": "Word.Interfaces.ListFormatUpdateData",
+      "properties": [
+        "listLevelNumber",
+        "listTemplate"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.ListItemData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListItemLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListItemUpdateData",
+      "properties": [
+        "level"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelLoadOptions",
+      "properties": [
+        "alignment",
+        "font",
+        "linkedStyle",
+        "numberFormat",
+        "numberPosition",
+        "numberStyle",
+        "resetOnHigher",
+        "startAt",
+        "tabPosition",
+        "textPosition",
+        "trailingCharacter"
+      ],
+      "property_count": 11
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLevelUpdateData",
+      "properties": [
+        "alignment",
+        "font",
+        "linkedStyle",
+        "numberFormat",
+        "numberPosition",
+        "numberStyle",
+        "resetOnHigher",
+        "startAt",
+        "tabPosition",
+        "textPosition",
+        "trailingCharacter"
+      ],
+      "property_count": 11
+    },
+    {
+      "interface_name": "Word.Interfaces.ListLoadOptions",
+      "properties": [
+        "id",
+        "levelExistences",
+        "levelTypes"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ListTemplateData",
+      "properties": [
+        "listLevels",
+        "outlineNumbered"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.ListTemplateLoadOptions",
+      "properties": [
+        "outlineNumbered"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ListTemplateUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemCollectionLoadOptions",
+      "properties": [
+        "body",
+        "reference",
+        "type"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemData",
+      "properties": [
+        "body",
+        "reference",
+        "type"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemLoadOptions",
+      "properties": [
+        "body",
+        "reference",
+        "type"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.NoteItemUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.OleFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.OleFormatLoadOptions",
+      "properties": [
+        "classType",
+        "iconIndex",
+        "iconLabel",
+        "iconName",
+        "iconPath",
+        "isDisplayedAsIcon",
+        "isFormattingPreservedOnUpdate",
+        "label",
+        "progID"
+      ],
+      "property_count": 9
+    },
+    {
+      "interface_name": "Word.Interfaces.OleFormatUpdateData",
+      "properties": [
+        "classType",
+        "iconIndex",
+        "iconLabel",
+        "iconName",
+        "isFormattingPreservedOnUpdate"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.PageCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.PageCollectionLoadOptions",
+      "properties": [
+        "height",
+        "index",
+        "width"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.PageCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.PageData",
+      "properties": [
+        "breaks",
+        "height",
+        "index",
+        "width"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.PageLoadOptions",
+      "properties": [
+        "height",
+        "index",
+        "width"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.PageSetupData",
+      "properties": [
+        "bookFoldPrinting",
+        "bookFoldPrintingSheets",
+        "bookFoldReversePrinting",
+        "bottomMargin",
+        "charsLine",
+        "differentFirstPageHeaderFooter",
+        "footerDistance",
+        "gutter",
+        "gutterPosition",
+        "gutterStyle",
+        "headerDistance",
+        "layoutMode",
+        "leftMargin",
+        "lineNumbering",
+        "linesPage",
+        "mirrorMargins",
+        "oddAndEvenPagesHeaderFooter",
+        "orientation",
+        "pageHeight",
+        "pageWidth",
+        "paperSize",
+        "rightMargin",
+        "sectionDirection",
+        "sectionStart",
+        "showGrid",
+        "suppressEndnotes",
+        "textColumns",
+        "topMargin",
+        "twoPagesOnOne",
+        "verticalAlignment"
+      ],
+      "property_count": 30
+    },
+    {
+      "interface_name": "Word.Interfaces.PageSetupLoadOptions",
+      "properties": [
+        "bookFoldPrinting",
+        "bookFoldPrintingSheets",
+        "bookFoldReversePrinting",
+        "bottomMargin",
+        "charsLine",
+        "differentFirstPageHeaderFooter",
+        "footerDistance",
+        "gutter",
+        "gutterPosition",
+        "gutterStyle",
+        "headerDistance",
+        "layoutMode",
+        "leftMargin",
+        "lineNumbering",
+        "linesPage",
+        "mirrorMargins",
+        "oddAndEvenPagesHeaderFooter",
+        "orientation",
+        "pageHeight",
+        "pageWidth",
+        "paperSize",
+        "rightMargin",
+        "sectionDirection",
+        "sectionStart",
+        "showGrid",
+        "suppressEndnotes",
+        "topMargin",
+        "twoPagesOnOne",
+        "verticalAlignment"
+      ],
+      "property_count": 29
+    },
+    {
+      "interface_name": "Word.Interfaces.PageSetupUpdateData",
+      "properties": [
+        "bookFoldPrinting",
+        "bookFoldPrintingSheets",
+        "bookFoldReversePrinting",
+        "bottomMargin",
+        "charsLine",
+        "differentFirstPageHeaderFooter",
+        "footerDistance",
+        "gutter",
+        "gutterPosition",
+        "gutterStyle",
+        "headerDistance",
+        "layoutMode",
+        "leftMargin",
+        "lineNumbering",
+        "linesPage",
+        "mirrorMargins",
+        "oddAndEvenPagesHeaderFooter",
+        "orientation",
+        "pageHeight",
+        "pageWidth",
+        "paperSize",
+        "rightMargin",
+        "sectionDirection",
+        "sectionStart",
+        "showGrid",
+        "suppressEndnotes",
+        "topMargin",
+        "twoPagesOnOne",
+        "verticalAlignment"
+      ],
+      "property_count": 29
+    },
+    {
+      "interface_name": "Word.Interfaces.PaneCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.PaneCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.PaneData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphCollectionLoadOptions",
+      "properties": [
+        "alignment",
+        "firstLineIndent",
+        "font",
+        "isLastParagraph",
+        "isListItem",
+        "leftIndent",
+        "lineSpacing",
+        "lineUnitAfter",
+        "lineUnitBefore",
+        "list",
+        "listItem",
+        "listItemOrNullObject",
+        "listOrNullObject",
+        "outlineLevel",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "rightIndent",
+        "shading",
+        "spaceAfter",
+        "spaceBefore",
+        "style",
+        "styleBuiltIn",
+        "tableNestingLevel",
+        "text",
+        "uniqueLocalId"
+      ],
+      "property_count": 30
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphData",
+      "properties": [
+        "alignment",
+        "borders",
+        "fields",
+        "firstLineIndent",
+        "font",
+        "inlinePictures",
+        "isLastParagraph",
+        "isListItem",
+        "leftIndent",
+        "lineSpacing",
+        "lineUnitAfter",
+        "lineUnitBefore",
+        "listItem",
+        "listItemOrNullObject",
+        "outlineLevel",
+        "rightIndent",
+        "shading",
+        "shapes",
+        "spaceAfter",
+        "spaceBefore",
+        "style",
+        "styleBuiltIn",
+        "tableNestingLevel",
+        "text",
+        "uniqueLocalId"
+      ],
+      "property_count": 25
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphFormatData",
+      "properties": [
+        "alignment",
+        "firstLineIndent",
+        "keepTogether",
+        "keepWithNext",
+        "leftIndent",
+        "lineSpacing",
+        "lineUnitAfter",
+        "lineUnitBefore",
+        "mirrorIndents",
+        "outlineLevel",
+        "rightIndent",
+        "spaceAfter",
+        "spaceBefore",
+        "widowControl"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphFormatLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphFormatUpdateData",
+      "properties": [
+        "alignment",
+        "firstLineIndent",
+        "keepTogether",
+        "keepWithNext",
+        "leftIndent",
+        "lineSpacing",
+        "lineUnitAfter",
+        "lineUnitBefore",
+        "mirrorIndents",
+        "outlineLevel",
+        "rightIndent",
+        "spaceAfter",
+        "spaceBefore",
+        "widowControl"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ParagraphUpdateData",
+      "properties": [
+        "alignment",
+        "firstLineIndent",
+        "font",
+        "leftIndent",
+        "lineSpacing",
+        "lineUnitAfter",
+        "lineUnitBefore",
+        "listItem",
+        "listItemOrNullObject",
+        "outlineLevel",
+        "rightIndent",
+        "shading",
+        "spaceAfter",
+        "spaceBefore",
+        "style",
+        "styleBuiltIn"
+      ],
+      "property_count": 16
+    },
+    {
+      "interface_name": "Word.Interfaces.PictureContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.PictureContentControlLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.PictureContentControlUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeData",
+      "properties": [
+        "bold",
+        "boldBidirectional",
+        "borders",
+        "case",
+        "characterWidth",
+        "combineCharacters",
+        "disableCharacterSpaceGrid",
+        "emphasisMark",
+        "end",
+        "fields",
+        "fitTextWidth",
+        "font",
+        "frames",
+        "grammarChecked",
+        "hasNoProofing",
+        "highlightColorIndex",
+        "horizontalInVertical",
+        "hyperlink",
+        "hyperlinks",
+        "id",
+        "inlinePictures",
+        "isEmpty",
+        "isEndOfRowMark",
+        "isTextVisibleOnScreen",
+        "italic",
+        "italicBidirectional",
+        "kana",
+        "languageDetected",
+        "languageId",
+        "languageIdFarEast",
+        "languageIdOther",
+        "listFormat",
+        "pages",
+        "sections",
+        "shading",
+        "shapes",
+        "showAll",
+        "spellingChecked",
+        "start",
+        "storyLength",
+        "storyType",
+        "style",
+        "styleBuiltIn",
+        "tableColumns",
+        "text",
+        "twoLinesInOne",
+        "underline"
+      ],
+      "property_count": 47
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RangeUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ReflectionFormatData",
+      "properties": [
+        "blur",
+        "offset",
+        "size",
+        "transparency",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.ReflectionFormatLoadOptions",
+      "properties": [
+        "blur",
+        "offset",
+        "size",
+        "transparency",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.ReflectionFormatUpdateData",
+      "properties": [
+        "blur",
+        "offset",
+        "size",
+        "transparency",
+        "type"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionContentControlData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionContentControlLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionContentControlUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionItemData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionItemLoadOptions",
+      "properties": [
+        "range"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.RepeatingSectionItemUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ReviewerUpdateData",
+      "properties": [
+        "isVisible"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.RevisionsFilterData",
+      "properties": [
+        "markup",
+        "view"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.RevisionsFilterLoadOptions",
+      "properties": [
+        "markup",
+        "view"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.RevisionsFilterUpdateData",
+      "properties": [
+        "markup",
+        "view"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.SearchOptionsData",
+      "properties": [
+        "ignorePunct",
+        "ignoreSpace",
+        "matchCase",
+        "matchPrefix",
+        "matchSuffix",
+        "matchWholeWord",
+        "matchWildcards"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.SearchOptionsLoadOptions",
+      "properties": [
+        "ignorePunct",
+        "ignoreSpace",
+        "matchCase",
+        "matchPrefix",
+        "matchSuffix",
+        "matchWholeWord",
+        "matchWildcards"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.SearchOptionsUpdateData",
+      "properties": [
+        "ignorePunct",
+        "ignoreSpace",
+        "matchCase",
+        "matchPrefix",
+        "matchSuffix",
+        "matchWholeWord",
+        "matchWildcards"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionData",
+      "properties": [
+        "body",
+        "borders",
+        "pageSetup",
+        "protectedForForms"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SectionUpdateData",
+      "properties": [
+        "body",
+        "pageSetup",
+        "protectedForForms"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingData",
+      "properties": [
+        "key",
+        "value"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingLoadOptions",
+      "properties": [
+        "key",
+        "value"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.SettingUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingData",
+      "properties": [
+        "backgroundPatternColor",
+        "foregroundPatternColor",
+        "texture"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingLoadOptions",
+      "properties": [
+        "backgroundPatternColor",
+        "foregroundPatternColor",
+        "texture"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingUniversalData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingUniversalLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingUniversalUpdateData",
+      "properties": [
+        "backgroundPatternColor",
+        "backgroundPatternColorIndex",
+        "foregroundPatternColor",
+        "foregroundPatternColorIndex",
+        "texture"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadingUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadowFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadowFormatLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShadowFormatUpdateData",
+      "properties": [
+        "blur",
+        "foregroundColor",
+        "isVisible",
+        "obscured",
+        "offsetX",
+        "offsetY",
+        "rotateWithShape",
+        "size",
+        "style",
+        "transparency",
+        "type"
+      ],
+      "property_count": 11
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeCollectionLoadOptions",
+      "properties": [
+        "allowOverlap",
+        "altTextDescription",
+        "body",
+        "canvas",
+        "fill",
+        "geometricShapeType",
+        "height",
+        "heightRelative",
+        "id",
+        "isChild",
+        "left",
+        "leftRelative",
+        "lockAspectRatio",
+        "name",
+        "parentCanvas",
+        "parentGroup",
+        "relativeHorizontalPosition",
+        "relativeHorizontalSize",
+        "relativeVerticalPosition",
+        "relativeVerticalSize",
+        "rotation",
+        "shapeGroup",
+        "textFrame",
+        "textWrap",
+        "top",
+        "topRelative",
+        "type",
+        "visible",
+        "width",
+        "widthRelative"
+      ],
+      "property_count": 30
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeFillData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeFillLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeFillUpdateData",
+      "properties": [
+        "backgroundColor",
+        "foregroundColor",
+        "transparency"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeGroupData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeGroupLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeGroupUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeTextWrapData",
+      "properties": [
+        "bottomDistance",
+        "leftDistance",
+        "rightDistance",
+        "side",
+        "topDistance",
+        "type"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeTextWrapLoadOptions",
+      "properties": [
+        "bottomDistance",
+        "leftDistance",
+        "rightDistance",
+        "side",
+        "topDistance",
+        "type"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeTextWrapUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ShapeUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SourceCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.SourceCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.SourceCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.SourceData",
+      "properties": [
+        "isCited",
+        "tag",
+        "xml"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.SourceLoadOptions",
+      "properties": [
+        "isCited",
+        "tag",
+        "xml"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleData",
+      "properties": [
+        "automaticallyUpdate",
+        "baseStyle",
+        "borders",
+        "builtIn",
+        "description",
+        "font",
+        "frame",
+        "hasProofing",
+        "inUse",
+        "languageId",
+        "languageIdFarEast",
+        "linked",
+        "linkStyle",
+        "listLevelNumber",
+        "listTemplate",
+        "locked",
+        "nameLocal",
+        "nextParagraphStyle",
+        "noSpaceBetweenParagraphsOfSameStyle",
+        "paragraphFormat",
+        "priority",
+        "quickStyle",
+        "shading",
+        "tableStyle",
+        "type",
+        "unhideWhenUsed",
+        "visibility"
+      ],
+      "property_count": 27
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.StyleUpdateData",
+      "properties": [
+        "automaticallyUpdate",
+        "baseStyle",
+        "borders",
+        "font",
+        "frame",
+        "hasProofing",
+        "languageId",
+        "languageIdFarEast",
+        "linkStyle",
+        "listTemplate",
+        "locked",
+        "nextParagraphStyle",
+        "noSpaceBetweenParagraphsOfSameStyle",
+        "paragraphFormat",
+        "priority",
+        "quickStyle",
+        "shading",
+        "tableStyle",
+        "unhideWhenUsed",
+        "visibility"
+      ],
+      "property_count": 20
+    },
+    {
+      "interface_name": "Word.Interfaces.TableBorderData",
+      "properties": [
+        "color",
+        "type",
+        "width"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.Interfaces.TableBorderLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableBorderUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellCollectionLoadOptions",
+      "properties": [
+        "body",
+        "cellIndex",
+        "columnWidth",
+        "horizontalAlignment",
+        "parentRow",
+        "parentTable",
+        "rowIndex",
+        "shadingColor",
+        "value",
+        "verticalAlignment",
+        "width"
+      ],
+      "property_count": 11
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellData",
+      "properties": [
+        "body",
+        "cellIndex",
+        "columnWidth",
+        "horizontalAlignment",
+        "rowIndex",
+        "shadingColor",
+        "value",
+        "verticalAlignment",
+        "width"
+      ],
+      "property_count": 9
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCellUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCollectionLoadOptions",
+      "properties": [
+        "alignment",
+        "font",
+        "headerRowCount",
+        "horizontalAlignment",
+        "isUniform",
+        "nestingLevel",
+        "parentBody",
+        "parentContentControl",
+        "parentContentControlOrNullObject",
+        "parentTable",
+        "parentTableCell",
+        "parentTableCellOrNullObject",
+        "parentTableOrNullObject",
+        "rowCount",
+        "shadingColor",
+        "style",
+        "styleBandedColumns",
+        "styleBandedRows",
+        "styleBuiltIn",
+        "styleFirstColumn",
+        "styleLastColumn",
+        "styleTotalRow",
+        "values",
+        "verticalAlignment",
+        "width"
+      ],
+      "property_count": 25
+    },
+    {
+      "interface_name": "Word.Interfaces.TableCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnCollectionUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableColumnUpdateData",
+      "properties": [
+        "preferredWidth",
+        "preferredWidthType",
+        "shading",
+        "width"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.TableData",
+      "properties": [
+        "alignment",
+        "fields",
+        "font",
+        "headerRowCount",
+        "horizontalAlignment",
+        "isUniform",
+        "nestingLevel",
+        "rowCount",
+        "rows",
+        "shadingColor",
+        "style",
+        "styleBandedColumns",
+        "styleBandedRows",
+        "styleBuiltIn",
+        "styleFirstColumn",
+        "styleLastColumn",
+        "styleTotalRow",
+        "tables",
+        "values",
+        "verticalAlignment",
+        "width"
+      ],
+      "property_count": 21
+    },
+    {
+      "interface_name": "Word.Interfaces.TableLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowCollectionLoadOptions",
+      "properties": [
+        "cellCount",
+        "font",
+        "horizontalAlignment",
+        "isHeader",
+        "parentTable",
+        "preferredHeight",
+        "rowIndex",
+        "shadingColor",
+        "values",
+        "verticalAlignment"
+      ],
+      "property_count": 10
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableRowUpdateData",
+      "properties": [
+        "font",
+        "horizontalAlignment",
+        "preferredHeight",
+        "shadingColor",
+        "values",
+        "verticalAlignment"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.TableStyleData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableStyleLoadOptions",
+      "properties": [
+        "alignment",
+        "allowBreakAcrossPage",
+        "bottomCellMargin",
+        "cellSpacing",
+        "leftCellMargin",
+        "rightCellMargin",
+        "topCellMargin"
+      ],
+      "property_count": 7
+    },
+    {
+      "interface_name": "Word.Interfaces.TableStyleUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TableUpdateData",
+      "properties": [
+        "alignment",
+        "font",
+        "headerRowCount",
+        "horizontalAlignment",
+        "shadingColor",
+        "style",
+        "styleBandedColumns",
+        "styleBandedRows",
+        "styleBuiltIn",
+        "styleFirstColumn",
+        "styleLastColumn",
+        "styleTotalRow",
+        "values",
+        "verticalAlignment",
+        "width"
+      ],
+      "property_count": 15
+    },
+    {
+      "interface_name": "Word.Interfaces.TabStopCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TabStopCollectionLoadOptions",
+      "properties": [
+        "alignment",
+        "customTab",
+        "leader",
+        "next",
+        "position",
+        "previous"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.TabStopCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TabStopData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TabStopLoadOptions",
+      "properties": [
+        "alignment",
+        "customTab",
+        "leader",
+        "next",
+        "position",
+        "previous"
+      ],
+      "property_count": 6
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateCollectionLoadOptions",
+      "properties": [
+        "farEastLineBreakLanguage",
+        "farEastLineBreakLevel",
+        "fullName",
+        "hasNoProofing",
+        "justificationMode",
+        "kerningByAlgorithm",
+        "languageId",
+        "languageIdFarEast",
+        "name",
+        "noLineBreakAfter",
+        "noLineBreakBefore",
+        "path",
+        "saved",
+        "type"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateData",
+      "properties": [
+        "farEastLineBreakLanguage",
+        "farEastLineBreakLevel",
+        "fullName",
+        "hasNoProofing",
+        "justificationMode",
+        "kerningByAlgorithm",
+        "languageId",
+        "languageIdFarEast",
+        "name",
+        "noLineBreakAfter",
+        "noLineBreakBefore",
+        "path",
+        "saved",
+        "type"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateLoadOptions",
+      "properties": [
+        "farEastLineBreakLanguage",
+        "farEastLineBreakLevel",
+        "fullName",
+        "hasNoProofing",
+        "justificationMode",
+        "kerningByAlgorithm",
+        "languageId",
+        "languageIdFarEast",
+        "name",
+        "noLineBreakAfter",
+        "noLineBreakBefore",
+        "path",
+        "saved",
+        "type"
+      ],
+      "property_count": 14
+    },
+    {
+      "interface_name": "Word.Interfaces.TemplateUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnData",
+      "properties": [
+        "spaceAfter",
+        "width"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnLoadOptions",
+      "properties": [
+        "spaceAfter",
+        "width"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.Interfaces.TextColumnUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextFrameData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextFrameLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TextFrameUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ThreeDimensionalFormatData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ThreeDimensionalFormatLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ThreeDimensionalFormatUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TrackedChangeCollectionData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TrackedChangeCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.TrackedChangeCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.TrackedChangeData",
+      "properties": [
+        "author",
+        "date",
+        "text",
+        "type"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.Interfaces.TrackedChangeLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ViewData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.ViewLoadOptions",
+      "properties": [
+        "areAllNonprintingCharactersDisplayed",
+        "areBackgroundsDisplayed",
+        "areBookmarksIndicated",
+        "areCommentsDisplayed",
+        "areConnectingLinesToRevisionsBalloonDisplayed",
+        "areCropMarksDisplayed",
+        "areDrawingsDisplayed",
+        "areEditableRangesShaded",
+        "areFieldCodesDisplayed",
+        "areFormatChangesDisplayed",
+        "areInkAnnotationsDisplayed",
+        "areInsertionsAndDeletionsDisplayed",
+        "areLinesWrappedToWindow",
+        "areObjectAnchorsDisplayed",
+        "areOptionalBreaksDisplayed",
+        "areOptionalHyphensDisplayed",
+        "areOtherAuthorsVisible",
+        "arePageBoundariesDisplayed",
+        "areParagraphsMarksDisplayed",
+        "arePicturePlaceholdersDisplayed",
+        "areRevisionsAndCommentsDisplayed",
+        "areSpacesIndicated",
+        "areTableGridlinesDisplayed",
+        "areTabsDisplayed",
+        "areTextBoundariesDisplayed",
+        "columnWidth",
+        "fieldShading",
+        "isDraft",
+        "isFirstLineOnlyDisplayed",
+        "isFormatDisplayed",
+        "isFullScreen",
+        "isHiddenTextDisplayed",
+        "isHighlightingDisplayed",
+        "isInConflictMode",
+        "isInPanning",
+        "isInReadingLayout",
+        "isMailMergeDataView",
+        "isMainTextLayerVisible",
+        "isPointerShownAsMagnifier",
+        "isReadingLayoutActualView",
+        "isXmlMarkupVisible",
+        "markupMode",
+        "pageColor",
+        "pageMovementType",
+        "readingLayoutTruncateMargins",
+        "revisionsBalloonSide",
+        "revisionsBalloonWidth",
+        "revisionsBalloonWidthType",
+        "revisionsFilter",
+        "seekView",
+        "splitSpecial",
+        "type"
+      ],
+      "property_count": 52
+    },
+    {
+      "interface_name": "Word.Interfaces.ViewUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowCollectionData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowCollectionLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowCollectionUpdateData",
+      "properties": [
+        "items"
+      ],
+      "property_count": 1
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowLoadOptions",
+      "properties": [
+        "areRulersDisplayed",
+        "areScreenTipsDisplayed",
+        "areThumbnailsDisplayed",
+        "caption",
+        "height",
+        "horizontalPercentScrolled",
+        "imemode",
+        "index",
+        "isActive",
+        "isDocumentMapVisible",
+        "isEnvelopeVisible",
+        "isHorizontalScrollBarDisplayed",
+        "isLeftScrollBarDisplayed",
+        "isRightRulerDisplayed",
+        "isSplit",
+        "isVerticalRulerDisplayed",
+        "isVerticalScrollBarDisplayed",
+        "isVisible",
+        "left",
+        "next",
+        "previous",
+        "showSourceDocuments",
+        "splitVertical",
+        "styleAreaWidth",
+        "top",
+        "type",
+        "usableHeight",
+        "usableWidth",
+        "verticalPercentScrolled",
+        "view",
+        "width",
+        "windowNumber",
+        "windowState"
+      ],
+      "property_count": 33
+    },
+    {
+      "interface_name": "Word.Interfaces.WindowUpdateData",
+      "properties": [
+        "areRulersDisplayed",
+        "areThumbnailsDisplayed",
+        "caption",
+        "horizontalPercentScrolled",
+        "imemode",
+        "isDocumentMapVisible",
+        "isEnvelopeVisible",
+        "isHorizontalScrollBarDisplayed",
+        "isLeftScrollBarDisplayed",
+        "isRightRulerDisplayed",
+        "isSplit",
+        "isVerticalRulerDisplayed",
+        "isVerticalScrollBarDisplayed",
+        "isVisible",
+        "next",
+        "previous",
+        "showSourceDocuments",
+        "splitVertical",
+        "styleAreaWidth",
+        "verticalPercentScrolled",
+        "windowState"
+      ],
+      "property_count": 21
+    },
+    {
+      "interface_name": "Word.Interfaces.XmlMappingData",
+      "properties": [
+        "customXmlNode",
+        "customXmlPart",
+        "isMapped",
+        "prefixMappings",
+        "xpath"
+      ],
+      "property_count": 5
+    },
+    {
+      "interface_name": "Word.Interfaces.XmlMappingLoadOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.Interfaces.XmlMappingUpdateData",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ListFormatCountNumberedItemsOptions",
+      "properties": [
+        "level",
+        "numberType"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.ListTemplateApplyOptions",
+      "properties": [
+        "applyLevel",
+        "applyTo",
+        "continuePreviousList",
+        "defaultListBehavior"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.ParagraphAddedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ParagraphChangedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.ParagraphDeletedEventArgs",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.TabStopAddOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.TextColumnAddOptions",
+      "properties": [
+        "isEvenlySpaced",
+        "spacing",
+        "width"
+      ],
+      "property_count": 3
+    },
+    {
+      "interface_name": "Word.WindowCloseOptions",
+      "properties": [
+        "routeDocument",
+        "saveChanges"
+      ],
+      "property_count": 2
+    },
+    {
+      "interface_name": "Word.WindowPageScrollOptions",
+      "properties": [],
+      "property_count": 0
+    },
+    {
+      "interface_name": "Word.WindowScrollOptions",
+      "properties": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "property_count": 4
+    },
+    {
+      "interface_name": "Word.XmlSetMappingOptions",
+      "properties": [
+        "prefixMapping",
+        "source"
+      ],
+      "property_count": 2
+    }
+  ],
+  "missing_files": []
+}
