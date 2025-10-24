@@ -1,0 +1,590 @@
+{
+  "class": {
+    "name": "ThreeDimensionalFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a shape's three-dimensional formatting.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "bevelBottomDepth",
+      "type": "number",
+      "description": "Specifies the depth of the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bevelBottomInset",
+      "type": "number",
+      "description": "Specifies the inset size for the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bevelBottomType",
+      "type": "Word.BevelType | \"mixed\" | \"none\" | \"relaxedInset\" | \"circle\" | \"slope\" | \"cross\" | \"angle\" | \"softRound\" | \"convex\" | \"coolSlant\" | \"divot\" | \"riblet\" | \"hardEdge\" | \"artDeco\"",
+      "description": "Specifies a BevelType value that represents the bevel type for the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bevelTopDepth",
+      "type": "number",
+      "description": "Specifies the depth of the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bevelTopInset",
+      "type": "number",
+      "description": "Specifies the inset size for the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bevelTopType",
+      "type": "Word.BevelType | \"mixed\" | \"none\" | \"relaxedInset\" | \"circle\" | \"slope\" | \"cross\" | \"angle\" | \"softRound\" | \"convex\" | \"coolSlant\" | \"divot\" | \"riblet\" | \"hardEdge\" | \"artDeco\"",
+      "description": "Specifies a BevelType value that represents the bevel type for the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "contourColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents color of the contour of a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "contourWidth",
+      "type": "number",
+      "description": "Specifies the width of the contour of a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "depth",
+      "type": "number",
+      "description": "Specifies the depth of the shape's extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "extrusionColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents the color of the shape's extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "extrusionColorType",
+      "type": "Word.ExtrusionColorType | \"mixed\" | \"automatic\" | \"custom\"",
+      "description": "Specifies whether the extrusion color is based on the extruded shape's fill (the front face of the extrusion) and automatically changes when the shape's fill changes, or whether the extrusion color is independent of the shape's fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "fieldOfView",
+      "type": "number",
+      "description": "Specifies the amount of perspective for a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isPerspective",
+      "type": "boolean",
+      "description": "Specifies true if the extrusion appears in perspective — that is, if the walls of the extrusion narrow toward a vanishing point, false if the extrusion is a parallel, or orthographic, projection — that is, if the walls don't narrow toward a vanishing point.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "description": "Specifies if the specified object, or the formatting applied to it, is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "lightAngle",
+      "type": "number",
+      "description": "Specifies the angle of the lighting.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetCamera",
+      "type": "Word.PresetCamera | \"Mixed\" | \"LegacyObliqueTopLeft\" | \"LegacyObliqueTop\" | \"LegacyObliqueTopRight\" | \"LegacyObliqueLeft\" | \"LegacyObliqueFront\" | \"LegacyObliqueRight\" | \"LegacyObliqueBottomLeft\" | \"LegacyObliqueBottom\" | \"LegacyObliqueBottomRight\" | \"LegacyPerspectiveTopLeft\" | \"LegacyPerspectiveTop\" | \"LegacyPerspectiveTopRight\" | \"LegacyPerspectiveLeft\" | \"LegacyPerspectiveFront\" | \"LegacyPerspectiveRight\" | \"LegacyPerspectiveBottomLeft\" | \"LegacyPerspectiveBottom\" | \"LegacyPerspectiveBottomRight\" | \"OrthographicFront\" | \"IsometricTopUp\" | \"IsometricTopDown\" | \"IsometricBottomUp\" | \"IsometricBottomDown\" | \"IsometricLeftUp\" | \"IsometricLeftDown\" | \"IsometricRightUp\" | \"IsometricRightDown\" | \"IsometricOffAxis1Left\" | \"IsometricOffAxis1Right\" | \"IsometricOffAxis1Top\" | \"IsometricOffAxis2Left\" | \"IsometricOffAxis2Right\" | \"IsometricOffAxis2Top\" | \"IsometricOffAxis3Left\" | \"IsometricOffAxis3Right\" | \"IsometricOffAxis3Bottom\" | \"IsometricOffAxis4Left\" | \"IsometricOffAxis4Right\" | \"IsometricOffAxis4Bottom\" | \"ObliqueTopLeft\" | \"ObliqueTop\" | \"ObliqueTopRight\" | \"ObliqueLeft\" | \"ObliqueRight\" | \"ObliqueBottomLeft\" | \"ObliqueBottom\" | \"ObliqueBottomRight\" | \"PerspectiveFront\" | \"PerspectiveLeft\" | \"PerspectiveRight\" | \"PerspectiveAbove\" | \"PerspectiveBelow\" | \"PerspectiveAboveLeftFacing\" | \"PerspectiveAboveRightFacing\" | \"PerspectiveContrastingLeftFacing\" | \"PerspectiveContrastingRightFacing\" | \"PerspectiveHeroicLeftFacing\" | \"PerspectiveHeroicRightFacing\" | \"PerspectiveHeroicExtremeLeftFacing\" | \"PerspectiveHeroicExtremeRightFacing\" | \"PerspectiveRelaxed\" | \"PerspectiveRelaxedModerately\"",
+      "description": "Returns a PresetCamera value that represents the camera presets.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetExtrusionDirection",
+      "type": "Word.PresetExtrusionDirection | \"Mixed\" | \"BottomRight\" | \"Bottom\" | \"BottomLeft\" | \"Right\" | \"None\" | \"Left\" | \"TopRight\" | \"Top\" | \"TopLeft\"",
+      "description": "Returns the direction taken by the extrusion's sweep path leading away from the extruded shape (the front face of the extrusion).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetLighting",
+      "type": "Word.LightRigType | \"Mixed\" | \"LegacyFlat1\" | \"LegacyFlat2\" | \"LegacyFlat3\" | \"LegacyFlat4\" | \"LegacyNormal1\" | \"LegacyNormal2\" | \"LegacyNormal3\" | \"LegacyNormal4\" | \"LegacyHarsh1\" | \"LegacyHarsh2\" | \"LegacyHarsh3\" | \"LegacyHarsh4\" | \"ThreePoint\" | \"Balanced\" | \"Soft\" | \"Harsh\" | \"Flood\" | \"Contrasting\" | \"Morning\" | \"Sunrise\" | \"Sunset\" | \"Chilly\" | \"Freezing\" | \"Flat\" | \"TwoPoint\" | \"Glow\" | \"BrightRoom\"",
+      "description": "Specifies a LightRigType value that represents the lighting preset.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetLightingDirection",
+      "type": "Word.PresetLightingDirection | \"Mixed\" | \"TopLeft\" | \"Top\" | \"TopRight\" | \"Left\" | \"None\" | \"Right\" | \"BottomLeft\" | \"Bottom\" | \"BottomRight\"",
+      "description": "Specifies the position of the light source relative to the extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetLightingSoftness",
+      "type": "Word.PresetLightingSoftness | \"Mixed\" | \"Dim\" | \"Normal\" | \"Bright\"",
+      "description": "Specifies the intensity of the extrusion lighting.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetMaterial",
+      "type": "Word.PresetMaterial | \"Mixed\" | \"Matte\" | \"Plastic\" | \"Metal\" | \"WireFrame\" | \"Matte2\" | \"Plastic2\" | \"Metal2\" | \"WarmMatte\" | \"TranslucentPowder\" | \"Powder\" | \"DarkEdge\" | \"SoftEdge\" | \"Clear\" | \"Flat\" | \"SoftMetal\"",
+      "description": "Specifies the extrusion surface material.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetThreeDimensionalFormat",
+      "type": "Word.PresetThreeDimensionalFormat | \"Mixed\" | \"Format1\" | \"Format2\" | \"Format3\" | \"Format4\" | \"Format5\" | \"Format6\" | \"Format7\" | \"Format8\" | \"Format9\" | \"Format10\" | \"Format11\" | \"Format12\" | \"Format13\" | \"Format14\" | \"Format15\" | \"Format16\" | \"Format17\" | \"Format18\" | \"Format19\" | \"Format20\"",
+      "description": "Returns the preset extrusion format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "projectText",
+      "type": "boolean",
+      "description": "Specifies whether text on a shape rotates with shape. true rotates the text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "rotationX",
+      "type": "number",
+      "description": "Specifies the rotation of the extruded shape around the x-axis in degrees.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "rotationY",
+      "type": "number",
+      "description": "Specifies the rotation of the extruded shape around the y-axis in degrees.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "rotationZ",
+      "type": "number",
+      "description": "Specifies the z-axis rotation of the camera.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "z",
+      "type": "number",
+      "description": "Specifies the position on the z-axis for the shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "incrementRotationHorizontal",
+      "kind": "write",
+      "description": "Horizontally rotates a shape on the x-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "incrementRotationVertical",
+      "kind": "write",
+      "description": "Vertically rotates a shape on the y-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "incrementRotationX",
+      "kind": "write",
+      "description": "Changes the rotation around the x-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "incrementRotationY",
+      "kind": "write",
+      "description": "Changes the rotation around the y-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "incrementRotationZ",
+      "kind": "write",
+      "description": "Rotates a shape on the z-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ThreeDimensionalFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "resetRotation",
+      "kind": "write",
+      "description": "Resets the extrusion rotation around the x-axis, y-axis, and z-axis to 0.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ThreeDimensionalFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ThreeDimensionalFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setExtrusionDirection",
+      "kind": "write",
+      "description": "Sets the direction of the extrusion's sweep path.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetExtrusionDirection",
+              "type": "Word.PresetExtrusionDirection",
+              "required": true,
+              "description": "The preset direction."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetExtrusionDirection",
+              "type": "\"Mixed\" | \"BottomRight\" | \"Bottom\" | \"BottomLeft\" | \"Right\" | \"None\" | \"Left\" | \"TopRight\" | \"Top\" | \"TopLeft\"",
+              "required": true,
+              "description": "The preset direction."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setPresetCamera",
+      "kind": "write",
+      "description": "Sets the camera preset for the shape. The preset camera type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetCamera",
+              "type": "Word.PresetCamera",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetCamera",
+              "type": "\"Mixed\" | \"LegacyObliqueTopLeft\" | \"LegacyObliqueTop\" | \"LegacyObliqueTopRight\" | \"LegacyObliqueLeft\" | \"LegacyObliqueFront\" | \"LegacyObliqueRight\" | \"LegacyObliqueBottomLeft\" | \"LegacyObliqueBottom\" | \"LegacyObliqueBottomRight\" | \"LegacyPerspectiveTopLeft\" | \"LegacyPerspectiveTop\" | \"LegacyPerspectiveTopRight\" | \"LegacyPerspectiveLeft\" | \"LegacyPerspectiveFront\" | \"LegacyPerspectiveRight\" | \"LegacyPerspectiveBottomLeft\" | \"LegacyPerspectiveBottom\" | \"LegacyPerspectiveBottomRight\" | \"OrthographicFront\" | \"IsometricTopUp\" | \"IsometricTopDown\" | \"IsometricBottomUp\" | \"IsometricBottomDown\" | \"IsometricLeftUp\" | \"IsometricLeftDown\" | \"IsometricRightUp\" | \"IsometricRightDown\" | \"IsometricOffAxis1Left\" | \"IsometricOffAxis1Right\" | \"IsometricOffAxis1Top\" | \"IsometricOffAxis2Left\" | \"IsometricOffAxis2Right\" | \"IsometricOffAxis2Top\" | \"IsometricOffAxis3Left\" | \"IsometricOffAxis3Right\" | \"IsometricOffAxis3Bottom\" | \"IsometricOffAxis4Left\" | \"IsometricOffAxis4Right\" | \"IsometricOffAxis4Bottom\" | \"ObliqueTopLeft\" | \"ObliqueTop\" | \"ObliqueTopRight\" | \"ObliqueLeft\" | \"ObliqueRight\" | \"ObliqueBottomLeft\" | \"ObliqueBottom\" | \"ObliqueBottomRight\" | \"PerspectiveFront\" | \"PerspectiveLeft\" | \"PerspectiveRight\" | \"PerspectiveAbove\" | \"PerspectiveBelow\" | \"PerspectiveAboveLeftFacing\" | \"PerspectiveAboveRightFacing\" | \"PerspectiveContrastingLeftFacing\" | \"PerspectiveContrastingRightFacing\" | \"PerspectiveHeroicLeftFacing\" | \"PerspectiveHeroicRightFacing\" | \"PerspectiveHeroicExtremeLeftFacing\" | \"PerspectiveHeroicExtremeRightFacing\" | \"PerspectiveRelaxed\" | \"PerspectiveRelaxedModerately\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setThreeDimensionalFormat",
+      "kind": "write",
+      "description": "Sets the preset extrusion format. The preset format.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetThreeDimensionalFormat",
+              "type": "Word.PresetThreeDimensionalFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetThreeDimensionalFormat",
+              "type": "\"Mixed\" | \"Format1\" | \"Format2\" | \"Format3\" | \"Format4\" | \"Format5\" | \"Format6\" | \"Format7\" | \"Format8\" | \"Format9\" | \"Format10\" | \"Format11\" | \"Format12\" | \"Format13\" | \"Format14\" | \"Format15\" | \"Format16\" | \"Format17\" | \"Format18\" | \"Format19\" | \"Format20\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.ThreeDimensionalFormat object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ThreeDimensionalFormatData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ThreeDimensionalFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.threedimensionalformat"
+    ]
+  }
+}

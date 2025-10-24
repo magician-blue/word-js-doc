@@ -1,0 +1,194 @@
+{
+  "class": {
+    "name": "Word.CritiqueAnnotation",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.7"
+    },
+    "description": "Represents an annotation wrapper around critique displayed in the document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Gets annotations found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  console.log(\"Annotations found:\");\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    console.log(`ID ${annotation.id} - state '${annotation.state}':`, annotation.critiqueAnnotation.critique);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "critique",
+      "type": "Word.Critique",
+      "description": "Gets the critique that was passed when the annotation was inserted.",
+      "since": "WordApi 1.7",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Gets annotations found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  console.log(\"Annotations found:\");\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    console.log(`ID ${annotation.id} - state '${annotation.state}':`, annotation.critiqueAnnotation.critique);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Gets the range of text that is annotated.",
+      "since": "WordApi 1.7",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "accept",
+      "kind": "write",
+      "description": "Accepts the critique. This will change the annotation state to `accepted`.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Accepts the first annotation found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    if (annotation.state === Word.AnnotationState.created) {\n      console.log(`Accepting ID ${annotation.id}...`);\n      annotation.critiqueAnnotation.accept();\n\n      await context.sync();\n      break;\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CritiqueAnnotationLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CritiqueAnnotation",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CritiqueAnnotation",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CritiqueAnnotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "reject",
+      "kind": "write",
+      "description": "Rejects the critique. This will change the annotation state to `rejected`.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Rejects the last annotation found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  for (let i = annotations.items.length - 1; i >= 0; i--) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    if (annotation.state === Word.AnnotationState.created) {\n      console.log(`Rejecting ID ${annotation.id}...`);\n      annotation.critiqueAnnotation.reject();\n\n      await context.sync();\n      break;\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.CritiqueAnnotation` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CritiqueAnnotationData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CritiqueAnnotationData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member. If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CritiqueAnnotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CritiqueAnnotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

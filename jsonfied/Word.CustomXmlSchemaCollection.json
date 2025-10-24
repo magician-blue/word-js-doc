@@ -1,0 +1,244 @@
+{
+  "class": {
+    "name": "Word.CustomXmlSchemaCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a collection of [Word.CustomXmlSchema](https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlschema) objects attached to a data stream.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "items",
+      "type": "Word.CustomXmlSchema[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "kind": "create",
+      "description": "Adds one or more schemas to the schema collection that can then be added to a stream in the data store and to the schema library.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.CustomXmlAddSchemaOptions",
+              "required": false,
+              "description": "Optional. The options that define the schema to be added."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchema",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "addCollection",
+      "kind": "create",
+      "description": "Adds an existing schema collection to the current schema collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "schemaCollection",
+              "type": "Word.CustomXmlSchemaCollection",
+              "required": true,
+              "description": "The schema collection to add."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Returns a `CustomXmlSchema` object that represents the specified item in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a paragraph object."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchema",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getNamespaceUri",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlSchemaCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.CustomXmlSchemaCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlSchemaCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlSchemaCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "validate",
+      "kind": "read",
+      "description": "Specifies whether the schemas in the schema collection are valid (conforms to the syntactic rules of XML and the rules for a specified vocabulary).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlschemacollection"
+    ]
+  }
+}

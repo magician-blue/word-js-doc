@@ -1,0 +1,267 @@
+{
+  "class": {
+    "name": "Word.Comment",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.4",
+      "status": null
+    },
+    "description": "Represents a comment in the document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml\n\n// Sets a comment on the selected content.\nawait Word.run(async (context) => {\n  const text = (document.getElementById(\"comment-text\") as HTMLInputElement).value;\n  const comment: Word.Comment = context.document.getSelection().insertComment(text);\n\n  // Load object to log in the console.\n  comment.load();\n  await context.sync();\n\n  console.log(\"Comment inserted:\", comment);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "authorEmail",
+      "type": null,
+      "description": "Gets the email of the comment's author.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "authorName",
+      "type": null,
+      "description": "Gets the name of the comment's author.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "content",
+      "type": null,
+      "description": "Specifies the comment's content as plain text.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "contentRange",
+      "type": null,
+      "description": "Specifies the comment's content range.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": null,
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "creationDate",
+      "type": null,
+      "description": "Gets the creation date of the comment.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "id",
+      "type": null,
+      "description": "Gets the ID of the comment.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "replies",
+      "type": null,
+      "description": "Gets the collection of reply objects associated with the comment.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "resolved",
+      "type": null,
+      "description": "Specifies the comment thread's status. Setting to true resolves the comment thread. Getting a value of true means that the comment thread is resolved.",
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the comment and its replies.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the range in the main document where the comment is on.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "reply",
+      "kind": "create",
+      "description": "Adds a new reply to the end of the comment thread.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "replyText",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Comment object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.CommentData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml"
+    ]
+  }
+}

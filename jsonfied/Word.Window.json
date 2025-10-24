@@ -1,0 +1,558 @@
+{
+  "class": {
+    "name": "Word.Window",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Represents the window that displays the document. A window can be split to contain multiple reading panes.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "activePane",
+      "type": "Word.Pane",
+      "description": "Gets the active pane in the window.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the pages enclosing the viewport.\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get pages enclosing the viewport.\n  const pages: Word.PageCollection = activePane.pagesEnclosingViewport;\n  pages.load();\n\n  await context.sync();\n\n  // Log the number of pages.\n  const pageCount = pages.items.length;\n  console.log(`Number of pages enclosing the viewport: ${pageCount}`);\n\n  // Log index info of these pages.\n  const pagesIndexes = [];\n  for (let i = 0; i < pageCount; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areRulersDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether rulers are displayed for the window or pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areScreenTipsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether comments, footnotes, endnotes, and hyperlinks are displayed as tips.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areThumbnailsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether thumbnail images of the pages in a document are displayed along the left side of the Microsoft Word document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "Specifies the caption text for the window that is displayed in the title bar of the document or application window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "Word.RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Specifies the height of the window (in points).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "horizontalPercentScrolled",
+      "type": "number",
+      "description": "Specifies the horizontal scroll position as a percentage of the document width.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "imemode",
+      "type": "Word.ImeMode | \"NoControl\" | \"On\" | \"Off\" | \"Hiragana\" | \"Katakana\" | \"KatakanaHalf\" | \"AlphaFull\" | \"Alpha\" | \"HangulFull\" | \"Hangul\"",
+      "description": "Specifies the default start-up mode for the Japanese Input Method Editor (IME).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "description": "Gets the position of an item in a collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "description": "Specifies whether the window is active.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isDocumentMapVisible",
+      "type": "boolean",
+      "description": "Specifies whether the document map is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isEnvelopeVisible",
+      "type": "boolean",
+      "description": "Specifies whether the email message header is visible in the document window. The default value is False.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isHorizontalScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a horizontal scroll bar is displayed for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isLeftScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether the vertical scroll bar appears on the left side of the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isRightRulerDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether the vertical ruler appears on the right side of the document window in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isSplit",
+      "type": "boolean",
+      "description": "Specifies whether the window is split into multiple panes.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isVerticalRulerDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a vertical ruler is displayed for the window or pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isVerticalScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a vertical scroll bar is displayed for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "description": "Specifies whether the window is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "left",
+      "type": "number",
+      "description": "Specifies the horizontal position of the window, measured in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "next",
+      "type": "Word.Window",
+      "description": "Gets the next document window in the collection of open document windows.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "panes",
+      "type": "Word.PaneCollection",
+      "description": "Gets the collection of panes in the window.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "previous",
+      "type": "Word.Window",
+      "description": "Gets the previous document window in the collection open document windows.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "showSourceDocuments",
+      "type": "Word.ShowSourceDocuments | \"None\" | \"Original\" | \"Revised\" | \"Both\"",
+      "description": "Specifies how Microsoft Word displays source documents after a compare and merge process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "splitVertical",
+      "type": "number",
+      "description": "Specifies the vertical split percentage for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "styleAreaWidth",
+      "type": "number",
+      "description": "Specifies the width of the style area in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "description": "Specifies the vertical position of the document window, in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "type",
+      "type": "Word.WindowType | \"Document\" | \"Template\"",
+      "description": "Gets the window type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "usableHeight",
+      "type": "number",
+      "description": "Gets the height (in points) of the active working area in the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "usableWidth",
+      "type": "number",
+      "description": "Gets the width (in points) of the active working area in the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "verticalPercentScrolled",
+      "type": "number",
+      "description": "Specifies the vertical scroll position as a percentage of the document length.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "view",
+      "type": "Word.View",
+      "description": "Gets the View object that represents the view for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Specifies the width of the document window, in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "windowNumber",
+      "type": "number",
+      "description": "Gets an integer that represents the position of the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "windowState",
+      "type": "Word.WindowState | \"Normal\" | \"Maximize\" | \"Minimize\"",
+      "description": "Specifies the state of the document window or task window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "activate",
+      "kind": null,
+      "description": "Activates the window.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "close",
+      "kind": null,
+      "description": "Closes the window.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowCloseOptions",
+              "required": false,
+              "description": "The options that define whether to save changes before closing and whether to route the document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "largeScroll",
+      "kind": null,
+      "description": "Scrolls the window by the specified number of screens.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowScrollOptions",
+              "required": false,
+              "description": "The options for scrolling the window by the specified number of screens. If no options are specified, the window is scrolled down one screen."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.WindowLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "pageScroll",
+      "kind": null,
+      "description": "Scrolls through the window page by page.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowPageScrollOptions",
+              "required": false,
+              "description": "The options for scrolling through the window page by page."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.WindowUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Window",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setFocus",
+      "kind": null,
+      "description": "Sets the focus of the document window to the body of an email message.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "smallScroll",
+      "kind": null,
+      "description": "Scrolls the window by the specified number of lines. A \"line\" corresponds to the distance scrolled by clicking the scroll arrow on the scroll bar once.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowScrollOptions",
+              "required": false,
+              "description": "The options for scrolling the window by the specified number of lines. If no options are specified, the window is scrolled down by one line."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toggleRibbon",
+      "kind": null,
+      "description": "Shows or hides the ribbon.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Window object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.WindowData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.WindowData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml"
+    ]
+  }
+}

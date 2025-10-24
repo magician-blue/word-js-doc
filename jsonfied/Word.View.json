@@ -1,0 +1,675 @@
+{
+  "class": {
+    "name": "Word.View",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Contains the view attributes (such as show all, field shading, and table gridlines) for a window or pane.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "areAllNonprintingCharactersDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether all nonprinting characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areBackgroundsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether background colors and images are shown when the document is displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areBookmarksIndicated",
+      "type": "boolean",
+      "description": "Gets whether square brackets are displayed at the beginning and end of each bookmark.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areCommentsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays the comments in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areConnectingLinesToRevisionsBalloonDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays connecting lines from the text to the revision and comment balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areCropMarksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether crop marks are shown in the corners of pages to indicate where margins are located.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areDrawingsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether objects created with the drawing tools are displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areEditableRangesShaded",
+      "type": "boolean",
+      "description": "Specifies whether shading is applied to the ranges in the document that users have permission to modify.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areFieldCodesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether field codes are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areFormatChangesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays formatting changes made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areInkAnnotationsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether handwritten ink annotations are shown or hidden.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areInsertionsAndDeletionsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays insertions and deletions made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areLinesWrappedToWindow",
+      "type": "boolean",
+      "description": "Gets whether lines wrap at the right edge of the document window rather than at the right margin or the right column boundary.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areObjectAnchorsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether object anchors are displayed next to items that can be positioned in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areOptionalBreaksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether Microsoft Word displays optional line breaks.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areOptionalHyphensDisplayed",
+      "type": "boolean",
+      "description": "Gets whether optional hyphens are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areOtherAuthorsVisible",
+      "type": "boolean",
+      "description": "Gets whether other authors' presence should be visible in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "arePageBoundariesDisplayed",
+      "type": "boolean",
+      "description": "Gets whether the top and bottom margins and the gray area between pages in the document are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areParagraphsMarksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether paragraph marks are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "arePicturePlaceholdersDisplayed",
+      "type": "boolean",
+      "description": "Gets whether blank boxes are displayed as placeholders for pictures.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areRevisionsAndCommentsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays revisions and comments made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areSpacesIndicated",
+      "type": "boolean",
+      "description": "Gets whether space characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areTableGridlinesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether table gridlines are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areTabsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether tab characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "areTextBoundariesDisplayed",
+      "type": "boolean",
+      "description": "Gets whether dotted lines are displayed around page margins, text columns, objects, and frames in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "columnWidth",
+      "type": "Word.ColumnWidth | \"Narrow\" | \"Default\" | \"Wide\"",
+      "description": "Specifies the column width in Reading mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "fieldShading",
+      "type": "Word.FieldShading | \"Never\" | \"Always\" | \"WhenSelected\"",
+      "description": "Gets on-screen shading for fields.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isDraft",
+      "type": "boolean",
+      "description": "Specifies whether all the text in a window is displayed in the same sans-serif font with minimal formatting to speed up display.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isFirstLineOnlyDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether only the first line of body text is shown in outline view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isFormatDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether character formatting is visible in outline view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isFullScreen",
+      "type": "boolean",
+      "description": "Specifies whether the window is in full-screen view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isHiddenTextDisplayed",
+      "type": "boolean",
+      "description": "Gets whether text formatted as hidden text is displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isHighlightingDisplayed",
+      "type": "boolean",
+      "description": "Gets whether highlight formatting is displayed and printed with the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isInConflictMode",
+      "type": "boolean",
+      "description": "Specifies whether the document is in conflict mode view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isInPanning",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word is in Panning mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isInReadingLayout",
+      "type": "boolean",
+      "description": "Specifies whether the document is being viewed in reading layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isMailMergeDataView",
+      "type": "boolean",
+      "description": "Specifies whether mail merge data is displayed instead of mail merge fields.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isMainTextLayerVisible",
+      "type": "boolean",
+      "description": "Specifies whether the text in the document is visible when the header and footer areas are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isPointerShownAsMagnifier",
+      "type": "boolean",
+      "description": "Specifies whether the pointer is displayed as a magnifying glass in print preview.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isReadingLayoutActualView",
+      "type": "boolean",
+      "description": "Specifies whether pages displayed in reading layout view are displayed using the same layout as printed pages.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isXmlMarkupVisible",
+      "type": "boolean",
+      "description": "Specifies whether XML tags are visible in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "markupMode",
+      "type": "Word.RevisionsMode | \"Balloon\" | \"Inline\" | \"Mixed\"",
+      "description": "Specifies the display mode for tracked changes.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "pageColor",
+      "type": "Word.PageColor | \"None\" | \"Sepia\" | \"Inverse\"",
+      "description": "Specifies the page color in Reading mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "pageMovementType",
+      "type": "Word.PageMovementType | \"Vertical\" | \"SideToSide\"",
+      "description": "Specifies the page movement type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "readingLayoutTruncateMargins",
+      "type": "Word.ReadingLayoutMargin | \"Automatic\" | \"Suppress\" | \"Full\"",
+      "description": "Specifies whether margins are visible or hidden when the document is viewed in Full Screen Reading view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "revisionsBalloonSide",
+      "type": "Word.RevisionsBalloonMargin | \"Left\" | \"Right\"",
+      "description": "Gets whether Word displays revision balloons in the left or right margin in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "revisionsBalloonWidth",
+      "type": "number",
+      "description": "Specifies the width of the revision balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "revisionsBalloonWidthType",
+      "type": "Word.RevisionsBalloonWidthType | \"Percent\" | \"Points\"",
+      "description": "Specifies how Microsoft Word measures the width of revision balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "revisionsFilter",
+      "type": "Word.RevisionsFilter",
+      "description": "Gets the instance of a RevisionsFilter object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "seekView",
+      "type": "Word.SeekView | \"MainDocument\" | \"PrimaryHeader\" | \"FirstPageHeader\" | \"EvenPagesHeader\" | \"PrimaryFooter\" | \"FirstPageFooter\" | \"EvenPagesFooter\" | \"Footnotes\" | \"Endnotes\" | \"CurrentPageHeader\" | \"CurrentPageFooter\"",
+      "description": "Specifies the document element displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "splitSpecial",
+      "type": "Word.SpecialPane | \"None\" | \"PrimaryHeader\" | \"FirstPageHeader\" | \"EvenPagesHeader\" | \"PrimaryFooter\" | \"FirstPageFooter\" | \"EvenPagesFooter\" | \"Footnotes\" | \"Endnotes\" | \"FootnoteContinuationNotice\" | \"FootnoteContinuationSeparator\" | \"FootnoteSeparator\" | \"EndnoteContinuationNotice\" | \"EndnoteContinuationSeparator\" | \"EndnoteSeparator\" | \"Comments\" | \"CurrentPageHeader\" | \"CurrentPageFooter\" | \"Revisions\" | \"RevisionsHoriz\" | \"RevisionsVert\"",
+      "description": "Specifies the active window pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "type",
+      "type": "Word.ViewType | \"Normal\" | \"Outline\" | \"Print\" | \"PrintPreview\" | \"Master\" | \"Web\" | \"Reading\" | \"Conflict\"",
+      "description": "Specifies the view type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "collapseAllHeadings",
+      "kind": "configure",
+      "description": "Collapses all the headings in the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "collapseOutline",
+      "kind": "configure",
+      "description": "Collapses the text under the selection or the specified range by one heading level.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "range",
+              "type": "Word.Range",
+              "required": true,
+              "description": "A Range object that specifies the range to collapse."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "expandAllHeadings",
+      "kind": "configure",
+      "description": "Expands all the headings in the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "expandOutline",
+      "kind": "configure",
+      "description": "Expands the text under the selection by one heading level.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "range",
+              "type": "Word.Range",
+              "required": true,
+              "description": "A Range object that specifies the range to expand."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ViewLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "nextHeaderFooter",
+      "kind": "configure",
+      "description": "Moves to the next header or footer, depending on whether a header or footer is displayed in the view.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "previousHeaderFooter",
+      "kind": "configure",
+      "description": "Moves to the previous header or footer, depending on whether a header or footer is displayed in the view.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ViewUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.View",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "showAllHeadings",
+      "kind": "configure",
+      "description": "Switches between showing all text (headings and body text) and showing only headings.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "showHeading",
+      "kind": "configure",
+      "description": "Shows all headings up to the specified heading level and hides subordinate headings and body text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The heading level to show."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.View object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ViewData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ViewData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.view",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject"
+    ]
+  }
+}

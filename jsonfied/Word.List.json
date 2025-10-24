@@ -1,0 +1,604 @@
+{
+  "class": {
+    "name": "Word.List",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Contains a collection of [Word.Paragraph](/en-us/javascript/api/word/word.paragraph) objects.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/insert-list.yaml\n\n// This example starts a new list with the second paragraph.\nawait Word.run(async (context) => {\n  const paragraphs: Word.ParagraphCollection = context.document.body.paragraphs;\n  paragraphs.load(\"$none\");\n\n  await context.sync();\n\n  // Start new list using the second paragraph.\n  const list: Word.List = paragraphs.items[1].startNewList();\n  list.load(\"$none\");\n\n  await context.sync();\n\n  // To add new items to the list, use Start or End on the insertLocation parameter.\n  list.insertParagraph(\"New list item at the start of the list\", \"Start\");\n  const paragraph: Word.Paragraph = list.insertParagraph(\"New list item at the end of the list (set to list level 5)\", \"End\");\n\n  // Set up list level for the list item.\n  paragraph.listItem.level = 4;\n\n  // To add paragraphs outside the list, use Before or After.\n  list.insertParagraph(\"New paragraph goes after (not part of the list)\", \"After\");\n\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "id",
+      "type": "number",
+      "description": "Gets the list's id.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "levelExistences",
+      "type": "boolean[]",
+      "description": "Checks whether each of the 9 levels exists in the list. A true value indicates the level exists, which means there is at least one list item at that level.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/organize-list.yaml\n\n// Gets information about the first list in the document.\nawait Word.run(async (context) => {\n  const lists: Word.ListCollection = context.document.body.lists;\n  lists.load(\"items\");\n\n  await context.sync();\n\n  if (lists.items.length === 0) {\n    console.warn(\"There are no lists in this document.\");\n    return;\n  }\n  \n  // Get the first list.\n  const list: Word.List = lists.getFirst();\n  list.load(\"levelTypes,levelExistences\");\n\n  await context.sync();\n\n  const levelTypes  = list.levelTypes;\n  console.log(\"Level types of the first list:\");\n  for (let i = 0; i < levelTypes.length; i++) {\n    console.log(`- Level ${i + 1} (index ${i}): ${levelTypes[i]}`);\n  }\n\n  const levelExistences = list.levelExistences;\n  console.log(\"Level existences of the first list:\");\n  for (let i = 0; i < levelExistences.length; i++) {\n    console.log(`- Level ${i + 1} (index ${i}): ${levelExistences[i]}`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "levelTypes",
+      "type": "Word.ListLevelType[]",
+      "description": "Gets all 9 level types in the list. Each type can be 'Bullet', 'Number', or 'Picture'.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/organize-list.yaml\n\n// Gets information about the first list in the document.\nawait Word.run(async (context) => {\n  const lists: Word.ListCollection = context.document.body.lists;\n  lists.load(\"items\");\n\n  await context.sync();\n\n  if (lists.items.length === 0) {\n    console.warn(\"There are no lists in this document.\");\n    return;\n  }\n  \n  // Get the first list.\n  const list: Word.List = lists.getFirst();\n  list.load(\"levelTypes,levelExistences\");\n\n  await context.sync();\n\n  const levelTypes  = list.levelTypes;\n  console.log(\"Level types of the first list:\");\n  for (let i = 0; i < levelTypes.length; i++) {\n    console.log(`- Level ${i + 1} (index ${i}): ${levelTypes[i]}`);\n  }\n\n  const levelExistences = list.levelExistences;\n  console.log(\"Level existences of the first list:\");\n  for (let i = 0; i < levelExistences.length; i++) {\n    console.log(`- Level ${i + 1} (index ${i}): ${levelExistences[i]}`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "paragraphs",
+      "type": "Word.ParagraphCollection",
+      "description": "Gets paragraphs in the list.",
+      "since": "WordApi 1.3",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "getLevelFont",
+      "kind": "read",
+      "description": "Gets the font of the bullet, number, or picture at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            }
+          ],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getLevelParagraphs",
+      "kind": "read",
+      "description": "Gets the paragraphs that occur at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            }
+          ],
+          "returns": {
+            "type": "Word.ParagraphCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getLevelPicture",
+      "kind": "read",
+      "description": "Gets the Base64-encoded string representation of the picture at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getLevelString",
+      "kind": "read",
+      "description": "Gets the bullet, number, or picture at the specified level as a string.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertParagraph",
+      "kind": "create",
+      "description": "Inserts a paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "paragraphText",
+              "type": "string",
+              "required": true,
+              "description": "The paragraph text to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.start | Word.InsertLocation.end | Word.InsertLocation.before | Word.InsertLocation.after | \"Start\" | \"End\" | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Start', 'End', 'Before', or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/insert-list.yaml\n\n// This example starts a new list with the second paragraph.\nawait Word.run(async (context) => {\n  const paragraphs: Word.ParagraphCollection = context.document.body.paragraphs;\n  paragraphs.load(\"$none\");\n\n  await context.sync();\n\n  // Start new list using the second paragraph.\n  const list: Word.List = paragraphs.items[1].startNewList();\n  list.load(\"$none\");\n\n  await context.sync();\n\n  // To add new items to the list, use Start or End on the insertLocation parameter.\n  list.insertParagraph(\"New list item at the start of the list\", \"Start\");\n  const paragraph: Word.Paragraph = list.insertParagraph(\"New list item at the end of the list (set to list level 5)\", \"End\");\n\n  // Set up list level for the list item.\n  paragraph.listItem.level = 4;\n\n  // To add paragraphs outside the list, use Before or After.\n  list.insertParagraph(\"New paragraph goes after (not part of the list)\", \"After\");\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ListLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "resetLevelFont",
+      "kind": "configure",
+      "description": "Resets the font of the bullet, number, or picture at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "resetFontName",
+              "type": "boolean",
+              "required": false,
+              "description": "Indicates whether to reset the font name. Default is false that indicates the font name is kept unchanged."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setLevelAlignment",
+      "kind": "configure",
+      "description": "Sets the alignment of the bullet, number, or picture at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "alignment",
+              "type": "Word.Alignment",
+              "required": true,
+              "description": "The level alignment that must be 'Left', 'Centered', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "alignment",
+              "type": "\"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+              "required": true,
+              "description": "The level alignment that must be 'Left', 'Centered', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setLevelBullet",
+      "kind": "configure",
+      "description": "Sets the bullet format at the specified level in the list. If the bullet is 'Custom', the charCode is required.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "listBullet",
+              "type": "Word.ListBullet",
+              "required": true,
+              "description": "The bullet."
+            },
+            {
+              "name": "charCode",
+              "type": "number",
+              "required": false,
+              "description": "The bullet character's code value. Used only if the bullet is 'Custom'."
+            },
+            {
+              "name": "fontName",
+              "type": "string",
+              "required": false,
+              "description": "The bullet's font name. Used only if the bullet is 'Custom'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "listBullet",
+              "type": "\"Custom\" | \"Solid\" | \"Hollow\" | \"Square\" | \"Diamonds\" | \"Arrow\" | \"Checkmark\"",
+              "required": true,
+              "description": "The bullet."
+            },
+            {
+              "name": "charCode",
+              "type": "number",
+              "required": false,
+              "description": "The bullet character's code value. Used only if the bullet is 'Custom'."
+            },
+            {
+              "name": "fontName",
+              "type": "string",
+              "required": false,
+              "description": "The bullet's font name. Used only if the bullet is 'Custom'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/organize-list.yaml\n\n// Inserts a list starting with the first paragraph then set numbering and bullet types of the list items.\nawait Word.run(async (context) => {\n  const paragraphs: Word.ParagraphCollection = context.document.body.paragraphs;\n  paragraphs.load(\"$none\");\n\n  await context.sync();\n\n  // Use the first paragraph to start a new list.\n  const list: Word.List = paragraphs.items[0].startNewList();\n  list.load(\"$none\");\n\n  await context.sync();\n\n  // To add new items to the list, use Start or End on the insertLocation parameter.\n  list.insertParagraph(\"New list item at the start of the list\", \"Start\");\n  const paragraph: Word.Paragraph = list.insertParagraph(\"New list item at the end of the list (set to list level 5)\", \"End\");\n\n  // Set numbering for list level 1.\n  list.setLevelNumbering(0, Word.ListNumbering.arabic);\n\n  // Set bullet type for list level 5.\n  list.setLevelBullet(4, Word.ListBullet.arrow);\n\n  // Set list level for the last item in this list.\n  paragraph.listItem.level = 4;\n\n  list.load(\"levelTypes\");\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setLevelIndents",
+      "kind": "configure",
+      "description": "Sets the two indents of the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "textIndent",
+              "type": "number",
+              "required": true,
+              "description": "The text indent in points. It is the same as paragraph left indent."
+            },
+            {
+              "name": "bulletNumberPictureIndent",
+              "type": "number",
+              "required": true,
+              "description": "The relative indent, in points, of the bullet, number, or picture. It is the same as paragraph first line indent."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setLevelNumbering",
+      "kind": "configure",
+      "description": "Sets the numbering format at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "listNumbering",
+              "type": "Word.ListNumbering",
+              "required": true,
+              "description": "The ordinal format."
+            },
+            {
+              "name": "formatString",
+              "type": "Array<string | number>",
+              "required": false,
+              "description": "The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of [\"(\", level - 1, \".\", level, \")\"] can define the format of \"(2.c)\", where 2 is the parent's item number and c is this level's item number."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "listNumbering",
+              "type": "\"None\" | \"Arabic\" | \"UpperRoman\" | \"LowerRoman\" | \"UpperLetter\" | \"LowerLetter\"",
+              "required": true,
+              "description": "The ordinal format."
+            },
+            {
+              "name": "formatString",
+              "type": "Array<string | number>",
+              "required": false,
+              "description": "The numbering string format defined as an array of strings and/or integers. Each integer is a level of number type that is higher than or equal to this level. For example, an array of [\"(\", level - 1, \".\", level, \")\"] can define the format of \"(2.c)\", where 2 is the parent's item number and c is this level's item number."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/organize-list.yaml\n\n// Inserts a list starting with the first paragraph then set numbering and bullet types of the list items.\nawait Word.run(async (context) => {\n  const paragraphs: Word.ParagraphCollection = context.document.body.paragraphs;\n  paragraphs.load(\"$none\");\n\n  await context.sync();\n\n  // Use the first paragraph to start a new list.\n  const list: Word.List = paragraphs.items[0].startNewList();\n  list.load(\"$none\");\n\n  await context.sync();\n\n  // To add new items to the list, use Start or End on the insertLocation parameter.\n  list.insertParagraph(\"New list item at the start of the list\", \"Start\");\n  const paragraph: Word.Paragraph = list.insertParagraph(\"New list item at the end of the list (set to list level 5)\", \"End\");\n\n  // Set numbering for list level 1.\n  list.setLevelNumbering(0, Word.ListNumbering.arabic);\n\n  // Set bullet type for list level 5.\n  list.setLevelBullet(4, Word.ListBullet.arrow);\n\n  // Set list level for the last item in this list.\n  paragraph.listItem.level = 4;\n\n  list.load(\"levelTypes\");\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setLevelPicture",
+      "kind": "configure",
+      "description": "Sets the picture at the specified level in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "base64EncodedImage",
+              "type": "string",
+              "required": false,
+              "description": "The Base64-encoded image to be set. If not given, the default picture is set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setLevelStartingNumber",
+      "kind": "configure",
+      "description": "Sets the starting number at the specified level in the list. Default value is 1.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            },
+            {
+              "name": "startingNumber",
+              "type": "number",
+              "required": true,
+              "description": "The number to start with."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.List object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ListData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ListData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.list"
+    ]
+  }
+}

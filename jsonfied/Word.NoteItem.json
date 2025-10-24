@@ -1,0 +1,270 @@
+{
+  "class": {
+    "name": "Word.NoteItem",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.5"
+    },
+    "description": "Represents a footnote or endnote.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the text of the referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/body\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const footnoteBody: Word.Range = footnotes.items[mark].body.getRange();\n  footnoteBody.load(\"text\");\n  await context.sync();\n\n  console.log(`Text of footnote ${referenceNumber}: ${footnoteBody.text}`);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Represents the body object of the note item. It's the portion of the text within the footnote or endnote.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the text of the referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/body\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const footnoteBody: Word.Range = footnotes.items[mark].body.getRange();\n  footnoteBody.load(\"text\");\n  await context.sync();\n\n  console.log(`Text of footnote ${referenceNumber}: ${footnoteBody.text}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "reference",
+      "type": "Word.Range",
+      "description": "Represents a footnote or endnote reference in the main document.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Selects the footnote's reference mark in the document body.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/reference\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const item: Word.NoteItem = footnotes.items[mark];\n  const reference: Word.Range = item.reference;\n  reference.select();\n  await context.sync();\n\n  console.log(`Reference ${referenceNumber} is selected.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.NoteItemType | \"Footnote\" | \"Endnote\"",
+      "description": "Represents the note item type: footnote or endnote.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the referenced note's item type and body type, which are both \"Footnote\".\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const item: Word.NoteItem = footnotes.items[mark];\n  console.log(`Note type of footnote ${referenceNumber}: ${item.type}`);\n\n  item.body.load(\"type\");\n  await context.sync();\n\n  console.log(`Body type of note: ${item.body.type}`);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the note item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Deletes this referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  footnotes.items[mark].delete();\n  await context.sync();\n\n  console.log(\"Footnote deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next note item of the same type. Throws an `ItemNotFound` error if this note item is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Selects the next footnote in the document body.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/reference\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const reference: Word.Range = footnotes.items[mark].getNext().reference;\n  reference.select();\n  console.log(\"Selected is the next footnote: \" + (mark + 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next note item of the same type. If this note item is the last one, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.NoteItemLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.NoteItemUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.NoteItem",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.NoteItem` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.NoteItemData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.NoteItemData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml"
+    ]
+  }
+}

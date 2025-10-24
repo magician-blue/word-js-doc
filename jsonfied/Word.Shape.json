@@ -1,0 +1,533 @@
+{
+  "class": {
+    "name": "Word.Shape",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Represents a shape in the header, footer, or document body. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Sets the properties of the first text box.\n  const firstShapeWithTextBox: Word.Shape = context.document.body.shapes\n    .getByTypes([Word.ShapeType.textBox])\n    .getFirst();\n  firstShapeWithTextBox.top = 115;\n  firstShapeWithTextBox.left = 0;\n  firstShapeWithTextBox.width = 50;\n  firstShapeWithTextBox.height = 50;\n  await context.sync();\n\n  console.log(\"The first text box's properties were updated:\", firstShapeWithTextBox);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "allowOverlap",
+      "type": "boolean",
+      "description": "Specifies whether a given shape can overlap other shapes.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "altTextDescription",
+      "type": "string",
+      "description": "Specifies a string that represents the alternative text associated with the shape.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Represents the body object of the shape. Only applies to text boxes and geometric shapes.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "canvas",
+      "type": "Word.Canvas",
+      "description": "Gets the canvas associated with the shape. An object with its `isNullObject` property set to `true` will be returned if the shape type isn't \"Canvas\". For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "fill",
+      "type": "Word.ShapeFill",
+      "description": "Returns the fill formatting of the shape.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "geometricShapeType",
+      "type": "Word.GeometricShapeType",
+      "description": "The geometric shape type of the shape. It will be null if isn't a geometric shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "The height, in points, of the shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "heightRelative",
+      "type": "number",
+      "description": "The percentage of shape height to vertical relative size, see [Word.RelativeSize](/en-us/javascript/api/word/word.relativesize). For an inline or child shape, it can't be set.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "id",
+      "type": "number",
+      "description": "Gets an integer that represents the shape identifier.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "isChild",
+      "type": "boolean",
+      "description": "Check whether this shape is a child of a group shape or a canvas shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "left",
+      "type": "number",
+      "description": "The distance, in points, from the left side of the shape to the horizontal relative position, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition). For an inline shape, it will return 0 and can't be set. For a child shape in a canvas or group, it's relative to the top left corner.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "leftRelative",
+      "type": "number",
+      "description": "The relative left position as a percentage from the left side of the shape to the horizontal relative position, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition). For an inline or child shape, it will return 0 and can't be set.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "lockAspectRatio",
+      "type": "boolean",
+      "description": "Specifies if the aspect ratio of this shape is locked.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "parentCanvas",
+      "type": "Word.Shape",
+      "description": "Gets the top-level parent canvas shape of this child shape. It will be null if it isn't a child shape of a canvas.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "parentGroup",
+      "type": "Word.Shape",
+      "description": "Gets the top-level parent group shape of this child shape. It will be null if it isn't a child shape of a group.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "relativeHorizontalPosition",
+      "type": "Word.RelativeHorizontalPosition",
+      "description": "The relative horizontal position of the shape. For an inline shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "relativeHorizontalSize",
+      "type": "Word.RelativeHorizontalSize",
+      "description": "The relative horizontal size of the shape. For an inline or child shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "relativeVerticalPosition",
+      "type": "Word.RelativeVerticalPosition",
+      "description": "The relative vertical position of the shape. For an inline shape, it can't be set. For details, see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition).",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "relativeVerticalSize",
+      "type": "Word.RelativeVerticalSize",
+      "description": "The relative vertical size of the shape. For an inline or child shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "rotation",
+      "type": "number",
+      "description": "Specifies the rotation, in degrees, of the shape. Not applicable to Canvas shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "shapeGroup",
+      "type": "Word.ShapeGroup",
+      "description": "Gets the shape group associated with the shape. An object with its isNullObject property set to true will be returned if the shape type isn't \"GroupShape\". For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "textFrame",
+      "type": "Word.TextFrame",
+      "description": "Gets the text frame object of the shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "textWrap",
+      "type": "Word.TextWrap",
+      "description": "Returns the text wrap formatting of the shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "description": "The distance, in points, from the top edge of the shape to the vertical relative position (see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition)). For an inline shape, it will return 0 and can't be set. For a child shape in a canvas or group, it's relative to the top left corner.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "topRelative",
+      "type": "number",
+      "description": "The relative top position as a percentage from the top edge of the shape to the vertical relative position, see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition). For an inline or child shape, it will return 0 and can't be set.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "type",
+      "type": "Word.ShapeType",
+      "description": "Gets the shape type. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "description": "Specifies if the shape is visible. Not applicable to inline shapes.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "The width, in points, of the shape.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "widthRelative",
+      "type": "number",
+      "description": "The percentage of shape width to horizontal relative size, see [Word.RelativeSize](/en-us/javascript/api/word/word.relativesize). For an inline or child shape, it can't be set.",
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the shape and its content.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "string[] | OfficeExtension.LoadOption",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string[]",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ [propertyName: string]: string }",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "moveHorizontally",
+      "kind": null,
+      "description": "Moves the shape horizontally by the number of points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "distance",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "moveVertically",
+      "kind": null,
+      "description": "Moves the shape vertically by the number of points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "distance",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "scaleHeight",
+      "kind": null,
+      "description": "Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "scaleFactor",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleType",
+              "type": "Word.ShapeScaleType",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleFrom",
+              "type": "Word.ShapeScaleFrom",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "scaleWidth",
+      "kind": null,
+      "description": "Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "scaleFactor",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleType",
+              "type": "Word.ShapeScaleType",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleFrom",
+              "type": "Word.ShapeScaleFrom",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the shape.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectMultipleShapes",
+              "type": "boolean",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Interfaces.ShapeUpdateData",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": "string[]",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Shape",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Shape object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ShapeData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ShapeData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

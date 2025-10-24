@@ -1,0 +1,236 @@
+{
+  "class": {
+    "name": "Word.ListLevel",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "officeextension.clientobject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.1"
+    },
+    "description": "Represents a list level.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/manage-list-styles.yaml\n\n// Gets the properties of the specified style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to get properties.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load(\"type\");\n  await context.sync();\n\n  if (style.isNullObject || style.type != Word.StyleType.list) {\n    console.warn(`There's no existing style with the name '${styleName}'. Or this isn't a list style.`);\n  } else {\n    // Load objects to log properties and their values in the console.\n    style.load();\n    style.listTemplate.load();\n    await context.sync();\n\n    console.log(`Properties of the '${styleName}' style:`, style);\n\n    const listLevels = style.listTemplate.listLevels;\n    listLevels.load(\"items\");\n    await context.sync();\n\n    console.log(`List levels of the '${styleName}' style:`, listLevels);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": null,
+      "description": "Specifies the horizontal alignment of the list level. The value can be 'Left', 'Centered', or 'Right'.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": null,
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "font",
+      "type": null,
+      "description": "Gets a Font object that represents the character formatting of the specified object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "linkedStyle",
+      "type": null,
+      "description": "Specifies the name of the style that's linked to the specified list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "numberFormat",
+      "type": null,
+      "description": "Specifies the number format for the specified list level.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "numberPosition",
+      "type": null,
+      "description": "Specifies the position (in points) of the number or bullet for the specified list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "numberStyle",
+      "type": null,
+      "description": "Specifies the number style for the list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "resetOnHigher",
+      "type": null,
+      "description": "Specifies the list level that must appear before the specified list level restarts numbering at 1.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "startAt",
+      "type": null,
+      "description": "Specifies the starting number for the specified list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "tabPosition",
+      "type": null,
+      "description": "Specifies the tab position for the specified list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "textPosition",
+      "type": null,
+      "description": "Specifies the position (in points) for the second line of wrapping text for the specified list level object.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "trailingCharacter",
+      "type": null,
+      "description": "Specifies the character inserted after the number for the specified list level.",
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.ListLevel object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ListLevelData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the par",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.listlevel"
+    ]
+  }
+}

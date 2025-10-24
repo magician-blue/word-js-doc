@@ -1,0 +1,524 @@
+{
+  "class": {
+    "name": "Word.ListFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the list formatting characteristics of a range.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isSingleList",
+      "type": "boolean",
+      "description": "Indicates whether the `ListFormat` object contains a single list.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isSingleListTemplate",
+      "type": "boolean",
+      "description": "Indicates whether the `ListFormat` object contains a single list template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "list",
+      "type": "Word.List",
+      "description": "Returns a `List` object that represents the first formatted list contained in the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "listLevelNumber",
+      "type": "number",
+      "description": "Specifies the list level number for the first paragraph for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "listString",
+      "type": "string",
+      "description": "Gets the string representation of the list value of the first paragraph in the range for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "listTemplate",
+      "type": "Word.ListTemplate",
+      "description": "Gets the list template associated with the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "listType",
+      "type": "Word.ListType | \"ListNoNumbering\" | \"ListListNumOnly\" | \"ListBullet\" | \"ListSimpleNumbering\" | \"ListOutlineNumbering\" | \"ListMixedNumbering\" | \"ListPictureBullet\"",
+      "description": "Gets the type of the list for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "listValue",
+      "type": "number",
+      "description": "Gets the numeric value of the the first paragraph in the range for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "applyBulletDefault",
+      "kind": "configure",
+      "description": "Adds bullets and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior. Default is `DefaultListBehavior.word97`."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior. Default is `DefaultListBehavior.word97`."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "applyListTemplateWithLevel",
+      "kind": "configure",
+      "description": "Applies a list template with a specific level to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listTemplate",
+              "type": "Word.ListTemplate",
+              "required": true,
+              "description": "The list template to apply."
+            },
+            {
+              "name": "options",
+              "type": "Word.ListTemplateApplyOptions",
+              "required": false,
+              "description": "Optional. Options for applying the list template, such as whether to continue the previous list or which part of the list to apply the template to."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "applyNumberDefault",
+      "kind": "configure",
+      "description": "Adds numbering and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "applyOutlineNumberDefault",
+      "kind": "configure",
+      "description": "Adds outline numbering and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "canContinuePreviousList",
+      "kind": "read",
+      "description": "Determines whether the `ListFormat` object can continue a previous list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listTemplate",
+              "type": "Word.ListTemplate",
+              "required": true,
+              "description": "The list template to check."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<Word.Continue>",
+            "description": "A `Continue` value indicating whether continuation is possible."
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "convertNumbersToText",
+      "kind": "configure",
+      "description": "Converts numbers in the list to plain text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "Word.NumberType",
+              "required": false,
+              "description": "Optional. The type of number to convert."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "\"Paragraph\" | \"ListNum\" | \"AllNumbers\"",
+              "required": false,
+              "description": "Optional. The type of number to convert."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "countNumberedItems",
+      "kind": "read",
+      "description": "Counts the numbered items in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ListFormatCountNumberedItemsOptions",
+              "required": false,
+              "description": "Optional. Options for counting numbered items, such as the type of number and the level to count."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": "The number of items."
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "listIndent",
+      "kind": "configure",
+      "description": "Indents the list by one level.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "listOutdent",
+      "kind": "configure",
+      "description": "Outdents the list by one level.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ListFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "removeNumbers",
+      "kind": "configure",
+      "description": "Removes numbering from the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "Word.NumberType",
+              "required": false,
+              "description": "Optional. The type of number to remove."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "\"Paragraph\" | \"ListNum\" | \"AllNumbers\"",
+              "required": false,
+              "description": "Optional. The type of number to remove."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ListFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ListFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.ListFormat` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListFormatData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ListFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.list",
+      "/en-us/javascript/api/word/word.listtemplate",
+      "/en-us/javascript/api/word/word.listtype",
+      "/en-us/javascript/api/word/word.defaultlistbehavior",
+      "/en-us/javascript/api/word/word.listtemplateapplyoptions",
+      "/en-us/javascript/api/word/word.numbertype",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.continue",
+      "/en-us/javascript/api/word/word.listformatcountnumbereditemsoptions",
+      "/en-us/javascript/api/word/word.interfaces.listformatloadoptions",
+      "/en-us/javascript/api/word/word.listformat",
+      "/en-us/javascript/api/word/word.interfaces.listformatupdatedata",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.interfaces.listformatdata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext"
+    ]
+  }
+}

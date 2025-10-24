@@ -1,0 +1,359 @@
+{
+  "class": {
+    "name": "DatePickerContentControl",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the DatePickerContentControl object.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "appearance",
+      "type": "Word.ContentControlAppearance | \"BoundingBox\" | \"Tags\" | \"Hidden\"",
+      "description": "Specifies the appearance of the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Specifies the red-green-blue (RGB) value of the color of the content control. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "dateCalendarType",
+      "type": "Word.CalendarType | \"Western\" | \"Arabic\" | \"Hebrew\" | \"Taiwan\" | \"Japan\" | \"Thai\" | \"Korean\" | \"SakaEra\" | \"TranslitEnglish\" | \"TranslitFrench\" | \"Umalqura\"",
+      "description": "Specifies a CalendarType value that represents the calendar type for the date picker content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "dateDisplayFormat",
+      "type": "string",
+      "description": "Specifies the format in which dates are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "dateDisplayLocale",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies a LanguageId that represents the language format for the date displayed in the date picker content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "dateStorageFormat",
+      "type": "Word.ContentControlDateStorageFormat | \"Text\" | \"Date\" | \"DateTime\"",
+      "description": "Specifies a ContentControlDateStorageFormat value that represents the format for storage and retrieval of dates when the date picker content control is bound to the XML data store of the active document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Gets the identification for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isTemporary",
+      "type": "boolean",
+      "description": "Specifies whether to remove the content control from the active document when the user edits the contents of the control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "level",
+      "type": "Word.ContentControlLevel | \"Inline\" | \"Paragraph\" | \"Row\" | \"Cell\"",
+      "description": "Specifies the level of the content controlâwhether the content control surrounds text, paragraphs, table cells, or table rows; or if it is inline.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "lockContentControl",
+      "type": "boolean",
+      "description": "Specifies if the content control is locked (can't be deleted). true means that the user can't delete it from the active document, false means it can be deleted.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "lockContents",
+      "type": "boolean",
+      "description": "Specifies if the contents of the content control are locked (not editable). true means the user can't edit the contents, false means the contents are editable.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "placeholderText",
+      "type": "Word.BuildingBlock",
+      "description": "Returns a BuildingBlock object that represents the placeholder text for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Gets a Range object that represents the contents of the content control in the active document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "showingPlaceholderText",
+      "type": "boolean",
+      "description": "Gets whether the placeholder text for the content control is being displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Specifies a tag to identify the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Specifies the title for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "xmlMapping",
+      "type": "Word.XmlMapping",
+      "description": "Gets an XmlMapping object that represents the mapping of the content control to XML data in the data store of the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "copy",
+      "kind": null,
+      "description": "Copies the content control from the active document to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "cut",
+      "kind": null,
+      "description": "Removes the content control from the active document and moves the content control to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes this content control and the contents of the content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "deleteContents",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. If true, deletes the contents as well."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DatePickerContentControlLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.DatePickerContentControlUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.DatePickerContentControl",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setPlaceholderText",
+      "kind": "write",
+      "description": "Sets the placeholder text that displays in the content control until a user enters their own text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlPlaceholderOptions",
+              "required": false,
+              "description": "Optional. The options for configuring the content control's placeholder text."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.DatePickerContentControl object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.DatePickerContentControlData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DatePickerContentControlData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": []
+  }
+}

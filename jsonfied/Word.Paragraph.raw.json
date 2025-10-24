@@ -1,0 +1,828 @@
+{
+  "class": {
+    "name": "Word.Paragraph",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.1"
+    },
+    "description": "Represents a single paragraph in a selection, range, content control, or document body.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "await Word.run(async (context) => {\n  // The collection of paragraphs of the current selection returns the full paragraphs contained in it.\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  paragraph.load(\"text\");\n\n  await context.sync();\n  console.log(paragraph.text);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": "Word.Alignment | \"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+      "description": "Specifies the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Center last paragraph alignment.\n  context.document.body.paragraphs.getLast().alignment = \"Centered\";\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "borders",
+      "type": "Word.BorderUniversalCollection",
+      "description": "Returns a BorderUniversalCollection object that represents all the borders for the paragraph. Note: Preview API, do not use in production.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "contentControls",
+      "type": "Word.ContentControlCollection",
+      "description": "Gets the collection of content control objects in the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "endnotes",
+      "type": "Word.NoteItemCollection",
+      "description": "Gets the collection of endnotes in the paragraph.",
+      "since": "WordApi 1.5",
+      "examples": []
+    },
+    {
+      "name": "fields",
+      "type": "Word.FieldCollection",
+      "description": "Gets the collection of fields in the paragraph.",
+      "since": "WordApi 1.4",
+      "examples": []
+    },
+    {
+      "name": "firstLineIndent",
+      "type": "number",
+      "description": "Specifies the value, in points, for a first line or hanging indent. Use a positive value to set a first-line indent, and use a negative value to set a hanging indent.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "font",
+      "type": "Word.Font",
+      "description": "Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "footnotes",
+      "type": "Word.NoteItemCollection",
+      "description": "Gets the collection of footnotes in the paragraph.",
+      "since": "WordApi 1.5",
+      "examples": []
+    },
+    {
+      "name": "inlinePictures",
+      "type": "Word.InlinePictureCollection",
+      "description": "Gets the collection of InlinePicture objects in the paragraph. The collection doesn't include floating images.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "isLastParagraph",
+      "type": "boolean",
+      "description": "Indicates the paragraph is the last one inside its parent body.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "isListItem",
+      "type": "boolean",
+      "description": "Checks whether the paragraph is a list item.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "leftIndent",
+      "type": "number",
+      "description": "Specifies the left indent value, in points, for the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Indent the first paragraph.\n  context.document.body.paragraphs.getFirst().leftIndent = 75; //units = points\n\n  return context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineSpacing",
+      "type": "number",
+      "description": "Specifies the line spacing, in points, for the specified paragraph. In the Word UI, this value is divided by 12.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Adjust line spacing.\n  context.document.body.paragraphs.getFirst().lineSpacing = 20;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineUnitAfter",
+      "type": "number",
+      "description": "Specifies the amount of spacing, in grid lines, after the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Set the space (in line units) after the first paragraph.\n  context.document.body.paragraphs.getFirst().lineUnitAfter = 1;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineUnitBefore",
+      "type": "number",
+      "description": "Specifies the amount of spacing, in grid lines, before the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Set the space (in line units) before the first paragraph.\n  context.document.body.paragraphs.getFirst().lineUnitBefore = 1;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "Word.List",
+      "description": "Gets the List to which this paragraph belongs. Throws an ItemNotFound error if the paragraph isn't in a list.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "listItem",
+      "type": "Word.ListItem",
+      "description": "Gets the ListItem for the paragraph. Throws an ItemNotFound error if the paragraph isn't part of a list.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "listItemOrNullObject",
+      "type": "Word.ListItem",
+      "description": "Gets the ListItem for the paragraph. If the paragraph isn't part of a list, this returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "listOrNullObject",
+      "type": "Word.List",
+      "description": "Gets the List to which this paragraph belongs. If the paragraph isn't in a list, this returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "outlineLevel",
+      "type": "number",
+      "description": "Specifies the outline level for the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "parentBody",
+      "type": "Word.Body",
+      "description": "Gets the parent body of the paragraph.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "parentContentControl",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the paragraph. Throws an ItemNotFound error if there isn't a parent content control.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "parentContentControlOrNullObject",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the paragraph. If there isn't a parent content control, this returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "parentTable",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the paragraph. Throws an ItemNotFound error if it isn't contained in a table.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "parentTableCell",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the paragraph. Throws an ItemNotFound error if it isn't contained in a table cell.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "parentTableCellOrNullObject",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the paragraph. If it isn't contained in a table cell, this returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "parentTableOrNullObject",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the paragraph. If it isn't contained in a table, this returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Gets a Range object that represents the portion of the document that's contained within the paragraph. Note: Preview API, do not use in production.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "rightIndent",
+      "type": "number",
+      "description": "Specifies the right indent value, in points, for the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "shading",
+      "type": "Word.ShadingUniversal",
+      "description": "Returns a ShadingUniversal object that refers to the shading formatting for the paragraph. Note: Preview API, do not use in production.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "shapes",
+      "type": "Word.ShapeCollection",
+      "description": "Gets the collection of shape objects anchored in the paragraph, including both inline and floating shapes. Currently supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    },
+    {
+      "name": "spaceAfter",
+      "type": "number",
+      "description": "Specifies the spacing, in points, after the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Set the space (in points) after the first paragraph.\n  context.document.body.paragraphs.getFirst().spaceAfter = 20;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "spaceBefore",
+      "type": "number",
+      "description": "Specifies the spacing, in points, before the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "style",
+      "type": "string",
+      "description": "Specifies the style name for the paragraph. Use this property for custom styles and localized style names. For built-in styles portable between locales, use styleBuiltIn.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Applies the specified style to a paragraph.",
+          "usage_code": "// Applies the specified style to a paragraph.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to apply.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else if (style.type != Word.StyleType.paragraph) {\n    console.log(`The '${styleName}' style isn't a paragraph style.`);\n  } else {\n    const body: Word.Body = context.document.body;\n    body.clear();\n    body.insertParagraph(\n      \"Do you want to create a solution that extends the functionality of Word? You can use the Office Add-ins platform to extend Word clients running on the web, on a Windows desktop, or on a Mac.\",\n      \"Start\"\n    );\n    const paragraph: Word.Paragraph = body.paragraphs.getFirst();\n    paragraph.style = style.nameLocal;\n    console.log(`'${styleName}' style applied to first paragraph.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleBuiltIn",
+      "type": "Word.BuiltInStyleName | \"Other\" | \"Normal\" | \"Heading1\" | \"Heading2\" | \"Heading3\" | \"Heading4\" | \"Heading5\" | \"Heading6\" | \"Heading7\" | \"Heading8\" | \"Heading9\" | \"Toc1\" | \"Toc2\" | \"Toc3\" | \"Toc4\" | \"Toc5\" | \"Toc6\" | \"Toc7\" | \"Toc8\" | \"Toc9\" | \"FootnoteText\" | \"Header\" | \"Footer\" | \"Caption\" | \"FootnoteReference\" | \"EndnoteReference\" | \"EndnoteText\" | \"Title\" | \"Subtitle\" | \"Hyperlink\" | \"Strong\" | \"Emphasis\" | \"NoSpacing\" | \"ListParagraph\" | \"Quote\" | \"IntenseQuote\" | \"SubtleEmphasis\" | \"IntenseEmphasis\" | \"SubtleReference\" | \"IntenseReference\" | \"BookTitle\" | \"Bibliography\" | \"TocHeading\" | \"TableGrid\" | \"PlainTable1\" | \"PlainTable2\" | \"PlainTable3\" | \"PlainTable4\" | \"PlainTable5\" | \"TableGridLight\" | \"GridTable1Light\" | \"GridTable1Light_Accent1\" | \"GridTable1Light_Accent2\" | \"GridTable1Light_Accent3\" | \"GridTable1Light_Accent4\" | \"GridTable1Light_Accent5\" | \"GridTable1Light_Accent6\" | \"GridTable2\" | \"GridTable2_Accent1\" | \"GridTable2_Accent2\" | \"GridTable2_Accent3\" | \"GridTable2_Accent4\" | \"GridTable2_Accent5\" | \"GridTable2_Accent6\" | \"GridTable3\" | \"GridTable3_Accent1\" | \"GridTable3_Accent2\" | \"GridTable3_Accent3\" | \"GridTable3_Accent4\" | \"GridTable3_Accent5\" | \"GridTable3_Accent6\" | \"GridTable4\" | \"GridTable4_Accent1\" | \"GridTable4_Accent2\" | \"GridTable4_Accent3\" | \"GridTable4_Accent4\" | \"GridTable4_Accent5\" | \"GridTable4_Accent6\" | \"GridTable5Dark\" | \"GridTable5Dark_Accent1\" | \"GridTable5Dark_Accent2\" | \"GridTable5Dark_Accent3\" | \"GridTable5Dark_Accent4\" | \"GridTable5Dark_Accent5\" | \"GridTable5Dark_Accent6\" | \"GridTable6Colorful\" | \"GridTable6Colorful_Accent1\" | \"GridTable6Colorful_Accent2\" | \"GridTable6Colorful_Accent3\" | \"GridTable6Colorful_Accent4\" | \"GridTable6Colorful_Accent5\" | \"GridTable6Colorful_Accent6\" | \"GridTable7Colorful\" | \"GridTable7Colorful_Accent1\" | \"GridTable7Colorful_Accent2\" | \"GridTable7Colorful_Accent3\" | \"GridTable7Colorful_Accent4\" | \"GridTable7Colorful_Accent5\" | \"GridTable7Colorful_Accent6\" | \"ListTable1Light\" | \"ListTable1Light_Accent1\" | \"ListTable1Light_Accent2\" | \"ListTable1Light_Accent3\" | \"ListTable1Light_Accent4\" | \"ListTable1Light_Accent5\" | \"ListTable1Light_Accent6\" | \"ListTable2\" | \"ListTable2_Accent1\" | \"ListTable2_Accent2\" | \"ListTable2_Accent3\" | \"ListTable2_Accent4\" | \"ListTable2_Accent5\" | \"ListTable2_Accent6\" | \"ListTable3\" | \"ListTable3_Accent1\" | \"ListTable3_Accent2\" | \"ListTable3_Accent3\" | \"ListTable3_Accent4\" | \"ListTable3_Accent5\" | \"ListTable3_Accent6\" | \"ListTable4\" | \"ListTable4_Accent1\" | \"ListTable4_Accent2\" | \"ListTable4_Accent3\" | \"ListTable4_Accent4\" | \"ListTable4_Accent5\" | \"ListTable4_Accent6\" | \"ListTable5Dark\" | \"ListTable5Dark_Accent1\" | \"ListTable5Dark_Accent2\" | \"ListTable5Dark_Accent3\" | \"ListTable5Dark_Accent4\" | \"ListTable5Dark_Accent5\" | \"ListTable5Dark_Accent6\" | \"ListTable6Colorful\" | \"ListTable6Colorful_Accent1\" | \"ListTable6Colorful_Accent2\" | \"ListTable6Colorful_Accent3\" | \"ListTable6Colorful_Accent4\" | \"ListTable6Colorful_Accent5\" | \"ListTable6Colorful_Accent6\" | \"ListTable7Colorful\" | \"ListTable7Colorful_Accent1\" | \"ListTable7Colorful_Accent2\" | \"ListTable7Colorful_Accent3\" | \"ListTable7Colorful_Accent4\" | \"ListTable7Colorful_Accent5\" | \"ListTable7Colorful_Accent6\"",
+      "description": "Specifies the built-in style name for the paragraph. Use for built-in styles portable between locales. For custom or localized style names, use style.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph: Word.Paragraph = context.document.body.insertParagraph(\"Timeline\", \"End\");\n    paragraph.styleBuiltIn = \"Heading2\";\n    const paragraph2: Word.Paragraph = context.document.body.insertParagraph(\"The Services shall commence on July 31, 2015, and shall continue through July 29, 2015.\", \"End\");\n    paragraph2.styleBuiltIn = \"Normal\";\n    const paragraph3: Word.Paragraph = context.document.body.insertParagraph(\"Project Costs by Phase\", \"End\");\n    paragraph3.styleBuiltIn = \"Heading2\";\n    // Note a content control with the title of \"ProjectCosts\" is added. Content will be replaced later.\n    const paragraph4: Word.Paragraph = context.document.body.insertParagraph(\"<Add Project Costs Here>\", \"End\");\n    paragraph4.styleBuiltIn = \"Normal\";\n    paragraph4.font.highlightColor = \"#FFFF00\";\n    const contentControl: Word.ContentControl = paragraph4.insertContentControl();\n    contentControl.title = \"ProjectCosts\";\n    const paragraph5: Word.Paragraph = context.document.body.insertParagraph(\"Project Team\", \"End\");\n    paragraph5.styleBuiltIn = \"Heading2\";\n    paragraph5.font.highlightColor = \"#FFFFFF\";\n    const paragraph6: Word.Paragraph = context.document.body.insertParagraph(\"Terms of Work\", \"End\");\n    paragraph6.styleBuiltIn = \"Heading1\";\n    const paragraph7: Word.Paragraph = context.document.body.insertParagraph(\"Contractor shall provide the Services and Deliverable(s) as follows:\", \"End\");\n    paragraph7.styleBuiltIn = \"Normal\";\n    const paragraph8: Word.Paragraph = context.document.body.insertParagraph(\"Out-of-Pocket Expenses / Invoice Procedures\", \"End\");\n    paragraph8.styleBuiltIn = \"Heading2\";\n    const paragraph9 : Word.Paragraph= context.document.body.insertParagraph(\"Client will be invoiced monthly for the consulting services and T&L expenses. Standard Contractor invoicing is assumed to be acceptable. Invoices are due upon receipt. client will be invoiced all costs associated with out-of-pocket expenses (including, without limitation, costs and expenses associated with meals, lodging, local transportation and any other applicable business expenses) listed on the invoice as a separate line item. Reimbursement for out-of-pocket expenses in connection with performance of this SOW, when authorized and up to the limits set forth in this SOW, shall be in accordance with Client's then-current published policies governing travel and associated business expenses, which information shall be provided by the Client Project Manager.\", \"End\");\n    paragraph9.styleBuiltIn = \"Normal\";\n    // Insert a page break at the end of the document.\n    context.document.body.insertBreak(\"Page\", \"End\");\n\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tableNestingLevel",
+      "type": "number",
+      "description": "Gets the level of the paragraph's table. Returns 0 if the paragraph isn't in a table.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Gets the text of the paragraph.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // The collection of paragraphs of the current selection returns the full paragraphs contained in it.\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  paragraph.load(\"text\");\n\n  await context.sync();\n  console.log(paragraph.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "uniqueLocalId",
+      "type": "string",
+      "description": "Gets a string that represents the paragraph identifier in the current session. ID is 8-4-4-4-12 GUID without braces and differs across sessions and coauthors.",
+      "since": "WordApi 1.6",
+      "examples": [
+        {
+          "description": "Registers event handlers.",
+          "usage_code": "// Registers event handlers.\nawait Word.run(async (context) => {\n  eventContexts[0] = context.document.onParagraphAdded.add(paragraphChanged);\n  eventContexts[1] = context.document.onParagraphChanged.add(paragraphChanged);\n\n  eventContexts[2] = context.document.onAnnotationClicked.add(onClickedHandler);\n  eventContexts[3] = context.document.onAnnotationHovered.add(onHoveredHandler);\n  eventContexts[4] = context.document.onAnnotationInserted.add(onInsertedHandler);\n  eventContexts[5] = context.document.onAnnotationRemoved.add(onRemovedHandler);\n  eventContexts[6] = context.document.onAnnotationPopupAction.add(onPopupActionHandler);\n\n  await context.sync();\n\n  console.log(\"Event handlers registered.\");\n});\n\n...\n\nasync function paragraphChanged(args: Word.ParagraphChangedEventArgs) {\n  await Word.run(async (context) => {\n    const results = [];\n    for (let id of args.uniqueLocalIds) {\n      let para = context.document.getParagraphByUniqueLocalId(id);\n      para.load(\"uniqueLocalId\");\n\n      results.push({ para: para, text: para.getText() });\n    }\n\n    await context.sync();\n\n    for (let result of results) {\n      console.log(`${args.type}: ID ${result.para.uniqueLocalId}:-`, result.text.value);\n    }\n  });\n}",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "attachToList",
+      "kind": "configure",
+      "description": "Lets the paragraph join an existing list at the specified level. Fails if it cannot join or is already a list item.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listId",
+              "type": "number",
+              "required": true,
+              "description": "The ID of an existing list."
+            },
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The level in the list."
+            }
+          ],
+          "returns": {
+            "type": "Word.List",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "clear",
+      "kind": "delete",
+      "description": "Clears the contents of the paragraph object. The user can undo the cleared content.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for all of the paragraphs.\n    paragraphs.load('style');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to clear the contents of the first paragraph.\n    paragraphs.items[0].clear();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Cleared the contents of the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "closeUp",
+      "kind": "configure",
+      "description": "Removes any spacing before the paragraph. Note: Preview API.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the paragraph and its content from the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the text property for all of the paragraphs.\n    paragraphs.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to delete the first paragraph.\n    paragraphs.items[0].delete();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Deleted the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "detachFromList",
+      "kind": "configure",
+      "description": "Moves this paragraph out of its list, if the paragraph is a list item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getAnnotations",
+      "kind": "read",
+      "description": "Gets annotations set on this Paragraph object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.AnnotationCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getComments",
+      "kind": "read",
+      "description": "Gets comments associated with the paragraph.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getContentControls",
+      "kind": "read",
+      "description": "Gets the currently supported content controls in the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlOptions",
+              "required": false,
+              "description": "Options that define which content controls are returned."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getHtml",
+      "kind": "read",
+      "description": "Gets an HTML representation of the paragraph object. Formatting is close but not exact and may vary across platforms; use getOoxml() for fidelity and convert to HTML.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for all of the paragraphs.\n    paragraphs.load('style');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a set of commands to get the HTML of the first paragraph.\n    const html = paragraphs.items[0].getHtml();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Paragraph HTML: ' + html.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next paragraph. Throws ItemNotFound if this paragraph is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next paragraph; if this is last, returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getOoxml",
+      "kind": "read",
+      "description": "Gets the Office Open XML (OOXML) representation of the paragraph object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for the top 2 paragraphs.\n    paragraphs.load({select: 'style', top: 2} );\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a set of commands to get the OOXML of the first paragraph.\n    const ooxml = paragraphs.items[0].getOoxml();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Paragraph OOXML: ' + ooxml.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getPrevious",
+      "kind": "read",
+      "description": "Gets the previous paragraph. Throws ItemNotFound if this paragraph is the first one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getPreviousOrNullObject",
+      "kind": "read",
+      "description": "Gets the previous paragraph; if this is first, returns an object with isNullObject = true. See “OrNullObject methods and properties”.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the text property for all of the paragraphs.\n    paragraphs.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue commands to create a proxy object for the next-to-last paragraph.\n    const indexOfLastParagraph = paragraphs.items.length - 1;\n    const precedingParagraph = paragraphs.items[indexOfLastParagraph].getPreviousOrNullObject();\n\n    // Queue a command to load the text of the preceding paragraph.\n    precedingParagraph.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (precedingParagraph.isNullObject) {\n        console.log('There are no paragraphs before the current one.');\n    } else {\n        console.log('The preceding paragraph is: ' + precedingParagraph.text);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the whole paragraph, or the start/end/after/content of the paragraph, as a range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rangeLocation",
+              "type": "Word.RangeLocation.whole | Word.RangeLocation.start | Word.RangeLocation.end | Word.RangeLocation.after | Word.RangeLocation.content | \"Whole\" | \"Start\" | \"End\" | \"After\" | \"Content\"",
+              "required": false,
+              "description": "The range location must be 'Whole', 'Start', 'End', 'After', or 'Content'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "await Word.run(async (context) => {\n  // Get the complete sentence (as range) associated with the insertion point.\n  const sentences: Word.RangeCollection = context.document\n    .getSelection()\n    .getTextRanges([\".\"] /* Using the \".\" as delimiter */, false /*means without trimming spaces*/);\n  sentences.load(\"$none\");\n  await context.sync();\n\n  // Expand the range to the end of the paragraph to get all the complete sentences.\n  const sentencesToTheEndOfParagraph: Word.RangeCollection = sentences.items[0]\n    .getRange()\n    .expandTo(\n      context.document\n        .getSelection()\n        .paragraphs.getFirst()\n        .getRange(Word.RangeLocation.end)\n    )\n    .getTextRanges([\".\"], false /* Don't trim spaces*/);\n  sentencesToTheEndOfParagraph.load(\"text\");\n  await context.sync();\n\n  for (let i = 0; i < sentencesToTheEndOfParagraph.items.length; i++) {\n    console.log(sentencesToTheEndOfParagraph.items[i].text);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getReviewedText",
+      "kind": "read",
+      "description": "Gets reviewed text based on ChangeTrackingVersion selection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "changeTrackingVersion",
+              "type": "Word.ChangeTrackingVersion",
+              "required": false,
+              "description": "The value must be 'Original' or 'Current'. The default is 'Current'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "changeTrackingVersion",
+              "type": "\"Original\" | \"Current\"",
+              "required": false,
+              "description": "The value must be 'Original' or 'Current'. The default is 'Current'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getText",
+      "kind": "read",
+      "description": "Returns the text of the paragraph (excludes equations, graphics, and special content markers; hidden and deleted text excluded by default).",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.GetTextOptions | {\n            IncludeHiddenText?: boolean;\n            IncludeTextMarkedAsDeleted?: boolean;\n        }",
+              "required": false,
+              "description": "Options that define whether the final result should include hidden text and text marked as deleted."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getTextRanges",
+      "kind": "read",
+      "description": "Gets the text ranges in the paragraph using punctuation and/or other ending marks.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "endingMarks",
+              "type": "string[]",
+              "required": true,
+              "description": "The punctuation marks and/or other ending marks as an array of strings."
+            },
+            {
+              "name": "trimSpacing",
+              "type": "boolean",
+              "required": false,
+              "description": "Whether to trim spacing characters from the start and end of the returned ranges. Default is false."
+            }
+          ],
+          "returns": {
+            "type": "Word.RangeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getTrackedChanges",
+      "kind": "read",
+      "description": "Gets the collection of the TrackedChange objects in the paragraph.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TrackedChangeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "indent",
+      "kind": "configure",
+      "description": "Indents the paragraph by one level. Note: Preview API.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "indentCharacterWidth",
+      "kind": "configure",
+      "description": "Indents the paragraph by a specified number of characters. Note: Preview API.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": "number",
+              "required": true,
+              "description": "The number of characters for the indent."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "indentFirstLineCharacterWidth",
+      "kind": "configure",
+      "description": "Indents the first line by a specified number of characters. Note: Preview API.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": "number",
+              "required": true,
+              "description": "The number of characters for the first line indent."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertAnnotations",
+      "kind": "create",
+      "description": "Inserts annotations on this Paragraph object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "annotations",
+              "type": "Word.AnnotationSet",
+              "required": true,
+              "description": "Annotations to set."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string[]>",
+            "description": "An array of the inserted annotations identifiers."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Adds annotations to the selected paragraph.",
+          "usage_code": "// Adds annotations to the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const options: Word.CritiquePopupOptions = {\n    brandingTextResourceId: \"PG.TabLabel\",\n    subtitleResourceId: \"PG.HelpCommand.TipTitle\",\n    titleResourceId: \"PG.HelpCommand.Label\",\n    suggestions: [\"suggestion 1\", \"suggestion 2\", \"suggestion 3\"]\n  };\n  const critique1: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.red,\n    start: 1,\n    length: 3,\n    popupOptions: options\n  };\n  const critique2: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.green,\n    start: 6,\n    length: 1,\n    popupOptions: options\n  };\n  const critique3: Word.C

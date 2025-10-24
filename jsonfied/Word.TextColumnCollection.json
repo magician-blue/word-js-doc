@@ -1,0 +1,324 @@
+{
+  "class": {
+    "name": "TextColumnCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "A collection of [Word.TextColumn](/en-us/javascript/api/word/word.textcolumn) objects that represent all the columns of text in the document or a section of the document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "items",
+      "type": "Word.TextColumn[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "kind": "create",
+      "description": "Returns a TextColumn object that represents a new text column added to a section or document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.TextColumnAddOptions",
+              "required": false,
+              "description": "Options for configuring the new text column."
+            }
+          ],
+          "returns": {
+            "type": "Word.TextColumn",
+            "description": "A TextColumn object that represents a new text column added to the document."
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getFlowDirection",
+      "kind": "read",
+      "description": "Gets the direction in which text flows from one text column to the next.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<Word.FlowDirection>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getHasLineBetween",
+      "kind": "read",
+      "description": "Gets whether vertical lines appear between all the columns in the TextColumnCollection object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getIsEvenlySpaced",
+      "kind": "read",
+      "description": "Gets whether text columns are evenly spaced.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Gets a TextColumn by its index in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a TextColumn object."
+            }
+          ],
+          "returns": {
+            "type": "Word.TextColumn",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TextColumnCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TextColumnCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TextColumnCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TextColumnCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setCount",
+      "kind": "configure",
+      "description": "Arranges text into the specified number of text columns.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "numColumns",
+              "type": "number",
+              "required": true,
+              "description": "The number of columns the text is to be arranged into."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setFlowDirection",
+      "kind": "configure",
+      "description": "Sets the direction in which text flows from one text column to the next.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "value",
+              "type": "Word.FlowDirection",
+              "required": true,
+              "description": "The flow direction to set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "value",
+              "type": "\"LeftToRight\" | \"RightToLeft\"",
+              "required": true,
+              "description": "The flow direction to set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setHasLineBetween",
+      "kind": "configure",
+      "description": "Sets whether vertical lines appear between all the columns in the TextColumnCollection object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "value",
+              "type": "boolean",
+              "required": true,
+              "description": "true to show vertical lines between columns."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setIsEvenlySpaced",
+      "kind": "configure",
+      "description": "Sets whether text columns are evenly spaced.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "value",
+              "type": "boolean",
+              "required": true,
+              "description": "true to evenly space all the text columns in the document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.TextColumnCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.TextColumnCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TextColumnCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TextColumnCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TextColumnCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word/word.textcolumncollection"
+    ]
+  }
+}

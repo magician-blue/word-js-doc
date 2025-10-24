@@ -1,0 +1,223 @@
+{
+  "class": {
+    "name": "Word.TableStyle",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.6"
+    },
+    "description": "Represents the TableStyle object.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-custom-style.yaml\n\n// Gets the table style properties and displays them in the form.\nconst styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\nif (styleName == \"\") {\n  console.warn(\"Please input a table style name.\");\n  return;\n}\n\nawait Word.run(async (context) => {\n  const tableStyle: Word.TableStyle =\n    context.document.getStyles().getByName(styleName).tableStyle;\n  tableStyle.load();\n  await context.sync();\n\n  if (tableStyle.isNullObject) {\n    console.warn(`There's no existing table style with the name '${styleName}'.`);\n    return;\n  }\n\n  console.log(tableStyle);\n  (document.getElementById(\"alignment\") as HTMLInputElement).value = tableStyle.alignment;\n  (document.getElementById(\"allow-break-across-page\") as HTMLInputElement).value =\n    tableStyle.allowBreakAcrossPage.toString();\n  (document.getElementById(\"top-cell-margin\") as HTMLInputElement).value = tableStyle.topCellMargin;\n  (document.getElementById(\"bottom-cell-margin\") as HTMLInputElement).value = tableStyle.bottomCellMargin;\n  (document.getElementById(\"left-cell-margin\") as HTMLInputElement).value = tableStyle.leftCellMargin;\n  (document.getElementById(\"right-cell-margin\") as HTMLInputElement).value = tableStyle.rightCellMargin;\n  (document.getElementById(\"cell-spacing\") as HTMLInputElement).value = tableStyle.cellSpacing;\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": "Word.Alignment | \"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+      "description": "Specifies the table's alignment against the page margin.",
+      "since": "WordApiDesktop 1.1",
+      "examples": []
+    },
+    {
+      "name": "allowBreakAcrossPage",
+      "type": "boolean",
+      "description": "Specifies whether lines in tables formatted with a specified style break across pages.",
+      "since": "WordApiDesktop 1.1",
+      "examples": []
+    },
+    {
+      "name": "bottomCellMargin",
+      "type": "number",
+      "description": "Specifies the amount of space to add between the contents and the bottom borders of the cells.",
+      "since": "WordApi 1.6",
+      "examples": []
+    },
+    {
+      "name": "cellSpacing",
+      "type": "number",
+      "description": "Specifies the spacing (in points) between the cells in a table style.",
+      "since": "WordApi 1.6",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "leftCellMargin",
+      "type": "number",
+      "description": "Specifies the amount of space to add between the contents and the left borders of the cells.",
+      "since": "WordApi 1.6",
+      "examples": []
+    },
+    {
+      "name": "rightCellMargin",
+      "type": "number",
+      "description": "Specifies the amount of space to add between the contents and the right borders of the cells.",
+      "since": "WordApi 1.6",
+      "examples": []
+    },
+    {
+      "name": "topCellMargin",
+      "type": "number",
+      "description": "Specifies the amount of space to add between the contents and the top borders of the cells.",
+      "since": "WordApi 1.6",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TableStyleLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableStyle",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableStyle",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableStyle",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.TableStyleUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.TableStyle",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.TableStyle object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.TableStyleData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TableStyleData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableStyle",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableStyle",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-custom-style.yaml"
+    ]
+  }
+}

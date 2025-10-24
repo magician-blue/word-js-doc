@@ -1,0 +1,66 @@
+{
+  "class": {
+    "name": "RequestContext",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientRequestContext"
+    ],
+    "api_set": {
+      "name": null,
+      "status": null
+    },
+    "description": "The RequestContext object facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// *.run methods automatically create an OfficeExtension.ClientRequestContext\n// object to work with the Office file.\nawait Word.run(async (context: Word.RequestContext) => {\n  const document = context.document;\n  // Interact with the Word document...\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "application",
+      "type": "Application",
+      "description": null,
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "document",
+      "type": "Document",
+      "description": null,
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "constructor",
+      "kind": "create",
+      "description": "Constructs a new instance of the RequestContext class",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "url",
+              "type": "string",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

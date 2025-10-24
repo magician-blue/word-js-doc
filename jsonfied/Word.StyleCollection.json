@@ -1,0 +1,232 @@
+{
+  "class": {
+    "name": "Word.StyleCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.5",
+      "status": null
+    },
+    "description": "Contains a collection of [Word.Style](https://learn.microsoft.com/en-us/javascript/api/word/word.style) objects.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "items",
+      "type": "Word.Style[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "getByName",
+      "kind": "read",
+      "description": "Get the style object by its name.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The style name."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getByNameOrNullObject",
+      "kind": "read",
+      "description": "If the corresponding style doesn't exist, then this method returns an object with its isNullObject property set to true.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The style name."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Adds a new style.\nawait Word.run(async (context) => {\n  const newStyleName = (document.getElementById(\"new-style-name\") as HTMLInputElement).value;\n  if (newStyleName == \"\") {\n    console.warn(\"Enter a style name to add.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(newStyleName);\n  style.load();\n  await context.sync();\n\n  if (!style.isNullObject) {\n    console.warn(\n      `There's an existing style with the same name '${newStyleName}'! Please provide another style name.`\n    );\n    return;\n  }\n\n  const newStyleType = ((document.getElementById(\"new-style-type\") as HTMLSelectElement).value as unknown) as Word.StyleType;\n  context.document.addStyle(newStyleName, newStyleType);\n  await context.sync();\n\n  console.log(newStyleName + \" has been added to the style list.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Gets the number of the styles in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Gets a style object by its index in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a style object."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.StyleCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.StyleCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.StyleCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.StyleCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.stylecollection"
+    ]
+  }
+}

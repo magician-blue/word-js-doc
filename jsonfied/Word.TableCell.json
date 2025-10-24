@@ -1,0 +1,571 @@
+{
+  "class": {
+    "name": "Word.TableCell",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Represents a table cell in a Word document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the cell.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "cellIndex",
+      "type": "number",
+      "description": "Gets the index of the cell in its row.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "columnWidth",
+      "type": "number",
+      "description": "Specifies the width of the cell's column in points. This is applicable to uniform tables.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "horizontalAlignment",
+      "type": "Word.Alignment | \"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+      "description": "Specifies the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentRow",
+      "type": "Word.TableRow",
+      "description": "Gets the parent row of the cell.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "parentTable",
+      "type": "Word.Table",
+      "description": "Gets the parent table of the cell.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "rowIndex",
+      "type": "number",
+      "description": "Gets the index of the cell's row in the table.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "shadingColor",
+      "type": "string",
+      "description": "Specifies the shading color of the cell. Color is specified in \"#RRGGBB\" format or by using the color name.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Specifies the text of the cell.",
+      "since": "1.3",
+      "examples": []
+    },
+    {
+      "name": "verticalAlignment",
+      "type": "Word.VerticalAlignment | \"Mixed\" | \"Top\" | \"Center\" | \"Bottom\"",
+      "description": "Specifies the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Gets the width of the cell in points.",
+      "since": "1.3",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "deleteColumn",
+      "kind": "delete",
+      "description": "Deletes the column containing this cell. This is applicable to uniform tables.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "deleteRow",
+      "kind": "delete",
+      "description": "Deletes the row containing this cell.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getBorder",
+      "kind": "read",
+      "description": "Gets the border style for the specified border.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": "Word.BorderLocation",
+              "required": true,
+              "description": "The border location."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableBorder",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\" | \"InsideHorizontal\" | \"InsideVertical\" | \"Inside\" | \"Outside\" | \"All\"",
+              "required": true,
+              "description": "The border location."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableBorder",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets border details about the first of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstCell: Word.TableCell = firstTable.getCell(0, 0);\n  const borderLocation = \"Left\";\n  const border: Word.TableBorder = firstCell.getBorder(borderLocation);\n  border.load([\"type\", \"color\", \"width\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the ${borderLocation} border of the first table's first cell:`,\n    `- Color: ${border.color}`,\n    `- Type: ${border.type}`,\n    `- Width: ${border.width} points`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCellPadding",
+      "kind": "read",
+      "description": "Gets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "Word.CellPaddingLocation",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\"",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets cell padding details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstCell: Word.TableCell = firstTable.getCell(0, 0);\n  const cellPaddingLocation = \"Left\";\n  const cellPadding = firstCell.getCellPadding(cellPaddingLocation);\n  await context.sync();\n\n  console.log(\n    `Cell padding details about the ${cellPaddingLocation} border of the first table's first cell: ${cellPadding.value} points`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next cell. Throws an `ItemNotFound` error if this cell is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next cell. If this cell is the last one, returns an object with `isNullObject` set to `true`. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertColumns",
+      "kind": "create",
+      "description": "Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "It must be 'Before' or 'After'."
+            },
+            {
+              "name": "columnCount",
+              "type": "number",
+              "required": true,
+              "description": "Number of columns to add."
+            },
+            {
+              "name": "values",
+              "type": "string[][]",
+              "required": false,
+              "description": "Optional 2D array. Cells are filled if the corresponding strings are specified in the array."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertRows",
+      "kind": "create",
+      "description": "Inserts rows above or below the cell, using the cell's row as a template. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "It must be 'Before' or 'After'."
+            },
+            {
+              "name": "rowCount",
+              "type": "number",
+              "required": true,
+              "description": "Number of rows to add."
+            },
+            {
+              "name": "values",
+              "type": "string[][]",
+              "required": false,
+              "description": "Optional 2D array. Cells are filled if the corresponding strings are specified in the array."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. Call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TableCellLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. Accepts either a plain object with the appropriate properties or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.TableCellUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.TableCell",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setCellPadding",
+      "kind": "write",
+      "description": "Sets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "Word.CellPaddingLocation",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            },
+            {
+              "name": "cellPadding",
+              "type": "number",
+              "required": true,
+              "description": "The cell padding."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\"",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            },
+            {
+              "name": "cellPadding",
+              "type": "number",
+              "required": true,
+              "description": "The cell padding."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "split",
+      "kind": null,
+      "description": "Splits the cell into the specified number of rows and columns.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowCount",
+              "type": "number",
+              "required": true,
+              "description": "The number of rows to split into. Must be a divisor of the number of underlying rows."
+            },
+            {
+              "name": "columnCount",
+              "type": "number",
+              "required": true,
+              "description": "The number of columns to split into."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method to provide more useful output when an API object is passed to `JSON.stringify()`. Returns a plain JavaScript object (typed as `Word.Interfaces.TableCellData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TableCellData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. Shorthand for `context.trackedObjects.add(thisObject)`.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. Shorthand for `context.trackedObjects.remove(thisObject)`. Call `context.sync()` for the release to take effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml",
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties",
+      "/en-us/javascript/api/word/word.body",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.alignment",
+      "/en-us/javascript/api/word/word.tablerow",
+      "/en-us/javascript/api/word/word.table",
+      "/en-us/javascript/api/word/word.verticalalignment",
+      "/en-us/javascript/api/word/word.borderlocation",
+      "/en-us/javascript/api/word/word.tableborder",
+      "/en-us/javascript/api/word/word.cellpaddinglocation",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.tablecell",
+      "/en-us/javascript/api/word/word.interfaces.tablecellloadoptions",
+      "/en-us/javascript/api/word/word.interfaces.tablecellupdatedata",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.tablerowcollection",
+      "/en-us/javascript/api/word/word.interfaces.tablecelldata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member"
+    ]
+  }
+}

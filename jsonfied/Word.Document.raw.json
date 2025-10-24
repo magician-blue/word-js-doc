@@ -1,0 +1,939 @@
+{
+  "class": {
+    "name": "Word.Document",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.1"
+    },
+    "description": "The Document object is the top level object. A Document object contains one or more sections, content controls, and the body that contains the contents of the document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-change-tracking.yaml\n\n// Gets the current change tracking mode.\nawait Word.run(async (context) => {\n  const document: Word.Document = context.document;\n  document.load(\"changeTrackingMode\");\n  await context.sync();\n\n  if (document.changeTrackingMode === Word.ChangeTrackingMode.trackMineOnly) {\n    console.log(\"Only my changes are being tracked.\");\n  } else if (document.changeTrackingMode === Word.ChangeTrackingMode.trackAll) {\n    console.log(\"Everyone's changes are being tracked.\");\n  } else {\n    console.log(\"No changes are being tracked.\");\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "activeWindow",
+      "type": "Word.Window",
+      "description": "Gets the active window for the document.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "attachedTemplate",
+      "type": "Word.Template",
+      "description": "Specifies a Template object that represents the template attached to the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "autoHyphenation",
+      "type": "boolean",
+      "description": "Specifies if automatic hyphenation is turned on for the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "autoSaveOn",
+      "type": "boolean",
+      "description": "Specifies if the edits in the document are automatically saved.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "bibliography",
+      "type": "Word.Bibliography",
+      "description": "Returns a Bibliography object that represents the bibliography references contained within the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the main document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "bookmarks",
+      "type": "Word.BookmarkCollection",
+      "description": "Returns a BookmarkCollection object that represents all the bookmarks in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "changeTrackingMode",
+      "type": "Word.ChangeTrackingMode | \"Off\" | \"TrackAll\" | \"TrackMineOnly\"",
+      "description": "Specifies the ChangeTracking mode.",
+      "since": "WordApi 1.4",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-change-tracking.yaml\n\n// Gets the current change tracking mode.\nawait Word.run(async (context) => {\n  const document: Word.Document = context.document;\n  document.load(\"changeTrackingMode\");\n  await context.sync();\n\n  if (document.changeTrackingMode === Word.ChangeTrackingMode.trackMineOnly) {\n    console.log(\"Only my changes are being tracked.\");\n  } else if (document.changeTrackingMode === Word.ChangeTrackingMode.trackAll) {\n    console.log(\"Everyone's changes are being tracked.\");\n  } else {\n    console.log(\"No changes are being tracked.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "consecutiveHyphensLimit",
+      "type": "number",
+      "description": "Specifies the maximum number of consecutive lines that can end with hyphens.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "contentControls",
+      "type": "Word.ContentControlCollection",
+      "description": "Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "customXmlParts",
+      "type": "Word.CustomXmlPartCollection",
+      "description": "Gets the custom XML parts in the document.",
+      "since": "WordApi 1.4",
+      "examples": []
+    },
+    {
+      "name": "documentLibraryVersions",
+      "type": "Word.DocumentLibraryVersionCollection",
+      "description": "Returns a DocumentLibraryVersionCollection object that represents the collection of versions of a shared document that has versioning enabled and that's stored in a document library on a server.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "frames",
+      "type": "Word.FrameCollection",
+      "description": "Returns a FrameCollection object that represents all the frames in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "hyperlinks",
+      "type": "Word.HyperlinkCollection",
+      "description": "Returns a HyperlinkCollection object that represents all the hyperlinks in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "hyphenateCaps",
+      "type": "boolean",
+      "description": "Specifies whether words in all capital letters can be hyphenated.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "indexes",
+      "type": "Word.IndexCollection",
+      "description": "Returns an IndexCollection object that represents all the indexes in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "languageDetected",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word has detected the language of the document text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "pageSetup",
+      "type": "Word.PageSetup",
+      "description": "Returns a PageSetup object that's associated with the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "properties",
+      "type": "Word.DocumentProperties",
+      "description": "Gets the properties of the document.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/30-properties/get-built-in-properties.yaml\n\nawait Word.run(async (context) => {\n    const builtInProperties: Word.DocumentProperties = context.document.properties;\n    builtInProperties.load(\"*\"); // Let's get all!\n\n    await context.sync();\n    console.log(JSON.stringify(builtInProperties, null, 4));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "description": "Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "sections",
+      "type": "Word.SectionCollection",
+      "description": "Gets the collection of section objects in the document.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "settings",
+      "type": "Word.SettingCollection",
+      "description": "Gets the add-in's settings in the document.",
+      "since": "WordApi 1.4",
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-settings.yaml\n\n// Gets all custom settings this add-in set on this document.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.load(\"items\");\n  await context.sync();\n\n  if (settings.items.length == 0) {\n    console.log(\"There are no settings.\");\n  } else {\n    console.log(\"All settings:\");\n    for (let i = 0; i < settings.items.length; i++) {\n      console.log(settings.items[i]);\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "windows",
+      "type": "Word.WindowCollection",
+      "description": "Gets the collection of Word.Window objects for the document.",
+      "since": "WordApiDesktop 1.2",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "addStyle",
+      "kind": "create",
+      "description": "Adds a style into the document by name and type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the style name."
+            },
+            {
+              "name": "type",
+              "type": "Word.StyleType",
+              "required": true,
+              "description": "The style type, including character, list, paragraph, or table."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the style name."
+            },
+            {
+              "name": "type",
+              "type": "\"Character\" | \"List\" | \"Paragraph\" | \"Table\"",
+              "required": true,
+              "description": "The style type, including character, list, paragraph, or table."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Adds a new style.\nawait Word.run(async (context) => {\n  const newStyleName = (document.getElementById(\"new-style-name\") as HTMLInputElement).value;\n  if (newStyleName == \"\") {\n    console.warn(\"Enter a style name to add.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(newStyleName);\n  style.load();\n  await context.sync();\n\n  if (!style.isNullObject) {\n    console.warn(\n      `There's an existing style with the same name '${newStyleName}'! Please provide another style name.`\n    );\n    return;\n  }\n\n  const newStyleType = ((document.getElementById(\"new-style-type\") as HTMLSelectElement).value as unknown) as Word.StyleType;\n  context.document.addStyle(newStyleName, newStyleType);\n  await context.sync();\n\n  console.log(newStyleName + \" has been added to the style list.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "kind": "configure",
+      "description": "Closes the current document. Note: This API isn't supported in Word on the web.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "closeBehavior",
+              "type": "Word.CloseBehavior",
+              "required": false,
+              "description": "The close behavior must be 'Save' or 'SkipSave'. Default value is 'Save'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "closeBehavior",
+              "type": "\"Save\" | \"SkipSave\"",
+              "required": false,
+              "description": "The close behavior must be 'Save' or 'SkipSave'. Default value is 'Save'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/save-close.yaml\n\n// Closes the document with default behavior\n// for current state of the document.\nawait Word.run(async (context) => {\n  context.document.close();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": null,
+      "description": "Displays revision marks that indicate where the specified document differs from another document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "filePath",
+              "type": "string",
+              "required": true,
+              "description": "The path of the document with which the specified document is compared."
+            },
+            {
+              "name": "documentCompareOptions",
+              "type": "Word.DocumentCompareOptions",
+              "required": false,
+              "description": "The additional options that specifies the behavior of comparing document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": true,
+              "description": "The Base64-encoded content of the document with which the specified document is compared."
+            },
+            {
+              "name": "documentCompareOptions",
+              "type": "Word.DocumentCompareOptions",
+              "required": false,
+              "description": "The additional options that specify the behavior for comparing the documents. Note that the `compareTarget` option isn't allowed to be `CompareTargetSelected` in this API."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/compare-documents.yaml\n\n// Compares the current document with a specified external document.\nawait Word.run(async (context) => {\n  // Absolute path of an online or local document.\n  const filePath = (document.getElementById(\"filePath\") as HTMLInputElement).value;\n  // Options that configure the compare operation.\n  const options: Word.DocumentCompareOptions = {\n    compareTarget: Word.CompareTarget.compareTargetCurrent,\n    detectFormatChanges: false\n    // Other options you choose...\n    };\n  context.document.compare(filePath, options);\n\n  await context.sync();\n\n  console.log(\"Differences shown in the current document.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteBookmark",
+      "kind": "delete",
+      "description": "Deletes a bookmark, if it exists, from the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "detectLanguage",
+      "kind": null,
+      "description": "Analyzes the document text to determine the language.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getAnnotationById",
+      "kind": "read",
+      "description": "Gets the annotation by ID. Throws an ItemNotFound error if annotation isn't found.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "description": "The ID of the annotation to get."
+            }
+          ],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getBookmarkRange",
+      "kind": "read",
+      "description": "Gets a bookmark's range. Throws an ItemNotFound error if the bookmark doesn't exist.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getBookmarkRangeOrNullObject",
+      "kind": "read",
+      "description": "Gets a bookmark's range. If the bookmark doesn't exist, then this method will return an object with its isNullObject property set to true. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getContentControls",
+      "kind": "read",
+      "description": "Gets the currently supported content controls in the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlOptions",
+              "required": false,
+              "description": "Options that define which content controls are returned."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-checkbox-content-control.yaml\n\n// Toggles the isChecked property on all checkbox content controls.\nawait Word.run(async (context) => {\n  let contentControls = context.document.getContentControls({\n    types: [Word.ContentControlType.checkBox]\n  });\n  contentControls.load(\"items\");\n\n  await context.sync();\n\n  const length = contentControls.items.length;\n  console.log(`Number of checkbox content controls: ${length}`);\n\n  if (length <= 0) {\n    return;\n  }\n\n  const checkboxContentControls = [];\n  for (let i = 0; i < length; i++) {\n    let contentControl = contentControls.items[i];\n    contentControl.load(\"id,checkboxContentControl/isChecked\");\n    checkboxContentControls.push(contentControl);\n  }\n\n  await context.sync();\n\n  console.log(\"isChecked state before:\");\n  const updatedCheckboxContentControls = [];\n  for (let i = 0; i < checkboxContentControls.length; i++) {\n    const currentCheckboxContentControl = checkboxContentControls[i];\n    const isCheckedBefore = currentCheckboxContentControl.checkboxContentControl.isChecked;\n    console.log(`id: ${currentCheckboxContentControl.id} ... isChecked: ${isCheckedBefore}`);\n\n    currentCheckboxContentControl.checkboxContentControl.isChecked = !isCheckedBefore;\n    currentCheckboxContentControl.load(\"id,checkboxContentControl/isChecked\");\n    updatedCheckboxContentControls.push(currentCheckboxContentControl);\n  }\n\n  await context.sync();\n\n  console.log(\"isChecked state after:\");\n  for (let i = 0; i < updatedCheckboxContentControls.length; i++) {\n    const currentCheckboxContentControl = updatedCheckboxContentControls[i];\n    console.log(\n      `id: ${currentCheckboxContentControl.id} ... isChecked: ${currentCheckboxContentControl.checkboxContentControl.isChecked}`\n    );\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getEndnoteBody",
+      "kind": "read",
+      "description": "Gets the document's endnotes in a single body.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getFootnoteBody",
+      "kind": "read",
+      "description": "Gets the document's footnotes in a single body.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "getParagraphByUniqueLocalId",
+      "kind": "read",
+      "description": "Gets the paragraph by its unique local ID. Throws an ItemNotFound error if the collection is empty.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": "string",
+              "required": true,
+              "description": "Unique local ID in standard 8-4-4-4-12 GUID format without curly braces. Note that the ID differs across sessions and coauthors."
+            }
+          ],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/onadded-event.yaml\n\nawait Word.run(async (context) => {\n  const paragraphId = (document.getElementById(\"paragraph-id\") as HTMLInputElement).value;\n  const paragraph: Word.Paragraph = context.document.getParagraphByUniqueLocalId(paragraphId);\n  paragraph.load();\n  await paragraph.context.sync();\n\n  console.log(paragraph);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getSelection",
+      "kind": "read",
+      "description": "Gets the current selection of the document. Multiple selections aren't supported.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    const textSample = 'This is an example of the insert text method. This is a method ' + \n        'which allows users to insert text into a selection. It can insert text into a ' +\n        'relative location or it can overwrite the current selection. Since the ' +\n        'getSelection method returns a range object, look up the range object documentation ' +\n        'for everything you can do with a selection.';\n    \n    // Create a range proxy object for the current selection.\n    const range = context.document.getSelection();\n    \n    // Queue a command to insert text at the end of the selection.\n    range.insertText(textSample, Word.InsertLocation.end);\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Inserted the text at the end of the selection.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getStyles",
+      "kind": "read",
+      "description": "Gets a StyleCollection object that represents the whole style set of the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "importStylesFromJson",
+      "kind": "load",
+      "description": "Import styles from a JSON-formatted string.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "stylesJson",
+              "type": "string",
+              "required": true,
+              "description": "A JSON-formatted string representing the styles."
+            },
+            {
+              "name": "importedStylesConflictBehavior",
+              "type": "Word.ImportedStylesConflictBehavior",
+              "required": false,
+              "description": "Specifies how to handle any imported styles with the same name as existing styles in the current document."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string[]>",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "stylesJson",
+              "type": "string",
+              "required": true,
+              "description": "A JSON-formatted string representing the styles."
+            },
+            {
+              "name": "importedStylesConflictBehavior",
+              "type": "\"Ignore\" | \"Overwrite\" | \"CreateNew\"",
+              "required": false,
+              "description": "Specifies how to handle any imported styles with the same name as existing styles in the current document."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string[]>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-custom-style.yaml\n\n// Imports styles from JSON.\nawait Word.run(async (context) => {\n  const str =\n    '{\"styles\":[{\"baseStyle\":\"Default Paragraph Font\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nameLocal\":\"NewCharStyle\",\"priority\":2,\"quickStyle\":true,\"type\":\"Character\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":null,\"font\":{\"name\":\"DengXian Light\",\"size\":16.0,\"bold\":true,\"italic\":false,\"color\":\"#F1A983\",\"underline\":\"None\",\"subscript\":false,\"superscript\":true,\"strikeThrough\":true,\"doubleStrikeThrough\":false,\"highlightColor\":null,\"hidden\":false},\"shading\":{\"backgroundPatternColor\":\"#FF0000\"}},{\"baseStyle\":\"Normal\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nextParagraphStyle\":\"NewParaStyle\",\"nameLocal\":\"NewParaStyle\",\"priority\":1,\"quickStyle\":true,\"type\":\"Paragraph\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":{\"alignment\":\"Centered\",\"firstLineIndent\":0.0,\"keepTogether\":false,\"keepWithNext\":false,\"leftIndent\":72.0,\"lineSpacing\":18.0,\"lineUnitAfter\":0.0,\"lineUnitBefore\":0.0,\"mirrorIndents\":false,\"outlineLevel\":\"OutlineLevelBodyText\",\"rightIndent\":72.0,\"spaceAfter\":30.0,\"spaceBefore\":30.0,\"widowControl\":true},\"font\":{\"name\":\"DengXian\",\"size\":14.0,\"bold\":true,\"italic\":true,\"color\":\"#8DD873\",\"underline\":\"Single\",\"subscript\":false,\"superscript\":false,\"strikeThrough\":false,\"doubleStrikeThrough\":true,\"highlightColor\":null,\"hidden\":false},\"shading\":{\"backgroundPatternColor\":\"#00FF00\"}},{\"baseStyle\":\"Table Normal\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nextParagraphStyle\":\"NewTableStyle\",\"nameLocal\":\"NewTableStyle\",\"priority\":100,\"type\":\"Table\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":{\"alignment\":\"Left\",\"firstLineIndent\":0.0,\"keepTogether\":false,\"keepWithNext\":false,\"leftIndent\":0.0,\"lineSpacing\":12.0,\"lineUnitAfter\":0.0,\"lineUnitBefore\":0.0,\"mirrorIndents\":false,\"outlineLevel\":\"OutlineLevelBodyText\",\"rightIndent\":0.0,\"spaceAfter\":0.0,\"spaceBefore\":0.0,\"widowControl\":true},\"font\":{\"name\":\"DengXian\",\"size\":20.0,\"bold\":false,\"italic\":true,\"color\":\"#D86DCB\",\"underline\":\"None\",\"subscript\":false,\"superscript\":false,\"strikeThrough\":false,\"doubleStrikeThrough\":false,\"highlightColor\":null,\"hidden\":false},\"tableStyle\":{\"allowBreakAcrossPage\":true,\"alignment\":\"Left\",\"bottomCellMargin\":0.0,\"leftCellMargin\":0.08,\"rightCellMargin\":0.08,\"topCellMargin\":0.0,\"cellSpacing\":0.0},\"shading\":{\"backgroundPatternColor\":\"#60CAF3\"}}]}';\n  const styles = context.document.importStylesFromJson(str);\n  await context.sync();\n  console.log(\"Styles imported from JSON:\", styles);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertFileFromBase64",
+      "kind": "create",
+      "description": "Inserts a document into the target document at a specific location with additional properties. Headers, footers, watermarks, and other section properties are copied by default.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": true,
+              "description": "The Base64-encoded content of a .docx file."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
+              "required": true,
+              "description": "The value must be 'Replace', 'Start', or 'End'."
+            },
+            {
+              "name": "insertFileOptions",
+              "type": "Word.InsertFileOptions",
+              "required": false,
+              "description": "The additional properties that should be imported to the destination document."
+            }
+          ],
+          "returns": {
+            "type": "Word.SectionCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml\n\n// Inserts content (applying selected settings) from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  // Use the Base64-encoded string representation of the selected .docx file.\n  context.document.insertFileFromBase64(externalDocument, \"Replace\", {\n    importTheme: true,\n    importStyles: true,\n    importParagraphSpacing: true,\n    importPageColor: true,\n    importChangeTrackingMode: true,\n    importCustomProperties: true,\n    importCustomXmlParts: true,\n    importDifferentOddEvenPages: true\n  });\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DocumentLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Document",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Document",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Document",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the document.\n    const thisDocument = context.document;\n    \n    // Queue a command to load content control properties.\n    thisDocument.load('contentControls/id, contentControls/text, contentControls/tag');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (thisDocument.contentControls.items.length !== 0) {\n        for (let i = 0; i < thisDocument.contentControls.items.length; i++) {\n            console.log(thisDocument.contentControls.items[i].id);\n            console.log(thisDocument.contentControls.items[i].text);\n            console.log(thisDocument.contentControls.items[i].tag);\n        }\n    } else {\n        console.log('No content controls in this document.');\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "manualHyphenation",
+      "kind": null,
+      "description": "Initiates manual hyphenation of a document, one line at a time.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "save",
+      "kind": "serialize",
+      "description": "Saves the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": "Word.SaveBehavior",
+              "required": false,
+              "description": "The save behavior must be 'Save' or 'Prompt'. Default value is 'Save'."
+            },
+            {
+              "name": "fileName",
+              "type": "string",
+              "required": false,
+              "description": "The file name (exclude file extension). Only takes effect for a new document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": "\"Save\" | \"Prompt\"",
+              "required": false,
+              "description": "The save behavior must be 'Save' or 'Prompt'. Default value is 'Save'."
+            },
+            {
+              "name": "fileName",
+              "type": "string",
+              "required": false,
+              "description": "The file name (exclude file extension). Only takes effect for a new document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the document.\n    const thisDocument = context.document;\n    \n    // Queue a command to load the document save state (on the saved property).\n    thisDocument.load('saved');    \n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        \n    if (thisDocument.saved === false) {\n        // Queue a command to save this document.\n        thisDocument.save();\n        \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Saved the document');\n    } else {\n        console.log('The document has not changed since the last save.');\n    }\n});",
+          "output_code": null
+        },
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/save-close.yaml\n\n// Saves the document with default behavior\n// for current state of the document.\nawait Word.run(async (context) => {\n  context.document.save();\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "kind": null,
+      "description": "Performs a search with the specified search options on the scope of the whole document. The search results are a collection of range objects.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "searchText",
+              "type": "string",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "searchOptions",
+              "type": "Word.SearchOptions | { ignorePunct?: boolean; ignoreSpace?: boolean; matchCase?: boolean; matchPrefix?: boolean; matchSuffix?: boolean; matchWholeWord?: boolean; matchWildcards?: boolean; }",
+              "required": false,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "Word.RangeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": null,
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.DocumentUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Document",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Document object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.DocumentData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DocumentData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Document",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Document",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "

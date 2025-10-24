@@ -1,0 +1,238 @@
+{
+  "class": {
+    "name": "Word.SearchOptions",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.1"
+    },
+    "description": "Specifies the options to be included in a search operation. To learn more about how to use search options in the Word JavaScript APIs, read Use search options to find text in your Word add-in.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Search using a wildcard\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    // Queue a command to search the document with a wildcard\n    // for any string of characters that starts with 'to' and ends with 'n'.\n    const searchResults = context.document.body.search('to*n', {matchWildcards: true});\n\n    // Queue a command to load the search results and get the font property values.\n    searchResults.load('font');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Found count: ' + searchResults.items.length);\n\n    // Queue a set of commands to change the font for each found item.\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.color = 'purple';\n        searchResults.items[i].font.highlightColor = 'pink';\n        searchResults.items[i].font.bold = true;\n    }\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "ignorePunct",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to ignore all punctuation characters between words. Corresponds to the Ignore punctuation check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "ignoreSpace",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to ignore all whitespace between words. Corresponds to the Ignore whitespace characters check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "matchCase",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to perform a case sensitive search. Corresponds to the Match case check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "matchPrefix",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to match words that begin with the search string. Corresponds to the Match prefix check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "matchSuffix",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to match words that end with the search string. Corresponds to the Match suffix check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "matchWholeWord",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether to find operation only entire words, not text that is part of a larger word. Corresponds to the Find whole words only check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    },
+    {
+      "name": "matchWildcards",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the search will be performed using special search operators. Corresponds to the Use wildcards check box in the Find and Replace dialog box.",
+      "since": "WordApi 1.1",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.SearchOptionsLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SearchOptions",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SearchOptions",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SearchOptions",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "// Ignore punctuation search",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    // Queue a command to search the document and ignore punctuation.\n    const searchResults = context.document.body.search('video you', {ignorePunct: true});\n\n    // Queue a command to load the search results and get the font property values.\n    searchResults.load('font');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Found count: ' + searchResults.items.length);\n\n    // Queue a set of commands to change the font for each found item.\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.color = 'purple';\n        searchResults.items[i].font.highlightColor = '#FFFF00'; //Yellow\n        searchResults.items[i].font.bold = true;\n    }\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n});",
+          "output_code": null
+        },
+        {
+          "description": "// Search based on a prefix",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    // Queue a command to search the document based on a prefix.\n    const searchResults = context.document.body.search('vid', {matchPrefix: true});\n\n    // Queue a command to load the search results and get the font property values.\n    searchResults.load('font');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a set of commands to change the font for each found item.\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.color = 'purple';\n        searchResults.items[i].font.highlightColor = '#FFFF00'; //Yellow\n        searchResults.items[i].font.bold = true;\n    }\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n});",
+          "output_code": null
+        },
+        {
+          "description": "// Search based on a suffix",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    // Queue a command to search the document for any string of characters after 'ly'.\n    const searchResults = context.document.body.search('ly', {matchSuffix: true});\n\n    // Queue a command to load the search results and get the font property values.\n    searchResults.load('font');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Found count: ' + searchResults.items.length);\n\n    // Queue a set of commands to change the font for each found item.\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.color = 'orange';\n        searchResults.items[i].font.highlightColor = 'black';\n        searchResults.items[i].font.bold = true;\n    }\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n});",
+          "output_code": null
+        },
+        {
+          "description": "// Search using a wildcard",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    // Queue a command to search the document with a wildcard\n    // for any string of characters that starts with 'to' and ends with 'n'.\n    const searchResults = context.document.body.search('to*n', {matchWildcards: true});\n\n    // Queue a command to load the search results and get the font property values.\n    searchResults.load('font');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Found count: ' + searchResults.items.length);\n\n    // Queue a set of commands to change the font for each found item.\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.color = 'purple';\n        searchResults.items[i].font.highlightColor = 'pink';\n        searchResults.items[i].font.bold = true;\n    }\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "newObject",
+      "kind": "create",
+      "description": "Create a new instance of the `Word.SearchOptions` object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "context",
+              "type": "OfficeExtension.ClientRequestContext",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "Word.SearchOptions",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.SearchOptionsUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.SearchOptions",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.SearchOptions` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SearchOptionsData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.SearchOptionsData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.searchoptions",
+      "https://learn.microsoft.com/en-us/javascript/api/word",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject"
+    ]
+  }
+}

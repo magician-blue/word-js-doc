@@ -1,0 +1,577 @@
+{
+  "class": {
+    "name": "Word.FillFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the fill formatting for a shape or text.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "backgroundColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents the background color for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "foregroundColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents the foreground color for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "gradientAngle",
+      "type": "number",
+      "description": "Specifies the angle of the gradient fill. The valid range of values is from 0 to 359.9.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "gradientColorType",
+      "type": "Word.GradientColorType | \"Mixed\" | \"OneColor\" | \"TwoColors\" | \"PresetColors\" | \"MultiColor\"",
+      "description": "Gets the gradient color type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "gradientDegree",
+      "type": "number",
+      "description": "Returns how dark or light a one-color gradient fill is. A value of 0 means that black is mixed in with the shape's foreground color to form the gradient. A value of 1 means that white is mixed in. Values between 0 and 1 mean that a darker or lighter shade of the foreground color is mixed in.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "gradientStyle",
+      "type": "Word.GradientStyle | \"Mixed\" | \"Horizontal\" | \"Vertical\" | \"DiagonalUp\" | \"DiagonalDown\" | \"FromCorner\" | \"FromTitle\" | \"FromCenter\"",
+      "description": "Returns the gradient style for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "gradientVariant",
+      "type": "number",
+      "description": "Returns the gradient variant for the fill as an integer value from 1 to 4 for most gradient fills.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "description": "Specifies if the object, or the formatting applied to it, is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "pattern",
+      "type": "Word.PatternType | \"Mixed\" | \"Percent5\" | \"Percent10\" | \"Percent20\" | \"Percent25\" | \"Percent30\" | \"Percent40\" | \"Percent50\" | \"Percent60\" | \"Percent70\" | \"Percent75\" | \"Percent80\" | \"Percent90\" | \"DarkHorizontal\" | \"DarkVertical\" | \"DarkDownwardDiagonal\" | \"DarkUpwardDiagonal\" | \"SmallCheckerBoard\" | \"Trellis\" | \"LightHorizontal\" | \"LightVertical\" | \"LightDownwardDiagonal\" | \"LightUpwardDiagonal\" | \"SmallGrid\" | \"DottedDiamond\" | \"WideDownwardDiagonal\" | \"WideUpwardDiagonal\" | \"DashedUpwardDiagonal\" | \"DashedDownwardDiagonal\" | \"NarrowVertical\" | \"NarrowHorizontal\" | \"DashedVertical\" | \"DashedHorizontal\" | \"LargeConfetti\" | \"LargeGrid\" | \"HorizontalBrick\" | \"LargeCheckerBoard\" | \"SmallConfetti\" | \"ZigZag\" | \"SolidDiamond\" | \"DiagonalBrick\" | \"OutlinedDiamond\" | \"Plaid\" | \"Sphere\" | \"Weave\" | \"DottedGrid\" | \"Divot\" | \"Shingle\" | \"Wave\" | \"Horizontal\" | \"Vertical\" | \"Cross\" | \"DownwardDiagonal\" | \"UpwardDiagonal\" | \"DiagonalCross\"",
+      "description": "Returns a PatternType value that represents the pattern applied to the fill or line.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetGradientType",
+      "type": "Word.PresetGradientType | \"Mixed\" | \"EarlySunset\" | \"LateSunset\" | \"Nightfall\" | \"Daybreak\" | \"Horizon\" | \"Desert\" | \"Ocean\" | \"CalmWater\" | \"Fire\" | \"Fog\" | \"Moss\" | \"Peacock\" | \"Wheat\" | \"Parchment\" | \"Mahogany\" | \"Rainbow\" | \"RainbowII\" | \"Gold\" | \"GoldII\" | \"Brass\" | \"Chrome\" | \"ChromeII\" | \"Silver\" | \"Sapphire\"",
+      "description": "Returns the preset gradient type for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "presetTexture",
+      "type": "Word.PresetTexture | \"Mixed\" | \"Papyrus\" | \"Canvas\" | \"Denim\" | \"WovenMat\" | \"WaterDroplets\" | \"PaperBag\" | \"FishFossil\" | \"Sand\" | \"GreenMarble\" | \"WhiteMarble\" | \"BrownMarble\" | \"Granite\" | \"Newsprint\" | \"RecycledPaper\" | \"Parchment\" | \"Stationery\" | \"BlueTissuePaper\" | \"PinkTissuePaper\" | \"PurpleMesh\" | \"Bouquet\" | \"Cork\" | \"Walnut\" | \"Oak\" | \"MediumWood\"",
+      "description": "Gets the preset texture.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "rotateWithObject",
+      "type": "boolean",
+      "description": "Specifies whether the fill rotates with the shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureAlignment",
+      "type": "Word.TextureAlignment | \"Mixed\" | \"TopLeft\" | \"Top\" | \"TopRight\" | \"Left\" | \"Center\" | \"Right\" | \"BottomLeft\" | \"Bottom\" | \"BottomRight\"",
+      "description": "Specifies the alignment (the origin of the coordinate grid) for the tiling of the texture fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureHorizontalScale",
+      "type": "number",
+      "description": "Specifies the horizontal scaling factor for the texture fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureName",
+      "type": "string",
+      "description": "Returns the name of the custom texture file for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureOffsetX",
+      "type": "number",
+      "description": "Specifies the horizontal offset of the texture from the origin in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureOffsetY",
+      "type": "number",
+      "description": "Specifies the vertical offset of the texture.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureTile",
+      "type": "boolean",
+      "description": "Specifies whether the texture is tiled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureType",
+      "type": "Word.TextureType | \"Mixed\" | \"Preset\" | \"UserDefined\"",
+      "description": "Returns the texture type for the fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "textureVerticalScale",
+      "type": "number",
+      "description": "Specifies the vertical scaling factor for the texture fill as a value between 0.0 and 1.0.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "transparency",
+      "type": "number",
+      "description": "Specifies the degree of transparency of the fill for a shape as a value between 0.0 (opaque) and 1.0 (clear).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    },
+    {
+      "name": "type",
+      "type": "Word.FillType | \"Mixed\" | \"Solid\" | \"Patterned\" | \"Gradient\" | \"Textured\" | \"Background\" | \"Picture\"",
+      "description": "Gets the fill format type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.FillFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.FillFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.FillFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.FillFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.FillFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.FillFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setOneColorGradient",
+      "kind": "write",
+      "description": "Sets the fill to a one-color gradient.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "Word.GradientStyle",
+              "required": true,
+              "description": "The gradient style."
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": "The gradient variant. Can be a value from 1 to 4."
+            },
+            {
+              "name": "degree",
+              "type": "number",
+              "required": true,
+              "description": "The gradient degree. Can be a value from 0.0 (dark) to 1.0 (light)."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "\"Mixed\" | \"Horizontal\" | \"Vertical\" | \"DiagonalUp\" | \"DiagonalDown\" | \"FromCorner\" | \"FromTitle\" | \"FromCenter\"",
+              "required": true,
+              "description": "The gradient style."
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": "The gradient variant. Can be a value from 1 to 4."
+            },
+            {
+              "name": "degree",
+              "type": "number",
+              "required": true,
+              "description": "The gradient degree. Can be a value from 0.0 (dark) to 1.0 (light)."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setPatterned",
+      "kind": "write",
+      "description": "Sets the fill to a pattern.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "pattern",
+              "type": "Word.PatternType",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "pattern",
+              "type": "\"Mixed\" | \"Percent5\" | \"Percent10\" | \"Percent20\" | \"Percent25\" | \"Percent30\" | \"Percent40\" | \"Percent50\" | \"Percent60\" | \"Percent70\" | \"Percent75\" | \"Percent80\" | \"Percent90\" | \"DarkHorizontal\" | \"DarkVertical\" | \"DarkDownwardDiagonal\" | \"DarkUpwardDiagonal\" | \"SmallCheckerBoard\" | \"Trellis\" | \"LightHorizontal\" | \"LightVertical\" | \"LightDownwardDiagonal\" | \"LightUpwardDiagonal\" | \"SmallGrid\" | \"DottedDiamond\" | \"WideDownwardDiagonal\" | \"WideUpwardDiagonal\" | \"DashedUpwardDiagonal\" | \"DashedDownwardDiagonal\" | \"NarrowVertical\" | \"NarrowHorizontal\" | \"DashedVertical\" | \"DashedHorizontal\" | \"LargeConfetti\" | \"LargeGrid\" | \"HorizontalBrick\" | \"LargeCheckerBoard\" | \"SmallConfetti\" | \"ZigZag\" | \"SolidDiamond\" | \"DiagonalBrick\" | \"OutlinedDiamond\" | \"Plaid\" | \"Sphere\" | \"Weave\" | \"DottedGrid\" | \"Divot\" | \"Shingle\" | \"Wave\" | \"Horizontal\" | \"Vertical\" | \"Cross\" | \"DownwardDiagonal\" | \"UpwardDiagonal\" | \"DiagonalCross\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setPresetGradient",
+      "kind": "write",
+      "description": "Sets the fill to a preset gradient. The gradient style. The gradient variant. Can be a value from 1 to 4. The preset gradient type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "Word.GradientStyle",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "presetGradientType",
+              "type": "Word.PresetGradientType",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "\"Mixed\" | \"Horizontal\" | \"Vertical\" | \"DiagonalUp\" | \"DiagonalDown\" | \"FromCorner\" | \"FromTitle\" | \"FromCenter\"",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "presetGradientType",
+              "type": "\"Mixed\" | \"EarlySunset\" | \"LateSunset\" | \"Nightfall\" | \"Daybreak\" | \"Horizon\" | \"Desert\" | \"Ocean\" | \"CalmWater\" | \"Fire\" | \"Fog\" | \"Moss\" | \"Peacock\" | \"Wheat\" | \"Parchment\" | \"Mahogany\" | \"Rainbow\" | \"RainbowII\" | \"Gold\" | \"GoldII\" | \"Brass\" | \"Chrome\" | \"ChromeII\" | \"Silver\" | \"Sapphire\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setPresetTextured",
+      "kind": "write",
+      "description": "Sets the fill to a preset texture.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetTexture",
+              "type": "Word.PresetTexture",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetTexture",
+              "type": "\"Mixed\" | \"Papyrus\" | \"Canvas\" | \"Denim\" | \"WovenMat\" | \"WaterDroplets\" | \"PaperBag\" | \"FishFossil\" | \"Sand\" | \"GreenMarble\" | \"WhiteMarble\" | \"BrownMarble\" | \"Granite\" | \"Newsprint\" | \"RecycledPaper\" | \"Parchment\" | \"Stationery\" | \"BlueTissuePaper\" | \"PinkTissuePaper\" | \"PurpleMesh\" | \"Bouquet\" | \"Cork\" | \"Walnut\" | \"Oak\" | \"MediumWood\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "setTwoColorGradient",
+      "kind": "write",
+      "description": "Sets the fill to a two-color gradient.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "Word.GradientStyle",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "style",
+              "type": "\"Mixed\" | \"Horizontal\" | \"Vertical\" | \"DiagonalUp\" | \"DiagonalDown\" | \"FromCorner\" | \"FromTitle\" | \"FromCenter\"",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "variant",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "solid",
+      "kind": "write",
+      "description": "Sets the fill to a uniform color.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.FillFormat object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.FillFormatData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.FillFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.FillFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.FillFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word/word.fillformat"
+    ]
+  }
+}

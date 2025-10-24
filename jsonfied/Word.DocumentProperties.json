@@ -1,0 +1,300 @@
+{
+  "class": {
+    "name": "Word.DocumentProperties",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.3",
+      "status": null
+    },
+    "description": "Represents document properties.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/30-properties/get-built-in-properties.yaml\n\nawait Word.run(async (context) => {\n    const builtInProperties: Word.DocumentProperties = context.document.properties;\n    builtInProperties.load(\"*\"); // Let's get all!\n\n    await context.sync();\n    console.log(JSON.stringify(builtInProperties, null, 4));\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "applicationName",
+      "type": "string",
+      "description": "Gets the application name of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "author",
+      "type": "string",
+      "description": "Specifies the author of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Specifies the category of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "comments",
+      "type": "string",
+      "description": "Specifies the Comments field in the metadata of the document. These have no connection to comments by users made in the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "company",
+      "type": "string",
+      "description": "Specifies the company of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": []
+    },
+    {
+      "name": "creationDate",
+      "type": "Date",
+      "description": "Gets the creation date of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "customProperties",
+      "type": "Word.CustomPropertyCollection",
+      "description": "Gets the collection of custom properties of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "description": "Specifies the format of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "keywords",
+      "type": "string",
+      "description": "Specifies the keywords of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "lastAuthor",
+      "type": "string",
+      "description": "Gets the last author of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "lastPrintDate",
+      "type": "Date",
+      "description": "Gets the last print date of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "lastSaveTime",
+      "type": "Date",
+      "description": "Gets the last save time of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "manager",
+      "type": "string",
+      "description": "Specifies the manager of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "revisionNumber",
+      "type": "string",
+      "description": "Gets the revision number of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "security",
+      "type": "number",
+      "description": "Gets security settings of the document. Some are access restrictions on the file on disk. Others are Document Protection settings. Some possible values are 0 = File on disk is read/write; 1 = Protect Document: File is encrypted and requires a password to open; 2 = Protect Document: Always Open as Read-Only; 3 = Protect Document: Both #1 and #2; 4 = File on disk is read-only; 5 = Both #1 and #4; 6 = Both #2 and #4; 7 = All of #1, #2, and #4; 8 = Protect Document: Restrict Edit to read-only; 9 = Both #1 and #8; 10 = Both #2 and #8; 11 = All of #1, #2, and #8; 12 = Both #4 and #8; 13 = All of #1, #4, and #8; 14 = All of #2, #4, and #8; 15 = All of #1, #2, #4, and #8.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Specifies the subject of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "template",
+      "type": "string",
+      "description": "Gets the template of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Specifies the title of the document.",
+      "since": "WordApi 1.3",
+      "examples": []
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DocumentPropertiesLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentProperties",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentProperties",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentProperties",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.DocumentPropertiesUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.DocumentProperties",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.DocumentProperties` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentPropertiesData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DocumentPropertiesData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentProperties",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentProperties",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.documentproperties"
+    ]
+  }
+}
