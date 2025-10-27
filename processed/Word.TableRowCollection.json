@@ -1,0 +1,217 @@
+{
+  "class": {
+    "name": "Word.TableRowCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Contains the collection of the document's TableRow objects.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first row of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  firstTableRow.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first row:`,\n    `- Horizontal alignment of every cell in the row: ${firstTableRow.horizontalAlignment}`,\n    `- Vertical alignment of every cell in the row: ${firstTableRow.verticalAlignment}`\n  );\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a table row collection to verify the connection to the Word host application before performing operations on table rows.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    const tableRows = table.rows;\n    \n    // Access the request context from the table row collection\n    const rowContext = tableRows.context;\n    \n    // Verify the context is connected and load row count\n    tableRows.load(\"count\");\n    await rowContext.sync();\n    \n    console.log(`Connected to Word. Table has ${tableRows.count} rows.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.TableRow[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all table rows from the first table in the document and log the count of rows to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const tableRows = firstTable.rows;\n    \n    tableRows.load(\"items\");\n    await context.sync();\n    \n    console.log(`Total rows in table: ${tableRows.items.length}`);\n    \n    // Access individual rows from the items array\n    tableRows.items.forEach((row, index) => {\n        console.log(`Row ${index} found`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFirst",
+      "kind": "read",
+      "description": "Gets the first row in this collection. Throws an `ItemNotFound` error if this collection is empty.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableRow",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the border properties (type, color, and width) of the bottom border of the first row in the first table of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets border details about the first row of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const borderLocation = Word.BorderLocation.bottom;\n  const border: Word.TableBorder = firstTableRow.getBorder(borderLocation);\n  border.load([\"type\", \"color\", \"width\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the ${borderLocation} border of the first table's first row:`,\n    `- Color: ${border.color}`,\n    `- Type: ${border.type}`,\n    `- Width: ${border.width} points`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getFirstOrNullObject",
+      "kind": "read",
+      "description": "Gets the first row in this collection. If this collection is empty, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableRow",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a table has any rows and highlight the first row if it exists",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    const firstRow = table.rows.getFirstOrNullObject();\n    \n    // Load the isNullObject property to check if the row exists\n    firstRow.load(\"isNullObject\");\n    await context.sync();\n    \n    if (!firstRow.isNullObject) {\n        // First row exists - highlight it\n        firstRow.font.highlightColor = \"yellow\";\n        console.log(\"First row highlighted\");\n    } else {\n        console.log(\"Table has no rows\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TableRowCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the text content of all cells in the first row of the first table in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the collection of rows from the table\n    const tableRows = firstTable.rows;\n    \n    // Load the items property to access individual rows\n    tableRows.load(\"items\");\n    await context.sync();\n    \n    // Get the first row\n    const firstRow = tableRows.items[0];\n    \n    // Get cells from the first row\n    const cells = firstRow.cells;\n    cells.load(\"items/value\");\n    await context.sync();\n    \n    // Display the cell values\n    cells.items.forEach((cell, index) => {\n        console.log(`Cell ${index}: ${cell.value}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.TableRowCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.TableRowCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TableRowCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Export table row data to JSON format for logging or external processing by serializing the first table's rows collection.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    const tableRows = firstTable.rows;\n    \n    // Load properties we want to include in the JSON output\n    tableRows.load(\"items/cellCount, items/rowIndex, items/isHeader\");\n    \n    await context.sync();\n    \n    // Convert the TableRowCollection to a plain JavaScript object\n    const rowsData = tableRows.toJSON();\n    \n    // Log the JSON representation\n    console.log(JSON.stringify(rowsData, null, 2));\n    \n    // The rowsData object contains an \"items\" array with row information\n    console.log(`Number of rows: ${rowsData.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track table rows from the first table to safely access their properties across multiple sync calls and modify cell values",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    const tableRows = firstTable.rows;\n    \n    // Track the row collection to prevent InvalidObjectPath errors\n    tableRows.track();\n    \n    // Load row properties\n    tableRows.load(\"items\");\n    await context.sync();\n    \n    // Now we can safely work with rows across multiple sync calls\n    console.log(`Table has ${tableRows.items.length} rows`);\n    \n    // Modify cells in tracked rows\n    for (let i = 0; i < tableRows.items.length; i++) {\n        const cell = tableRows.items[i].cells.getFirst();\n        cell.value = `Row ${i + 1}`;\n    }\n    \n    await context.sync();\n    \n    // Untrack when done to free up memory\n    tableRows.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all table rows from the first table, process them, and then untrack the collection to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    const tableRows = firstTable.rows;\n    \n    // Load the row count\n    tableRows.load(\"count\");\n    await context.sync();\n    \n    // Process the rows (e.g., log the count)\n    console.log(`Table has ${tableRows.count} rows`);\n    \n    // Untrack the collection to release memory\n    tableRows.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

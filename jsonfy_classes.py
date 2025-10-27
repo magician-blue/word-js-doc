@@ -196,7 +196,7 @@ def main(argv: Sequence[str] | None = None) -> None:
 
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
-        api_key="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",
+        api_key="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",
     )
 
     successes = 0

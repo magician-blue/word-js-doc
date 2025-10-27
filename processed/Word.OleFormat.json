@@ -1,0 +1,454 @@
+{
+  "class": {
+    "name": "OleFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the OLE characteristics (other than linking) for an OLE object, ActiveX control, or field.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "classType",
+      "type": "string",
+      "description": "Specifies the class type for the specified OLE object, picture, or field.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the class type of the first OLE object in the document to identify what type of embedded object it is (e.g., Excel worksheet, PowerPoint slide, etc.)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (which may be an OLE object)\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        const oleFormat = firstShape.oleFormat;\n        oleFormat.load(\"classType\");\n        \n        await context.sync();\n        \n        console.log(\"OLE Object Class Type: \" + oleFormat.classType);\n        // Example output: \"Excel.Sheet.12\" or \"PowerPoint.Show.12\"\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the OleFormat's request context to load and read properties of an OLE object in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first OLE object in the document\n    const oleObjects = context.document.body.inlinePictures;\n    oleObjects.load(\"items\");\n    await context.sync();\n    \n    if (oleObjects.items.length > 0) {\n        const firstOleObject = oleObjects.items[0];\n        const oleFormat = firstOleObject.oleFormat;\n        \n        // Access the request context from the OleFormat object\n        const oleContext = oleFormat.context;\n        \n        // Use the context to load OLE format properties\n        oleFormat.load(\"iconName,iconIndex\");\n        await oleContext.sync();\n        \n        console.log(`OLE Icon Name: ${oleFormat.iconName}`);\n        console.log(`OLE Icon Index: ${oleFormat.iconIndex}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "iconIndex",
+      "type": "number",
+      "description": "Specifies the icon that is used when the `displayAsIcon` property is `true`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set an embedded Excel worksheet to display as an icon and specify which icon to use (icon at index 2 from the source application's icon list)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (assuming it's an OLE object)\n    const inlineShape = context.document.body.inlineShapes.getFirst();\n    const oleFormat = inlineShape.oleFormat;\n    \n    // Load the oleFormat properties\n    oleFormat.load(\"displayAsIcon\");\n    await context.sync();\n    \n    // Set to display as icon and specify icon index 2\n    oleFormat.displayAsIcon = true;\n    oleFormat.iconIndex = 2;\n    \n    await context.sync();\n    console.log(\"OLE object set to display as icon with icon index 2\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "iconLabel",
+      "type": "string",
+      "description": "Specifies the text displayed below the icon for the OLE object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the icon label text to \"Financial Report 2024\" for the first OLE object in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShape = context.document.body.inlineShapes.getFirst();\n    \n    // Access the OLE format\n    const oleFormat = inlineShape.oleFormat;\n    \n    // Set the icon label text\n    oleFormat.iconLabel = \"Financial Report 2024\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "iconName",
+      "type": "string",
+      "description": "Specifies the program file in which the icon for the OLE object is stored.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the icon program file name for the first OLE object in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const oleObject = inlineShapes.items[0];\n        const oleFormat = oleObject.oleFormat;\n        oleFormat.load(\"iconName\");\n        await context.sync();\n        \n        console.log(\"Icon program file: \" + oleFormat.iconName);\n    } else {\n        console.log(\"No OLE objects found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "iconPath",
+      "type": "string",
+      "description": "Gets the path of the file in which the icon for the OLE object is stored.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Retrieve and display the icon file path from an OLE object embedded in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const oleObject = inlineShapes.items[0];\n        const oleFormat = oleObject.oleFormat;\n        oleFormat.load(\"iconPath\");\n        await context.sync();\n        \n        // Display the icon path\n        console.log(\"OLE object icon path: \" + oleFormat.iconPath);\n    } else {\n        console.log(\"No OLE objects found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isDisplayedAsIcon",
+      "type": "boolean",
+      "description": "Gets whether the specified object is displayed as an icon.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if an OLE object in the document is displayed as an icon and log the result to the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        const oleFormat = firstShape.oleFormat;\n        oleFormat.load(\"isDisplayedAsIcon\");\n        \n        await context.sync();\n        \n        console.log(`OLE object is displayed as icon: ${oleFormat.isDisplayedAsIcon}`);\n    } else {\n        console.log(\"No OLE objects found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isFormattingPreservedOnUpdate",
+      "type": "boolean",
+      "description": "Specifies whether formatting done in Microsoft Word to the linked OLE object is preserved.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if formatting preservation is enabled for a linked OLE object and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const oleFormat = inlineShapes.items[0].oleFormat;\n        oleFormat.load(\"isFormattingPreservedOnUpdate\");\n        \n        await context.sync();\n        \n        console.log(`Formatting preserved on update: ${oleFormat.isFormattingPreservedOnUpdate}`);\n    } else {\n        console.log(\"No OLE objects found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Gets a string that's used to identify the portion of the source file that's being linked.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the label that identifies the portion of the source file being linked for an OLE object in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const oleFormat = inlineShapes.items[0].oleFormat;\n        oleFormat.load(\"label\");\n        \n        await context.sync();\n        \n        console.log(\"OLE object label: \" + oleFormat.label);\n    } else {\n        console.log(\"No OLE objects found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "progID",
+      "type": "string",
+      "description": "Gets the programmatic identifier (`ProgId`) for the specified OLE object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the programmatic identifier (ProgId) of the first OLE object in the document to determine what type of embedded object it is (e.g., Excel worksheet, PowerPoint slide).",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (which may be an OLE object)\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n\n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        const oleFormat = firstShape.oleFormat;\n        oleFormat.load(\"progID\");\n        await context.sync();\n\n        // Display the ProgId (e.g., \"Excel.Sheet.12\", \"PowerPoint.Slide.12\")\n        console.log(\"OLE Object ProgId: \" + oleFormat.progID);\n    } else {\n        console.log(\"No OLE objects found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "activate",
+      "kind": null,
+      "description": "Activates the `OleFormat` object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Activate an embedded OLE object (such as an Excel spreadsheet) in the document to open it for editing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        \n        // Get the OLE format of the shape\n        const oleFormat = firstShape.oleFormat;\n        oleFormat.load(\"classType\");\n        await context.sync();\n        \n        // Activate the OLE object to open it for editing\n        oleFormat.activate();\n        await context.sync();\n        \n        console.log(\"OLE object activated successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "activateAs",
+      "kind": "configure",
+      "description": "Sets the Windows registry value that determines the default application used to activate the specified OLE object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "classType",
+              "type": "string",
+              "required": true,
+              "description": "The class type to activate as."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Change an embedded Excel worksheet OLE object to activate as a different application (e.g., Notepad) by modifying its class type in the Windows registry.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const oleObject = inlineShapes.items[0];\n        const oleFormat = oleObject.oleFormat;\n        \n        // Change the OLE object to activate as Notepad instead of its default application\n        oleFormat.activateAs(\"Notepad.Document\");\n        \n        await context.sync();\n        console.log(\"OLE object activation class type changed successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "doVerb",
+      "kind": null,
+      "description": "Requests that the OLE object perform one of its available verbs.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "verbIndex",
+              "type": "Word.OleVerb",
+              "required": false,
+              "description": "Optional. The index of the verb to perform."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "verbIndex",
+              "type": "\"Primary\" | \"Show\" | \"Open\" | \"Hide\" | \"UiActivate\" | \"InPlaceActivate\" | \"DiscardUndoState\"",
+              "required": false,
+              "description": "Optional. The index of the verb to perform."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Activate an embedded OLE object (such as an Excel spreadsheet) for in-place editing by performing its primary verb.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape in the document (assuming it's an OLE object)\n    const firstInlineShape = context.document.body.inlinePictures.getFirst();\n    \n    // Get the OLE format of the inline shape\n    const oleFormat = firstInlineShape.oleFormat;\n    \n    // Load the OLE format to ensure it exists\n    oleFormat.load(\"classType\");\n    \n    await context.sync();\n    \n    // Perform the primary verb (0 = primary action, typically \"Edit\" or \"Open\")\n    oleFormat.doVerb(0);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "edit",
+      "kind": null,
+      "description": "Opens the OLE object for editing in the application it was created in.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Open an embedded Excel spreadsheet OLE object for editing in Microsoft Excel",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape in the document (assuming it's an OLE object)\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        \n        // Get the OLE format of the shape\n        const oleFormat = firstShape.oleFormat;\n        oleFormat.load(\"classType\");\n        \n        await context.sync();\n        \n        // Open the OLE object for editing in its native application\n        oleFormat.edit();\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.OleFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.OleFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.OleFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.OleFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the icon name property of the first OLE object in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first OLE object in the document\n    const oleObjects = context.document.body.inlinePictures;\n    oleObjects.load(\"items\");\n    await context.sync();\n    \n    // Access the first OLE object's format\n    const firstOleObject = oleObjects.items[0];\n    const oleFormat = firstOleObject.getOleObjectOrNullObject();\n    \n    // Load specific properties of the OLE format\n    oleFormat.load(\"iconName\");\n    await context.sync();\n    \n    // Display the icon name\n    if (!oleFormat.isNullObject) {\n        console.log(\"OLE Object Icon Name: \" + oleFormat.iconName);\n    } else {\n        console.log(\"No OLE object found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "kind": null,
+      "description": "Opens the `OleFormat` object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Open an embedded OLE object (such as an Excel spreadsheet) in the first shape of the document for editing.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape in the document\n    const firstShape = context.document.body.inlinePictures.getFirst();\n    \n    // Get the OLE format of the shape\n    const oleFormat = firstShape.oleFormat;\n    \n    // Load the OLE format to check if it exists\n    oleFormat.load(\"iconName\");\n    \n    await context.sync();\n    \n    // Open the OLE object for editing\n    oleFormat.open();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.OleFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.OleFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple OLE object properties at once by setting the icon visibility and display as icon settings for an embedded OLE object in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (OLE object) in the document\n    const inlineShape = context.document.body.inlineShapes.getFirst();\n    const oleFormat = inlineShape.oleFormat;\n    \n    // Set multiple OLE format properties at once\n    oleFormat.set({\n        displayAsIcon: true,\n        iconPath: \"C:\\\\Icons\\\\custom.ico\"\n    });\n    \n    await context.sync();\n    console.log(\"OLE format properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.OleFormat` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.OleFormatData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.OleFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize an OLE object's format properties to JSON for logging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (which could be an OLE object)\n    const inlineShapes = context.document.body.inlineShapes;\n    inlineShapes.load(\"items\");\n    await context.sync();\n    \n    if (inlineShapes.items.length > 0) {\n        const firstShape = inlineShapes.items[0];\n        const oleFormat = firstShape.oleFormat;\n        \n        // Load properties you want to serialize\n        oleFormat.load(\"iconName,iconIndex,displayAsIcon\");\n        await context.sync();\n        \n        // Convert to plain JavaScript object\n        const oleFormatData = oleFormat.toJSON();\n        \n        // Now you can use JSON.stringify or log the data\n        console.log(\"OLE Format Data:\", JSON.stringify(oleFormatData, null, 2));\n        \n        // The plain object can be easily stored or transmitted\n        return oleFormatData;\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.OleFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an OLE object (like an embedded Excel chart) across multiple sync calls to maintain its reference while modifying its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (which could be an OLE object)\n    const inlineShape = context.document.body.inlineShapes.getFirst();\n    inlineShape.load(\"oleFormat\");\n    await context.sync();\n    \n    // Track the OLE format object to use it across multiple sync calls\n    const oleFormat = inlineShape.oleFormat;\n    oleFormat.track();\n    \n    // Load properties of the OLE object\n    oleFormat.load(\"iconName,iconIndex\");\n    await context.sync();\n    \n    // Now we can safely use the oleFormat object after another sync\n    console.log(\"OLE Icon Name: \" + oleFormat.iconName);\n    console.log(\"OLE Icon Index: \" + oleFormat.iconIndex);\n    \n    // Untrack when done to free up memory\n    oleFormat.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.OleFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an OLE object to work with it across multiple sync operations, then untrack it to release memory when done processing.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline shape (which could be an OLE object)\n    const inlineShape = context.document.body.inlineShapes.getFirst();\n    const oleFormat = inlineShape.oleFormat;\n    \n    // Track the OLE format object for use across multiple syncs\n    oleFormat.track();\n    \n    // Load properties\n    oleFormat.load(\"progId\");\n    await context.sync();\n    \n    // Use the OLE format object\n    console.log(\"OLE Program ID: \" + oleFormat.progId);\n    \n    // Do more work with the tracked object...\n    await context.sync();\n    \n    // When done, untrack to release memory\n    oleFormat.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word/word.oleformat"
+    ]
+  }
+}

@@ -1,0 +1,711 @@
+{
+  "class": {
+    "name": "Word.CustomXmlNode",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents an XML node in a tree in the document. The CustomXmlNode object is a member of the Word.CustomXmlNodeCollection object: https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlnodecollection",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "attributes",
+      "type": "Word.CustomXmlNodeCollection",
+      "description": "Gets a CustomXmlNodeCollection object representing the attributes of the current element in the current node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and display all attribute names and values from a custom XML element node in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Assume we have a custom XML part with an element that has attributes\n    const xmlPart = customXmlParts.items[0];\n    const xmlNodes = xmlPart.getXml();\n    await context.sync();\n\n    // Get a specific element node (e.g., root element)\n    const elementNode = xmlPart.query(\"//*[@id]\")[0]; // Get first element with 'id' attribute\n    \n    if (elementNode) {\n        // Get the attributes collection of this element\n        const attributes = elementNode.attributes;\n        attributes.load(\"items\");\n        await context.sync();\n\n        // Display all attributes\n        console.log(`Element has ${attributes.items.length} attributes:`);\n        attributes.items.forEach(attr => {\n            attr.load(\"baseName, nodeValue\");\n        });\n        await context.sync();\n\n        attributes.items.forEach(attr => {\n            console.log(`${attr.baseName} = \"${attr.nodeValue}\"`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "baseName",
+      "type": "string",
+      "description": "Gets the base name of the node without the namespace prefix, if one exists.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the base name of a custom XML node (without namespace prefix) and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        await context.sync();\n\n        // Query for a specific node (e.g., a node with a specific XPath)\n        const nodes = xmlPart.query(\"//*\");\n        nodes.load(\"items\");\n        await context.sync();\n\n        if (nodes.items.length > 0) {\n            const node = nodes.items[0];\n            node.load(\"baseName\");\n            await context.sync();\n\n            // Display the base name without namespace prefix\n            console.log(\"Node base name: \" + node.baseName);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "childNodes",
+      "type": "Word.CustomXmlNodeCollection",
+      "description": "Gets a CustomXmlNodeCollection object containing all of the child elements of the current node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get all child nodes of a custom XML node and log their count to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (assuming it exists)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    \n    // Get the child nodes of the root\n    const childNodes = rootNode.childNodes;\n    childNodes.load(\"items\");\n    await context.sync();\n\n    // Log the count of child nodes\n    console.log(`Number of child nodes: ${childNodes.items.length}`);\n    \n    // Optionally, iterate through child nodes\n    for (let i = 0; i < childNodes.items.length; i++) {\n        const childNode = childNodes.items[i];\n        childNode.load(\"baseName\");\n        await context.sync();\n        console.log(`Child node ${i}: ${childNode.baseName}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CustomXmlNode to verify the connection between the add-in and Word, then use it to load and read the node's properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts and a specific node\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        await context.sync();\n        \n        // Get the root node\n        const rootNode = xmlPart.getNodes(\"/*\")[0];\n        \n        // Access the context property from the CustomXmlNode\n        const nodeContext = rootNode.context;\n        \n        // Use the context to load properties\n        rootNode.load(\"baseName,nodeType\");\n        await nodeContext.sync();\n        \n        console.log(`Node name: ${rootNode.baseName}`);\n        console.log(`Node type: ${rootNode.nodeType}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "firstChild",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets a CustomXmlNode object corresponding to the first child element of the current node. If the node has no child elements (or if it isn't of type CustomXmlNodeType.element), returns `Nothing`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the first child element of a custom XML node and display its base name in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Assume we have at least one custom XML part\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const rootNode = xmlPart.getXml();\n        \n        // Get the first child of the root node\n        const firstChild = rootNode.firstChild;\n        \n        if (firstChild) {\n            firstChild.load(\"baseName\");\n            await context.sync();\n            \n            console.log(\"First child element name: \" + firstChild.baseName);\n        } else {\n            console.log(\"No child elements found\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lastChild",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets a CustomXmlNode object corresponding to the last child element of the current node. If the node has no child elements (or if it isn't of type CustomXmlNodeType.element), the property returns `Nothing`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the last child element of a custom XML node and display its base name in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlRoot = xmlPart.getXml();\n        await context.sync();\n\n        // Get nodes from the XML part\n        const xmlNodes = xmlPart.getNodes(\"*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        if (xmlNodes.items.length > 0) {\n            // Get the first node that might have children\n            const parentNode = xmlNodes.items[0];\n            \n            // Get the last child of this node\n            const lastChild = parentNode.lastChild;\n            \n            if (lastChild) {\n                lastChild.load(\"baseName\");\n                await context.sync();\n                \n                console.log(\"Last child element name:\", lastChild.baseName);\n            } else {\n                console.log(\"No child elements found.\");\n            }\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "namespaceUri",
+      "type": "string",
+      "description": "Gets the unique address identifier for the namespace of the node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the namespace URI of a custom XML node in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        await context.sync();\n\n        // Query for a specific node (e.g., root node or specific element)\n        const nodes = xmlPart.query(\"//*\");\n        nodes.load(\"items\");\n        await context.sync();\n\n        if (nodes.items.length > 0) {\n            const node = nodes.items[0];\n            node.load(\"namespaceUri\");\n            await context.sync();\n\n            // Display the namespace URI\n            console.log(\"Namespace URI: \" + node.namespaceUri);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nextSibling",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets the next sibling node (element, comment, or processing instruction) of the current node. If the node is the last sibling at its level, the property returns `Nothing`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate through sibling XML nodes in a custom XML part and log each sibling's base name to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        \n        // Get the root node and its first child\n        const rootNode = xmlPart.getXmlNodeByXPath(\"/\");\n        const firstChild = rootNode.getFirstChild();\n        firstChild.load(\"baseName\");\n        await context.sync();\n\n        // Navigate through siblings using nextSibling\n        let currentNode = firstChild;\n        currentNode.load(\"baseName\");\n        await context.sync();\n\n        while (currentNode.isNullObject === false) {\n            console.log(\"Sibling node: \" + currentNode.baseName);\n            \n            // Move to next sibling\n            currentNode = currentNode.nextSibling;\n            currentNode.load(\"baseName, isNullObject\");\n            await context.sync();\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nodeType",
+      "type": "Word.CustomXmlNodeType | \"element\" | \"attribute\" | \"text\" | \"cData\" | \"processingInstruction\" | \"comment\" | \"document\"",
+      "description": "Gets the type of the current node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check the type of each XML node in a custom XML part and log different messages based on whether it's an element, attribute, text, or other node type.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.query(\"//*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        // Check the type of each node\n        for (let i = 0; i < xmlNodes.items.length; i++) {\n            const node = xmlNodes.items[i];\n            node.load(\"nodeType\");\n        }\n        await context.sync();\n\n        // Log messages based on node type\n        for (let i = 0; i < xmlNodes.items.length; i++) {\n            const node = xmlNodes.items[i];\n            \n            if (node.nodeType === Word.CustomXmlNodeType.element || node.nodeType === \"element\") {\n                console.log(`Node ${i} is an element node`);\n            } else if (node.nodeType === Word.CustomXmlNodeType.attribute || node.nodeType === \"attribute\") {\n                console.log(`Node ${i} is an attribute node`);\n            } else if (node.nodeType === Word.CustomXmlNodeType.text || node.nodeType === \"text\") {\n                console.log(`Node ${i} is a text node`);\n            } else {\n                console.log(`Node ${i} is of type: ${node.nodeType}`);\n            }\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nodeValue",
+      "type": "string",
+      "description": "Specifies the value of the current node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and update the value of a custom XML node in a Word document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (assuming it exists)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get a specific node by XPath query\n    const nodes = customXmlPart.query(\"/root/data\");\n    nodes.load(\"items\");\n    await context.sync();\n\n    if (nodes.items.length > 0) {\n        const node = nodes.items[0];\n        \n        // Load the current node value\n        node.load(\"nodeValue\");\n        await context.sync();\n        \n        console.log(\"Current node value:\", node.nodeValue);\n        \n        // Update the node value\n        node.nodeValue = \"Updated value\";\n        \n        await context.sync();\n        console.log(\"Node value updated successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "ownerPart",
+      "type": "Word.CustomXmlPart",
+      "description": "Gets the object representing the part associated with this node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the namespace URI of the custom XML part that owns a specific node in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        \n        // Get the root node of the XML part\n        const rootNode = xmlPart.getXml();\n        const nodes = xmlPart.query(\"//*\");\n        nodes.load(\"items\");\n        await context.sync();\n\n        if (nodes.items.length > 0) {\n            const firstNode = nodes.items[0];\n            \n            // Get the owner part of this node\n            const ownerPart = firstNode.ownerPart;\n            ownerPart.load(\"namespaceUri\");\n            await context.sync();\n\n            console.log(\"Owner part namespace URI: \" + ownerPart.namespaceUri);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentNode",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets the parent element node of the current node. If the current node is at the root level, the property returns `Nothing`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate from a child XML node to its parent node and display the parent node's base name in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.query(\"//*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        if (xmlNodes.items.length > 0) {\n            // Get a child node\n            const childNode = xmlNodes.items[0];\n            \n            // Access the parent node\n            const parentNode = childNode.parentNode;\n            \n            if (parentNode) {\n                parentNode.load(\"baseName\");\n                await context.sync();\n                \n                console.log(\"Parent node name: \" + parentNode.baseName);\n            } else {\n                console.log(\"This node is at the root level and has no parent.\");\n            }\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "previousSibling",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets the previous sibling node (element, comment, or processing instruction) of the current node. If the current node is the first sibling at its level, the property returns `Nothing`.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate to a specific XML node and retrieve its previous sibling node to compare their content.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts with a specific namespace\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.query(\"//*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        if (xmlNodes.items.length > 1) {\n            const currentNode = xmlNodes.items[1];\n            const previousSibling = currentNode.previousSibling;\n            \n            if (previousSibling) {\n                previousSibling.load(\"baseName, nodeType\");\n                await context.sync();\n                \n                console.log(`Previous sibling name: ${previousSibling.baseName}`);\n                console.log(`Previous sibling type: ${previousSibling.nodeType}`);\n            } else {\n                console.log(\"No previous sibling found - this is the first node.\");\n            }\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Specifies the text for the current node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content from a custom XML node and display it in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (assuming it exists)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    const nodes = customXmlPart.query(\"//*\");\n    nodes.load(\"items\");\n    await context.sync();\n\n    // Get the first node and access its text property\n    const firstNode = nodes.items[0];\n    firstNode.load(\"text\");\n    await context.sync();\n\n    // Insert the node's text into the document\n    const range = context.document.body.insertParagraph(\n        `Node text: ${firstNode.text}`,\n        Word.InsertLocation.end\n    );\n\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xml",
+      "type": "string",
+      "description": "Gets the XML representation of the current node and its children.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Retrieve and log the XML content of a custom XML part's root node to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the root node of the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const rootNode = xmlPart.getXml();\n        \n        // Access the xml property to get the XML representation\n        const xmlNodes = xmlPart.query(\"//*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        if (xmlNodes.items.length > 0) {\n            const node = xmlNodes.items[0];\n            node.load(\"xml\");\n            await context.sync();\n            \n            // Log the XML content of the node\n            console.log(\"Node XML content:\", node.xml);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xpath",
+      "type": "string",
+      "description": "Gets a string with the canonicalized XPath for the current node. If the node is no longer in the Document Object Model (DOM), the property returns an error message.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Retrieve and display the XPath location of a custom XML node within the document's custom XML parts",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        \n        // Get the root node\n        const rootNode = xmlPart.getXml();\n        await context.sync();\n        \n        // Get all nodes in the XML part\n        const nodes = xmlPart.query(\"//*\");\n        nodes.load(\"items\");\n        await context.sync();\n        \n        if (nodes.items.length > 0) {\n            const firstNode = nodes.items[0];\n            \n            // Get the XPath of the node\n            firstNode.load(\"xpath\");\n            await context.sync();\n            \n            console.log(\"Node XPath: \" + firstNode.xpath);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "appendChildNode",
+      "kind": "create",
+      "description": "Appends a single node as the last child under the context element node in the tree.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.CustomXmlAppendChildNodeOptions",
+              "required": false,
+              "description": "Optional. The options that define the node to be appended."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new child element node named \"Author\" with text content \"John Smith\" to an existing CustomXmlPart's root node",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    const rootNode = customXmlPart.getXml();\n    \n    // Get the root element node\n    const nodes = customXmlPart.query(\"//*\");\n    nodes.load(\"items\");\n    await context.sync();\n    \n    const rootElement = nodes.items[0];\n    \n    // Append a new child node named \"Author\" with text content\n    rootElement.appendChildNode(\"Author\", \"element\", \"John Smith\");\n    \n    await context.sync();\n    console.log(\"Child node 'Author' appended successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "appendChildSubtree",
+      "kind": "create",
+      "description": "Adds a subtree as the last child under the context element node in the tree.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the XML subtree."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new contact entry with name and email as a subtree to an existing custom XML node in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find a specific one by namespace)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    context.load(rootNode);\n    await context.sync();\n\n    // Get a specific parent node where we want to add the subtree\n    const nodes = customXmlPart.query(\"//contacts\");\n    context.load(nodes, \"items\");\n    await context.sync();\n\n    if (nodes.items.length > 0) {\n        const contactsNode = nodes.items[0];\n        \n        // Define the XML subtree to append\n        const newContactXml = \"<contact><name>John Doe</name><email>john@example.com</email></contact>\";\n        \n        // Append the subtree as a child\n        contactsNode.appendChildSubtree(newContactXml);\n        \n        await context.sync();\n        console.log(\"Contact subtree added successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the current node from the tree (including all of its children, if any exist).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a specific custom XML node (and all its children) from the document's custom XML parts",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlPart = context.document.customXmlParts.getByNamespace(\"http://example.com/mydata\").getOnlyItem();\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    \n    // Query for a specific node to delete (e.g., a node with tag \"obsoleteData\")\n    const nodesToDelete = rootNode.getChildNodes(\"obsoleteData\");\n    \n    // Load the collection\n    nodesToDelete.load(\"items\");\n    await context.sync();\n    \n    // Delete the first matching node (and all its children)\n    if (nodesToDelete.items.length > 0) {\n        nodesToDelete.items[0].delete();\n        await context.sync();\n        \n        console.log(\"Custom XML node deleted successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hasChildNodes",
+      "kind": "read",
+      "description": "Specifies if the current element node has child element nodes.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a custom XML node has child nodes and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        \n        // Get the root node\n        const rootNode = xmlPart.getNodes(\"/*\");\n        rootNode.load(\"items\");\n        await context.sync();\n\n        if (rootNode.items.length > 0) {\n            const node = rootNode.items[0];\n            \n            // Check if the node has child nodes\n            const hasChildren = node.hasChildNodes();\n            await context.sync();\n\n            console.log(`Node has child nodes: ${hasChildren.value}`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertNodeBefore",
+      "kind": "create",
+      "description": "Inserts a new node just before the context node in the tree.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.CustomXmlInsertNodeBeforeOptions",
+              "required": false,
+              "description": "Optional. The options that define the node to be inserted."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a new XML node with a \"priority\" element before an existing \"task\" node in a custom XML part",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find a specific one by namespace)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node and find the target node\n    const rootNode = customXmlPart.getXml();\n    const nodes = customXmlPart.query(\"//task\");\n    nodes.load(\"items\");\n    await context.sync();\n\n    if (nodes.items.length > 0) {\n        const taskNode = nodes.items[0];\n        \n        // Insert a new \"priority\" node before the \"task\" node\n        taskNode.insertNodeBefore(\"<priority>High</priority>\");\n        \n        await context.sync();\n        console.log(\"New node inserted before the task node\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertSubtreeBefore",
+      "kind": "create",
+      "description": "Inserts the specified subtree into the location just before the context node.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the XML subtree."
+            },
+            {
+              "name": "options",
+              "type": "Word.CustomXmlInsertSubtreeBeforeOptions",
+              "required": false,
+              "description": "Optional. The options available for inserting the subtree."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a new XML subtree containing contact information before an existing \"customer\" node in a custom XML part",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find a specific one)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get all nodes with tag name \"customer\"\n    const customerNodes = customXmlPart.getNodesByXPath(\"//customer\");\n    customerNodes.load(\"items\");\n    await context.sync();\n\n    // Get the first customer node\n    const targetNode = customerNodes.items[0];\n    \n    // Define the new subtree to insert (contact information)\n    const newSubtree = '<contact><email>info@example.com</email><phone>555-1234</phone></contact>';\n    \n    // Insert the subtree before the customer node\n    targetNode.insertSubtreeBefore(newSubtree);\n    \n    await context.sync();\n    console.log(\"Contact subtree inserted before customer node\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlNodeLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the properties of a custom XML node, including its base name, namespace URI, and node type.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (assuming it exists)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    const xmlNodes = customXmlPart.query(\"//*\");\n    xmlNodes.load(\"items\");\n    await context.sync();\n\n    // Get the first node\n    const customXmlNode = xmlNodes.items[0];\n    \n    // Load specific properties of the node\n    customXmlNode.load(\"baseName, namespaceUri, nodeType\");\n    await context.sync();\n\n    // Display the loaded properties\n    console.log(\"Base Name: \" + customXmlNode.baseName);\n    console.log(\"Namespace URI: \" + customXmlNode.namespaceUri);\n    console.log(\"Node Type: \" + customXmlNode.nodeType);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "removeChild",
+      "kind": "delete",
+      "description": "Removes the specified child node from the tree.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "child",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The child node to remove."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove a specific child node from a custom XML part's node tree in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find by namespace)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    const nodes = customXmlPart.query(\"/root/child\");\n    nodes.load(\"items\");\n    await context.sync();\n\n    // Get parent and child nodes\n    const parentNode = nodes.items[0];\n    const childNodes = parentNode.getChildNodes();\n    childNodes.load(\"items\");\n    await context.sync();\n\n    // Remove the first child node from its parent\n    if (childNodes.items.length > 0) {\n        const childToRemove = childNodes.items[0];\n        parentNode.removeChild(childToRemove);\n        await context.sync();\n        \n        console.log(\"Child node removed successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "replaceChildNode",
+      "kind": "write",
+      "description": "Removes the specified child node and replaces it with a different node in the same location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "oldNode",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The node to be replaced."
+            },
+            {
+              "name": "options",
+              "type": "Word.CustomXmlReplaceChildNodeOptions",
+              "required": false,
+              "description": "Optional. The options that define the child node which is to replace the old node."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace an outdated XML child node with a new node containing updated data in a custom XML part",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find by namespace)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = customXmlPart.getXml();\n    context.load(rootNode);\n    await context.sync();\n\n    // Get child nodes\n    const childNodes = rootNode.getChildNodes();\n    childNodes.load(\"items\");\n    await context.sync();\n\n    // Identify the old node to replace (e.g., first child)\n    const oldNode = childNodes.items[0];\n    \n    // Create new XML content for replacement\n    const newXmlContent = '<updatedElement>New Value</updatedElement>';\n    \n    // Replace the old child node with the new one\n    rootNode.replaceChildNode(oldNode, { xmlContent: newXmlContent });\n    \n    await context.sync();\n    console.log(\"Child node replaced successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "replaceChildSubtree",
+      "kind": "write",
+      "description": "Removes the specified node and replaces it with a different subtree in the same location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the new subtree."
+            },
+            {
+              "name": "oldNode",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The node to be replaced."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace an outdated contact information node with a new contact details subtree in a custom XML part",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (or find by namespace)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get all nodes with tag name \"contact\"\n    const contactNodes = customXmlPart.getXmlNodesByTagName(\"contact\");\n    contactNodes.load(\"items\");\n    await context.sync();\n\n    // Get the parent node containing the old contact node\n    const parentNode = contactNodes.items[0].parentNode;\n    const oldContactNode = contactNodes.items[0];\n    \n    // Define new XML subtree to replace the old contact\n    const newContactXml = '<contact><name>Jane Smith</name><email>jane.smith@example.com</email><phone>555-0199</phone></contact>';\n    \n    // Replace the old contact node with the new contact subtree\n    parentNode.replaceChildSubtree(newContactXml, oldContactNode);\n    \n    await context.sync();\n    console.log(\"Contact node replaced successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "selectNodes",
+      "kind": "read",
+      "description": "Selects a collection of nodes matching an XPath expression.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xPath",
+              "type": "string",
+              "required": true,
+              "description": "The XPath expression."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select all \"author\" nodes from a custom XML part using an XPath expression and log their count to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlRoot = xmlPart.getXml();\n        await context.sync();\n        \n        // Get the root node of the custom XML part\n        const rootNode = xmlPart.getOnlyChild();\n        \n        // Select all nodes matching the XPath expression\n        const authorNodes = rootNode.selectNodes(\"//author\");\n        authorNodes.load(\"items\");\n        await context.sync();\n        \n        console.log(`Found ${authorNodes.items.length} author nodes`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "selectSingleNode",
+      "kind": "read",
+      "description": "Selects a single node from a collection matching an XPath expression.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xPath",
+              "type": "string",
+              "required": true,
+              "description": "The XPath expression."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select and retrieve the text content of a specific employee node by ID from a Custom XML part using an XPath expression",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the first custom XML part (assumes it contains employee data)\n    const xmlPart = customXmlParts.items[0];\n    \n    // Get the root node\n    const rootNode = xmlPart.getXml();\n    await context.sync();\n    \n    // Select a single employee node with ID=\"E001\" using XPath\n    const employeeNode = rootNode.selectSingleNode(\"//employee[@id='E001']\");\n    employeeNode.load(\"baseName, nodeType, namespaceUri\");\n    await context.sync();\n    \n    console.log(`Found node: ${employeeNode.baseName}`);\n    console.log(`Node type: ${employeeNode.nodeType}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.CustomXmlNodeUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a custom XML node at once, setting both its base XML content and loading specific properties for inspection.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part and its root node\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    const xmlNodes = customXmlPart.getNodes(\"//*\");\n    xmlNodes.load(\"items\");\n    await context.sync();\n    \n    const xmlNode = xmlNodes.items[0];\n    \n    // Use set() to configure multiple properties at once\n    xmlNode.set({\n        nodeValue: \"Updated node value\",\n        // Additional properties can be set here\n    });\n    \n    await context.sync();\n    \n    console.log(\"Custom XML node properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.CustomXmlNode` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlNodeData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlNodeData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a custom XML node to a plain JavaScript object and log its properties to the console for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        await context.sync();\n\n        // Query for a specific node (e.g., first child node)\n        const nodes = xmlPart.query(\"//*[1]\");\n        nodes.load(\"items\");\n        await context.sync();\n\n        if (nodes.items.length > 0) {\n            const node = nodes.items[0];\n            node.load(\"baseName,namespaceUri,nodeType\");\n            await context.sync();\n\n            // Convert the CustomXmlNode to a plain JavaScript object\n            const nodeData = node.toJSON();\n            \n            // Log the serialized object for debugging\n            console.log(\"Node data:\", nodeData);\n            console.log(\"Base name:\", nodeData.baseName);\n            console.log(\"Namespace URI:\", nodeData.namespaceUri);\n            console.log(\"Node type:\", nodeData.nodeType);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML node across multiple sync calls to safely access and modify its properties without encountering InvalidObjectPath errors",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a custom XML part and find a specific node\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    const xmlNodes = customXmlPart.getXml();\n    await context.sync();\n    \n    // Get the root node\n    const rootNode = customXmlPart.getNodes(\"/*\")[0];\n    rootNode.load(\"baseName\");\n    \n    // Track the node to use it across multiple sync calls\n    rootNode.track();\n    \n    await context.sync();\n    \n    // Now we can safely use the tracked node in subsequent operations\n    console.log(\"Root node name: \" + rootNode.baseName);\n    \n    // Perform additional operations with the tracked node\n    const childNodes = rootNode.getChildNodes();\n    childNodes.load(\"items\");\n    await context.sync();\n    \n    console.log(\"Number of child nodes: \" + childNodes.items.length);\n    \n    // Untrack when done to release memory\n    rootNode.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a custom XML node, use it to read data, then untrack it to release memory after processing is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts and find a specific node\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.query(\"//*\");\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        if (xmlNodes.items.length > 0) {\n            const node = xmlNodes.items[0];\n            \n            // Track the node to work with it\n            context.trackedObjects.add(node);\n            node.load(\"baseName, nodeType\");\n            await context.sync();\n\n            // Use the node data\n            console.log(`Node name: ${node.baseName}, Type: ${node.nodeType}`);\n\n            // Untrack the node to free memory when done\n            node.untrack();\n            await context.sync();\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlnode"
+    ]
+  }
+}

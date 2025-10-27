@@ -1,0 +1,312 @@
+{
+  "class": {
+    "name": "Word.NoteItem",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.5"
+    },
+    "description": "Represents a footnote or endnote.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the text of the referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/body\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const footnoteBody: Word.Range = footnotes.items[mark].body.getRange();\n  footnoteBody.load(\"text\");\n  await context.sync();\n\n  console.log(`Text of footnote ${referenceNumber}: ${footnoteBody.text}`);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Represents the body object of the note item. It's the portion of the text within the footnote or endnote.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Retrieve and display the text content of a specific footnote in the document based on its reference number.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the text of the referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/body\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const footnoteBody: Word.Range = footnotes.items[mark].body.getRange();\n  footnoteBody.load(\"text\");\n  await context.sync();\n\n  console.log(`Text of footnote ${referenceNumber}: ${footnoteBody.text}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a footnote to verify the connection between the add-in and Word before performing operations on the note item.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        const firstFootnote = footnotes.items[0];\n        \n        // Access the request context from the footnote\n        const noteContext = firstFootnote.context;\n        \n        // Use the context to verify connection and load properties\n        firstFootnote.load(\"body/text\");\n        await noteContext.sync();\n        \n        console.log(\"Footnote text: \" + firstFootnote.body.text);\n        console.log(\"Context connection verified\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reference",
+      "type": "Word.Range",
+      "description": "Represents a footnote or endnote reference in the main document.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Select a footnote's reference mark in the document body based on a user-provided reference number.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Selects the footnote's reference mark in the document body.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/reference\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const item: Word.NoteItem = footnotes.items[mark];\n  const reference: Word.Range = item.reference;\n  reference.select();\n  await context.sync();\n\n  console.log(`Reference ${referenceNumber} is selected.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.NoteItemType | \"Footnote\" | \"Endnote\"",
+      "description": "Represents the note item type: footnote or endnote.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Retrieve and display the note type and body type of a specific footnote based on its reference number.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Gets the referenced note's item type and body type, which are both \"Footnote\".\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const item: Word.NoteItem = footnotes.items[mark];\n  console.log(`Note type of footnote ${referenceNumber}: ${item.type}`);\n\n  item.body.load(\"type\");\n  await context.sync();\n\n  console.log(`Body type of note: ${item.body.type}`);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the note item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a specific footnote from the document body based on a user-provided reference number.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Deletes this referenced footnote.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  footnotes.items[mark].delete();\n  await context.sync();\n\n  console.log(\"Footnote deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next note item of the same type. Throws an `ItemNotFound` error if this note item is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the footnote that comes after the footnote at the specified reference number in the document body.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml\n\n// Selects the next footnote in the document body.\nawait Word.run(async (context) => {\n  const footnotes: Word.NoteItemCollection = context.document.body.footnotes;\n  footnotes.load(\"items/reference\");\n  await context.sync();\n\n  const referenceNumber = (document.getElementById(\"input-reference\") as HTMLInputElement).value;\n  const mark = (referenceNumber as number) - 1;\n  const reference: Word.Range = footnotes.items[mark].getNext().reference;\n  reference.select();\n  console.log(\"Selected is the next footnote: \" + (mark + 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next note item of the same type. If this note item is the last one, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Iterate through all footnotes in the document and log their reference numbers and text content to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        let currentNote = footnotes.items[0];\n        currentNote.load(\"reference, body/text\");\n        await context.sync();\n        \n        // Process the first footnote\n        console.log(`Footnote ${currentNote.reference}: ${currentNote.body.text}`);\n        \n        // Iterate through remaining footnotes using getNextOrNullObject\n        while (true) {\n            let nextNote = currentNote.getNextOrNullObject();\n            nextNote.load(\"isNullObject, reference, body/text\");\n            await context.sync();\n            \n            if (nextNote.isNullObject) {\n                break;\n            }\n            \n            console.log(`Footnote ${nextNote.reference}: ${nextNote.body.text}`);\n            currentNote = nextNote;\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.NoteItemLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the reference text of the first footnote in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    const firstFootnote = footnotes.getFirst();\n    \n    // Load the reference property of the footnote\n    firstFootnote.load(\"reference\");\n    \n    await context.sync();\n    \n    // Display the footnote reference text\n    console.log(\"Footnote reference: \" + firstFootnote.reference);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.NoteItemUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.NoteItem",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of the first footnote in the document, setting its reference mark to a custom symbol and making it a superscript",
+          "usage_code": "await Word.run(async (context) => {\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        const firstFootnote = footnotes.items[0];\n        \n        // Set multiple properties at once\n        firstFootnote.set({\n            reference: \"*\",\n            type: Word.NoteItemType.footnote\n        });\n        \n        await context.sync();\n        console.log(\"Footnote properties updated successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.NoteItem` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.NoteItemData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.NoteItemData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a footnote's properties to a plain JavaScript object and log it to the console for debugging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        const firstFootnote = footnotes.items[0];\n        \n        // Load properties you want to serialize\n        firstFootnote.load(\"type, body/text\");\n        await context.sync();\n        \n        // Convert the NoteItem to a plain JavaScript object\n        const footnoteData = firstFootnote.toJSON();\n        \n        // Now you can use the plain object (e.g., log it, store it, send it)\n        console.log(\"Footnote data:\", JSON.stringify(footnoteData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a footnote object to maintain its reference across multiple sync calls while modifying its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        const firstFootnote = footnotes.items[0];\n        \n        // Track the footnote to use it across multiple sync calls\n        firstFootnote.track();\n        \n        // First sync - load the footnote's body text\n        firstFootnote.body.load(\"text\");\n        await context.sync();\n        \n        console.log(\"Original footnote text:\", firstFootnote.body.text);\n        \n        // Second sync - modify the footnote\n        firstFootnote.body.insertText(\" [Updated]\", Word.InsertLocation.end);\n        await context.sync();\n        \n        // Untrack when done to free up memory\n        firstFootnote.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.NoteItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Access a footnote, perform operations on it, then release it from memory tracking to improve performance",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first footnote in the document\n    const footnotes = context.document.body.footnotes;\n    footnotes.load(\"items\");\n    await context.sync();\n    \n    if (footnotes.items.length > 0) {\n        const firstFootnote = footnotes.items[0];\n        \n        // Track the footnote for operations\n        firstFootnote.track();\n        firstFootnote.body.load(\"text\");\n        await context.sync();\n        \n        // Perform operations with the footnote\n        console.log(\"Footnote text: \" + firstFootnote.body.text);\n        \n        // Untrack the footnote to release memory\n        firstFootnote.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-footnotes.yaml"
+    ]
+  }
+}

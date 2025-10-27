@@ -1,0 +1,805 @@
+{
+  "class": {
+    "name": "InlinePicture",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.1"
+    },
+    "description": "Represents an inline picture.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/15-images/insert-and-get-pictures.yaml\n\n// Inserts an image anchored to the last paragraph.\nawait Word.run(async (context) => {\n  context.document.body.paragraphs\n    .getLast()\n    .insertParagraph(\"\", \"After\")\n    .insertInlinePictureFromBase64(base64Image, \"End\");\n\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "altTextDescription",
+      "type": "string",
+      "description": "Specifies a string that represents the alternative text associated with the inline image.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Set the alternative text description for an inline picture to \"Company logo showing a blue mountain peak\"",
+          "usage_code": "await Word.run(async (context) => {\n    const firstPicture = context.document.body.inlinePictures.getFirst();\n    firstPicture.altTextDescription = \"Company logo showing a blue mountain peak\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "altTextTitle",
+      "type": "string",
+      "description": "Specifies a string that contains the title for the inline image.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Set the alt text title of the first inline picture in the document to \"Company Logo\"",
+          "usage_code": "await Word.run(async (context) => {\n    const firstPicture = context.document.body.inlinePictures.getFirst();\n    firstPicture.altTextTitle = \"Company Logo\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from an inline picture to load and read its width property",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const firstPicture = context.document.body.inlinePictures.getFirstOrNullObject();\n    \n    // Access the request context associated with the inline picture\n    const pictureContext = firstPicture.context;\n    \n    // Use the context to load properties\n    firstPicture.load(\"width\");\n    \n    await pictureContext.sync();\n    \n    if (!firstPicture.isNullObject) {\n        console.log(`Picture width: ${firstPicture.width}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Specifies a number that describes the height of the inline image.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Set the height of an inline picture to 200 pixels",
+          "usage_code": "await Word.run(async (context) => {\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        picture.height = 200;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hyperlink",
+      "type": "string",
+      "description": "Specifies a hyperlink on the image. Use a '#' to separate the address part from the optional location part.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Add a hyperlink to an inline picture that navigates to a specific website when clicked",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        \n        // Set hyperlink to navigate to Microsoft's website\n        picture.hyperlink = \"https://www.microsoft.com\";\n        \n        await context.sync();\n        console.log(\"Hyperlink added to the inline picture\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "imageFormat",
+      "type": "Word.ImageFormat | \"Unsupported\" | \"Undefined\" | \"Bmp\" | \"Jpeg\" | \"Gif\" | \"Tiff\" | \"Png\" | \"Icon\" | \"Exif\" | \"Wmf\" | \"Emf\" | \"Pict\" | \"Pdf\" | \"Svg\"",
+      "description": "Gets the format of the inline image.",
+      "since": "WordApiDesktop 1.1",
+      "examples": [
+        {
+          "description": "Retrieve and display the dimensions, format, and Base64-encoded data of the first inline picture in the document body.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/15-images/insert-and-get-pictures.yaml\n\n// Gets the first image in the document.\nawait Word.run(async (context) => {\n  const firstPicture: Word.InlinePicture = context.document.body.inlinePictures.getFirst();\n  firstPicture.load(\"width, height, imageFormat\");\n\n  await context.sync();\n  console.log(`Image dimensions: ${firstPicture.width} x ${firstPicture.height}`, `Image format: ${firstPicture.imageFormat}`);\n  // Get the image encoded as Base64.\n  const base64 = firstPicture.getBase64ImageSrc();\n\n  await context.sync();\n  console.log(base64.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockAspectRatio",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the inline image retains its original proportions when you resize it.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Lock the aspect ratio of the first inline picture in the document to prevent distortion when resizing",
+          "usage_code": "await Word.run(async (context) => {\n    const firstPicture = context.document.body.inlinePictures.getFirst();\n    firstPicture.lockAspectRatio = true;\n    firstPicture.load(\"lockAspectRatio\");\n    \n    await context.sync();\n    console.log(\"Aspect ratio locked: \" + firstPicture.lockAspectRatio);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "paragraph",
+      "type": "Word.Paragraph",
+      "description": "Gets the parent paragraph that contains the inline image.",
+      "since": "WordApi 1.2",
+      "examples": [
+        {
+          "description": "Get the text content of the paragraph that contains the first inline picture in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const firstPicture = inlinePictures.items[0];\n        const parentParagraph = firstPicture.paragraph;\n        parentParagraph.load(\"text\");\n        \n        await context.sync();\n        \n        console.log(\"Paragraph text: \" + parentParagraph.text);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControl",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the inline image. Throws an ItemNotFound error if there isn't a parent content control.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a content control and highlight the parent content control in yellow if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    try {\n        // Get the parent content control\n        const parentContentControl = inlinePicture.parentContentControl;\n        \n        // Highlight the parent content control\n        parentContentControl.appearance = \"Tags\";\n        parentContentControl.color = \"yellow\";\n        \n        await context.sync();\n        console.log(\"Parent content control highlighted successfully\");\n    } catch (error) {\n        console.log(\"This inline picture is not inside a content control\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControlOrNullObject",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the inline image. If there isn't a parent content control, then this method will return an object with its isNullObject property set to true. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a content control and highlight the content control with a yellow background if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Get the parent content control (or null object if none exists)\n    const parentContentControl = inlinePicture.parentContentControlOrNullObject;\n    \n    // Load the isNullObject property to check if it exists\n    parentContentControl.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    // Check if the picture is inside a content control\n    if (!parentContentControl.isNullObject) {\n        // Picture is inside a content control - highlight it\n        parentContentControl.font.highlightColor = \"yellow\";\n        console.log(\"Picture is inside a content control - highlighted it\");\n    } else {\n        console.log(\"Picture is not inside a content control\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTable",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the inline image. Throws an ItemNotFound error if it isn't contained in a table.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a table and if so, add a border around the parent table.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    await context.sync();\n\n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        \n        try {\n            // Get the parent table containing the picture\n            const parentTable = picture.parentTable;\n            parentTable.load(\"style\");\n            await context.sync();\n            \n            // Add a border to the parent table\n            parentTable.setBorder(\n                Word.BorderLocation.all,\n                Word.BorderType.single,\n                { color: \"#0000FF\", width: 2.0 }\n            );\n            \n            await context.sync();\n            console.log(\"Border added to the table containing the picture\");\n        } catch (error) {\n            console.log(\"Picture is not contained in a table\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCell",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the inline image. Throws an ItemNotFound error if it isn't contained in a table cell.",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a table cell and highlight that cell with a yellow background color.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        \n        try {\n            // Get the parent table cell containing the picture\n            const tableCell = picture.parentTableCell;\n            tableCell.load(\"cellIndex, rowIndex\");\n            \n            // Set the cell's background color to yellow\n            tableCell.shadingColor = \"#FFFF00\";\n            \n            await context.sync();\n            \n            console.log(`Picture found in cell at row ${tableCell.rowIndex}, column ${tableCell.cellIndex}`);\n        } catch (error) {\n            console.log(\"Picture is not inside a table cell\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCellOrNullObject",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the inline image. If it isn't contained in a table cell, then this method will return an object with its isNullObject property set to true. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a table cell and highlight the cell in yellow if it is.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    await context.sync();\n\n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        const tableCell = picture.parentTableCellOrNullObject;\n        tableCell.load(\"isNullObject\");\n        await context.sync();\n\n        if (!tableCell.isNullObject) {\n            // Picture is in a table cell - highlight it\n            tableCell.shadingColor = \"yellow\";\n            console.log(\"Picture is inside a table cell - cell highlighted\");\n        } else {\n            console.log(\"Picture is not inside a table cell\");\n        }\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableOrNullObject",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the inline image. If it isn't contained in a table, then this method will return an object with its isNullObject property set to true. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": "WordApi 1.3",
+      "examples": [
+        {
+          "description": "Check if an inline picture is inside a table and if so, highlight the table with a light blue background color.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Get the parent table (or null object if not in a table)\n    const parentTable = inlinePicture.parentTableOrNullObject;\n    parentTable.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    // Check if the picture is inside a table\n    if (!parentTable.isNullObject) {\n        // Picture is in a table - highlight it\n        parentTable.shadingColor = \"#ADD8E6\"; // Light blue\n        console.log(\"Picture is inside a table. Table highlighted.\");\n    } else {\n        console.log(\"Picture is not inside a table.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Specifies a number that describes the width of the inline image.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Set the width of an inline picture to 200 pixels",
+          "usage_code": "await Word.run(async (context) => {\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const picture = inlinePictures.items[0];\n        picture.width = 200;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the inline picture from the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete all inline pictures from the first paragraph of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get all inline pictures in the paragraph\n    const inlinePictures = firstParagraph.inlinePictures;\n    \n    // Load the inline pictures collection\n    context.load(inlinePictures);\n    await context.sync();\n    \n    // Delete each inline picture\n    for (let i = 0; i < inlinePictures.items.length; i++) {\n        inlinePictures.items[i].delete();\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBase64ImageSrc",
+      "kind": "read",
+      "description": "Gets the Base64-encoded string representation of the inline image.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve the first inline picture from the document body and obtain its Base64-encoded image source along with its dimensions and format.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/15-images/insert-and-get-pictures.yaml\n\n// Gets the first image in the document.\nawait Word.run(async (context) => {\n  const firstPicture: Word.InlinePicture = context.document.body.inlinePictures.getFirst();\n  firstPicture.load(\"width, height, imageFormat\");\n\n  await context.sync();\n  console.log(`Image dimensions: ${firstPicture.width} x ${firstPicture.height}`, `Image format: ${firstPicture.imageFormat}`);\n  // Get the image encoded as Base64.\n  const base64 = firstPicture.getBase64ImageSrc();\n\n  await context.sync();\n  console.log(base64.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next inline image. Throws an ItemNotFound error if this inline image is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the alternative text title of the first inline picture in the document, or indicate if no inline pictures exist.",
+          "usage_code": "// To use this snippet, add an inline picture to the document and assign it an alt text title.\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the first inline picture.\n    const firstPicture = context.document.body.inlinePictures.getFirstOrNullObject();\n\n    // Queue a command to load the alternative text title of the picture.\n    firstPicture.load('altTextTitle');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (firstPicture.isNullObject) {\n        console.log('There are no inline pictures in this document.')\n    } else {\n        console.log(firstPicture.altTextTitle);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next inline image. If this inline image is the last one, then this method will return an object with its isNullObject property set to true. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the alternative text title of the first inline picture in the document, or indicate if no inline pictures exist.",
+          "usage_code": "// To use this snippet, add an inline picture to the document and assign it an alt text title.\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the first inline picture.\n    const firstPicture = context.document.body.inlinePictures.getFirstOrNullObject();\n\n    // Queue a command to load the alternative text title of the picture.\n    firstPicture.load('altTextTitle');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (firstPicture.isNullObject) {\n        console.log('There are no inline pictures in this document.')\n    } else {\n        console.log(firstPicture.altTextTitle);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the picture, or the starting or ending point of the picture, as a range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rangeLocation",
+              "type": "Word.RangeLocation.whole | Word.RangeLocation.start | Word.RangeLocation.end | \"Whole\" | \"Start\" | \"End\"",
+              "required": false,
+              "description": "The range location must be 'Whole', 'Start', or 'End'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the range of the first inline picture in the document and highlight it with yellow color",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const firstPicture = inlinePictures.items[0];\n        \n        // Get the range of the inline picture\n        const pictureRange = firstPicture.getRange(\"Whole\");\n        pictureRange.font.highlightColor = \"yellow\";\n        \n        await context.sync();\n        console.log(\"Inline picture range highlighted\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertBreak",
+      "kind": null,
+      "description": "Inserts a break at the specified location in the main document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "breakType",
+              "type": "Word.BreakType | \"Page\" | \"Next\" | \"SectionNext\" | \"SectionContinuous\" | \"SectionEven\" | \"SectionOdd\" | \"Line\"",
+              "required": true,
+              "description": "The break type to add."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a page break after the first inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    const firstPicture = inlinePictures.getFirst();\n    \n    // Insert a page break after the picture\n    firstPicture.insertBreak(Word.BreakType.page, Word.InsertLocation.after);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertContentControl",
+      "kind": "create",
+      "description": "Wraps the inline picture with a rich text content control.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Wrap an inline picture with a rich text content control and set its title to \"Product Image\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Wrap the inline picture with a content control\n    const contentControl = inlinePicture.insertContentControl();\n    contentControl.title = \"Product Image\";\n    contentControl.tag = \"productImage\";\n    \n    await context.sync();\n    \n    console.log(\"Inline picture wrapped with content control\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertFileFromBase64",
+      "kind": null,
+      "description": "Inserts a document at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": true,
+              "description": "The Base64-encoded content of a .docx file."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a company logo image from base64 data before an inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Base64 encoded image data (example: small PNG image)\n    const base64Image = \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\";\n    \n    // Insert the image before the existing inline picture\n    inlinePicture.insertFileFromBase64(base64Image, Word.InsertLocation.before);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertHtml",
+      "kind": null,
+      "description": "Inserts HTML at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "html",
+              "type": "string",
+              "required": true,
+              "description": "The HTML to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a formatted HTML snippet with a heading and paragraph after an inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Insert HTML after the picture\n    const htmlContent = \"<h2>Image Caption</h2><p>This is a description of the image above.</p>\";\n    inlinePicture.insertHtml(htmlContent, Word.InsertLocation.after);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertInlinePictureFromBase64",
+      "kind": "create",
+      "description": "Inserts an inline picture at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64EncodedImage",
+              "type": "string",
+              "required": true,
+              "description": "The Base64-encoded image to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.before | Word.InsertLocation.after | \"Replace\" | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Replace', 'Before', or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a company logo image from base64 encoding before an existing inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const firstPicture = context.document.body.inlinePictures.getFirst();\n    \n    // Base64 encoded image string (example: small red square PNG)\n    const base64Image = \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8DwHwAFBQIAX8jx0gAAAABJRU5ErkJggg==\";\n    \n    // Insert a new inline picture before the existing one\n    const newPicture = firstPicture.insertInlinePictureFromBase64(base64Image, Word.InsertLocation.before);\n    \n    await context.sync();\n    console.log(\"Logo inserted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertOoxml",
+      "kind": null,
+      "description": "Inserts OOXML at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "ooxml",
+              "type": "string",
+              "required": true,
+              "description": "The OOXML to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a formatted text box using OOXML before an existing inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // OOXML for a simple text box with formatted text\n    const ooxml = `\n        <pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n            <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\">\n                <pkg:xmlData>\n                    <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n                        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n                    </Relationships>\n                </pkg:xmlData>\n            </pkg:part>\n            <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n                <pkg:xmlData>\n                    <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">\n                        <w:body>\n                            <w:p>\n                                <w:r>\n                                    <w:rPr>\n                                        <w:b/>\n                                        <w:color w:val=\"FF0000\"/>\n                                    </w:rPr>\n                                    <w:t>Important Note</w:t>\n                                </w:r>\n                            </w:p>\n                        </w:body>\n                    </w:document>\n                </pkg:xmlData>\n            </pkg:part>\n        </pkg:package>`;\n    \n    // Insert the OOXML before the inline picture\n    inlinePicture.insertOoxml(ooxml, Word.InsertLocation.before);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertParagraph",
+      "kind": "create",
+      "description": "Inserts a paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "paragraphText",
+              "type": "string",
+              "required": true,
+              "description": "The paragraph text to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a paragraph with text below an inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Insert a paragraph after the inline picture\n    inlinePicture.insertParagraph(\"This is a caption for the image above.\", Word.InsertLocation.after);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertText",
+      "kind": null,
+      "description": "Inserts text at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "text",
+              "type": "string",
+              "required": true,
+              "description": "Text to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "The value must be 'Before' or 'After'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert the text \"Figure 1: \" before an inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Insert text before the inline picture\n    inlinePicture.insertText(\"Figure 1: \", Word.InsertLocation.before);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.InlinePictureLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the width and height properties of the first inline picture in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Load the width and height properties\n    inlinePicture.load(\"width, height\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the loaded properties\n    console.log(`Picture width: ${inlinePicture.width}`);\n    console.log(`Picture height: ${inlinePicture.height}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the inline picture. This causes Word to scroll to the selection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": "Word.SelectionMode",
+              "required": false,
+              "description": "The selection mode must be 'Select', 'Start', or 'End'. 'Select' is the default."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": "\"Select\" | \"Start\" | \"End\"",
+              "required": false,
+              "description": "The selection mode must be 'Select', 'Start', or 'End'. 'Select' is the default."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the first inline picture in the document to highlight it and scroll it into view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"items\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const firstPicture = inlinePictures.items[0];\n        \n        // Select the inline picture with default selection mode\n        firstPicture.select();\n        \n        await context.sync();\n        console.log(\"First inline picture selected and scrolled into view\");\n    } else {\n        console.log(\"No inline pictures found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.InlinePictureUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.InlinePicture",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update an inline picture's dimensions and alt text by setting multiple properties at once",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Set multiple properties at once\n    inlinePicture.set({\n        width: 200,\n        height: 150,\n        altTextTitle: \"Company Logo\",\n        altTextDescription: \"Official company logo with blue background\"\n    });\n    \n    await context.sync();\n    console.log(\"Inline picture properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.InlinePicture object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.InlinePictureData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.InlinePictureData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the properties of an inline picture as a plain JavaScript object and log it to the console for debugging or serialization purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePictures = context.document.body.inlinePictures;\n    inlinePictures.load(\"width,height,altTextTitle\");\n    \n    await context.sync();\n    \n    if (inlinePictures.items.length > 0) {\n        const firstPicture = inlinePictures.items[0];\n        \n        // Convert the InlinePicture object to a plain JavaScript object\n        const pictureData = firstPicture.toJSON();\n        \n        // Log the plain object (useful for debugging or serialization)\n        console.log(\"Picture data:\", JSON.stringify(pictureData, null, 2));\n        console.log(\"Width:\", pictureData.width);\n        console.log(\"Height:\", pictureData.height);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an inline picture object to maintain its reference across multiple sync calls when modifying its properties in separate batches",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first inline picture in the document\n    const inlinePicture = context.document.body.inlinePictures.getFirst();\n    \n    // Track the object to use it across multiple sync calls\n    inlinePicture.track();\n    \n    // Load properties\n    inlinePicture.load(\"width,height\");\n    await context.sync();\n    \n    // First batch: modify width\n    console.log(`Original size: ${inlinePicture.width} x ${inlinePicture.height}`);\n    inlinePicture.width = 200;\n    await context.sync();\n    \n    // Second batch: modify height (object remains valid because it's tracked)\n    inlinePicture.height = 150;\n    await context.sync();\n    \n    console.log(\"Picture resized successfully\");\n    \n    // Untrack when done to free memory\n    inlinePicture.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert an inline picture, use it to get its dimensions, then untrack it to free memory after the operation is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    \n    // Insert an inline picture\n    const picture = body.insertInlinePictureFromBase64(base64Image, Word.InsertLocation.start);\n    \n    // Track the picture to work with it across multiple sync calls\n    picture.track();\n    \n    // Load properties we need\n    picture.load(\"width,height\");\n    await context.sync();\n    \n    // Use the picture properties\n    console.log(`Picture dimensions: ${picture.width} x ${picture.height}`);\n    \n    // Untrack the picture to release memory since we're done with it\n    picture.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

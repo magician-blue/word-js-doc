@@ -1,0 +1,1071 @@
+{
+  "class": {
+    "name": "Word.View",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Contains the view attributes (such as show all, field shading, and table gridlines) for a window or pane.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "areAllNonprintingCharactersDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether all nonprinting characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display all nonprinting characters (such as spaces, paragraph marks, and tabs) in the document to review formatting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Enable display of all nonprinting characters\n    view.areAllNonprintingCharactersDisplayed = true;\n    \n    await context.sync();\n    \n    console.log(\"All nonprinting characters are now displayed\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areBackgroundsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether background colors and images are shown when the document is displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if background colors and images are currently displayed in print layout view and show the result in a message",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areBackgroundsDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Backgrounds displayed: ${view.areBackgroundsDisplayed}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areBookmarksIndicated",
+      "type": "boolean",
+      "description": "Gets whether square brackets are displayed at the beginning and end of each bookmark.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if bookmark indicators are currently displayed and toggle them on to show square brackets around bookmarks in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areBookmarksIndicated\");\n    \n    await context.sync();\n    \n    if (!view.areBookmarksIndicated) {\n        view.areBookmarksIndicated = true;\n        console.log(\"Bookmark indicators enabled - square brackets will now display around bookmarks\");\n    } else {\n        console.log(\"Bookmark indicators are already enabled\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areCommentsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays the comments in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Hide all comments in the active document to get a cleaner view of the content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Hide comments in the document\n    view.areCommentsDisplayed = false;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areConnectingLinesToRevisionsBalloonDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays connecting lines from the text to the revision and comment balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Hide the connecting lines between text and revision balloons in the document view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Hide connecting lines to revision balloons\n    view.areConnectingLinesToRevisionsBalloonDisplayed = false;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areCropMarksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether crop marks are shown in the corners of pages to indicate where margins are located.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if crop marks are currently displayed in the document and log the result to the console",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areCropMarksDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Crop marks are ${view.areCropMarksDisplayed ? 'displayed' : 'not displayed'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areDrawingsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether objects created with the drawing tools are displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if drawing objects are currently displayed in the document's print layout view and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areDrawingsDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Drawing objects are ${view.areDrawingsDisplayed ? 'displayed' : 'hidden'} in print layout view`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areEditableRangesShaded",
+      "type": "boolean",
+      "description": "Specifies whether shading is applied to the ranges in the document that users have permission to modify.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable shading for editable ranges in the document so users can visually identify which parts they have permission to modify",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Enable shading for editable ranges\n    view.areEditableRangesShaded = true;\n    \n    await context.sync();\n    \n    console.log(\"Editable ranges shading has been enabled\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areFieldCodesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether field codes are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the display of field codes in the document to show the underlying field code syntax instead of field results",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Display field codes instead of field results\n    view.areFieldCodesDisplayed = true;\n    \n    await context.sync();\n    \n    console.log(\"Field codes are now displayed\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areFormatChangesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays formatting changes made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if formatting changes are currently being displayed in the document and toggle the display of formatting changes made with Track Changes enabled.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areFormatChangesDisplayed\");\n    \n    await context.sync();\n    \n    console.log(\"Current state:\", view.areFormatChangesDisplayed);\n    \n    // Toggle the display of formatting changes\n    view.areFormatChangesDisplayed = !view.areFormatChangesDisplayed;\n    \n    await context.sync();\n    \n    console.log(\"Formatting changes display toggled to:\", view.areFormatChangesDisplayed);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areInkAnnotationsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether handwritten ink annotations are shown or hidden.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Hide handwritten ink annotations in the current document view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Hide ink annotations\n    view.areInkAnnotationsDisplayed = false;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areInsertionsAndDeletionsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays insertions and deletions made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if tracked changes (insertions and deletions) are currently displayed in the document, and if not, enable their display to review all edits.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areInsertionsAndDeletionsDisplayed\");\n    \n    await context.sync();\n    \n    if (!view.areInsertionsAndDeletionsDisplayed) {\n        view.areInsertionsAndDeletionsDisplayed = true;\n        await context.sync();\n        console.log(\"Tracked changes are now visible\");\n    } else {\n        console.log(\"Tracked changes are already visible\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areLinesWrappedToWindow",
+      "type": "boolean",
+      "description": "Gets whether lines wrap at the right edge of the document window rather than at the right margin or the right column boundary.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if text wrapping is set to window edge and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areLinesWrappedToWindow\");\n    \n    await context.sync();\n    \n    console.log(`Lines wrapped to window: ${view.areLinesWrappedToWindow}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areObjectAnchorsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether object anchors are displayed next to items that can be positioned in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if object anchors are currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areObjectAnchorsDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Object anchors are ${view.areObjectAnchorsDisplayed ? 'displayed' : 'hidden'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areOptionalBreaksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether Microsoft Word displays optional line breaks.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if optional line breaks are currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areOptionalBreaksDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Optional line breaks displayed: ${view.areOptionalBreaksDisplayed}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areOptionalHyphensDisplayed",
+      "type": "boolean",
+      "description": "Gets whether optional hyphens are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if optional hyphens are currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areOptionalHyphensDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Optional hyphens displayed: ${view.areOptionalHyphensDisplayed}`);\n    \n    if (view.areOptionalHyphensDisplayed) {\n        console.log(\"Optional hyphens are currently visible in the document.\");\n    } else {\n        console.log(\"Optional hyphens are currently hidden in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areOtherAuthorsVisible",
+      "type": "boolean",
+      "description": "Gets whether other authors' presence should be visible in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if other authors are visible in the document and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areOtherAuthorsVisible\");\n    \n    await context.sync();\n    \n    console.log(`Other authors visible: ${view.areOtherAuthorsVisible}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "arePageBoundariesDisplayed",
+      "type": "boolean",
+      "description": "Gets whether the top and bottom margins and the gray area between pages in the document are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if page boundaries are currently displayed in the document view and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"arePageBoundariesDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Page boundaries displayed: ${view.arePageBoundariesDisplayed}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areParagraphsMarksDisplayed",
+      "type": "boolean",
+      "description": "Gets whether paragraph marks are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if paragraph marks are currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areParagraphsMarksDisplayed\");\n    \n    await context.sync();\n    \n    if (view.areParagraphsMarksDisplayed) {\n        console.log(\"Paragraph marks are currently displayed\");\n    } else {\n        console.log(\"Paragraph marks are currently hidden\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "arePicturePlaceholdersDisplayed",
+      "type": "boolean",
+      "description": "Gets whether blank boxes are displayed as placeholders for pictures.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if picture placeholders are currently displayed in the document view and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"arePicturePlaceholdersDisplayed\");\n    \n    await context.sync();\n    \n    console.log(\"Picture placeholders displayed: \" + view.arePicturePlaceholdersDisplayed);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areRevisionsAndCommentsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word displays revisions and comments made to the document with Track Changes enabled.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if revisions and comments are currently displayed in the document, and if not, enable their display to show all tracked changes and comments.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areRevisionsAndCommentsDisplayed\");\n    \n    await context.sync();\n    \n    if (!view.areRevisionsAndCommentsDisplayed) {\n        view.areRevisionsAndCommentsDisplayed = true;\n        await context.sync();\n        console.log(\"Revisions and comments are now displayed\");\n    } else {\n        console.log(\"Revisions and comments are already displayed\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areSpacesIndicated",
+      "type": "boolean",
+      "description": "Gets whether space characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if space characters are currently displayed in the document view and log the result to the console",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areSpacesIndicated\");\n    \n    await context.sync();\n    \n    console.log(`Space characters are ${view.areSpacesIndicated ? 'visible' : 'hidden'} in the document view`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areTableGridlinesDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether table gridlines are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the display of table gridlines in the document to make them visible for easier table editing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Enable table gridlines display\n    view.areTableGridlinesDisplayed = true;\n    \n    await context.sync();\n    \n    console.log(\"Table gridlines are now displayed\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areTabsDisplayed",
+      "type": "boolean",
+      "description": "Gets whether tab characters are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if tab characters are currently displayed in the document view and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areTabsDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Tab characters are ${view.areTabsDisplayed ? 'visible' : 'hidden'} in the document view.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areTextBoundariesDisplayed",
+      "type": "boolean",
+      "description": "Gets whether dotted lines are displayed around page margins, text columns, objects, and frames in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if text boundaries are currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"areTextBoundariesDisplayed\");\n    \n    await context.sync();\n    \n    if (view.areTextBoundariesDisplayed) {\n        console.log(\"Text boundaries are currently displayed\");\n    } else {\n        console.log(\"Text boundaries are not displayed\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "columnWidth",
+      "type": "Word.ColumnWidth | \"Narrow\" | \"Default\" | \"Wide\"",
+      "description": "Specifies the column width in Reading mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the Reading mode column width to \"Narrow\" for easier reading of dense content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Set the column width to Narrow in Reading mode\n    view.columnWidth = \"Narrow\";\n    \n    await context.sync();\n    \n    console.log(\"Column width set to Narrow\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a View object to load and read the current view's showParagraphMarks property",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    \n    // Access the request context associated with the view object\n    const requestContext = view.context;\n    \n    // Use the context to load properties\n    view.load(\"showParagraphMarks\");\n    \n    await requestContext.sync();\n    \n    console.log(\"Show paragraph marks: \" + view.showParagraphMarks);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fieldShading",
+      "type": "Word.FieldShading | \"Never\" | \"Always\" | \"WhenSelected\"",
+      "description": "Gets on-screen shading for fields.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check the current field shading setting and display it to the user, then change it to always show field shading",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Load the fieldShading property\n    view.load(\"fieldShading\");\n    \n    await context.sync();\n    \n    // Display current setting\n    console.log(\"Current field shading: \" + view.fieldShading);\n    \n    // Set field shading to always show\n    view.fieldShading = Word.FieldShading.always;\n    \n    await context.sync();\n    \n    console.log(\"Field shading set to: Always\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isDraft",
+      "type": "boolean",
+      "description": "Specifies whether all the text in a window is displayed in the same sans-serif font with minimal formatting to speed up display.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable draft view mode to display all document text in a simple sans-serif font for faster rendering and editing performance.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Enable draft mode for faster display\n    view.isDraft = true;\n    \n    await context.sync();\n    \n    console.log(\"Draft view mode enabled\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isFirstLineOnlyDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether only the first line of body text is shown in outline view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the outline view to display only the first line of each paragraph's body text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Set to display only the first line in outline view\n    view.isFirstLineOnlyDisplayed = true;\n    \n    // Sync to apply the changes\n    await context.sync();\n    \n    console.log(\"Outline view set to display only first line of body text\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isFormatDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether character formatting is visible in outline view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Show character formatting in outline view by enabling the format display setting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Enable character formatting display in outline view\n    view.isFormatDisplayed = true;\n    \n    await context.sync();\n    console.log(\"Character formatting is now visible in outline view\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isFullScreen",
+      "type": "boolean",
+      "description": "Specifies whether the window is in full-screen view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the Word document window to full-screen view mode",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveWindow().view;\n    \n    // Set the window to full-screen mode\n    view.isFullScreen = true;\n    \n    await context.sync();\n    \n    console.log(\"Window is now in full-screen mode\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isHiddenTextDisplayed",
+      "type": "boolean",
+      "description": "Gets whether text formatted as hidden text is displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if hidden text is currently displayed in the document and show an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isHiddenTextDisplayed\");\n    \n    await context.sync();\n    \n    if (view.isHiddenTextDisplayed) {\n        console.log(\"Hidden text is currently displayed in the document.\");\n    } else {\n        console.log(\"Hidden text is currently hidden in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isHighlightingDisplayed",
+      "type": "boolean",
+      "description": "Gets whether highlight formatting is displayed and printed with the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if text highlighting is currently displayed in the document and show an alert with the result.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isHighlightingDisplayed\");\n    \n    await context.sync();\n    \n    if (view.isHighlightingDisplayed) {\n        console.log(\"Highlighting is currently displayed in the document.\");\n    } else {\n        console.log(\"Highlighting is not displayed in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isInConflictMode",
+      "type": "boolean",
+      "description": "Specifies whether the document is in conflict mode view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the document is currently in conflict mode view and display an alert to the user if conflicts are detected.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isInConflictMode\");\n    \n    await context.sync();\n    \n    if (view.isInConflictMode) {\n        console.log(\"Warning: Document is in conflict mode. Please resolve conflicts before continuing.\");\n    } else {\n        console.log(\"Document is not in conflict mode.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isInPanning",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word is in Panning mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the document view is currently in panning mode and display an alert message to the user.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isInPanning\");\n    \n    await context.sync();\n    \n    if (view.isInPanning) {\n        console.log(\"The document is currently in panning mode.\");\n    } else {\n        console.log(\"The document is not in panning mode.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isInReadingLayout",
+      "type": "boolean",
+      "description": "Specifies whether the document is being viewed in reading layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the document is currently in reading layout view and display an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isInReadingLayout\");\n    \n    await context.sync();\n    \n    if (view.isInReadingLayout) {\n        console.log(\"The document is currently in reading layout view.\");\n    } else {\n        console.log(\"The document is not in reading layout view.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isMailMergeDataView",
+      "type": "boolean",
+      "description": "Specifies whether mail merge data is displayed instead of mail merge fields.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if mail merge data is currently displayed and toggle the view to show mail merge fields instead of the actual data",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isMailMergeDataView\");\n    \n    await context.sync();\n    \n    if (view.isMailMergeDataView) {\n        // Currently showing data, switch to show fields\n        view.isMailMergeDataView = false;\n        console.log(\"Switched to mail merge fields view\");\n    } else {\n        // Currently showing fields, switch to show data\n        view.isMailMergeDataView = true;\n        console.log(\"Switched to mail merge data view\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isMainTextLayerVisible",
+      "type": "boolean",
+      "description": "Specifies whether the text in the document is visible when the header and footer areas are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Hide the main document text while viewing headers and footers to focus only on the header/footer content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Hide the main text layer when headers/footers are displayed\n    view.isMainTextLayerVisible = false;\n    \n    // Sync to apply the changes\n    await context.sync();\n    \n    console.log(\"Main text layer is now hidden when viewing headers/footers\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isPointerShownAsMagnifier",
+      "type": "boolean",
+      "description": "Specifies whether the pointer is displayed as a magnifying glass in print preview.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the pointer is shown as a magnifying glass in print preview and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isPointerShownAsMagnifier\");\n    \n    await context.sync();\n    \n    console.log(`Pointer shown as magnifier: ${view.isPointerShownAsMagnifier}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isReadingLayoutActualView",
+      "type": "boolean",
+      "description": "Specifies whether pages displayed in reading layout view are displayed using the same layout as printed pages.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the reading layout view is using the actual page layout, and if not, enable it to match the printed page appearance.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"isReadingLayoutActualView\");\n    \n    await context.sync();\n    \n    if (!view.isReadingLayoutActualView) {\n        view.isReadingLayoutActualView = true;\n        console.log(\"Reading layout now displays actual page layout\");\n    } else {\n        console.log(\"Reading layout already displays actual page layout\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isXmlMarkupVisible",
+      "type": "boolean",
+      "description": "Specifies whether XML tags are visible in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Hide XML markup tags in the current document view to provide a cleaner reading experience",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Hide XML markup tags\n    view.isXmlMarkupVisible = false;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "markupMode",
+      "type": "Word.RevisionsMode | \"Balloon\" | \"Inline\" | \"Mixed\"",
+      "description": "Specifies the display mode for tracked changes.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the tracked changes display mode to show revisions inline within the document text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Set the markup mode to display revisions inline\n    view.markupMode = Word.RevisionsMode.inline;\n    \n    await context.sync();\n    \n    console.log(\"Markup mode set to inline\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageColor",
+      "type": "Word.PageColor | \"None\" | \"Sepia\" | \"Inverse\"",
+      "description": "Specifies the page color in Reading mode.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the page color to sepia in Reading mode to reduce eye strain",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Set the page color to sepia for Reading mode\n    view.pageColor = Word.PageColor.sepia;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageMovementType",
+      "type": "Word.PageMovementType | \"Vertical\" | \"SideToSide\"",
+      "description": "Specifies the page movement type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the page movement type to side-to-side reading mode for the active document view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Set the page movement type to side-to-side\n    view.pageMovementType = Word.PageMovementType.sideToSide;\n    \n    await context.sync();\n    \n    console.log(\"Page movement type set to side-to-side\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "readingLayoutTruncateMargins",
+      "type": "Word.ReadingLayoutMargin | \"Automatic\" | \"Suppress\" | \"Full\"",
+      "description": "Specifies whether margins are visible or hidden when the document is viewed in Full Screen Reading view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the reading layout to suppress margins when viewing the document in Full Screen Reading view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Suppress margins in Full Screen Reading view\n    view.readingLayoutTruncateMargins = Word.ReadingLayoutMargin.suppress;\n    \n    await context.sync();\n    \n    console.log(\"Reading layout margins have been suppressed\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "revisionsBalloonSide",
+      "type": "Word.RevisionsBalloonMargin | \"Left\" | \"Right\"",
+      "description": "Gets whether Word displays revision balloons in the left or right margin in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check which side of the document displays revision balloons and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"revisionsBalloonSide\");\n    \n    await context.sync();\n    \n    console.log(`Revision balloons are displayed on the ${view.revisionsBalloonSide} side`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "revisionsBalloonWidth",
+      "type": "number",
+      "description": "Specifies the width of the revision balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the revision balloons width to 300 pixels to make tracked changes more readable in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current view\n    const view = context.document.getActiveView();\n    \n    // Set the revision balloons width to 300 pixels\n    view.revisionsBalloonWidth = 300;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "revisionsBalloonWidthType",
+      "type": "Word.RevisionsBalloonWidthType | \"Percent\" | \"Points\"",
+      "description": "Specifies how Microsoft Word measures the width of revision balloons.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the revision balloons to use a percentage-based width measurement instead of points",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Set the revisions balloon width type to percentage\n    view.revisionsBalloonWidthType = Word.RevisionsBalloonWidthType.percent;\n    // Alternative: view.revisionsBalloonWidthType = \"Percent\";\n    \n    await context.sync();\n    \n    console.log(\"Revision balloons will now use percentage-based width measurement\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "revisionsFilter",
+      "type": "Word.RevisionsFilter",
+      "description": "Gets the instance of a RevisionsFilter object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the revisions filter to show only insertions and deletions while hiding formatting changes in the document view.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter from the document view\n    const revisionsFilter = context.document.getActiveView().revisionsFilter;\n    \n    // Configure which revision types to display\n    revisionsFilter.showInsertions = true;\n    revisionsFilter.showDeletions = true;\n    revisionsFilter.showFormatting = false;\n    \n    // Sync to apply the filter settings\n    await context.sync();\n    \n    console.log(\"Revisions filter configured to show insertions and deletions only\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "seekView",
+      "type": "Word.SeekView | \"MainDocument\" | \"PrimaryHeader\" | \"FirstPageHeader\" | \"EvenPagesHeader\" | \"PrimaryFooter\" | \"FirstPageFooter\" | \"EvenPagesFooter\" | \"Footnotes\" | \"Endnotes\" | \"CurrentPageHeader\" | \"CurrentPageFooter\"",
+      "description": "Specifies the document element displayed in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Switch the view to display the primary header section of the document in print layout view",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Switch to the primary header view\n    view.seekView = Word.SeekView.primaryHeader;\n    \n    await context.sync();\n    \n    console.log(\"View switched to primary header\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "splitSpecial",
+      "type": "Word.SpecialPane | \"None\" | \"PrimaryHeader\" | \"FirstPageHeader\" | \"EvenPagesHeader\" | \"PrimaryFooter\" | \"FirstPageFooter\" | \"EvenPagesFooter\" | \"Footnotes\" | \"Endnotes\" | \"FootnoteContinuationNotice\" | \"FootnoteContinuationSeparator\" | \"FootnoteSeparator\" | \"EndnoteContinuationNotice\" | \"EndnoteContinuationSeparator\" | \"EndnoteSeparator\" | \"Comments\" | \"CurrentPageHeader\" | \"CurrentPageFooter\" | \"Revisions\" | \"RevisionsHoriz\" | \"RevisionsVert\"",
+      "description": "Specifies the active window pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current active pane is showing footnotes and display an alert message",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"splitSpecial\");\n    \n    await context.sync();\n    \n    if (view.splitSpecial === \"Footnotes\") {\n        console.log(\"The active pane is currently showing footnotes\");\n    } else {\n        console.log(`The active pane is: ${view.splitSpecial}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.ViewType | \"Normal\" | \"Outline\" | \"Print\" | \"PrintPreview\" | \"Master\" | \"Web\" | \"Reading\" | \"Conflict\"",
+      "description": "Specifies the view type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check the current view type of the document and switch it to Print Layout view if it's not already in that mode.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.load(\"type\");\n    \n    await context.sync();\n    \n    console.log(\"Current view type:\", view.type);\n    \n    if (view.type !== Word.ViewType.print) {\n        view.type = Word.ViewType.print;\n        await context.sync();\n        console.log(\"View changed to Print Layout\");\n    } else {\n        console.log(\"Already in Print Layout view\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "collapseAllHeadings",
+      "kind": "configure",
+      "description": "Collapses all the headings in the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Collapse all headings in the document to show only the top-level structure",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document's view\n    const view = context.document.getActiveView();\n    \n    // Collapse all headings in the document\n    view.collapseAllHeadings();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "collapseOutline",
+      "kind": "configure",
+      "description": "Collapses the text under the selection or the specified range by one heading level.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "range",
+              "type": "Word.Range",
+              "required": true,
+              "description": "A Range object that specifies the range to collapse."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Collapse all content under the first heading in the document to show only the heading text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first heading in the document\n    const headings = context.document.body.paragraphs;\n    headings.load(\"items\");\n    await context.sync();\n    \n    // Find the first heading paragraph\n    const firstHeading = headings.items[0];\n    const range = firstHeading.getRange();\n    \n    // Collapse the outline under this heading\n    context.document.getActiveView().collapseOutline(range);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "expandAllHeadings",
+      "kind": "configure",
+      "description": "Expands all the headings in the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Expand all collapsed headings in the document to show all content under each heading level",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the view of the active document\n    const view = context.document.getActiveView();\n    \n    // Expand all headings in the document\n    view.expandAllHeadings();\n    \n    await context.sync();\n    \n    console.log(\"All headings have been expanded.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "expandOutline",
+      "kind": "configure",
+      "description": "Expands the text under the selection by one heading level.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "range",
+              "type": "Word.Range",
+              "required": true,
+              "description": "A Range object that specifies the range to expand."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Expand all collapsed content under the currently selected heading in the document by one outline level",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current selection\n    const selection = context.document.getSelection();\n    \n    // Get the document view\n    const view = context.document.getActiveView();\n    \n    // Expand the outline under the selection by one level\n    view.expandOutline(selection);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ViewLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if field shading is currently enabled in the document view and display the result",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document view\n    const view = context.document.getActiveView();\n    \n    // Load the field shading property\n    view.load(\"fieldShading\");\n    \n    // Sync to read the loaded property\n    await context.sync();\n    \n    // Display the field shading status\n    console.log(`Field shading is ${view.fieldShading ? 'enabled' : 'disabled'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nextHeaderFooter",
+      "kind": "configure",
+      "description": "Moves to the next header or footer, depending on whether a header or footer is displayed in the view.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Navigate through all headers and footers in the active document by moving to the next header/footer section sequentially",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    \n    // Switch to print layout to work with headers/footers\n    view.type = Word.ViewType.printLayout;\n    \n    // Move to the first header\n    view.showHeaderFooter = true;\n    \n    // Navigate to the next header/footer (e.g., from header to footer)\n    view.nextHeaderFooter();\n    \n    await context.sync();\n    console.log(\"Moved to the next header or footer section\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "previousHeaderFooter",
+      "kind": "configure",
+      "description": "Moves to the previous header or footer, depending on whether a header or footer is displayed in the view.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Navigate to the previous header or footer section in the document to modify its content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Move to the previous header or footer\n    view.previousHeaderFooter();\n    \n    // Sync to apply the navigation\n    await context.sync();\n    \n    console.log(\"Navigated to the previous header or footer section\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ViewUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.View",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure the document view to show all formatting marks and enable field shading",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    \n    view.set({\n        showAllFieldCodes: false,\n        showFieldCodes: false,\n        showHiddenText: true,\n        showParagraphMarks: true,\n        showSpaces: true,\n        showTabs: true,\n        fieldShading: Word.FieldShading.always\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showAllHeadings",
+      "kind": "configure",
+      "description": "Switches between showing all text (headings and body text) and showing only headings.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the document view to show only headings (outline view) by hiding body text, useful for reviewing document structure",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Toggle between showing all text and showing only headings\n    view.showAllHeadings();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showHeading",
+      "kind": "configure",
+      "description": "Shows all headings up to the specified heading level and hides subordinate headings and body text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "level",
+              "type": "number",
+              "required": true,
+              "description": "The heading level to show."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Show only the top 2 heading levels in the document and hide all level 3+ headings and body text",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    view.showHeading(2);\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.View object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ViewData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ViewData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize the current document view settings to JSON format for logging or storage purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active document's view\n    const view = context.document.getActiveView();\n    \n    // Load the view properties\n    view.load(\"type,zoom,showParagraphMarks,showHiddenText,showFieldCodes\");\n    \n    await context.sync();\n    \n    // Convert the view object to a plain JavaScript object\n    const viewData = view.toJSON();\n    \n    // Log or store the serialized view data\n    console.log(\"Current view settings:\", JSON.stringify(viewData, null, 2));\n    \n    // You can now use viewData as a plain object\n    console.log(\"View type:\", viewData.type);\n    console.log(\"Zoom level:\", viewData.zoom);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a view object to maintain its reference across multiple sync calls while toggling field shading on and off with a delay between operations.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    \n    // Track the view object to use it across multiple sync calls\n    view.track();\n    \n    // Load and toggle field shading\n    view.load(\"fieldShading\");\n    await context.sync();\n    \n    const originalShading = view.fieldShading;\n    view.fieldShading = !originalShading;\n    await context.sync();\n    \n    console.log(`Field shading changed from ${originalShading} to ${view.fieldShading}`);\n    \n    // Simulate some delay or additional operations\n    view.fieldShading = originalShading;\n    await context.sync();\n    \n    // Clean up tracking when done\n    view.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.View",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a view object to modify its properties, then untrack it to release memory after the changes are complete.",
+          "usage_code": "await Word.run(async (context) => {\n    const view = context.document.getActiveView();\n    \n    // Track the view object to work with it\n    view.track();\n    \n    // Load and modify view properties\n    view.load(\"showParagraphMarks\");\n    await context.sync();\n    \n    view.showParagraphMarks = true;\n    await context.sync();\n    \n    // Release the memory associated with the tracked view object\n    view.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.view",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject"
+    ]
+  }
+}

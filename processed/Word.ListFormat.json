@@ -1,0 +1,668 @@
+{
+  "class": {
+    "name": "Word.ListFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the list formatting characteristics of a range.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Access the request context from a ListFormat object to load and read list properties for a selected paragraph.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    // Access the request context associated with the ListFormat object\n    const requestContext = listFormat.context;\n    \n    // Use the context to load properties\n    listFormat.load(\"listLevelNumber,listString\");\n    \n    await requestContext.sync();\n    \n    console.log(\"List Level: \" + listFormat.listLevelNumber);\n    console.log(\"List String: \" + listFormat.listString);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isSingleList",
+      "type": "boolean",
+      "description": "Indicates whether the `ListFormat` object contains a single list.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a selected range contains only a single list and display an alert with the result.",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    \n    listFormat.load(\"isSingleList\");\n    await context.sync();\n    \n    if (listFormat.isSingleList) {\n        console.log(\"The selection contains a single list.\");\n    } else {\n        console.log(\"The selection contains multiple lists or no list.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isSingleListTemplate",
+      "type": "boolean",
+      "description": "Indicates whether the `ListFormat` object contains a single list template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a paragraph's list formatting uses a single list template and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    listFormat.load(\"isSingleListTemplate\");\n    await context.sync();\n    \n    console.log(\"Uses single list template: \" + listFormat.isSingleListTemplate);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "Word.List",
+      "description": "Returns a `List` object that represents the first formatted list contained in the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the list object from a selected range and display its ID in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    const list = listFormat.list;\n    \n    list.load(\"id\");\n    await context.sync();\n    \n    console.log(\"List ID: \" + list.id);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listLevelNumber",
+      "type": "number",
+      "description": "Specifies the list level number for the first paragraph for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the list level number to 2 for the selected paragraph to indent it as a second-level list item",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.listFormat.listLevelNumber = 2;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listString",
+      "type": "string",
+      "description": "Gets the string representation of the list value of the first paragraph in the range for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the list string representation (e.g., \"1.\", \"a.\", \"i.\") of the first paragraph in the selected range.",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    \n    listFormat.load(\"listString\");\n    await context.sync();\n    \n    console.log(\"List string: \" + listFormat.listString);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listTemplate",
+      "type": "Word.ListTemplate",
+      "description": "Gets the list template associated with the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the list template type of the first paragraph in the document to determine what kind of list formatting is applied.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const listFormat = firstParagraph.listOrNullObject;\n    const listTemplate = listFormat.listTemplate;\n    \n    listFormat.load(\"listTemplate\");\n    await context.sync();\n    \n    if (listFormat.isNullObject) {\n        console.log(\"The paragraph is not part of a list.\");\n    } else {\n        console.log(\"List template type:\", listTemplate);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listType",
+      "type": "Word.ListType | \"ListNoNumbering\" | \"ListListNumOnly\" | \"ListBullet\" | \"ListSimpleNumbering\" | \"ListOutlineNumbering\" | \"ListMixedNumbering\" | \"ListPictureBullet\"",
+      "description": "Gets the type of the list for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the selected text is formatted as a bulleted list and display the list type in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    \n    // Load the listType property\n    listFormat.load(\"listType\");\n    \n    await context.sync();\n    \n    // Check and display the list type\n    console.log(\"List type:\", listFormat.listType);\n    \n    if (listFormat.listType === Word.ListType.bullet || \n        listFormat.listType === \"ListBullet\") {\n        console.log(\"The selected text is a bulleted list\");\n    } else if (listFormat.listType === Word.ListType.noNumbering || \n               listFormat.listType === \"ListNoNumbering\") {\n        console.log(\"The selected text is not in a list\");\n    } else {\n        console.log(\"The selected text is in a numbered list\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listValue",
+      "type": "number",
+      "description": "Gets the numeric value of the the first paragraph in the range for the `ListFormat` object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the numeric value of the first paragraph in a numbered list",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    \n    listFormat.load(\"listValue\");\n    await context.sync();\n    \n    console.log(\"List item number: \" + listFormat.listValue);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "applyBulletDefault",
+      "kind": "configure",
+      "description": "Adds bullets and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior. Default is `DefaultListBehavior.word97`."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior. Default is `DefaultListBehavior.word97`."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply default bullet formatting to all paragraphs in the first content control",
+          "usage_code": "await Word.run(async (context) => {\n    const contentControl = context.document.contentControls.getFirst();\n    const range = contentControl.getRange();\n    \n    range.listFormat.applyBulletDefault(Word.DefaultListBehavior.respectCurrentList);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "applyListTemplateWithLevel",
+      "kind": "configure",
+      "description": "Applies a list template with a specific level to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listTemplate",
+              "type": "Word.ListTemplate",
+              "required": true,
+              "description": "The list template to apply."
+            },
+            {
+              "name": "options",
+              "type": "Word.ListTemplateApplyOptions",
+              "required": false,
+              "description": "Optional. Options for applying the list template, such as whether to continue the previous list or which part of the list to apply the template to."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply a numbered list template at level 2 to all paragraphs in the first content control of the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const contentControl = context.document.contentControls.getFirst();\n    const range = contentControl.getRange();\n    \n    // Apply a numbered list template at level 2\n    range.listFormat.applyListTemplateWithLevel(\n        Word.ListTemplate.numberDefault,\n        { level: 2 }\n    );\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "applyNumberDefault",
+      "kind": "configure",
+      "description": "Adds numbering and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply default numbered list formatting to all paragraphs in the first content control",
+          "usage_code": "await Word.run(async (context) => {\n    const contentControl = context.document.contentControls.getFirst();\n    const range = contentControl.getRange();\n    \n    range.listFormat.applyNumberDefault(Word.DefaultListBehavior.respectCurrentList);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "applyOutlineNumberDefault",
+      "kind": "configure",
+      "description": "Adds outline numbering and formatting to the paragraphs in the range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "Word.DefaultListBehavior",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "defaultListBehavior",
+              "type": "\"Word97\" | \"Word2000\" | \"Word2002\"",
+              "required": false,
+              "description": "Optional. Specifies the default list behavior."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply default outline numbering to all paragraphs in the document body",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    const listFormat = body.listFormat;\n    \n    // Apply outline numbering with default list behavior\n    listFormat.applyOutlineNumberDefault(Word.DefaultListBehavior.respectCurrentList);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "canContinuePreviousList",
+      "kind": "read",
+      "description": "Determines whether the `ListFormat` object can continue a previous list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listTemplate",
+              "type": "Word.ListTemplate",
+              "required": true,
+              "description": "The list template to check."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<Word.Continue>",
+            "description": "A `Continue` value indicating whether continuation is possible."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if the current paragraph can continue the formatting from a previous numbered list and display the result in a message.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    // Get the list template from a previous list (e.g., the first list in the document)\n    const lists = context.document.body.lists;\n    lists.load(\"items\");\n    await context.sync();\n    \n    if (lists.items.length > 0) {\n        const firstList = lists.items[0];\n        const listTemplate = firstList.getLevelParagraphs(0).getFirst().listFormat;\n        listTemplate.load(\"listTemplate\");\n        await context.sync();\n        \n        // Check if the current paragraph can continue the previous list\n        const canContinue = listFormat.canContinuePreviousList(listTemplate.listTemplate);\n        \n        console.log(`Can continue previous list: ${canContinue}`);\n    } else {\n        console.log(\"No existing lists found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "convertNumbersToText",
+      "kind": "configure",
+      "description": "Converts numbers in the list to plain text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "Word.NumberType",
+              "required": false,
+              "description": "Optional. The type of number to convert."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "\"Paragraph\" | \"ListNum\" | \"AllNumbers\"",
+              "required": false,
+              "description": "Optional. The type of number to convert."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Convert all numbered list items in the first paragraph to plain text, removing the automatic numbering formatting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the list format of the paragraph\n    const listFormat = paragraph.listFormat;\n    \n    // Load the list level to verify it's a numbered list\n    listFormat.load(\"listLevelNumber\");\n    \n    await context.sync();\n    \n    // Convert the numbers to plain text\n    listFormat.convertNumbersToText(Word.NumberType.arabic);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "countNumberedItems",
+      "kind": "read",
+      "description": "Counts the numbered items in the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ListFormatCountNumberedItemsOptions",
+              "required": false,
+              "description": "Optional. Options for counting numbered items, such as the type of number and the level to count."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": "The number of items."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Count and display the total number of numbered items in the current document's selection",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    const listFormat = range.listFormat;\n    \n    const count = listFormat.countNumberedItems();\n    \n    await context.sync();\n    \n    console.log(`Total numbered items: ${count.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listIndent",
+      "kind": "configure",
+      "description": "Indents the list by one level.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Indent the first paragraph in the document by one list level to create a nested list item",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.listOrNullObject.listIndent();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listOutdent",
+      "kind": "configure",
+      "description": "Outdents the list by one level.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Decrease the indentation level of the first paragraph in the document by one level (outdent it in the list hierarchy)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the list format of the paragraph\n    const listFormat = firstParagraph.listOrNullObject;\n    \n    // Load the list level to check if it's part of a list\n    listFormat.load(\"level\");\n    \n    await context.sync();\n    \n    // Outdent the list item by one level\n    if (!listFormat.isNullObject) {\n        listFormat.listOutdent();\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ListFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Read and display the list level of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the list format of the paragraph\n    const listFormat = paragraph.listFormat;\n    \n    // Load the list level property\n    listFormat.load(\"listLevelNumber\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the list level (0-based, or undefined if not in a list)\n    console.log(\"List level: \" + listFormat.listLevelNumber);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "removeNumbers",
+      "kind": "configure",
+      "description": "Removes numbering from the list.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "Word.NumberType",
+              "required": false,
+              "description": "Optional. The type of number to remove."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "numberType",
+              "type": "\"Paragraph\" | \"ListNum\" | \"AllNumbers\"",
+              "required": false,
+              "description": "Optional. The type of number to remove."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove all numbering from the first numbered list in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document that has list formatting\n    const paragraphs = context.document.body.paragraphs;\n    paragraphs.load(\"items\");\n    \n    await context.sync();\n    \n    // Find and remove numbering from the first numbered list\n    for (let i = 0; i < paragraphs.items.length; i++) {\n        const listFormat = paragraphs.items[i].listOrNullObject;\n        listFormat.load(\"levelNumber\");\n        \n        await context.sync();\n        \n        if (listFormat.isNullObject === false) {\n            // Remove the numbering from this list item\n            listFormat.removeNumbers(Word.NumberType.arabic);\n            break;\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ListFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ListFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply list formatting to a paragraph by setting multiple list properties at once, including list type and level indentation",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listOrNullObject;\n    \n    listFormat.set({\n        level: 1,\n        listString: \"•\"\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.ListFormat` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ListFormatData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ListFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a paragraph's list formatting properties to JSON for logging or data export purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    // Load the list format properties\n    listFormat.load(\"listLevelNumber,listString,listType\");\n    \n    await context.sync();\n    \n    // Convert the list format to a plain JavaScript object\n    const listFormatData = listFormat.toJSON();\n    \n    // Log or export the serialized data\n    console.log(\"List Format Data:\", JSON.stringify(listFormatData, null, 2));\n    \n    // Example output:\n    // {\n    //   \"listLevelNumber\": 0,\n    //   \"listString\": \"1.\",\n    //   \"listType\": \"Number\"\n    // }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a list format object across multiple sync calls to maintain its reference while modifying list properties in different batches",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    // Track the list format object to use it across sync calls\n    listFormat.track();\n    \n    await context.sync();\n    \n    // First batch: Set list type\n    listFormat.setListType(Word.ListType.numbered);\n    await context.sync();\n    \n    // Second batch: Modify list level (object reference still valid due to tracking)\n    listFormat.level = 1;\n    await context.sync();\n    \n    // Clean up: Untrack when done\n    listFormat.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ListFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove list formatting from a paragraph and untrack the ListFormat object to free memory after the operation is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const listFormat = paragraph.listFormat;\n    \n    // Track the object to work with it\n    listFormat.track();\n    \n    // Load properties to check list status\n    listFormat.load(\"listLevelNumber\");\n    await context.sync();\n    \n    // Remove list formatting if present\n    if (listFormat.listLevelNumber !== undefined) {\n        listFormat.listLevelNumber = undefined;\n    }\n    \n    // Untrack the object to release memory\n    listFormat.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.list",
+      "/en-us/javascript/api/word/word.listtemplate",
+      "/en-us/javascript/api/word/word.listtype",
+      "/en-us/javascript/api/word/word.defaultlistbehavior",
+      "/en-us/javascript/api/word/word.listtemplateapplyoptions",
+      "/en-us/javascript/api/word/word.numbertype",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.continue",
+      "/en-us/javascript/api/word/word.listformatcountnumbereditemsoptions",
+      "/en-us/javascript/api/word/word.interfaces.listformatloadoptions",
+      "/en-us/javascript/api/word/word.listformat",
+      "/en-us/javascript/api/word/word.interfaces.listformatupdatedata",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.interfaces.listformatdata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext"
+    ]
+  }
+}

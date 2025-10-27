@@ -1,0 +1,604 @@
+{
+  "class": {
+    "name": "DocumentCreated",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "The DocumentCreated object is the top level object created by Application.CreateDocument. A DocumentCreated object is a special Document object.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml\n\n// Updates the text of the current document with the text from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  // Use the Base64-encoded string representation of the selected .docx file.\n  const externalDoc: Word.DocumentCreated = context.application.createDocument(externalDocument);\n  await context.sync();\n\n  if (!Office.context.requirements.isSetSupported(\"WordApiHiddenDocument\", \"1.3\")) {\n    console.warn(\"The WordApiHiddenDocument 1.3 requirement set isn't supported on this client so can't proceed. Try this action on a platform that supports this requirement set.\");\n    return;\n  }\n\n  const externalDocBody: Word.Body = externalDoc.body;\n  externalDocBody.load(\"text\");\n  await context.sync();\n\n  // Insert the external document's text at the beginning of the current document's body.\n  const externalDocBodyText = externalDocBody.text;\n  const currentDocBody: Word.Body = context.document.body;\n  currentDocBody.insertText(externalDocBodyText, Word.InsertLocation.start);\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.",
+      "since": "WordApiHiddenDocument 1.3",
+      "examples": [
+        {
+          "description": "Add a paragraph of text to the document body after creating a new document",
+          "usage_code": "await Word.run(async (context) => {\n    const documentCreated = context.application.createDocument();\n    const body = documentCreated.body;\n    \n    body.insertParagraph(\n        \"This is the first paragraph in the newly created document.\",\n        Word.InsertLocation.start\n    );\n    \n    await context.sync();\n    documentCreated.open();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contentControls",
+      "type": "Word.ContentControlCollection",
+      "description": "Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.",
+      "since": "WordApiHiddenDocument 1.3",
+      "examples": [
+        {
+          "description": "Find and highlight all content controls in a newly created document by setting their appearance to tags visible",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const myDocument = context.application.createDocument();\n    \n    // Access the content controls collection\n    const contentControls = myDocument.contentControls;\n    contentControls.load(\"items\");\n    \n    await context.sync();\n    \n    // Make all content controls visible by showing their tags\n    for (let i = 0; i < contentControls.items.length; i++) {\n        contentControls.items[i].appearance = Word.ContentControlAppearance.tags;\n    }\n    \n    await context.sync();\n    \n    console.log(`Found ${contentControls.items.length} content controls in the document`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a newly created document to synchronize operations with the Office host application",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const newDoc = context.application.createDocument();\n    \n    // Access the request context of the newly created document\n    const newDocContext = newDoc.context;\n    \n    // Use the context to insert text into the new document\n    const body = newDoc.body;\n    body.insertText(\"This text is inserted using the document's context.\", Word.InsertLocation.start);\n    \n    // Synchronize the context with the Office host\n    await newDocContext.sync();\n    \n    console.log(\"New document created and synchronized using its context.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "customXmlParts",
+      "type": "Word.CustomXmlPartCollection",
+      "description": "Gets the custom XML parts in the document.",
+      "since": "WordApiHiddenDocument 1.4",
+      "examples": [
+        {
+          "description": "Add a custom XML part to a newly created document and then retrieve all custom XML parts to verify it was added.",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const documentCreated = context.application.createDocument();\n    \n    // Add a custom XML part with sample data\n    const xmlString = '<?xml version=\"1.0\"?><employees><employee><name>John Doe</name><id>12345</id></employee></employees>';\n    documentCreated.customXmlParts.add(xmlString);\n    \n    // Get all custom XML parts from the document\n    const customXmlParts = documentCreated.customXmlParts;\n    customXmlParts.load(\"items\");\n    \n    await context.sync();\n    \n    // Log the count of custom XML parts\n    console.log(`Total custom XML parts: ${customXmlParts.items.length}`);\n    \n    // Open the created document\n    documentCreated.open();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "type": "Word.DocumentProperties",
+      "description": "Gets the properties of the document.",
+      "since": "WordApiHiddenDocument 1.3",
+      "examples": [
+        {
+          "description": "Read and display the document's title and author from the document properties.",
+          "usage_code": "await Word.run(async (context) => {\n    const documentCreated = context.application.createDocument();\n    const properties = documentCreated.properties;\n    \n    properties.load([\"title\", \"author\"]);\n    await context.sync();\n    \n    console.log(\"Document Title: \" + properties.title);\n    console.log(\"Document Author: \" + properties.author);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "description": "Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved.",
+      "since": "WordApiHiddenDocument 1.3",
+      "examples": [
+        {
+          "description": "Check if a newly created document has unsaved changes and display an appropriate message to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Load the saved property\n    document.load(\"saved\");\n    await context.sync();\n    \n    // Check if document has been saved\n    if (document.saved) {\n        console.log(\"Document has no unsaved changes\");\n    } else {\n        console.log(\"Document has unsaved changes - please save your work\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sections",
+      "type": "Word.SectionCollection",
+      "description": "Gets the collection of section objects in the document.",
+      "since": "WordApiHiddenDocument 1.3",
+      "examples": [
+        {
+          "description": "Get all sections in a newly created document and display the count of sections in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const docCreated = context.application.createDocument();\n    const sections = docCreated.sections;\n    sections.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`The document has ${sections.items.length} section(s)`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "Word.SettingCollection",
+      "description": "Gets the add-in's settings in the document.",
+      "since": "WordApiHiddenDocument 1.4",
+      "examples": [
+        {
+          "description": "Store and retrieve a custom user preference setting in the document, such as saving a \"lastViewedSection\" value that persists with the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the settings collection from the document\n    const settings = context.document.settings;\n    \n    // Add or update a setting\n    settings.add(\"lastViewedSection\", \"Chapter3\");\n    settings.add(\"userPreference\", \"darkMode\");\n    \n    // Load the settings to verify\n    settings.load(\"items\");\n    await context.sync();\n    \n    // Retrieve a specific setting\n    const lastSection = settings.getItemOrNullObject(\"lastViewedSection\");\n    lastSection.load(\"value\");\n    await context.sync();\n    \n    if (!lastSection.isNullObject) {\n        console.log(\"Last viewed section:\", lastSection.value);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addStyle",
+      "kind": "create",
+      "description": "Adds a style into the document by name and type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the style name."
+            },
+            {
+              "name": "type",
+              "type": "Word.StyleType",
+              "required": true,
+              "description": "The style type, including character, list, paragraph, or table."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "A string representing the style name."
+            },
+            {
+              "name": "type",
+              "type": "\"Character\" | \"List\" | \"Paragraph\" | \"Table\"",
+              "required": true,
+              "description": "The style type, including character, list, paragraph, or table."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new character style named \"HighlightText\" and a paragraph style named \"CustomHeading\" to the document",
+          "usage_code": "await Word.run(async (context) => {\n    const documentCreated = context.document;\n    \n    // Add a character style for highlighting text\n    documentCreated.addStyle(\"HighlightText\", \"Character\");\n    \n    // Add a paragraph style for custom headings\n    documentCreated.addStyle(\"CustomHeading\", \"Paragraph\");\n    \n    await context.sync();\n    \n    console.log(\"Styles added successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteBookmark",
+      "kind": "delete",
+      "description": "Deletes a bookmark, if it exists, from the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a bookmark named \"Section1Start\" from the document",
+          "usage_code": "await Word.run(async (context) => {\n    const doc = context.document;\n    \n    // Delete the bookmark named \"Section1Start\"\n    doc.deleteBookmark(\"Section1Start\");\n    \n    await context.sync();\n    console.log(\"Bookmark 'Section1Start' has been deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBookmarkRange",
+      "kind": "read",
+      "description": "Gets a bookmark's range. Throws an ItemNotFound error if the bookmark doesn't exist.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve the text content from a bookmark named \"CompanyName\" in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const doc = context.document;\n    \n    // Get the range of the bookmark named \"CompanyName\"\n    const bookmarkRange = doc.getBookmarkRange(\"CompanyName\");\n    bookmarkRange.load(\"text\");\n    \n    await context.sync();\n    \n    console.log(\"Bookmark text: \" + bookmarkRange.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBookmarkRangeOrNullObject",
+      "kind": "read",
+      "description": "Gets a bookmark's range. If the bookmark doesn't exist, then this method will return an object with its isNullObject property set to true. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "The case-insensitive bookmark name. Only alphanumeric and underscore characters are supported. It must begin with a letter but if you want to tag the bookmark as hidden, then start the name with an underscore character. Names can't be longer than 40 characters."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a bookmark named \"Introduction\" exists in the document and highlight its text, or show a message if the bookmark is not found.",
+          "usage_code": "await Word.run(async (context) => {\n    const doc = context.document;\n    const bookmarkRange = doc.getBookmarkRangeOrNullObject(\"Introduction\");\n    \n    bookmarkRange.load(\"isNullObject, text\");\n    await context.sync();\n    \n    if (bookmarkRange.isNullObject) {\n        console.log(\"Bookmark 'Introduction' does not exist.\");\n    } else {\n        bookmarkRange.font.highlightColor = \"yellow\";\n        console.log(\"Bookmark found and highlighted: \" + bookmarkRange.text);\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getContentControls",
+      "kind": "read",
+      "description": "Gets the currently supported content controls in the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlOptions",
+              "required": false,
+              "description": "Options that define which content controls are returned."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all content controls in a newly created document and log their count to the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const documentCreated = context.application.createDocument();\n    \n    // Get all content controls in the document\n    const contentControls = documentCreated.getContentControls();\n    \n    // Load the count property\n    contentControls.load(\"items\");\n    \n    await context.sync();\n    \n    // Log the number of content controls found\n    console.log(`Found ${contentControls.items.length} content controls in the document`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getStyles",
+      "kind": "read",
+      "description": "Gets a StyleCollection object that represents the whole style set of the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.StyleCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all styles from a newly created document and log the name of each style to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const myDocument = context.application.createDocument();\n    \n    // Get the styles collection from the document\n    const styles = myDocument.getStyles();\n    \n    // Load the name property for each style\n    styles.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Log each style name\n    console.log(\"Document styles:\");\n    for (let i = 0; i < styles.items.length; i++) {\n        console.log(styles.items[i].name);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertFileFromBase64",
+      "kind": "create",
+      "description": "Inserts a document into the target document at a specific location with additional properties. Headers, footers, watermarks, and other section properties are copied by default.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": true,
+              "description": "The Base64-encoded content of a .docx file."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
+              "required": true,
+              "description": "The value must be 'Replace', 'Start', or 'End'."
+            },
+            {
+              "name": "insertFileOptions",
+              "type": "Word.InsertFileOptions",
+              "required": false,
+              "description": "The additional properties that should be imported to the destination document."
+            }
+          ],
+          "returns": {
+            "type": "Word.SectionCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a template document from a base64-encoded file into the current document at the end, including all headers and footers",
+          "usage_code": "await Word.run(async (context) => {\n    const docCreated = context.application.createDocument() as Word.DocumentCreated;\n    \n    // Base64-encoded .docx file content\n    const base64Template = \"UEsDBBQABgAIAAAAIQDd...\"; // truncated for brevity\n    \n    // Insert the template at the end of the document\n    docCreated.insertFileFromBase64(\n        base64Template,\n        Word.InsertLocation.end,\n        {\n            importHeaders: true,\n            importFooters: true,\n            importPageSetup: true,\n            importStyles: true\n        }\n    );\n    \n    await context.sync();\n    \n    // Open the newly created document\n    docCreated.open();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DocumentCreatedLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new document and load its properties to verify the document was created successfully before performing operations on it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const newDoc = context.application.createDocument();\n    \n    // Load properties of the newly created document\n    newDoc.load(\"body,properties\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can safely access the loaded properties\n    console.log(\"Document created successfully\");\n    \n    // Perform operations on the new document\n    newDoc.body.insertParagraph(\"This is a new document\", Word.InsertLocation.start);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "kind": null,
+      "description": "Opens the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new Word document and open it in a separate tab or window.",
+          "usage_code": "// Create and open a new document in a new tab or window.\nawait Word.run(async (context) => {\n  const externalDoc = context.application.createDocument();\n  await context.sync();\n\n  externalDoc.open();\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "save",
+      "kind": null,
+      "description": "Saves the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": "Word.SaveBehavior",
+              "required": false,
+              "description": "DocumentCreated only supports 'Save'."
+            },
+            {
+              "name": "fileName",
+              "type": "string",
+              "required": false,
+              "description": "The file name (exclude file extension). Only takes effect for a new document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": "\"Save\" | \"Prompt\"",
+              "required": false,
+              "description": "DocumentCreated only supports 'Save'."
+            },
+            {
+              "name": "fileName",
+              "type": "string",
+              "required": false,
+              "description": "The file name (exclude file extension). Only takes effect for a new document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new document, add content to it, and save it to a specific file location",
+          "usage_code": "// Create a new document\nconst doc = await Word.createDocument();\n\nawait Word.run(doc, async (context) => {\n    // Add some content to the document\n    const body = context.document.body;\n    body.insertParagraph(\"This is a new document with sample content.\", Word.InsertLocation.start);\n    \n    await context.sync();\n    \n    // Save the document with a specific filename\n    context.document.save(Word.SaveBehavior.save, \"MyNewDocument.docx\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.DocumentCreatedUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.DocumentCreated",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set multiple properties on a newly created document, including title and subject metadata",
+          "usage_code": "await Word.run(async (context) => {\n    const documentCreated = context.application.createDocument();\n    \n    documentCreated.set({\n        properties: {\n            title: \"Q4 Sales Report\",\n            subject: \"Quarterly Financial Analysis\",\n            author: \"Sales Team\"\n        }\n    });\n    \n    await context.sync();\n    \n    // Open the newly created document\n    documentCreated.open();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.DocumentCreated object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.DocumentCreatedData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DocumentCreatedData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new document and serialize its properties to JSON format for logging or data transfer purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const newDoc = context.application.createDocument();\n    \n    // Load properties of the created document\n    newDoc.load(\"body,properties\");\n    \n    await context.sync();\n    \n    // Convert the DocumentCreated object to a plain JavaScript object\n    const docJSON = newDoc.toJSON();\n    \n    // Use the JSON representation (e.g., for logging or sending to a server)\n    console.log(\"Document data:\", JSON.stringify(docJSON, null, 2));\n    \n    // The JSON object contains shallow copies of loaded properties\n    console.log(\"Document properties:\", docJSON.properties);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new document and track it to safely access its properties across multiple sync calls without getting an \"InvalidObjectPath\" error",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const newDoc = context.application.createDocument();\n    \n    // Track the document object for use across sync calls\n    newDoc.track();\n    \n    // First sync to load the document\n    await context.sync();\n    \n    // Now we can safely work with the document across multiple syncs\n    const body = newDoc.body;\n    body.insertParagraph(\"This is content in the tracked document.\", \"Start\");\n    \n    await context.sync();\n    \n    // Can continue to use the document object safely\n    body.insertParagraph(\"Adding more content after another sync.\", \"End\");\n    \n    await context.sync();\n    \n    // Untrack when done to free up memory\n    newDoc.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new document, add content to it, and properly release the tracked DocumentCreated object from memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a new document\n    const newDoc = context.application.createDocument();\n    context.load(newDoc);\n    await context.sync();\n    \n    // Add some content to the new document\n    const body = newDoc.body;\n    body.insertParagraph(\"This is content in the new document.\", Word.InsertLocation.start);\n    await context.sync();\n    \n    // Release the memory associated with the tracked DocumentCreated object\n    newDoc.untrack();\n    await context.sync();\n    \n    console.log(\"New document created and untracked successfully.\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word",
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml"
+    ]
+  }
+}

@@ -1,0 +1,1152 @@
+{
+  "class": {
+    "name": "Word.Document",
+    "package": "word",
+    "extends": [],
+    "api_set": {
+      "name": null,
+      "status": null
+    },
+    "description": "The Document object is the top level object. A Document object contains one or more sections, content controls, and the body that contains the contents of the document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-change-tracking.yaml\n\n// Gets the current change tracking mode.\nawait Word.run(async (context) => {\n  const document: Word.Document = context.document;\n  document.load(\"changeTrackingMode\");\n  await context.sync();\n\n  if (document.changeTrackingMode === Word.ChangeTrackingMode.trackMineOnly) {\n    console.log(\"Only my changes are being tracked.\");\n  } else if (document.changeTrackingMode === Word.ChangeTrackingMode.trackAll) {\n    console.log(\"Everyone's changes are being tracked.\");\n  } else {\n    console.log(\"No changes are being tracked.\");\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "activeWindow",
+      "type": "Word.Window",
+      "description": "Gets the active window for the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display the page index, total number of paragraphs, and first paragraph text for each page in the active document window.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "attachedTemplate",
+      "type": "Word.Template",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the name and path of the template attached to the current document",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    const template = document.attachedTemplate;\n    \n    template.load(\"name, path\");\n    \n    await context.sync();\n    \n    console.log(\"Template Name: \" + template.name);\n    console.log(\"Template Path: \" + template.path);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "autoHyphenation",
+      "type": "boolean",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Enable automatic hyphenation for the entire document to improve text flow and reduce spacing issues in justified paragraphs",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Enable automatic hyphenation\n    document.autoHyphenation = true;\n    \n    await context.sync();\n    console.log(\"Automatic hyphenation has been enabled for the document.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "autoSaveOn",
+      "type": "boolean",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if AutoSave is currently enabled for the document and display the status to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    document.load(\"autoSaveOn\");\n    \n    await context.sync();\n    \n    if (document.autoSaveOn) {\n        console.log(\"AutoSave is currently enabled for this document.\");\n    } else {\n        console.log(\"AutoSave is currently disabled for this document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bibliography",
+      "type": "Word.Bibliography",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the bibliography from the document and access its title property to display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const doc = context.document;\n    const bibliography = doc.bibliography;\n    \n    // Load the bibliography's title property\n    bibliography.load(\"title\");\n    \n    await context.sync();\n    \n    console.log(\"Bibliography title: \" + bibliography.title);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the main document. The body is the text that excludes headers, footers, footnotes, textboxes, etc.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Add a paragraph with text to the main document body",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    body.insertParagraph(\"This is a new paragraph added to the document body.\", Word.InsertLocation.end);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bookmarks",
+      "type": "Word.BookmarkCollection",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all bookmarks in the document and display their names in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmarks collection from the document\n    const bookmarks = context.document.bookmarks;\n    \n    // Load the bookmark names\n    bookmarks.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Display each bookmark name\n    console.log(`Found ${bookmarks.items.length} bookmark(s):`);\n    bookmarks.items.forEach((bookmark) => {\n        console.log(`- ${bookmark.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "changeTrackingMode",
+      "type": "Word.ChangeTrackingMode | \"Off\" | \"TrackAll\" | \"TrackMineOnly\"",
+      "description": "Specifies the ChangeTracking mode.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve the current change tracking mode of the document and display whether only the user's changes, everyone's changes, or no changes are being tracked.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-change-tracking.yaml\n\n// Gets the current change tracking mode.\nawait Word.run(async (context) => {\n  const document: Word.Document = context.document;\n  document.load(\"changeTrackingMode\");\n  await context.sync();\n\n  if (document.changeTrackingMode === Word.ChangeTrackingMode.trackMineOnly) {\n    console.log(\"Only my changes are being tracked.\");\n  } else if (document.changeTrackingMode === Word.ChangeTrackingMode.trackAll) {\n    console.log(\"Everyone's changes are being tracked.\");\n  } else {\n    console.log(\"No changes are being tracked.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "consecutiveHyphensLimit",
+      "type": "number",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the maximum number of consecutive lines that can end with hyphens to 2 to improve document readability",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Set the consecutive hyphens limit to 2\n    document.consecutiveHyphensLimit = 2;\n    \n    await context.sync();\n    console.log(\"Consecutive hyphens limit set to 2\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contentControls",
+      "type": "Word.ContentControlCollection",
+      "description": "Gets the collection of content control objects in the document. This includes content controls in the body of the document, headers, footers, textboxes, etc.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Find and highlight all content controls in the document by changing their background color to yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all content controls in the document\n    const contentControls = context.document.contentControls;\n    \n    // Load the content controls\n    contentControls.load(\"items\");\n    \n    await context.sync();\n    \n    // Set yellow background for each content control\n    for (let i = 0; i < contentControls.items.length; i++) {\n        contentControls.items[i].font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n    \n    console.log(`Highlighted ${contentControls.items.length} content controls`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the document's request context to synchronize changes and load properties from the Word document.",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    const body = document.body;\n    \n    // Access the request context associated with the document\n    const requestContext = document.context;\n    \n    // Use the context to load properties\n    body.load(\"text\");\n    \n    // Synchronize the context to read loaded properties\n    await requestContext.sync();\n    \n    console.log(\"Document body text:\", body.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "customXmlParts",
+      "type": "Word.CustomXmlPartCollection",
+      "description": "Gets the custom XML parts in the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and log the count of custom XML parts in the document to verify if any custom XML data exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection from the document\n    const customXmlParts = context.document.customXmlParts;\n    \n    // Load the items property to access the collection\n    customXmlParts.load(\"items\");\n    \n    await context.sync();\n    \n    // Log the count of custom XML parts\n    console.log(`Number of custom XML parts: ${customXmlParts.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "documentLibraryVersions",
+      "type": "Word.DocumentLibraryVersionCollection",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display the number of saved versions available for the current document in the SharePoint document library.",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    const versions = document.documentLibraryVersions;\n    \n    versions.load(\"items\");\n    await context.sync();\n    \n    console.log(`Total versions: ${versions.items.length}`);\n    \n    // Optionally, display details of each version\n    for (let i = 0; i < versions.items.length; i++) {\n        const version = versions.items[i];\n        version.load(\"versionIndex, comments, modifiedBy, modifiedDate\");\n    }\n    \n    await context.sync();\n    \n    versions.items.forEach(version => {\n        console.log(`Version ${version.versionIndex}: Modified by ${version.modifiedBy} on ${version.modifiedDate}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "frames",
+      "type": "Word.FrameCollection",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all frames in the document and log their count to the console",
+          "usage_code": "await Word.run(async (context) => {\n    const frames = context.document.frames;\n    frames.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`Total frames in document: ${frames.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hyperlinks",
+      "type": "Word.HyperlinkCollection",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all hyperlinks in the document and display their text and URLs in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const hyperlinks = context.document.hyperlinks;\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`Found ${hyperlinks.items.length} hyperlinks in the document:`);\n    \n    for (let i = 0; i < hyperlinks.items.length; i++) {\n        const hyperlink = hyperlinks.items[i];\n        hyperlink.load(\"textToDisplay, address\");\n        await context.sync();\n        \n        console.log(`Text: ${hyperlink.textToDisplay}, URL: ${hyperlink.address}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hyphenateCaps",
+      "type": "boolean",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Disable hyphenation for capitalized words in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Disable hyphenation for capitalized words\n    document.hyphenateCaps = false;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "indexes",
+      "type": "Word.IndexCollection",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access and retrieve all indexes in the document to check if any indexes exist and get the count of indexes.",
+          "usage_code": "await Word.run(async (context) => {\n    const indexes = context.document.indexes;\n    indexes.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`Number of indexes in document: ${indexes.items.length}`);\n    \n    if (indexes.items.length > 0) {\n        console.log(\"Document contains indexes\");\n    } else {\n        console.log(\"No indexes found in document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "languageDetected",
+      "type": "boolean",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the document's language has been automatically detected and display the result to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    document.load(\"languageDetected\");\n    \n    await context.sync();\n    \n    if (document.languageDetected) {\n        console.log(\"Language has been automatically detected for this document\");\n    } else {\n        console.log(\"Language has not been automatically detected for this document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageSetup",
+      "type": "Word.PageSetup",
+      "description": "Note",
+      "since": null,
+      "examples": [
+        {
+          "description": "Configure the document's page margins to 1 inch on all sides and set the page orientation to landscape",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.pageSetup;\n    \n    // Set all margins to 1 inch (72 points)\n    pageSetup.topMargin = 72;\n    pageSetup.bottomMargin = 72;\n    pageSetup.leftMargin = 72;\n    pageSetup.rightMargin = 72;\n    \n    // Set orientation to landscape\n    pageSetup.orientation = Word.PageOrientation.landscape;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "type": "Word.DocumentProperties",
+      "description": "Gets the properties of the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display all built-in document properties from the current Word document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/30-properties/get-built-in-properties.yaml\n\nawait Word.run(async (context) => {\n    const builtInProperties: Word.DocumentProperties = context.document.properties;\n    builtInProperties.load(\"*\"); // Let's get all!\n\n    await context.sync();\n    console.log(JSON.stringify(builtInProperties, null, 4));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "description": "Indicates whether the changes in the document have been saved. A value of true indicates that the document hasn't changed since it was saved.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the document has unsaved changes and display an alert to the user before proceeding with an operation",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    document.load(\"saved\");\n    \n    await context.sync();\n    \n    if (!document.saved) {\n        console.log(\"Warning: Document has unsaved changes\");\n        // Prompt user to save before continuing\n    } else {\n        console.log(\"Document is saved and up to date\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sections",
+      "type": "Word.SectionCollection",
+      "description": "Gets the collection of section objects in the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Add a page break between each section in the document by inserting a continuous section break at the end of each section except the last one.",
+          "usage_code": "await Word.run(async (context) => {\n    const sections = context.document.sections;\n    sections.load(\"items\");\n    \n    await context.sync();\n    \n    // Insert a page break at the end of each section except the last\n    for (let i = 0; i < sections.items.length - 1; i++) {\n        const section = sections.items[i];\n        const body = section.body;\n        body.insertBreak(Word.BreakType.page, Word.InsertLocation.end);\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "Word.SettingCollection",
+      "description": "Gets the add-in's settings in the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display all custom settings that the add-in has stored in the current Word document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-settings.yaml\n\n// Gets all custom settings this add-in set on this document.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.load(\"items\");\n  await context.sync();\n\n  if (settings.items.length == 0) {\n    console.log(\"There are no settings.\");\n  } else {\n    console.log(\"All settings:\");\n    for (let i = 0; i < settings.items.length; i++) {\n      console.log(settings.items[i]);\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "windows",
+      "type": "Word.WindowCollection",
+      "description": "Gets the collection of `Word.Window` objects for the document.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the number of windows currently open for the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the windows collection for the document\n    const windows = context.document.windows;\n    \n    // Load the count property\n    windows.load(\"count\");\n    \n    await context.sync();\n    \n    // Display the number of windows\n    console.log(`Number of windows open for this document: ${windows.count}`);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addStyle",
+      "kind": "create",
+      "description": "Adds a style into the document by name and type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "type",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "type",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new custom style to the Word document with a user-specified name and type, after verifying that no style with that name already exists.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Adds a new style.\nawait Word.run(async (context) => {\n  const newStyleName = (document.getElementById(\"new-style-name\") as HTMLInputElement).value;\n  if (newStyleName == \"\") {\n    console.warn(\"Enter a style name to add.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(newStyleName);\n  style.load();\n  await context.sync();\n\n  if (!style.isNullObject) {\n    console.warn(\n      `There's an existing style with the same name '${newStyleName}'! Please provide another style name.`\n    );\n    return;\n  }\n\n  const newStyleType = ((document.getElementById(\"new-style-type\") as HTMLSelectElement).value as unknown) as Word.StyleType;\n  context.document.addStyle(newStyleName, newStyleType);\n  await context.sync();\n\n  console.log(newStyleName + \" has been added to the style list.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "kind": null,
+      "description": "Closes the current document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "closeBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "closeBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Close the current Word document with default behavior based on its current state.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/save-close.yaml\n\n// Closes the document with default behavior\n// for current state of the document.\nawait Word.run(async (context) => {\n  context.document.close();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "compare",
+      "kind": null,
+      "description": "Displays revision marks that indicate where the specified document differs from another document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "filePath",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "documentCompareOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Compare the current Word document with an external document specified by file path and display the differences in the current document without detecting format changes.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/compare-documents.yaml\n\n// Compares the current document with a specified external document.\nawait Word.run(async (context) => {\n  // Absolute path of an online or local document.\n  const filePath = (document.getElementById(\"filePath\") as HTMLInputElement).value;\n  // Options that configure the compare operation.\n  const options: Word.DocumentCompareOptions = {\n    compareTarget: Word.CompareTarget.compareTargetCurrent,\n    detectFormatChanges: false\n    // Other options you choose...\n    };\n  context.document.compare(filePath, options);\n\n  await context.sync();\n\n  console.log(\"Differences shown in the current document.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "compareFromBase64",
+      "kind": null,
+      "description": "Displays revision marks that indicate where the specified document differs from another document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "documentCompareOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Compare the current document with a base document stored as a base64 string and display revision marks showing the differences",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Base64 string of the document to compare against\n    const base64Document = \"UEsDBBQABgAIAAAAIQDd...\"; // Truncated for brevity\n    \n    // Configure comparison options\n    const compareOptions: Word.DocumentCompareOptions = {\n        compareTarget: Word.CompareTarget.current,\n        detectFormatChanges: true,\n        ignoreWhitespace: false,\n        removeDateAndTime: false,\n        removePersonalInformation: false\n    };\n    \n    // Compare the current document with the base64 document\n    document.compareFromBase64(base64Document, compareOptions);\n    \n    await context.sync();\n    \n    console.log(\"Document comparison complete. Revision marks are now visible.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteBookmark",
+      "kind": "delete",
+      "description": "Deletes a bookmark, if it exists, from the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a bookmark named \"Section1Start\" from the document if it exists",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Delete the bookmark named \"Section1Start\"\n    document.deleteBookmark(\"Section1Start\");\n    \n    await context.sync();\n    console.log(\"Bookmark 'Section1Start' has been deleted (if it existed).\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "detectLanguage",
+      "kind": null,
+      "description": "Note",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Detect the language of all text content in the document to identify what language the user has written in",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document\n    const document = context.document;\n    \n    // Detect the language of the document content\n    document.detectLanguage();\n    \n    // Sync to execute the detection\n    await context.sync();\n    \n    console.log(\"Language detection completed for the document\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getAnnotationById",
+      "kind": "read",
+      "description": "Gets the annotation by ID. Throws an `ItemNotFound` error if annotation isn't found.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the text of a specific annotation by its ID \"annotation123\"",
+          "usage_code": "await Word.run(async (context) => {\n    const annotation = context.document.getAnnotationById(\"annotation123\");\n    annotation.load(\"critiqueAnnotation\");\n    \n    await context.sync();\n    \n    console.log(\"Annotation text:\", annotation.critiqueAnnotation);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBookmarkRange",
+      "kind": "read",
+      "description": "Gets a bookmark's range. Throws an `ItemNotFound` error if the bookmark doesn't exist.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Highlight and modify the text content within a bookmark named \"CompanyName\" in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Get the range of the bookmark named \"CompanyName\"\n    const bookmarkRange = document.getBookmarkRange(\"CompanyName\");\n    \n    // Load the range properties\n    bookmarkRange.load(\"text\");\n    await context.sync();\n    \n    // Modify the bookmark content\n    bookmarkRange.insertText(\"Contoso Corporation\", Word.InsertLocation.replace);\n    bookmarkRange.font.highlightColor = \"yellow\";\n    bookmarkRange.font.bold = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBookmarkRangeOrNullObject",
+      "kind": "read",
+      "description": "Gets a bookmark's range. If the bookmark doesn't exist, then this method will return an object with its `isNullObject` property set to `true`. For further information, see *OrNullObject methods and properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a bookmark named \"Introduction\" exists in the document and highlight its text in yellow if found, otherwise log that it doesn't exist.",
+          "usage_code": "await Word.run(async (context) => {\n    const bookmarkRange = context.document.getBookmarkRangeOrNullObject(\"Introduction\");\n    bookmarkRange.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    if (bookmarkRange.isNullObject) {\n        console.log(\"Bookmark 'Introduction' does not exist.\");\n    } else {\n        bookmarkRange.font.highlightColor = \"yellow\";\n        console.log(\"Bookmark 'Introduction' found and highlighted.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getContentControls",
+      "kind": "read",
+      "description": "Gets the currently supported content controls in the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the checked state of all checkbox content controls in the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-checkbox-content-control.yaml\n\n// Toggles the isChecked property on all checkbox content controls.\nawait Word.run(async (context) => {\n  let contentControls = context.document.getContentControls({\n    types: [Word.ContentControlType.checkBox]\n  });\n  contentControls.load(\"items\");\n\n  await context.sync();\n\n  const length = contentControls.items.length;\n  console.log(`Number of checkbox content controls: ${length}`);\n\n  if (length <= 0) {\n    return;\n  }\n\n  const checkboxContentControls = [];\n  for (let i = 0; i < length; i++) {\n    let contentControl = contentControls.items[i];\n    contentControl.load(\"id,checkboxContentControl/isChecked\");\n    checkboxContentControls.push(contentControl);\n  }\n\n  await context.sync();\n\n  console.log(\"isChecked state before:\");\n  const updatedCheckboxContentControls = [];\n  for (let i = 0; i < checkboxContentControls.length; i++) {\n    const currentCheckboxContentControl = checkboxContentControls[i];\n    const isCheckedBefore = currentCheckboxContentControl.checkboxContentControl.isChecked;\n    console.log(`id: ${currentCheckboxContentControl.id} ... isChecked: ${isCheckedBefore}`);\n\n    currentCheckboxContentControl.checkboxContentControl.isChecked = !isCheckedBefore;\n    currentCheckboxContentControl.load(\"id,checkboxContentControl/isChecked\");\n    updatedCheckboxContentControls.push(currentCheckboxContentControl);\n  }\n\n  await context.sync();\n\n  console.log(\"isChecked state after:\");\n  for (let i = 0; i < updatedCheckboxContentControls.length; i++) {\n    const currentCheckboxContentControl = updatedCheckboxContentControls[i];\n    console.log(\n      `id: ${currentCheckboxContentControl.id} ... isChecked: ${currentCheckboxContentControl.checkboxContentControl.isChecked}`\n    );\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getEndnoteBody",
+      "kind": "read",
+      "description": "Gets the document's endnotes in a single body.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new paragraph with text to the document's endnotes section",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the endnote body\n    const endnoteBody = context.document.getEndnoteBody();\n    \n    // Add a paragraph to the endnote body\n    const paragraph = endnoteBody.insertParagraph(\n        \"This text is added to the endnotes section.\",\n        Word.InsertLocation.end\n    );\n    \n    // Sync to apply changes\n    await context.sync();\n    \n    console.log(\"Paragraph added to endnotes successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getFootnoteBody",
+      "kind": "read",
+      "description": "Gets the document's footnotes in a single body.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new paragraph with text to the document's footnotes body.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the footnotes body\n    const footnoteBody = context.document.getFootnoteBody();\n    \n    // Add a paragraph to the footnotes body\n    const paragraph = footnoteBody.insertParagraph(\n        \"This is additional content in the footnotes section.\",\n        Word.InsertLocation.end\n    );\n    \n    // Load and sync to verify\n    footnoteBody.load(\"text\");\n    await context.sync();\n    \n    console.log(\"Footnote body content:\", footnoteBody.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getParagraphByUniqueLocalId",
+      "kind": "read",
+      "description": "Gets the paragraph by its unique local ID. Throws an `ItemNotFound` error if the collection is empty.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display a paragraph from the document using its unique local identifier obtained from user input.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/onadded-event.yaml\n\nawait Word.run(async (context) => {\n  const paragraphId = (document.getElementById(\"paragraph-id\") as HTMLInputElement).value;\n  const paragraph: Word.Paragraph = context.document.getParagraphByUniqueLocalId(paragraphId);\n  paragraph.load();\n  await paragraph.context.sync();\n\n  console.log(paragraph);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getSelection",
+      "kind": "read",
+      "description": "Gets the current selection of the document. Multiple selections aren't supported.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert explanatory text about the insert text method at the end of the current selection in the document.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    const textSample = 'This is an example of the insert text method. This is a method ' + \n        'which allows users to insert text into a selection. It can insert text into a ' +\n        'relative location or it can overwrite the current selection. Since the ' +\n        'getSelection method returns a range object, look up the range object documentation ' +\n        'for everything you can do with a selection.';\n    \n    // Create a range proxy object for the current selection.\n    const range = context.document.getSelection();\n    \n    // Queue a command to insert text at the end of the selection.\n    range.insertText(textSample, Word.InsertLocation.end);\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Inserted the text at the end of the selection.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getStyles",
+      "kind": "read",
+      "description": "Gets a StyleCollection object that represents the whole style set of the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the total count of styles available in the Word document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "importStylesFromJson",
+      "kind": null,
+      "description": "Import styles from a JSON-formatted string.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "stylesJson",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "importedStylesConflictBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "stylesJson",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "importedStylesConflictBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Import custom character, paragraph, and table styles into a Word document from a JSON string containing style definitions with formatting properties.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-custom-style.yaml\n\n// Imports styles from JSON.\nawait Word.run(async (context) => {\n  const str =\n    '{\"styles\":[{\"baseStyle\":\"Default Paragraph Font\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nameLocal\":\"NewCharStyle\",\"priority\":2,\"quickStyle\":true,\"type\":\"Character\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":null,\"font\":{\"name\":\"DengXian Light\",\"size\":16.0,\"bold\":true,\"italic\":false,\"color\":\"#F1A983\",\"underline\":\"None\",\"subscript\":false,\"superscript\":true,\"strikeThrough\":true,\"doubleStrikeThrough\":false,\"highlightColor\":null,\"hidden\":false},\"shading\":{\"backgroundPatternColor\":\"#FF0000\"}},{\"baseStyle\":\"Normal\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nextParagraphStyle\":\"NewParaStyle\",\"nameLocal\":\"NewParaStyle\",\"priority\":1,\"quickStyle\":true,\"type\":\"Paragraph\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":{\"alignment\":\"Centered\",\"firstLineIndent\":0.0,\"keepTogether\":false,\"keepWithNext\":false,\"leftIndent\":72.0,\"lineSpacing\":18.0,\"lineUnitAfter\":0.0,\"lineUnitBefore\":0.0,\"mirrorIndents\":false,\"outlineLevel\":\"OutlineLevelBodyText\",\"rightIndent\":72.0,\"spaceAfter\":30.0,\"spaceBefore\":30.0,\"widowControl\":true},\"font\":{\"name\":\"DengXian\",\"size\":14.0,\"bold\":true,\"italic\":true,\"color\":\"#8DD873\",\"underline\":\"Single\",\"subscript\":false,\"superscript\":false,\"strikeThrough\":false,\"doubleStrikeThrough\":true,\"highlightColor\":null,\"hidden\":false},\"shading\":{\"backgroundPatternColor\":\"#00FF00\"}},{\"baseStyle\":\"Table Normal\",\"builtIn\":false,\"inUse\":true,\"linked\":false,\"nextParagraphStyle\":\"NewTableStyle\",\"nameLocal\":\"NewTableStyle\",\"priority\":100,\"type\":\"Table\",\"unhideWhenUsed\":false,\"visibility\":false,\"paragraphFormat\":{\"alignment\":\"Left\",\"firstLineIndent\":0.0,\"keepTogether\":false,\"keepWithNext\":false,\"leftIndent\":0.0,\"lineSpacing\":12.0,\"lineUnitAfter\":0.0,\"lineUnitBefore\":0.0,\"mirrorIndents\":false,\"outlineLevel\":\"OutlineLevelBodyText\",\"rightIndent\":0.0,\"spaceAfter\":0.0,\"spaceBefore\":0.0,\"widowControl\":true},\"font\":{\"name\":\"DengXian\",\"size\":20.0,\"bold\":false,\"italic\":true,\"color\":\"#D86DCB\",\"underline\":\"None\",\"subscript\":false,\"superscript\":false,\"strikeThrough\":false,\"doubleStrikeThrough\":false,\"highlightColor\":null,\"hidden\":false},\"tableStyle\":{\"allowBreakAcrossPage\":true,\"alignment\":\"Left\",\"bottomCellMargin\":0.0,\"leftCellMargin\":0.08,\"rightCellMargin\":0.08,\"topCellMargin\":0.0,\"cellSpacing\":0.0},\"shading\":{\"backgroundPatternColor\":\"#60CAF3\"}}]}';\n  const styles = context.document.importStylesFromJson(str);\n  await context.sync();\n  console.log(\"Styles imported from JSON:\", styles);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertFileFromBase64",
+      "kind": "create",
+      "description": "Inserts a document into the target document at a specific location with additional properties. Headers, footers, watermarks, and other section properties are copied by default.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertFileOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace the current document content with content from a Base64-encoded external document file while importing its theme, styles, paragraph spacing, page color, change tracking mode, custom properties, custom XML parts, and different odd/even page settings.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml\n\n// Inserts content (applying selected settings) from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  // Use the Base64-encoded string representation of the selected .docx file.\n  context.document.insertFileFromBase64(externalDocument, \"Replace\", {\n    importTheme: true,\n    importStyles: true,\n    importParagraphSpacing: true,\n    importPageColor: true,\n    importChangeTrackingMode: true,\n    importCustomProperties: true,\n    importCustomXmlParts: true,\n    importDifferentOddEvenPages: true\n  });\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the ID, text content, and tag properties of all content controls in the document, or indicate if no content controls exist.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the document.\n    const thisDocument = context.document;\n    \n    // Queue a command to load content control properties.\n    thisDocument.load('contentControls/id, contentControls/text, contentControls/tag');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (thisDocument.contentControls.items.length !== 0) {\n        for (let i = 0; i < thisDocument.contentControls.items.length; i++) {\n            console.log(thisDocument.contentControls.items[i].id);\n            console.log(thisDocument.contentControls.items[i].text);\n            console.log(thisDocument.contentControls.items[i].tag);\n        }\n    } else {\n        console.log('No content controls in this document.');\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "manualHyphenation",
+      "kind": null,
+      "description": "Note",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Enable manual hyphenation for the document to allow users to manually insert hyphens at line breaks",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Enable manual hyphenation for the document\n    document.manualHyphenation();\n    \n    await context.sync();\n    console.log(\"Manual hyphenation has been enabled for the document.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "save",
+      "kind": null,
+      "description": "Saves the document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "fileName",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "saveBehavior",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "fileName",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if the document has unsaved changes and save it if necessary, logging the appropriate status message.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the document.\n    const thisDocument = context.document;\n\n    // Queue a command to load the document save state (on the saved property).\n    thisDocument.load('saved');    \n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        \n    if (thisDocument.saved === false) {\n        // Queue a command to save this document.\n        thisDocument.save();\n        \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Saved the document');\n    } else {\n        console.log('The document has not changed since the last save.');\n    }\n});",
+          "output_code": null
+        },
+        {
+          "description": "Save the current Word document with its default save behavior.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/save-close.yaml\n\n// Saves the document with default behavior\n// for current state of the document.\nawait Word.run(async (context) => {\n  context.document.save();\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "kind": null,
+      "description": "Performs a search with the specified search options on the scope of the whole document. The search results are a collection of range objects.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "searchText",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "searchOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Find all occurrences of the word \"TODO\" in the document and highlight them in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Search for all occurrences of \"TODO\" in the document\n    const searchResults = context.document.search(\"TODO\", {\n        matchCase: false,\n        matchWholeWord: true\n    });\n    \n    // Load the search results\n    searchResults.load(\"font\");\n    await context.sync();\n    \n    // Highlight each occurrence in yellow\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n    \n    console.log(`Found and highlighted ${searchResults.items.length} occurrences of \"TODO\"`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple document properties at once, including setting the document title and subject metadata",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Set multiple document properties at once\n    document.set({\n        properties: {\n            title: \"Q4 Sales Report\",\n            subject: \"Quarterly Financial Analysis\",\n            author: \"Sales Team\"\n        }\n    });\n    \n    await context.sync();\n    console.log(\"Document properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.Document` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.DocumentData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a Word document's properties to JSON format for logging or debugging purposes",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Load properties you want to serialize\n    document.load(\"body/text,properties/title,properties/author\");\n    \n    await context.sync();\n    \n    // Convert the document object to a plain JavaScript object\n    const documentData = document.toJSON();\n    \n    // Now you can use JSON.stringify or log the plain object\n    console.log(JSON.stringify(documentData, null, 2));\n    \n    // The documentData object contains only the loaded properties\n    // as a plain JavaScript object, not the API proxy object\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a document reference, track it to prevent \"InvalidObjectPath\" errors across multiple sync calls, and read its properties multiple times in separate sync operations.",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    \n    // Track the document object to use it across multiple sync calls\n    document.track();\n    \n    // Load and sync properties first time\n    document.load(\"properties/title\");\n    await context.sync();\n    \n    console.log(\"Document title:\", document.properties.title);\n    \n    // Use the document again after sync (tracking prevents InvalidObjectPath error)\n    document.body.load(\"text\");\n    await context.sync();\n    \n    console.log(\"Document body length:\", document.body.text.length);\n    \n    // Clean up tracked object when done\n    document.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load a document object to read its properties, then untrack it to free memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    document.track();\n    document.load(\"properties\");\n    \n    await context.sync();\n    \n    // Use the document properties\n    console.log(\"Document loaded and used\");\n    \n    // Release memory after we're done using the tracked object\n    document.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

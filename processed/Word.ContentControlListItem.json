@@ -1,0 +1,291 @@
+{
+  "class": {
+    "name": "ContentControlListItem",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.9",
+      "status": null
+    },
+    "description": "Represents a list item in a dropdown list or combo box content control.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-dropdown-list-content-control.yaml\n\n// Deletes the provided list item from the first dropdown list content control in the selection.\nawait Word.run(async (context) => {\n  const listItemText = (document.getElementById(\"item-to-delete\") as HTMLInputElement).value.trim();\n  const selectedRange: Word.Range = context.document.getSelection();\n  let selectedContentControl = selectedRange\n    .getContentControls({\n      types: [Word.ContentControlType.dropDownList]\n    })\n    .getFirstOrNullObject();\n  selectedContentControl.load(\"id,dropDownListContentControl\");\n  await context.sync();\n\n  if (selectedContentControl.isNullObject) {\n    const parentContentControl: Word.ContentControl = selectedRange.parentContentControl;\n    parentContentControl.load(\"id,type,dropDownListContentControl\");\n    await context.sync();\n\n    if (parentContentControl.isNullObject || parentContentControl.type !== Word.ContentControlType.dropDownList) {\n      console.warn(\"No dropdown list content control is currently selected.\");\n      return;\n    } else {\n      selectedContentControl = parentContentControl;\n    }\n  }\n\n  let selectedDropdownList: Word.DropDownListContentControl = selectedContentControl.dropDownListContentControl;\n  selectedDropdownList.listItems.load(\"items/*\");\n  await context.sync();\n\n  let listItems: Word.ContentControlListItemCollection = selectedContentControl.dropDownListContentControl.listItems;\n  let itemToDelete: Word.ContentControlListItem = listItems.items.find((item) => item.displayText === listItemText);\n  if (!itemToDelete) {\n    console.warn(`List item doesn't exist in control with ID ${selectedContentControl.id}: ${listItemText}`)\n    return;\n  }\n  \n  itemToDelete.delete();\n  await context.sync();\n\n  console.log(`List item deleted from control with ID ${selectedContentControl.id}: ${listItemText}`);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a content control list item to verify the connection to the Office host application before performing operations on the list item.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    await context.sync();\n    \n    // Get the first list item from the content control\n    const listItem = contentControl.dropdownListOrComboBox.listItems.getFirst();\n    listItem.load(\"displayText\");\n    \n    // Access the request context associated with the list item\n    const itemContext = listItem.context;\n    \n    // Use the context to sync and verify the connection\n    await itemContext.sync();\n    \n    console.log(\"List item display text: \" + listItem.displayText);\n    console.log(\"Request context is connected to Office host application\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "displayText",
+      "type": "string",
+      "description": "Specifies the display text of a list item for a dropdown list or combo box content control.",
+      "since": "WordApi 1.9",
+      "examples": [
+        {
+          "description": "Delete a list item with matching display text from the first dropdown list content control in the current selection.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-dropdown-list-content-control.yaml\n\n// Deletes the provided list item from the first dropdown list content control in the selection.\nawait Word.run(async (context) => {\n  const listItemText = (document.getElementById(\"item-to-delete\") as HTMLInputElement).value.trim();\n  const selectedRange: Word.Range = context.document.getSelection();\n  let selectedContentControl = selectedRange\n    .getContentControls({\n      types: [Word.ContentControlType.dropDownList]\n    })\n    .getFirstOrNullObject();\n  selectedContentControl.load(\"id,dropDownListContentControl\");\n  await context.sync();\n\n  if (selectedContentControl.isNullObject) {\n    const parentContentControl: Word.ContentControl = selectedRange.parentContentControl;\n    parentContentControl.load(\"id,type,dropDownListContentControl\");\n    await context.sync();\n\n    if (parentContentControl.isNullObject || parentContentControl.type !== Word.ContentControlType.dropDownList) {\n      console.warn(\"No dropdown list content control is currently selected.\");\n      return;\n    } else {\n      selectedContentControl = parentContentControl;\n    }\n  }\n\n  let selectedDropdownList: Word.DropDownListContentControl = selectedContentControl.dropDownListContentControl;\n  selectedDropdownList.listItems.load(\"items/*\");\n  await context.sync();\n\n  let listItems: Word.ContentControlListItemCollection = selectedContentControl.dropDownListContentControl.listItems;\n  let itemToDelete: Word.ContentControlListItem = listItems.items.find((item) => item.displayText === listItemText);\n  if (!itemToDelete) {\n    console.warn(`List item doesn't exist in control with ID ${selectedContentControl.id}: ${listItemText}`)\n    return;\n  }\n  \n  itemToDelete.delete();\n  await context.sync();\n\n  console.log(`List item deleted from control with ID ${selectedContentControl.id}: ${listItemText}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "description": "Specifies the index location of a content control list item in the collection of list items.",
+      "since": "WordApi 1.9",
+      "examples": [
+        {
+          "description": "Get the index of the currently selected item in a dropdown content control and display it to the user.",
+          "usage_code": "await Word.run(async (context) => {\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type,listItems\");\n    \n    await context.sync();\n    \n    if (contentControl.type === Word.ContentControlType.dropDownList || \n        contentControl.type === Word.ContentControlType.comboBox) {\n        \n        const listItems = contentControl.listItems;\n        listItems.load(\"items\");\n        \n        await context.sync();\n        \n        // Get the index of the first list item\n        const firstItem = listItems.items[0];\n        firstItem.load(\"index\");\n        \n        await context.sync();\n        \n        console.log(`The index of the first list item is: ${firstItem.index}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Specifies the programmatic value of a list item for a dropdown list or combo box content control.",
+      "since": "WordApi 1.9",
+      "examples": [
+        {
+          "description": "Set the programmatic value of a dropdown list item to \"DEPT001\" for the first item in a content control's list",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    \n    await context.sync();\n    \n    // Ensure it's a dropdown list or combo box\n    if (contentControl.type === Word.ContentControlType.dropDownList || \n        contentControl.type === Word.ContentControlType.comboBox) {\n        \n        // Get the first list item\n        const listItem = contentControl.listItems.getFirst();\n        \n        // Set the programmatic value\n        listItem.value = \"DEPT001\";\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the list item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a specified list item from the first combo box content control in the current selection or its parent content control.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-combo-box-content-control.yaml\n\n// Deletes the provided list item from the first combo box content control in the selection.\nawait Word.run(async (context) => {\n  const listItemText = (document.getElementById(\"item-to-delete\") as HTMLInputElement).value.trim();\n  const selectedRange: Word.Range = context.document.getSelection();\n  let selectedContentControl = selectedRange\n    .getContentControls({\n      types: [Word.ContentControlType.comboBox]\n    })\n    .getFirstOrNullObject();\n  selectedContentControl.load(\"id,comboBoxContentControl\");\n  await context.sync();\n\n  if (selectedContentControl.isNullObject) {\n    const parentContentControl: Word.ContentControl = selectedRange.parentContentControl;\n    parentContentControl.load(\"id,type,comboBoxContentControl\");\n    await context.sync();\n\n    if (parentContentControl.isNullObject || parentContentControl.type !== Word.ContentControlType.comboBox) {\n      console.warn(\"No combo box content control is currently selected.\");\n      return;\n    } else {\n      selectedContentControl = parentContentControl;\n    }\n  }\n\n  let selectedComboBox: Word.ComboBoxContentControl = selectedContentControl.comboBoxContentControl;\n  selectedComboBox.listItems.load(\"items/*\");\n  await context.sync();\n\n  let listItems: Word.ContentControlListItemCollection = selectedContentControl.comboBoxContentControl.listItems;\n  let itemToDelete: Word.ContentControlListItem = listItems.items.find((item) => item.displayText === listItemText);\n  if (!itemToDelete) {\n    console.warn(`List item doesn't exist in control with ID ${selectedContentControl.id}: ${listItemText}`);\n    return;\n  }\n\n  itemToDelete.delete();\n  await context.sync();\n\n  console.log(`List item deleted from control with ID ${selectedContentControl.id}: ${listItemText}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ContentControlListItemLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlListItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlListItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "object",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControlListItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the display name and value of the first list item in the first dropdown content control",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Get the first list item from the content control\n    const listItem = contentControl.listItems.getFirst();\n    \n    // Load the properties of the list item\n    listItem.load(\"displayName, value\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the loaded properties\n    console.log(`Display Name: ${listItem.displayName}`);\n    console.log(`Value: ${listItem.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the list item and sets the text of the content control to the value of the list item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the first item in a dropdown content control to set the control's displayed value",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type,dropdownListItems\");\n    \n    await context.sync();\n    \n    // Verify it's a dropdown or combo box control\n    if (contentControl.type === Word.ContentControlType.dropDownList || \n        contentControl.type === Word.ContentControlType.comboBox) {\n        \n        // Get the first list item and select it\n        const firstItem = contentControl.dropdownListItems.getFirst();\n        firstItem.select();\n        \n        await context.sync();\n        console.log(\"First list item selected\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ContentControlListItemUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ContentControlListItem",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a content control list item at once, setting both its display text and value",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control (assumed to be a dropdown or combo box)\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    await context.sync();\n    \n    // Get the first list item from the content control\n    const listItem = contentControl.listItems.getFirst();\n    \n    // Set multiple properties at once using the set() method\n    listItem.set({\n        displayText: \"High Priority\",\n        value: \"priority-high\"\n    });\n    \n    await context.sync();\n    console.log(\"List item properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.ContentControlListItem object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ContentControlListItemData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ContentControlListItemData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a content control's dropdown list items and serialize the first item to JSON for logging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    \n    // Load the list items\n    const listItems = contentControl.dropdownListOrComboBoxListItems;\n    listItems.load(\"items\");\n    \n    await context.sync();\n    \n    // Check if it's a dropdown or combo box\n    if (contentControl.type === \"DropDownList\" || contentControl.type === \"ComboBox\") {\n        const firstItem = listItems.items[0];\n        firstItem.load(\"displayText,value\");\n        \n        await context.sync();\n        \n        // Convert the list item to a plain JSON object\n        const jsonData = firstItem.toJSON();\n        \n        // Log the JSON representation\n        console.log(\"List Item JSON:\", JSON.stringify(jsonData, null, 2));\n        // Output example: { \"displayText\": \"Option 1\", \"value\": \"1\" }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ContentControlListItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a content control list item across multiple sync calls to safely modify its properties without getting an \"InvalidObjectPath\" error.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control (assuming it's a dropdown or combo box)\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    await context.sync();\n    \n    // Get the first list item from the content control\n    const listItem = contentControl.listItems.getFirst();\n    listItem.load(\"displayText,value\");\n    await context.sync();\n    \n    // Track the list item for use across multiple sync calls\n    listItem.track();\n    \n    console.log(`Original: ${listItem.displayText} - ${listItem.value}`);\n    \n    // Perform additional operations after sync\n    await context.sync();\n    \n    // Can safely access the list item properties after tracking\n    console.log(`Still accessible: ${listItem.displayText}`);\n    \n    // Untrack when done\n    listItem.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ContentControlListItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a list item from a dropdown content control, use it to read properties, then untrack it to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    contentControl.load(\"type\");\n    \n    await context.sync();\n    \n    // Get the first list item from the dropdown\n    const listItems = contentControl.listItems;\n    const firstItem = listItems.getFirst();\n    firstItem.load(\"displayText,value\");\n    \n    await context.sync();\n    \n    // Use the list item\n    console.log(`Item: ${firstItem.displayText}, Value: ${firstItem.value}`);\n    \n    // Untrack the list item to release memory\n    firstItem.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word/word.contentcontrollistitem"
+    ]
+  }
+}

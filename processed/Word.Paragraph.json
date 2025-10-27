@@ -1,0 +1,2294 @@
+{
+  "class": {
+    "name": "Word.Paragraph",
+    "package": "word",
+    "extends": [],
+    "api_set": {
+      "name": null,
+      "status": null
+    },
+    "description": "Represents a single paragraph in a selection, range, content control, or document body.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/get-paragraph-on-insertion-point.yaml\n\nawait Word.run(async (context) => {\n  // The collection of paragraphs of the current selection returns the full paragraphs contained in it.\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  paragraph.load(\"text\");\n\n  await context.sync();\n  console.log(paragraph.text);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": "Word.Alignment | \"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+      "description": "Specifies the alignment for a paragraph. The value can be 'left', 'centered', 'right', or 'justified'.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Center the alignment of the last paragraph in the document body.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Center last paragraph alignment.\n  context.document.body.paragraphs.getLast().alignment = \"Centered\";\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "borders",
+      "type": "Word.BorderUniversalCollection",
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a red bottom border with 2pt width on the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const borders = paragraph.borders;\n    \n    borders.load(\"items\");\n    await context.sync();\n    \n    const bottomBorder = borders.items.find(border => border.type === Word.BorderType.bottom);\n    if (bottomBorder) {\n        bottomBorder.color = \"#FF0000\";\n        bottomBorder.width = 2;\n        bottomBorder.visible = true;\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contentControls",
+      "type": "Word.ContentControlCollection",
+      "description": "Gets the collection of content control objects in the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Find and highlight all content controls within the first paragraph of the document by setting their appearance to tags visible.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the collection of content controls in the paragraph\n    const contentControls = firstParagraph.contentControls;\n    \n    // Load the content controls\n    contentControls.load(\"items\");\n    \n    await context.sync();\n    \n    // Set appearance for each content control to make them visible\n    for (let i = 0; i < contentControls.items.length; i++) {\n        contentControls.items[i].appearance = Word.ContentControlAppearance.tags;\n    }\n    \n    await context.sync();\n    \n    console.log(`Found ${contentControls.items.length} content control(s) in the first paragraph.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context to synchronize paragraph properties and log the paragraph's text content to the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Load the text property using the paragraph's context\n    paragraph.load(\"text\");\n    \n    // Use the context property to sync with the Office host\n    await paragraph.context.sync();\n    \n    // Now we can access the loaded property\n    console.log(\"Paragraph text:\", paragraph.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "endnotes",
+      "type": "Word.NoteItemCollection",
+      "description": "Gets the collection of endnotes in the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Count the number of endnotes in the first paragraph of the document and display the count in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the endnotes collection from the paragraph\n    const endnotes = firstParagraph.endnotes;\n    \n    // Load the count of endnotes\n    endnotes.load(\"items\");\n    \n    await context.sync();\n    \n    // Display the count\n    console.log(`Number of endnotes in the first paragraph: ${endnotes.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fields",
+      "type": "Word.FieldCollection",
+      "description": "Gets the collection of fields in the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all fields in the first paragraph of the document and display their types in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const fields = firstParagraph.fields;\n    \n    fields.load(\"items\");\n    await context.sync();\n    \n    console.log(`Found ${fields.items.length} field(s) in the paragraph`);\n    \n    for (let i = 0; i < fields.items.length; i++) {\n        fields.items[i].load(\"type\");\n    }\n    await context.sync();\n    \n    fields.items.forEach((field, index) => {\n        console.log(`Field ${index + 1}: ${field.type}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "firstLineIndent",
+      "type": "number",
+      "description": "Specifies the value, in points, for a first line or hanging indent. Use a positive value to set a first-line indent, and use a negative value to set a hanging indent.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a first-line indent of 36 points for the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.firstLineIndent = 36;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "font",
+      "type": "Word.Font",
+      "description": "Gets the text format of the paragraph. Use this to get and set font name, size, color, and other properties.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the paragraph font to Calibri with size 14 and blue color",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    paragraph.font.name = \"Calibri\";\n    paragraph.font.size = 14;\n    paragraph.font.color = \"blue\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "footnotes",
+      "type": "Word.NoteItemCollection",
+      "description": "Gets the collection of footnotes in the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Count and display the number of footnotes in the first paragraph of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the footnotes collection from the paragraph\n    const footnotes = firstParagraph.footnotes;\n    \n    // Load the count of footnotes\n    footnotes.load(\"items\");\n    \n    await context.sync();\n    \n    // Display the number of footnotes\n    console.log(`The first paragraph contains ${footnotes.items.length} footnote(s)`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "inlinePictures",
+      "type": "Word.InlinePictureCollection",
+      "description": "Gets the collection of InlinePicture objects in the paragraph. The collection doesn't include floating images.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all inline pictures from the first paragraph and set their width to 150 pixels",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const inlinePictures = firstParagraph.inlinePictures;\n    \n    inlinePictures.load(\"items\");\n    await context.sync();\n    \n    for (let i = 0; i < inlinePictures.items.length; i++) {\n        inlinePictures.items[i].width = 150;\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isLastParagraph",
+      "type": "boolean",
+      "description": "Indicates the paragraph is the last one inside its parent body.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Add a page break after the current paragraph only if it's not the last paragraph in the document body.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    paragraph.load(\"isLastParagraph\");\n    \n    await context.sync();\n    \n    if (!paragraph.isLastParagraph) {\n        paragraph.insertBreak(Word.BreakType.page, Word.InsertLocation.after);\n        console.log(\"Page break added after paragraph\");\n    } else {\n        console.log(\"This is the last paragraph - no page break added\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isListItem",
+      "type": "boolean",
+      "description": "Checks whether the paragraph is a list item.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is a list item and display an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.load(\"isListItem\");\n    \n    await context.sync();\n    \n    if (paragraph.isListItem) {\n        console.log(\"This paragraph is a list item.\");\n    } else {\n        console.log(\"This paragraph is not a list item.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "leftIndent",
+      "type": "number",
+      "description": "Specifies the left indent value, in points, for the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the left indent of the first paragraph in the document to 75 points.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Indent the first paragraph.\n  context.document.body.paragraphs.getFirst().leftIndent = 75; //units = points\n\n  return context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineSpacing",
+      "type": "number",
+      "description": "Specifies the line spacing, in points, for the specified paragraph. In the Word UI, this value is divided by 12.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the line spacing of the first paragraph in the document body to 20 points.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Adjust line spacing.\n  context.document.body.paragraphs.getFirst().lineSpacing = 20;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineUnitAfter",
+      "type": "number",
+      "description": "Specifies the amount of spacing, in grid lines, after the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the spacing after the first paragraph in the document body to 1 line unit.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Set the space (in line units) after the first paragraph.\n  context.document.body.paragraphs.getFirst().lineUnitAfter = 1;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineUnitBefore",
+      "type": "number",
+      "description": "Specifies the amount of spacing, in grid lines, before the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the spacing before the first paragraph in the document body to 1 line unit.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Set the space (in line units) before the first paragraph.\n  context.document.body.paragraphs.getFirst().lineUnitBefore = 1;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "Word.List",
+      "description": "Gets the List to which this paragraph belongs. Throws an ItemNotFound error if the paragraph isn't in a list.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the list level of the first paragraph in the document and display it to the user.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const list = firstParagraph.list;\n    \n    list.load(\"levelTypes\");\n    await context.sync();\n    \n    console.log(\"List level types:\", list.levelTypes);\n    // Or display to user in your UI\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listItem",
+      "type": "Word.ListItem",
+      "description": "Gets the ListItem for the paragraph. Throws an ItemNotFound error if the paragraph isn't part of a list.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is part of a list and get its level number, displaying an error message if it's not in a list.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    try {\n        const listItem = paragraph.listItem;\n        listItem.load(\"level\");\n        \n        await context.sync();\n        \n        console.log(`This paragraph is at list level: ${listItem.level}`);\n    } catch (error) {\n        if (error.code === \"ItemNotFound\") {\n            console.log(\"This paragraph is not part of a list.\");\n        } else {\n            throw error;\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listItemOrNullObject",
+      "type": "Word.ListItem",
+      "description": "Gets the ListItem for the paragraph. If the paragraph isn't part of a list, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the current paragraph is part of a list and display its list level if it is, otherwise display a message that it's not in a list.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    const listItem = paragraph.listItemOrNullObject;\n    \n    listItem.load(\"isNullObject, level\");\n    await context.sync();\n    \n    if (listItem.isNullObject) {\n        console.log(\"This paragraph is not part of a list.\");\n    } else {\n        console.log(`This paragraph is in a list at level ${listItem.level}.`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listOrNullObject",
+      "type": "Word.List",
+      "description": "Gets the List to which this paragraph belongs. If the paragraph isn't in a list, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the current paragraph is part of a list and display the list ID if it is, or show a message if it's not in a list.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    const list = paragraph.listOrNullObject;\n    \n    list.load(\"id, isNullObject\");\n    await context.sync();\n    \n    if (list.isNullObject) {\n        console.log(\"This paragraph is not part of a list.\");\n    } else {\n        console.log(`This paragraph belongs to list with ID: ${list.id}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outlineLevel",
+      "type": "number",
+      "description": "Specifies the outline level for the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the outline level of the first paragraph in the document to level 2 to organize it as a subheading in the document structure",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.outlineLevel = 2;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentBody",
+      "type": "Word.Body",
+      "description": "Gets the parent body of the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the parent body of a paragraph and highlight it with yellow background color to show the entire document body that contains the paragraph.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the parent body of the paragraph\n    const parentBody = paragraph.parentBody;\n    \n    // Highlight the parent body with yellow background\n    parentBody.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControl",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the paragraph. Throws an ItemNotFound error if there isn't a parent content control.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is inside a content control and highlight the parent content control in yellow if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    try {\n        const parentContentControl = paragraph.parentContentControl;\n        parentContentControl.load(\"title\");\n        await context.sync();\n        \n        // Highlight the parent content control\n        parentContentControl.font.highlightColor = \"yellow\";\n        \n        console.log(`Paragraph is inside content control: ${parentContentControl.title}`);\n        await context.sync();\n    } catch (error) {\n        console.log(\"Paragraph is not inside a content control\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControlOrNullObject",
+      "type": "Word.ContentControl",
+      "description": "Gets the content control that contains the paragraph. If there isn't a parent content control, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is inside a content control and highlight the content control in yellow if it exists",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const parentContentControl = paragraph.parentContentControlOrNullObject;\n    \n    parentContentControl.load(\"isNullObject\");\n    await context.sync();\n    \n    if (!parentContentControl.isNullObject) {\n        parentContentControl.font.highlightColor = \"yellow\";\n        console.log(\"Paragraph is inside a content control - highlighted it\");\n    } else {\n        console.log(\"Paragraph is not inside a content control\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTable",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the paragraph. Throws an ItemNotFound error if it isn't contained in a table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is inside a table and highlight the entire table with a yellow background if it is.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    \n    try {\n        const table = paragraph.parentTable;\n        table.load(\"values\");\n        await context.sync();\n        \n        // If we reach here, paragraph is in a table\n        table.shadingColor = \"#FFFF00\"; // Yellow background\n        await context.sync();\n        \n        console.log(\"Table highlighted successfully\");\n    } catch (error) {\n        if (error.code === \"ItemNotFound\") {\n            console.log(\"Selected paragraph is not in a table\");\n        } else {\n            throw error;\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCell",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the paragraph. Throws an ItemNotFound error if it isn't contained in a table cell.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is inside a table cell and highlight the entire cell in yellow if it is.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    \n    try {\n        const tableCell = paragraph.parentTableCell;\n        tableCell.load(\"cellIndex, rowIndex\");\n        \n        await context.sync();\n        \n        // Highlight the parent table cell\n        tableCell.shadingColor = \"#FFFF00\";\n        \n        await context.sync();\n        \n        console.log(`Paragraph is in cell at row ${tableCell.rowIndex}, column ${tableCell.cellIndex}`);\n    } catch (error) {\n        console.log(\"Paragraph is not inside a table cell\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCellOrNullObject",
+      "type": "Word.TableCell",
+      "description": "Gets the table cell that contains the paragraph. If it isn't contained in a table cell, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the current paragraph is inside a table cell, and if so, highlight the entire cell in yellow.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the parent table cell (or null object if not in a table)\n    const tableCell = paragraph.parentTableCellOrNullObject;\n    \n    // Load the isNullObject property to check if paragraph is in a table\n    tableCell.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    // Check if the paragraph is inside a table cell\n    if (!tableCell.isNullObject) {\n        // Paragraph is in a table - highlight the cell\n        tableCell.shadingColor = \"yellow\";\n        console.log(\"Paragraph is in a table cell - cell highlighted\");\n    } else {\n        console.log(\"Paragraph is not in a table cell\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableOrNullObject",
+      "type": "Word.Table",
+      "description": "Gets the table that contains the paragraph. If it isn't contained in a table, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a paragraph is inside a table, and if so, apply a light blue shading to the entire table.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const parentTable = paragraph.parentTableOrNullObject;\n    \n    // Load the isNullObject property to check if paragraph is in a table\n    parentTable.load(\"isNullObject\");\n    await context.sync();\n    \n    if (!parentTable.isNullObject) {\n        // Paragraph is inside a table, apply shading\n        parentTable.shadingColor = \"#ADD8E6\"; // Light blue\n        await context.sync();\n        console.log(\"Table shading applied\");\n    } else {\n        console.log(\"Paragraph is not in a table\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Highlight all text in the first paragraph by applying a yellow background color to its range",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the range of the paragraph\n    const paragraphRange = paragraph.range;\n    \n    // Apply yellow highlighting to the paragraph's range\n    paragraphRange.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rightIndent",
+      "type": "number",
+      "description": "Specifies the right indent value, in points, for the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the right indent of the first paragraph in the document to 36 points (0.5 inches)",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.rightIndent = 36;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shading",
+      "type": "Word.ShadingUniversal",
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Apply a light gray background shading to the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Apply shading to the paragraph\n    paragraph.shading.backgroundPatternColor = \"#D3D3D3\"; // Light gray\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shapes",
+      "type": "Word.ShapeCollection",
+      "description": "Gets the collection of shape objects anchored in the paragraph, including both inline and floating shapes. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all shapes anchored in the first paragraph and change the fill color of the first shape to blue",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const shapes = firstParagraph.shapes;\n    \n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const firstShape = shapes.items[0];\n        firstShape.fill.setSolidColor(\"blue\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "spaceAfter",
+      "type": "number",
+      "description": "Specifies the spacing, in points, after the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the spacing after the first paragraph in the document to 20 points.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/paragraph-properties.yaml\n\nawait Word.run(async (context) => {\n  // Set the space (in points) after the first paragraph.\n  context.document.body.paragraphs.getFirst().spaceAfter = 20;\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "spaceBefore",
+      "type": "number",
+      "description": "Specifies the spacing, in points, before the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the spacing before the first paragraph in the document to 24 points",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.spaceBefore = 24;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "style",
+      "type": "string",
+      "description": "Specifies the style name for the paragraph. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the \"styleBuiltIn\" property.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Apply a user-specified paragraph style to the first paragraph of the document body after validating the style exists and is of paragraph type.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Applies the specified style to a paragraph.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to apply.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else if (style.type != Word.StyleType.paragraph) {\n    console.log(`The '${styleName}' style isn't a paragraph style.`);\n  } else {\n    const body: Word.Body = context.document.body;\n    body.clear();\n    body.insertParagraph(\n      \"Do you want to create a solution that extends the functionality of Word? You can use the Office Add-ins platform to extend Word clients running on the web, on a Windows desktop, or on a Mac.\",\n      \"Start\"\n    );\n    const paragraph: Word.Paragraph = body.paragraphs.getFirst();\n    paragraph.style = style.nameLocal;\n    console.log(`'${styleName}' style applied to first paragraph.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleBuiltIn",
+      "type": "Word.BuiltInStyleName | \"Other\" | \"Normal\" | \"Heading1\" | \"Heading2\" | \"Heading3\" | \"Heading4\" | \"Heading5\" | \"Heading6\" | \"Heading7\" | \"Heading8\" | \"Heading9\" | \"Toc1\" | \"Toc2\" | \"Toc3\" | \"Toc4\" | \"Toc5\" | \"Toc6\" | \"Toc7\" | \"Toc8\" | \"Toc9\" | \"FootnoteText\" | \"Header\" | \"Footer\" | \"Caption\" | \"FootnoteReference\" | \"EndnoteReference\" | \"EndnoteText\" | \"Title\" | \"Subtitle\" | \"Hyperlink\" | \"Strong\" | \"Emphasis\" | \"NoSpacing\" | \"ListParagraph\" | \"Quote\" | \"IntenseQuote\" | \"SubtleEmphasis\" | \"IntenseEmphasis\" | \"SubtleReference\" | \"IntenseReference\" | \"BookTitle\" | \"Bibliography\" | \"TocHeading\" | \"TableGrid\" | \"PlainTable1\" | \"PlainTable2\" | \"PlainTable3\" | \"PlainTable4\" | \"PlainTable5\" | \"TableGridLight\" | \"GridTable1Light\" | \"GridTable1Light_Accent1\" | \"GridTable1Light_Accent2\" | \"GridTable1Light_Accent3\" | \"GridTable1Light_Accent4\" | \"GridTable1Light_Accent5\" | \"GridTable1Light_Accent6\" | \"GridTable2\" | \"GridTable2_Accent1\" | \"GridTable2_Accent2\" | \"GridTable2_Accent3\" | \"GridTable2_Accent4\" | \"GridTable2_Accent5\" | \"GridTable2_Accent6\" | \"GridTable3\" | \"GridTable3_Accent1\" | \"GridTable3_Accent2\" | \"GridTable3_Accent3\" | \"GridTable3_Accent4\" | \"GridTable3_Accent5\" | \"GridTable3_Accent6\" | \"GridTable4\" | \"GridTable4_Accent1\" | \"GridTable4_Accent2\" | \"GridTable4_Accent3\" | \"GridTable4_Accent4\" | \"GridTable4_Accent5\" | \"GridTable4_Accent6\" | \"GridTable5Dark\" | \"GridTable5Dark_Accent1\" | \"GridTable5Dark_Accent2\" | \"GridTable5Dark_Accent3\" | \"GridTable5Dark_Accent4\" | \"GridTable5Dark_Accent5\" | \"GridTable5Dark_Accent6\" | \"GridTable6Colorful\" | \"GridTable6Colorful_Accent1\" | \"GridTable6Colorful_Accent2\" | \"GridTable6Colorful_Accent3\" | \"GridTable6Colorful_Accent4\" | \"GridTable6Colorful_Accent5\" | \"GridTable6Colorful_Accent6\" | \"GridTable7Colorful\" | \"GridTable7Colorful_Accent1\" | \"GridTable7Colorful_Accent2\" | \"GridTable7Colorful_Accent3\" | \"GridTable7Colorful_Accent4\" | \"GridTable7Colorful_Accent5\" | \"GridTable7Colorful_Accent6\" | \"ListTable1Light\" | \"ListTable1Light_Accent1\" | \"ListTable1Light_Accent2\" | \"ListTable1Light_Accent3\" | \"ListTable1Light_Accent4\" | \"ListTable1Light_Accent5\" | \"ListTable1Light_Accent6\" | \"ListTable2\" | \"ListTable2_Accent1\" | \"ListTable2_Accent2\" | \"ListTable2_Accent3\" | \"ListTable2_Accent4\" | \"ListTable2_Accent5\" | \"ListTable2_Accent6\" | \"ListTable3\" | \"ListTable3_Accent1\" | \"ListTable3_Accent2\" | \"ListTable3_Accent3\" | \"ListTable3_Accent4\" | \"ListTable3_Accent5\" | \"ListTable3_Accent6\" | \"ListTable4\" | \"ListTable4_Accent1\" | \"ListTable4_Accent2\" | \"ListTable4_Accent3\" | \"ListTable4_Accent4\" | \"ListTable4_Accent5\" | \"ListTable4_Accent6\" | \"ListTable5Dark\" | \"ListTable5Dark_Accent1\" | \"ListTable5Dark_Accent2\" | \"ListTable5Dark_Accent3\" | \"ListTable5Dark_Accent4\" | \"ListTable5Dark_Accent5\" | \"ListTable5Dark_Accent6\" | \"ListTable6Colorful\" | \"ListTable6Colorful_Accent1\" | \"ListTable6Colorful_Accent2\" | \"ListTable6Colorful_Accent3\" | \"ListTable6Colorful_Accent4\" | \"ListTable6Colorful_Accent5\" | \"ListTable6Colorful_Accent6\" | \"ListTable7Colorful\" | \"ListTable7Colorful_Accent1\" | \"ListTable7Colorful_Accent2\" | \"ListTable7Colorful_Accent3\" | \"ListTable7Colorful_Accent4\" | \"ListTable7Colorful_Accent5\" | \"ListTable7Colorful_Accent6\"",
+      "description": "Specifies the built-in style name for the paragraph. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the \"style\" property.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Create a structured document section with multiple paragraphs using built-in styles (Heading1, Heading2, Normal), including a highlighted content control placeholder for project costs and a page break at the end.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/90-scenarios/doc-assembly.yaml\n\nawait Word.run(async (context) => {\n    const paragraph: Word.Paragraph = context.document.body.insertParagraph(\"Timeline\", \"End\");\n    paragraph.styleBuiltIn = \"Heading2\";\n    const paragraph2: Word.Paragraph = context.document.body.insertParagraph(\"The Services shall commence on July 31, 2015, and shall continue through July 29, 2015.\", \"End\");\n    paragraph2.styleBuiltIn = \"Normal\";\n    const paragraph3: Word.Paragraph = context.document.body.insertParagraph(\"Project Costs by Phase\", \"End\");\n    paragraph3.styleBuiltIn = \"Heading2\";\n    // Note a content control with the title of \"ProjectCosts\" is added. Content will be replaced later.\n    const paragraph4: Word.Paragraph = context.document.body.insertParagraph(\"<Add Project Costs Here>\", \"End\");\n    paragraph4.styleBuiltIn = \"Normal\";\n    paragraph4.font.highlightColor = \"#FFFF00\";\n    const contentControl: Word.ContentControl = paragraph4.insertContentControl();\n    contentControl.title = \"ProjectCosts\";\n    const paragraph5: Word.Paragraph = context.document.body.insertParagraph(\"Project Team\", \"End\");\n    paragraph5.styleBuiltIn = \"Heading2\";\n    paragraph5.font.highlightColor = \"#FFFFFF\";\n    const paragraph6: Word.Paragraph = context.document.body.insertParagraph(\"Terms of Work\", \"End\");\n    paragraph6.styleBuiltIn = \"Heading1\";\n    const paragraph7: Word.Paragraph = context.document.body.insertParagraph(\"Contractor shall provide the Services and Deliverable(s) as follows:\", \"End\");\n    paragraph7.styleBuiltIn = \"Normal\";\n    const paragraph8: Word.Paragraph = context.document.body.insertParagraph(\"Out-of-Pocket Expenses / Invoice Procedures\", \"End\");\n    paragraph8.styleBuiltIn = \"Heading2\";\n    const paragraph9 : Word.Paragraph= context.document.body.insertParagraph(\"Client will be invoiced monthly for the consulting services and T&L expenses. Standard Contractor invoicing is assumed to be acceptable. Invoices are due upon receipt. client will be invoiced all costs associated with out-of-pocket expenses (including, without limitation, costs and expenses associated with meals, lodging, local transportation and any other applicable business expenses) listed on the invoice as a separate line item. Reimbursement for out-of-pocket expenses in connection with performance of this SOW, when authorized and up to the limits set forth in this SOW, shall be in accordance with Client's then-current published policies governing travel and associated business expenses, which information shall be provided by the Client Project Manager.\", \"End\");\n    paragraph9.styleBuiltIn = \"Normal\";\n    // Insert a page break at the end of the document.\n    context.document.body.insertBreak(\"Page\", \"End\");\n\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tableNestingLevel",
+      "type": "number",
+      "description": "Gets the level of the paragraph's table. It returns 0 if the paragraph isn't in a table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if the selected paragraph is in a table and display its nesting level, then highlight paragraphs that are in nested tables (level 2 or deeper)",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    paragraph.load(\"tableNestingLevel\");\n    \n    await context.sync();\n    \n    const nestingLevel = paragraph.tableNestingLevel;\n    console.log(`Paragraph table nesting level: ${nestingLevel}`);\n    \n    if (nestingLevel >= 2) {\n        paragraph.font.highlightColor = \"yellow\";\n        console.log(\"This paragraph is in a nested table!\");\n    } else if (nestingLevel === 1) {\n        console.log(\"This paragraph is in a top-level table.\");\n    } else {\n        console.log(\"This paragraph is not in a table.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Gets the text of the paragraph.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display the text content of the first paragraph in the current selection.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/get-paragraph-on-insertion-point.yaml\n\nawait Word.run(async (context) => {\n  // The collection of paragraphs of the current selection returns the full paragraphs contained in it.\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  paragraph.load(\"text\");\n\n  await context.sync();\n  console.log(paragraph.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "uniqueLocalId",
+      "type": "string",
+      "description": "Gets a string that represents the paragraph identifier in the current session. ID is in standard 8-4-4-4-12 GUID format without curly braces and differs across sessions and coauthors.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Register event handlers for paragraph changes and annotation interactions including clicks, hovers, insertions, removals, and popup actions in a Word document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Registers event handlers.\nawait Word.run(async (context) => {\n  eventContexts[0] = context.document.onParagraphAdded.add(paragraphChanged);\n  eventContexts[1] = context.document.onParagraphChanged.add(paragraphChanged);\n\n  eventContexts[2] = context.document.onAnnotationClicked.add(onClickedHandler);\n  eventContexts[3] = context.document.onAnnotationHovered.add(onHoveredHandler);\n  eventContexts[4] = context.document.onAnnotationInserted.add(onInsertedHandler);\n  eventContexts[5] = context.document.onAnnotationRemoved.add(onRemovedHandler);\n  eventContexts[6] = context.document.onAnnotationPopupAction.add(onPopupActionHandler);\n\n  await context.sync();\n\n  console.log(\"Event handlers registered.\");\n});",
+          "output_code": null
+        },
+        {
+          "description": "Log the event type, unique local ID, and text content of each paragraph that triggered a paragraph changed event.",
+          "usage_code": "async function paragraphChanged(args: Word.ParagraphChangedEventArgs) {\n  await Word.run(async (context) => {\n    const results = [];\n    for (let id of args.uniqueLocalIds) {\n      let para = context.document.getParagraphByUniqueLocalId(id);\n      para.load(\"uniqueLocalId\");\n\n      results.push({ para: para, text: para.getText() });\n    }\n\n    await context.sync();\n\n    for (let result of results) {\n      console.log(`${args.type}: ID ${result.para.uniqueLocalId}:-`, result.text.value);\n    }\n  });\n}",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "attachToList",
+      "kind": null,
+      "description": "Lets the paragraph join an existing list at the specified level. Fails if the paragraph cannot join the list or if the paragraph is already a list item.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listId",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "level",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Attach the first paragraph in the document to an existing numbered list at level 0",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get an existing list (assuming list with ID 1 exists)\n    const lists = context.document.body.lists;\n    lists.load(\"items\");\n    await context.sync();\n    \n    const listId = lists.items[0].id;\n    \n    // Attach the paragraph to the list at level 0\n    paragraph.attachToList(listId, 0);\n    \n    await context.sync();\n    \n    console.log(\"Paragraph attached to list successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "clear",
+      "kind": "delete",
+      "description": "Clears the contents of the paragraph object. The user can perform the undo operation on the cleared content.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Clear the contents of the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for all of the paragraphs.\n    paragraphs.load('style');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to clear the contents of the first paragraph.\n    paragraphs.items[0].clear();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Cleared the contents of the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "closeUp",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove spacing before a paragraph to close it up with the preceding content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Remove spacing before the paragraph\n    paragraph.closeUp();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph spacing removed successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the paragraph and its content from the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first paragraph from the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the text property for all of the paragraphs.\n    paragraphs.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to delete the first paragraph.\n    paragraphs.items[0].delete();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Deleted the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "detachFromList",
+      "kind": null,
+      "description": "Moves this paragraph out of its list, if the paragraph is a list item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove the first paragraph from its list while keeping the paragraph text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Detach the paragraph from its list\n    firstParagraph.detachFromList();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph has been removed from the list\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getAnnotations",
+      "kind": "read",
+      "description": "Gets annotations set on this Paragraph object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Read and display all annotations that have been set on the first paragraph in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get annotations on the paragraph\n    const annotations = firstParagraph.getAnnotations();\n    \n    // Load the annotations collection\n    context.load(annotations, \"items\");\n    \n    await context.sync();\n    \n    // Display the annotations\n    console.log(`Found ${annotations.items.length} annotation(s) on the first paragraph`);\n    \n    annotations.items.forEach((annotation, index) => {\n        context.load(annotation, \"id, critiqueAnnotation\");\n        \n        context.sync().then(() => {\n            console.log(`Annotation ${index + 1}: ID = ${annotation.id}`);\n        });\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getComments",
+      "kind": "read",
+      "description": "Gets comments associated with the paragraph.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display all comments associated with the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get comments associated with the paragraph\n    const comments = firstParagraph.getComments();\n    \n    // Load comment properties\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    // Display comment information\n    console.log(`Found ${comments.items.length} comment(s) on the first paragraph`);\n    \n    comments.items.forEach((comment, index) => {\n        comment.load(\"content, authorName\");\n    });\n    \n    await context.sync();\n    \n    comments.items.forEach((comment, index) => {\n        console.log(`Comment ${index + 1}: \"${comment.content}\" by ${comment.authorName}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getContentControls",
+      "kind": "read",
+      "description": "Gets the currently supported content controls in the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all content controls within the first paragraph of the document and display their titles in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get all content controls in the paragraph\n    const contentControls = paragraph.getContentControls();\n    \n    // Load the title property of each content control\n    contentControls.load(\"title\");\n    \n    await context.sync();\n    \n    // Display the titles of the content controls\n    console.log(`Found ${contentControls.items.length} content control(s) in the paragraph:`);\n    contentControls.items.forEach((cc, index) => {\n        console.log(`Content Control ${index + 1}: ${cc.title}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getHtml",
+      "kind": "read",
+      "description": "Gets an HTML representation of the paragraph object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use Paragraph.getOoxml() and convert the returned XML to HTML.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the HTML content of the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for all of the paragraphs.\n    paragraphs.load('style');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a set of commands to get the HTML of the first paragraph.\n    const html = paragraphs.items[0].getHtml();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Paragraph HTML: ' + html.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next paragraph. Throws an ItemNotFound error if the paragraph is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Highlight the next paragraph after the first paragraph in the document by changing its font color to red.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the next paragraph after the first one\n    const nextParagraph = firstParagraph.getNext();\n    \n    // Change the font color of the next paragraph to red\n    nextParagraph.font.color = \"red\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next paragraph. If the paragraph is the last one, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a paragraph has a next paragraph and highlight it yellow if it exists, otherwise log that it's the last paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const nextParagraph = paragraph.getNextOrNullObject();\n    \n    nextParagraph.load(\"isNullObject, text\");\n    await context.sync();\n    \n    if (nextParagraph.isNullObject) {\n        console.log(\"This is the last paragraph in the document.\");\n    } else {\n        nextParagraph.font.highlightColor = \"yellow\";\n        console.log(\"Next paragraph highlighted: \" + nextParagraph.text);\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getOoxml",
+      "kind": "read",
+      "description": "Gets the Office Open XML (OOXML) representation of the paragraph object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the OOXML (Office Open XML) markup of the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for the top 2 paragraphs.\n    paragraphs.load({select: 'style', top: 2} );\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a set of commands to get the OOXML of the first paragraph.\n    const ooxml = paragraphs.items[0].getOoxml();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Paragraph OOXML: ' + ooxml.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getPrevious",
+      "kind": "read",
+      "description": "Gets the previous paragraph. Throws an ItemNotFound error if the paragraph is the first one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the previous paragraph from the current paragraph and highlight it in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current paragraph (e.g., the first paragraph in the document)\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.load(\"text\");\n    \n    // Get the previous paragraph\n    const previousParagraph = paragraph.getPrevious();\n    previousParagraph.load(\"text\");\n    \n    // Highlight the previous paragraph in yellow\n    previousParagraph.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n    \n    console.log(\"Previous paragraph text: \" + previousParagraph.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getPreviousOrNullObject",
+      "kind": "read",
+      "description": "Gets the previous paragraph. If the paragraph is the first one, then this method returns an object with isNullObject = true. For further information, see “OrNullObject methods and properties”.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the text of the second-to-last paragraph in the document, or indicate if no such paragraph exists.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the text property for all of the paragraphs.\n    paragraphs.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue commands to create a proxy object for the next-to-last paragraph.\n    const indexOfLastParagraph = paragraphs.items.length - 1;\n    const precedingParagraph = paragraphs.items[indexOfLastParagraph].getPreviousOrNullObject();\n\n    // Queue a command to load the text of the preceding paragraph.\n    precedingParagraph.load('text');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (precedingParagraph.isNullObject) {\n        console.log('There are no paragraphs before the current one.');\n    } else {\n        console.log('The preceding paragraph is: ' + precedingParagraph.text);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the whole paragraph, or the starting or ending point of the paragraph, as a range.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rangeLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display all complete sentences from the current insertion point to the end of the paragraph.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/get-paragraph-on-insertion-point.yaml\n\nawait Word.run(async (context) => {\n  // Get the complete sentence (as range) associated with the insertion point.\n  const sentences: Word.RangeCollection = context.document\n    .getSelection()\n    .getTextRanges([\".\"] /* Using the \".\" as delimiter */, false /*means without trimming spaces*/);\n  sentences.load(\"$none\");\n  await context.sync();\n\n  // Expand the range to the end of the paragraph to get all the complete sentences.\n  const sentencesToTheEndOfParagraph: Word.RangeCollection = sentences.items[0]\n    .getRange()\n    .expandTo(\n      context.document\n        .getSelection()\n        .paragraphs.getFirst()\n        .getRange(Word.RangeLocation.end)\n    )\n    .getTextRanges([\".\"], false /* Don't trim spaces*/);\n  sentencesToTheEndOfParagraph.load(\"text\");\n  await context.sync();\n\n  for (let i = 0; i < sentencesToTheEndOfParagraph.items.length; i++) {\n    console.log(sentencesToTheEndOfParagraph.items[i].text);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getReviewedText",
+      "kind": "read",
+      "description": "Gets reviewed text based on ChangeTrackingVersion selection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "changeTrackingVersion",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "changeTrackingVersion",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display the original text of the first paragraph before any tracked changes were made",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the original text (before tracked changes)\n    const originalText = paragraph.getReviewedText(Word.ChangeTrackingVersion.original);\n    \n    // Load the text property\n    await context.sync();\n    \n    // Display the original text\n    console.log(\"Original text: \" + originalText.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getText",
+      "kind": "read",
+      "description": "Returns the text of the paragraph. This excludes equations, graphics (e.g., images, videos, drawings), and special characters that mark various content (e.g., for content controls, fields, comments, footnotes, endnotes). By default, hidden text and text marked as deleted are excluded.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the text content from the first paragraph in the document body",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph from the document body\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the text from the paragraph\n    const paragraphText = firstParagraph.getText();\n    \n    // Load the text value\n    await context.sync();\n    \n    // Display the retrieved text\n    console.log(\"Paragraph text: \" + paragraphText.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getTextRanges",
+      "kind": "read",
+      "description": "Gets the text ranges in the paragraph by using punctuation marks and/or other ending marks.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "endingMarks",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "trimSpacing",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Split a paragraph into individual sentences by detecting periods and question marks, then highlight each sentence with alternating colors.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get text ranges split by periods and question marks\n    const textRanges = paragraph.getTextRanges(['.', '?'], true);\n    \n    textRanges.load(\"items\");\n    await context.sync();\n    \n    // Highlight each sentence with alternating colors\n    const colors = [\"yellow\", \"lightblue\"];\n    for (let i = 0; i < textRanges.items.length; i++) {\n        textRanges.items[i].font.highlightColor = colors[i % 2];\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getTrackedChanges",
+      "kind": "read",
+      "description": "Gets the collection of the TrackedChange objects in the paragraph.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display information about all tracked changes in the first paragraph of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the tracked changes in the paragraph\n    const trackedChanges = paragraph.getTrackedChanges();\n    \n    // Load properties of the tracked changes\n    trackedChanges.load(\"items\");\n    \n    await context.sync();\n    \n    // Display information about each tracked change\n    console.log(`Found ${trackedChanges.items.length} tracked change(s) in the paragraph`);\n    \n    trackedChanges.items.forEach((change, index) => {\n        change.load(\"type, author, date\");\n    });\n    \n    await context.sync();\n    \n    trackedChanges.items.forEach((change, index) => {\n        console.log(`Change ${index + 1}: Type=${change.type}, Author=${change.author}, Date=${change.date}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "indent",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Indent the first paragraph in the document to create a visual hierarchy",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Indent the paragraph\n    firstParagraph.indent();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "indentCharacterWidth",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Indent the first paragraph in the document by 10 character widths",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.indentCharacterWidth(10);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "indentFirstLineCharacterWidth",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Indent the first line of the first paragraph in the document by 5 characters",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.indentFirstLineCharacterWidth(5);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertAnnotations",
+      "kind": "create",
+      "description": "Inserts annotations on this Paragraph object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "annotations",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add multiple color-coded critique annotations with suggestions to specific character ranges within the selected paragraph.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Adds annotations to the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const options: Word.CritiquePopupOptions = {\n    brandingTextResourceId: \"PG.TabLabel\",\n    subtitleResourceId: \"PG.HelpCommand.TipTitle\",\n    titleResourceId: \"PG.HelpCommand.Label\",\n    suggestions: [\"suggestion 1\", \"suggestion 2\", \"suggestion 3\"]\n  };\n  const critique1: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.red,\n    start: 1,\n    length: 3,\n    popupOptions: options\n  };\n  const critique2: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.green,\n    start: 6,\n    length: 1,\n    popupOptions: options\n  };\n  const critique3: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.blue,\n    start: 10,\n    length: 3,\n    popupOptions: options\n  };\n  const critique4: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.lavender,\n    start: 14,\n    length: 3,\n    popupOptions: options\n  };\n  const critique5: Word.Critique = {\n    colorScheme: Word.CritiqueColorScheme.berry,\n    start: 18,\n    length: 10,\n    popupOptions: options\n  };\n  const annotationSet: Word.AnnotationSet = {\n    critiques: [critique1, critique2, critique3, critique4, critique5]\n  };\n\n  const annotationIds = paragraph.insertAnnotations(annotationSet);\n\n  await context.sync();\n\n  console.log(\"Annotations inserted:\", annotationIds.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertBreak",
+      "kind": "create",
+      "description": "Inserts a break at the specified location in the main document.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "breakType",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a page break after the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for the top 2 paragraphs.\n    // We never perform an empty load. We always must request a property.\n    paragraphs.load({select: 'style', top: 2} );\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to get the first paragraph.\n    const paragraph = paragraphs.items[0];\n\n    // Queue a command to insert a page break after the first paragraph.\n    paragraph.insertBreak(Word.BreakType.page, Word.InsertLocation.after);\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Inserted a page break after the paragraph.');\n});",
+          "output_code": null
+        },
+        {
+          "description": "Insert a line break after the first paragraph in the document body.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/insert-line-and-page-breaks.yaml\n\nWord.run(async (context) => {\n  context.document.body.paragraphs.getFirst().insertBreak(Word.BreakType.line, \"After\");\n\n  await context.sync();\n  console.log(\"success\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertCanvas",
+      "kind": "create",
+      "description": "Inserts a floating canvas in front of text with its anchor at the beginning of the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertShapeOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a floating canvas with a rectangle shape at the beginning of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Insert a floating canvas at the beginning of the paragraph\n    const canvas = firstParagraph.insertCanvas({\n        width: 300,\n        height: 200,\n        left: 0,\n        top: 0\n    });\n    \n    // Sync to apply changes\n    await context.sync();\n    \n    console.log(\"Canvas inserted at the beginning of the first paragraph\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertContentControl",
+      "kind": "create",
+      "description": "Wraps the Paragraph object with a content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "contentControlType",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Wrap the first paragraph of the document body in a rich text content control.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for the top 2 paragraphs.\n    // We never perform an empty load. We always must request a property.\n    paragraphs.load({select: 'style', top: 2} );\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to get the first paragraph.\n    const paragraph = paragraphs.items[0];\n\n    // Queue a command to wrap the first paragraph in a rich text content control.\n    paragraph.insertContentControl();\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Wrapped the first paragraph in a content control.');\n});",
+          "output_code": null
+        },
+        {
+          "description": "Wrap each paragraph in the document with a content control and tag them alternately as \"even\" or \"odd\" based on their position.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-content-controls.yaml\n\n// Traverses each paragraph of the document and wraps a content control on each with either a even or odd tags.\nawait Word.run(async (context) => {\n  let paragraphs = context.document.body.paragraphs;\n  paragraphs.load(\"$none\"); // Don't need any properties; just wrap each paragraph with a content control.\n\n  await context.sync();\n\n  for (let i = 0; i < paragraphs.items.length; i++) {\n    let contentControl = paragraphs.items[i].insertContentControl();\n    // For even, tag \"even\".\n    if (i % 2 === 0) {\n      contentControl.tag = \"even\";\n    } else {\n      contentControl.tag = \"odd\";\n    }\n  }\n  console.log(\"Content controls inserted: \" + paragraphs.items.length);\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertFileFromBase64",
+      "kind": "create",
+      "description": "Inserts a document into the paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a document from a base64-encoded file at the end of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Base64-encoded document content (example: a simple .docx file)\n    const base64File = \"UEsDBBQABgAIAAAAIQDfpNJsWgEAACAFAAATAAgCW0NvbnRlbnRfVHlwZXNdLnhtbCCiBAIooAAC...\";\n    \n    // Insert the document at the end of the paragraph\n    firstParagraph.insertFileFromBase64(base64File, Word.InsertLocation.end);\n    \n    await context.sync();\n    \n    console.log(\"Document inserted successfully at the end of the first paragraph\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertGeometricShape",
+      "kind": "create",
+      "description": "Inserts a geometric shape in front of text with its anchor at the beginning of the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "geometricShapeType",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertShapeOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "geometricShapeType",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertShapeOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a blue rectangle shape at the beginning of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    const shapeOptions: Word.InsertShapeOptions = {\n        width: 100,\n        height: 50,\n        left: 0,\n        top: 0\n    };\n    \n    const shape = firstParagraph.insertGeometricShape(\n        Word.GeometricShapeType.rectangle,\n        shapeOptions\n    );\n    \n    shape.fill.setSolidColor(\"blue\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertHtml",
+      "kind": "create",
+      "description": "Inserts HTML into the paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "html",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert HTML content containing bold text at the end of the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for the top 2 paragraphs.\n    // We never perform an empty load. We always must request a property.\n    paragraphs.load({select: 'style', top: 2} );\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to get the first paragraph.\n    const paragraph = paragraphs.items[0];\n\n    // Queue a command to insert HTML content at the end of the first paragraph.\n    paragraph.insertHtml('<strong>Inserted HTML.</strong>', Word.InsertLocation.end);\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Inserted HTML content at the end of the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertInlinePictureFromBase64",
+      "kind": "create",
+      "description": "Inserts a picture into the paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64EncodedImage",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a base64-encoded inline picture at the beginning of the first paragraph in the document body.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the paragraphs collection.\n    const paragraphs = context.document.body.paragraphs;\n\n    // Queue a command to load the style property for all of the paragraphs.\n    paragraphs.load('style');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n\n    // Queue a command to get the first paragraph.\n    const paragraph = paragraphs.items[0];\n\n    const b64encodedImg = \"iVBORw0KGgoAAAANSUhEUgAAAB4AAAANCAIAAAAxEEnAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPtY1BEoQwDMP6/0+XgIMTBAeYoTqso9Rkx1zG+tNj1H94jgGzeNSjteO5vtQQuG2seO0av8LzGbe3anzRoJ4ybm/VeKEerAEbAUpW4aWQCmrGFWykRzGBCnYy2ha3oAIq2MloW9yCCqhgJ6NtcQsqoIKdjLbFLaiACnYyf2fODbrjZcXfr2F4AAAAAElFTkSuQmCC\";\n\n    // Queue a command to insert a base64 encoded image at the beginning of the first paragraph.\n    paragraph.insertInlinePictureFromBase64(b64encodedImg, Word.InsertLocation.start);\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('Added an image to the first paragraph.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertOoxml",
+      "kind": "create",
+      "description": "Inserts OOXML into the paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "ooxml",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a formatted text block with bold styling into the current paragraph using OOXML",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // OOXML string that defines a bold text run\n    const ooxml = `\n        <pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n            <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\">\n                <pkg:xmlData>\n                    <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n                        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n                    </Relationships>\n                </pkg:xmlData>\n            </pkg:part>\n            <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n                <pkg:xmlData>\n                    <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\">\n                        <w:body>\n                            <w:p>\n                                <w:r>\n                                    <w:rPr>\n                                        <w:b/>\n                                    </w:rPr>\n                                    <w:t>This is bold text inserted via OOXML</w:t>\n                                </w:r>\n                            </w:p>\n                        </w:body>\n                    </w:document>\n                </pkg:xmlData>\n            </pkg:part>\n        </pkg:package>`;\n    \n    // Insert the OOXML at the end of the paragraph\n    paragraph.insertOoxml(ooxml, Word.InsertLocation.end);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertParagraph",
+      "kind": "create",
+      "description": "Inserts a paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "paragraphText",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a new paragraph with text after the currently selected paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current selection\n    const selection = context.document.getSelection();\n    const paragraph = selection.paragraphs.getFirst();\n    \n    // Insert a new paragraph after the selected paragraph\n    paragraph.insertParagraph(\"This is the newly inserted paragraph.\", Word.InsertLocation.after);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertPictureFromBase64",
+      "kind": "create",
+      "description": "Inserts a floating picture in front of text with its anchor at the beginning of the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64EncodedImage",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertShapeOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a company logo as a floating picture at the beginning of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Base64 encoded image string (example: a small PNG image)\n    const base64Image = \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\";\n    \n    // Insert the picture as a floating image at the paragraph's beginning\n    const picture = firstParagraph.insertPictureFromBase64(\n        base64Image,\n        {\n            width: 100,\n            height: 100,\n            left: 50,\n            top: 50\n        }\n    );\n    \n    await context.sync();\n    console.log(\"Picture inserted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertTable",
+      "kind": "create",
+      "description": "Inserts a table with the specified number of rows and columns.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "columnCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "values",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a 3x4 table after a paragraph and populate it with employee data including headers",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Define the table data (headers + 2 data rows)\n    const tableData = [\n        [\"Name\", \"Department\", \"Position\", \"Years\"],\n        [\"John Smith\", \"Engineering\", \"Developer\", \"3\"],\n        [\"Jane Doe\", \"Marketing\", \"Manager\", \"5\"]\n    ];\n    \n    // Insert a 3x4 table after the paragraph\n    const table = paragraph.insertTable(3, 4, Word.InsertLocation.after, tableData);\n    \n    // Optional: Format the header row\n    table.rows.getFirst().font.bold = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertText",
+      "kind": "create",
+      "description": "Inserts text into the paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "text",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace the last paragraph in the document with new text and format it with a black highlight and white font color.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/insert-in-different-locations.yaml\n\nawait Word.run(async (context) => {\n  // Replace the last paragraph.\n  const range: Word.Range = context.document.body.paragraphs.getLast().insertText(\"Just replaced the last paragraph!\", \"Replace\");\n  range.font.highlightColor = \"black\";\n  range.font.color = \"white\";\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertTextBox",
+      "kind": "create",
+      "description": "Inserts a floating text box in front of text with its anchor at the beginning of the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "text",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertShapeOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a text box with placeholder text at the beginning of the first paragraph in the primary header section.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Inserts a text box at the beginning of the first paragraph in header.\n  const headerFooterBody: Word.Body = context.document.sections.getFirst().getHeader(Word.HeaderFooterType.primary);\n  headerFooterBody.load(\"paragraphs\");\n  const firstParagraph: Word.Paragraph = headerFooterBody.paragraphs.getFirst();\n  const insertShapeOptions: Word.InsertShapeOptions = {\n    top: 0,\n    left: 0,\n    height: 100,\n    width: 100\n  };\n  const newTextBox: Word.Shape = firstParagraph.insertTextBox(\"placeholder text\", insertShapeOptions);\n  newTextBox.select();\n  await context.sync();\n\n  console.log(\"Inserted a text box at the beginning of the first paragraph in the header.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "joinList",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove a paragraph from its current list by joining it with the surrounding content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Load the paragraph to check if it's in a list\n    paragraph.load(\"isListItem\");\n    await context.sync();\n    \n    // If the paragraph is part of a list, remove it from the list\n    if (paragraph.isListItem) {\n        paragraph.joinList();\n        await context.sync();\n        \n        console.log(\"Paragraph removed from list\");\n    } else {\n        console.log(\"Paragraph is not part of a list\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the text content and style properties of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document body\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Load specific properties of the paragraph\n    paragraph.load(\"text, style, font/size, font/name\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can read the loaded properties\n    console.log(\"Paragraph text:\", paragraph.text);\n    console.log(\"Paragraph style:\", paragraph.style);\n    console.log(\"Font size:\", paragraph.font.size);\n    console.log(\"Font name:\", paragraph.font.name);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "next",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the paragraph that comes 2 positions after the first paragraph in the document and highlight it in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const targetParagraph = firstParagraph.next(2);\n    \n    targetParagraph.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "openOrCloseUp",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the spacing before a paragraph by opening or closing up the space for the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Toggle the spacing before the paragraph\n    firstParagraph.openOrCloseUp();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph spacing toggled successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "openUp",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add spacing before a paragraph by opening it up (increasing the space above it)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Open up the paragraph (add spacing before it)\n    paragraph.openUp();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outdent",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Decrease the indentation level of the first paragraph in the document by one level",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Decrease the indentation level\n    firstParagraph.outdent();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outlineDemote",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Demote the first paragraph in the document to a lower outline level (e.g., from Heading 1 to Heading 2)",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.outlineDemote();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outlineDemoteToBody",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Demote the first paragraph in the document to body text level in the outline hierarchy",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Demote the paragraph to body text level\n    firstParagraph.outlineDemoteToBody();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph demoted to body text level\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outlinePromote",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Promote the first paragraph in the document to a higher outline level (e.g., from Heading 2 to Heading 1, or from body text to a heading)",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.outlinePromote();\n    \n    await context.sync();\n    console.log(\"First paragraph promoted to higher outline level\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "previous",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the previous 2 paragraphs before the currently selected paragraph and highlight them in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current selection\n    const selection = context.document.getSelection();\n    const paragraph = selection.paragraphs.getFirst();\n    \n    // Get the previous 2 paragraphs\n    const previousParagraphs = paragraph.previous(2);\n    previousParagraphs.load(\"text\");\n    \n    // Highlight them in yellow\n    previousParagraphs.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n    \n    console.log(\"Highlighted previous paragraphs\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reset",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Reset a modified paragraph back to its original formatting and content state",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Make some modifications to the paragraph\n    paragraph.font.bold = true;\n    paragraph.font.size = 18;\n    paragraph.alignment = Word.Alignment.centered;\n    \n    await context.sync();\n    \n    // Reset the paragraph to its original state\n    paragraph.reset();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph has been reset to its original state\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "resetAdvanceTo",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Reset the \"advance to\" setting for the first paragraph in the document to its default state",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Reset the advance to setting\n    paragraph.resetAdvanceTo();\n    \n    await context.sync();\n    \n    console.log(\"Advanced to setting has been reset for the paragraph.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "kind": null,
+      "description": "Performs a search with the specified SearchOptions on the scope of the paragraph object. The search results are a collection of range objects.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "searchText",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "searchOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Find and highlight all occurrences of the word \"TODO\" in the first paragraph of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Search for \"TODO\" in the paragraph\n    const searchResults = firstParagraph.search(\"TODO\", { matchCase: false });\n    \n    // Load the search results\n    searchResults.load(\"font\");\n    await context.sync();\n    \n    // Highlight all found instances\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects and navigates the Word UI to the paragraph.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the last paragraph in the document body, either selecting the entire paragraph or positioning the cursor at its end.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/scroll-to-range.yaml\n\nawait Word.run(async (context) => {\n  // If select is called with no parameters, it selects the object.\n  context.document.body.paragraphs.getLast().select();\n\n  await context.sync();\n});\n\n...\n\nawait Word.run(async (context) => {\n  // Select can be at the start or end of a range; this by definition moves the insertion point without selecting the range.\n  context.document.body.paragraphs.getLast().select(Word.SelectionMode.end);\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "selectNumber",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the numbered list number/bullet of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Select the number/bullet portion of the paragraph\n    firstParagraph.selectNumber();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "separateList",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Separate the first paragraph from its list, converting it to a normal paragraph while keeping the remaining list items intact",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    \n    // Separate this paragraph from its list\n    firstParagraph.separateList();\n    \n    await context.sync();\n    \n    console.log(\"Paragraph has been separated from the list\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set multiple properties of a paragraph including indentation and font formatting, and copy all properties from one paragraph to another.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/90-scenarios/multiple-property-set.yaml\n\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.body.paragraphs.getFirst();\n  paragraph.set({\n    leftIndent: 30,\n    font: {\n      bold: true,\n      color: \"red\"\n    }\n  });\n\n  await context.sync();\n});\n\n...\n\nawait Word.run(async (context) => {\n  const firstParagraph: Word.Paragraph = context.document.body.paragraphs.getFirst();\n  const secondParagraph: Word.Paragraph = firstParagraph.getNext();\n  firstParagraph.load(\"text, font/color, font/bold, leftIndent\");\n\n  await context.sync();\n\n  secondParagraph.set(firstParagraph);\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "space1",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set the spacing after a paragraph to single spacing (1.0) for the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Set spacing to single spacing (1.0)\n    paragraph.space1();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "space1Pt5",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set the line spacing of the first paragraph in the document to 1.5 lines",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Set line spacing to 1.5\n    paragraph.space1Pt5();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "space2",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set the spacing after a paragraph to 12 points using the preview space2() method",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Set spacing after the paragraph using the preview space2() method\n    paragraph.space2();\n    \n    await context.sync();\n    \n    console.log(\"Spacing applied to paragraph\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "split",
+      "kind": null,
+      "description": "Splits the paragraph into child ranges by using delimiters.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "delimiters",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "trimDelimiters",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "trimSpacing",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Split the first paragraph into individual words and sequentially highlight each word in yellow with a brief pause between highlights, removing the previous word's highlight.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/split-words-of-first-paragraph.yaml\n\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.body.paragraphs.getFirst();\n  const words = paragraph.split([\" \"], true /* trimDelimiters*/, true /* trimSpaces */);\n  words.load(\"text\");\n\n  await context.sync();\n\n  for (let i = 0; i < words.items.length; i++) {\n    if (i >= 1) {\n      words.items[i - 1].font.highlightColor = \"#FFFFFF\";\n    }\n    words.items[i].font.highlightColor = \"#FFFF00\";\n\n    await context.sync();\n    await pause(200);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "startNewList",
+      "kind": null,
+      "description": "Starts a new list with this paragraph. Fails if the paragraph is already a list item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a new list starting from the second paragraph in the document, add items at different list levels, and insert a paragraph after the list that is not part of it.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/insert-list.yaml\n\n// This example starts a new list with the second paragraph.\nawait Word.run(async (context) => {\n  const paragraphs: Word.ParagraphCollection = context.document.body.paragraphs;\n  paragraphs.load(\"$none\");\n\n  await context.sync();\n\n  // Start new list using the second paragraph.\n  const list: Word.List = paragraphs.items[1].startNewList();\n  list.load(\"$none\");\n\n  await context.sync();\n\n  // To add new items to the list, use Start or End on the insertLocation parameter.\n  list.insertParagraph(\"New list item at the start of the list\", \"Start\");\n  const paragraph: Word.Paragraph = list.insertParagraph(\"New list item at the end of the list (set to list level 5)\", \"End\");\n\n  // Set up list level for the list item.\n  paragraph.listItem.level = 4;\n\n  // To add paragraphs outside the list, use Before or After.\n  list.insertParagraph(\"New paragraph goes after (not part of the list)\", \"After\");\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tabHangingIndent",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply a hanging indent of 2 tab stops to the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.tabHangingIndent(2);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tabIndent",
+      "kind": null,
+      "description": "Note: This API is provided as a preview for developers and may change based on feedback that we receive. Do not use this API in a production environment.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "count",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Indent the first paragraph in the document by 3 tab stops to the right",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    firstParagraph.tabIndent(3);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Paragraph object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ParagraphData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load paragraph properties and serialize them to JSON for logging or external storage",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Load properties we want to serialize\n    paragraph.load(\"text,style,alignment,firstLineIndent,leftIndent\");\n    \n    await context.sync();\n    \n    // Convert the paragraph object to a plain JavaScript object\n    const paragraphData = paragraph.toJSON();\n    \n    // Now you can use the plain object for logging, storage, or transmission\n    console.log(\"Paragraph as JSON:\", JSON.stringify(paragraphData, null, 2));\n    console.log(\"Text:\", paragraphData.text);\n    console.log(\"Style:\", paragraphData.style);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a paragraph object to maintain its reference across multiple sync calls while modifying its properties in different batches",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.load(\"text\");\n    \n    // Track the paragraph to use it across multiple sync calls\n    paragraph.track();\n    \n    await context.sync();\n    console.log(\"Original text: \" + paragraph.text);\n    \n    // First modification\n    paragraph.font.bold = true;\n    await context.sync();\n    \n    // Second modification - paragraph reference still valid due to tracking\n    paragraph.font.color = \"blue\";\n    await context.sync();\n    \n    // Third modification - still works\n    paragraph.alignment = Word.Alignment.center;\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    paragraph.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a paragraph object to work with it across multiple sync() calls, then untrack it to free memory when done processing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph and track it\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.track();\n    \n    // Load and sync to get paragraph properties\n    paragraph.load(\"text\");\n    await context.sync();\n    \n    console.log(\"Paragraph text: \" + paragraph.text);\n    \n    // Perform additional operations across multiple syncs\n    paragraph.font.color = \"blue\";\n    await context.sync();\n    \n    // Once done with the paragraph, untrack to release memory\n    paragraph.untrack();\n    await context.sync();\n    \n    console.log(\"Paragraph processing complete and memory released\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

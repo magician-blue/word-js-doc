@@ -1,0 +1,840 @@
+{
+  "class": {
+    "name": "Word.Window",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Represents the window that displays the document. A window can be split to contain multiple reading panes.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "activePane",
+      "type": "Word.Pane",
+      "description": "Gets the active pane in the window.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Retrieve and log the number and index values of all pages that are currently visible in the active document window's viewport.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the pages enclosing the viewport.\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get pages enclosing the viewport.\n  const pages: Word.PageCollection = activePane.pagesEnclosingViewport;\n  pages.load();\n\n  await context.sync();\n\n  // Log the number of pages.\n  const pageCount = pages.items.length;\n  console.log(`Number of pages enclosing the viewport: ${pageCount}`);\n\n  // Log index info of these pages.\n  const pagesIndexes = [];\n  for (let i = 0; i < pageCount; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areRulersDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether rulers are displayed for the window or pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the display of rulers in the active Word document window",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Load the current ruler display state\n    window.load(\"areRulersDisplayed\");\n    await context.sync();\n    \n    // Toggle the ruler display\n    window.areRulersDisplayed = !window.areRulersDisplayed;\n    \n    await context.sync();\n    \n    console.log(`Rulers are now ${window.areRulersDisplayed ? 'displayed' : 'hidden'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areScreenTipsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether comments, footnotes, endnotes, and hyperlinks are displayed as tips.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if screen tips are currently enabled in the document window, and if not, enable them to show helpful tooltips for comments, footnotes, endnotes, and hyperlinks.",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"areScreenTipsDisplayed\");\n    \n    await context.sync();\n    \n    if (!window.areScreenTipsDisplayed) {\n        window.areScreenTipsDisplayed = true;\n        console.log(\"Screen tips have been enabled.\");\n    } else {\n        console.log(\"Screen tips are already enabled.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "areThumbnailsDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether thumbnail images of the pages in a document are displayed along the left side of the Microsoft Word document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if thumbnails are currently displayed in the document window and toggle them on if they are off",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"areThumbnailsDisplayed\");\n    \n    await context.sync();\n    \n    if (!window.areThumbnailsDisplayed) {\n        window.areThumbnailsDisplayed = true;\n        await context.sync();\n        console.log(\"Thumbnails have been enabled\");\n    } else {\n        console.log(\"Thumbnails are already displayed\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "Specifies the caption text for the window that is displayed in the title bar of the document or application window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the window caption to \"Q4 Sales Report - Draft Version\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set the caption text\n    window.caption = \"Q4 Sales Report - Draft Version\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "Word.RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a Window object to verify the connection between the add-in and Word application",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.application.activeWindow;\n    \n    // Access the request context associated with the window\n    const windowContext = window.context;\n    \n    // Use the context to load window properties\n    window.load(\"isActive\");\n    await windowContext.sync();\n    \n    console.log(\"Window is active:\", window.isActive);\n    console.log(\"Request context successfully accessed from window object\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Specifies the height of the window (in points).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the Word window height to 600 points",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.height = 600;\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "horizontalPercentScrolled",
+      "type": "number",
+      "description": "Specifies the horizontal scroll position as a percentage of the document width.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Scroll the document window horizontally to 50% of the document width",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set horizontal scroll position to 50% of document width\n    window.horizontalPercentScrolled = 50;\n    \n    await context.sync();\n    \n    console.log(\"Document scrolled to 50% horizontally\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "imemode",
+      "type": "Word.ImeMode | \"NoControl\" | \"On\" | \"Off\" | \"Hiragana\" | \"Katakana\" | \"KatakanaHalf\" | \"AlphaFull\" | \"Alpha\" | \"HangulFull\" | \"Hangul\"",
+      "description": "Specifies the default start-up mode for the Japanese Input Method Editor (IME).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the IME mode to Hiragana for Japanese text input in the active Word window",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set the IME mode to Hiragana for Japanese input\n    window.imeMode = Word.ImeMode.hiragana;\n    \n    await context.sync();\n    \n    console.log(\"IME mode set to Hiragana\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "description": "Gets the position of an item in a collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display an alert showing the position (index) of the active window in the windows collection",
+          "usage_code": "await Word.run(async (context) => {\n    const activeWindow = context.document.application.activeWindow;\n    activeWindow.load(\"index\");\n    \n    await context.sync();\n    \n    console.log(`The active window is at position: ${activeWindow.index}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "description": "Specifies whether the window is active.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current window is active and display a message to the user indicating the window's active state.",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"isActive\");\n    \n    await context.sync();\n    \n    if (window.isActive) {\n        console.log(\"The current window is active\");\n    } else {\n        console.log(\"The current window is not active\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isDocumentMapVisible",
+      "type": "boolean",
+      "description": "Specifies whether the document map is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the document map visibility to show the navigation pane in the Word window",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.application.activeWindow;\n    \n    // Show the document map\n    window.isDocumentMapVisible = true;\n    \n    await context.sync();\n    \n    console.log(\"Document map is now visible\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isEnvelopeVisible",
+      "type": "boolean",
+      "description": "Specifies whether the email message header is visible in the document window. The default value is False.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Show the email envelope header in the document window to display recipient and subject information",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Make the envelope header visible\n    window.isEnvelopeVisible = true;\n    \n    await context.sync();\n    \n    console.log(\"Email envelope header is now visible\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isHorizontalScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a horizontal scroll bar is displayed for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the horizontal scroll bar is displayed in the active document window and show an alert with the result.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Load the horizontal scroll bar display property\n    window.load(\"isHorizontalScrollBarDisplayed\");\n    \n    await context.sync();\n    \n    // Display the result\n    console.log(`Horizontal scroll bar is ${window.isHorizontalScrollBarDisplayed ? 'displayed' : 'hidden'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isLeftScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether the vertical scroll bar appears on the left side of the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the vertical scroll bar is displayed on the left side of the document window and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"isLeftScrollBarDisplayed\");\n    \n    await context.sync();\n    \n    console.log(`Scroll bar on left side: ${window.isLeftScrollBarDisplayed}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isRightRulerDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether the vertical ruler appears on the right side of the document window in print layout view.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the right ruler is displayed and toggle it off if it's currently visible in the document window.",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"isRightRulerDisplayed\");\n    \n    await context.sync();\n    \n    if (window.isRightRulerDisplayed) {\n        window.isRightRulerDisplayed = false;\n        console.log(\"Right ruler was visible, now hidden\");\n    } else {\n        console.log(\"Right ruler is already hidden\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isSplit",
+      "type": "boolean",
+      "description": "Specifies whether the window is split into multiple panes.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current document window is split into multiple panes and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"isSplit\");\n    \n    await context.sync();\n    \n    console.log(`Window is split: ${window.isSplit}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isVerticalRulerDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a vertical ruler is displayed for the window or pane.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Toggle the vertical ruler display in the active Word document window to make it visible for precise layout measurements.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Enable the vertical ruler display\n    window.isVerticalRulerDisplayed = true;\n    \n    await context.sync();\n    \n    console.log(\"Vertical ruler is now displayed\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isVerticalScrollBarDisplayed",
+      "type": "boolean",
+      "description": "Specifies whether a vertical scroll bar is displayed for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the vertical scroll bar is displayed in the current document window and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const window = context.document.window;\n    \n    // Load the isVerticalScrollBarDisplayed property\n    window.load(\"isVerticalScrollBarDisplayed\");\n    \n    // Sync to get the property value\n    await context.sync();\n    \n    // Display the result\n    console.log(`Vertical scroll bar is displayed: ${window.isVerticalScrollBarDisplayed}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "description": "Specifies whether the window is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current document window is visible and display an alert with the visibility status",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"isVisible\");\n    \n    await context.sync();\n    \n    if (window.isVisible) {\n        console.log(\"The document window is currently visible\");\n    } else {\n        console.log(\"The document window is currently hidden\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "type": "number",
+      "description": "Specifies the horizontal position of the window, measured in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Move the Word window to a horizontal position of 100 points from the left edge of the screen",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const window = context.document.window;\n    \n    // Set the horizontal position to 100 points from the left\n    window.left = 100;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "next",
+      "type": "Word.Window",
+      "description": "Gets the next document window in the collection of open document windows.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate to and activate the next open document window in Word.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current active window\n    const currentWindow = context.document.window;\n    \n    // Get the next window in the collection\n    const nextWindow = currentWindow.next;\n    \n    // Load the next window's properties\n    nextWindow.load(\"isActive\");\n    \n    await context.sync();\n    \n    // Activate the next window to bring it to focus\n    nextWindow.activate();\n    \n    await context.sync();\n    \n    console.log(\"Switched to the next document window\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "panes",
+      "type": "Word.PaneCollection",
+      "description": "Gets the collection of panes in the window.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Get the number of panes in the current window and display information about each pane",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window and its panes\n    const window = context.document.window;\n    const panes = window.panes;\n    \n    // Load the panes collection and count\n    panes.load(\"items\");\n    \n    await context.sync();\n    \n    // Display information about the panes\n    console.log(`Number of panes in window: ${panes.items.length}`);\n    \n    // Iterate through each pane\n    panes.items.forEach((pane, index) => {\n        console.log(`Pane ${index + 1} detected`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "previous",
+      "type": "Word.Window",
+      "description": "Gets the previous document window in the collection open document windows.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate to the previous open document window and activate it to bring it into focus.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const currentWindow = context.document.window;\n    \n    // Get the previous window in the collection\n    const previousWindow = currentWindow.previous;\n    \n    // Load the previous window's properties\n    previousWindow.load(\"isActive\");\n    \n    await context.sync();\n    \n    // Activate the previous window to bring it into focus\n    previousWindow.activate();\n    \n    await context.sync();\n    \n    console.log(\"Navigated to the previous document window\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showSourceDocuments",
+      "type": "Word.ShowSourceDocuments | \"None\" | \"Original\" | \"Revised\" | \"Both\"",
+      "description": "Specifies how Microsoft Word displays source documents after a compare and merge process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the window to display both the original and revised documents side-by-side after a compare and merge operation.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.application.activeWindow;\n    \n    // Set to display both original and revised documents\n    window.showSourceDocuments = Word.ShowSourceDocuments.both;\n    \n    await context.sync();\n    \n    console.log(\"Window configured to show both source documents\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "splitVertical",
+      "type": "number",
+      "description": "Specifies the vertical split percentage for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the window's vertical split to 50% so the document is divided equally between top and bottom panes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set vertical split to 50%\n    window.splitVertical = 50;\n    \n    await context.sync();\n    console.log(\"Window split vertically at 50%\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleAreaWidth",
+      "type": "number",
+      "description": "Specifies the width of the style area in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the style area width to 100 points to display paragraph styles in the left margin of the document window",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.windows.getActiveOrNullObject();\n    \n    // Set the style area width to 100 points\n    window.styleAreaWidth = 100;\n    \n    await context.sync();\n    \n    console.log(\"Style area width set to 100 points\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "description": "Specifies the vertical position of the document window, in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Position the document window 200 points from the top of the screen",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set the vertical position to 200 points from the top\n    window.top = 200;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.WindowType | \"Document\" | \"Template\"",
+      "description": "Gets the window type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current window is displaying a document or a template and display an alert message accordingly.",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.load(\"type\");\n    \n    await context.sync();\n    \n    if (window.type === Word.WindowType.document || window.type === \"Document\") {\n        console.log(\"This window is displaying a document.\");\n    } else if (window.type === Word.WindowType.template || window.type === \"Template\") {\n        console.log(\"This window is displaying a template.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "usableHeight",
+      "type": "number",
+      "description": "Gets the height (in points) of the active working area in the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display an alert showing the available working height in the document window to help determine if content will fit in the visible area.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Load the usableHeight property\n    window.load(\"usableHeight\");\n    \n    await context.sync();\n    \n    // Display the usable height\n    console.log(`Available working height: ${window.usableHeight} points`);\n    \n    // Optional: Show in Office dialog or use for layout decisions\n    if (window.usableHeight < 400) {\n        console.log(\"Limited vertical space available\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "usableWidth",
+      "type": "number",
+      "description": "Gets the width (in points) of the active working area in the document window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display an alert showing the usable width of the document window in points to help determine available space for content layout.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Load the usableWidth property\n    window.load(\"usableWidth\");\n    \n    // Sync to get the property value\n    await context.sync();\n    \n    // Display the usable width\n    console.log(`Usable width: ${window.usableWidth} points`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalPercentScrolled",
+      "type": "number",
+      "description": "Specifies the vertical scroll position as a percentage of the document length.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Scroll the document window to 50% of its vertical length to jump to the middle of the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set the vertical scroll position to 50% (middle of document)\n    window.verticalPercentScrolled = 50;\n    \n    await context.sync();\n    \n    console.log(\"Document scrolled to 50% position\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "view",
+      "type": "Word.View",
+      "description": "Gets the View object that represents the view for the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current window view is in print layout mode and log the view type to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Get the view object from the window\n    const view = window.view;\n    \n    // Load the view type property\n    view.load(\"type\");\n    \n    await context.sync();\n    \n    // Log the view type\n    console.log(\"Current view type: \" + view.type);\n    // View type can be: \"Print\", \"Outline\", \"Web\", \"Reading\", etc.\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Specifies the width of the document window, in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document window width to 600 points",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.width = 600;\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "windowNumber",
+      "type": "number",
+      "description": "Gets an integer that represents the position of the window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the position number of the current window in a message to help users identify which window they're working in when multiple windows are open.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const window = context.document.window;\n    \n    // Load the windowNumber property\n    window.load(\"windowNumber\");\n    \n    // Sync to retrieve the property value\n    await context.sync();\n    \n    // Display the window position\n    console.log(`You are working in window number: ${window.windowNumber}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "windowState",
+      "type": "Word.WindowState | \"Normal\" | \"Maximize\" | \"Minimize\"",
+      "description": "Specifies the state of the document window or task window.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Maximize the current document window to fill the entire screen",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const window = context.document.window;\n    \n    // Set the window state to maximized\n    window.windowState = Word.WindowState.maximize;\n    \n    await context.sync();\n    \n    console.log(\"Window has been maximized\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "activate",
+      "kind": null,
+      "description": "Activates the window.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Activate a specific document window to bring it to the front and give it focus",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Activate the window to bring it to the front\n    window.activate();\n    \n    await context.sync();\n    \n    console.log(\"Window has been activated\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "kind": null,
+      "description": "Closes the window.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowCloseOptions",
+              "required": false,
+              "description": "The options that define whether to save changes before closing and whether to route the document."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Close the current document window programmatically",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current window\n    const window = context.document.window;\n    \n    // Close the window\n    window.close();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "largeScroll",
+      "kind": null,
+      "description": "Scrolls the window by the specified number of screens.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowScrollOptions",
+              "required": false,
+              "description": "The options for scrolling the window by the specified number of screens. If no options are specified, the window is scrolled down one screen."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Scroll the document window down by 2 screens to quickly navigate through a long document",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.getActiveWindow();\n    \n    // Scroll down by 2 screens\n    window.largeScroll({ down: 2 });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.WindowLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the current window's split state to check if the document window is split into multiple panes",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    \n    // Load the split property of the window\n    window.load(\"split\");\n    \n    await context.sync();\n    \n    // Check if the window is split\n    if (window.split) {\n        console.log(\"The window is split into multiple panes\");\n    } else {\n        console.log(\"The window is not split\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageScroll",
+      "kind": null,
+      "description": "Scrolls through the window page by page.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowPageScrollOptions",
+              "required": false,
+              "description": "The options for scrolling through the window page by page."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Scroll down through the document by one page to view content that is currently below the visible area",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.getActiveWindow();\n    \n    // Scroll down by one page\n    window.pageScroll({ scrollDirection: Word.PageScrollDirection.down });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.WindowUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Window",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple window properties at once to set up a split view with specific dimensions",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    \n    // Set multiple window properties at once\n    window.set({\n        split: true,\n        splitPercentage: 50\n    });\n    \n    await context.sync();\n    console.log(\"Window configured with split view at 50%\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setFocus",
+      "kind": null,
+      "description": "Sets the focus of the document window to the body of an email message.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set focus to the email message body when a user clicks a button in a Word add-in for composing emails",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Set focus to the email message body\n    window.setFocus();\n    \n    await context.sync();\n    \n    console.log(\"Focus has been set to the email message body\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "smallScroll",
+      "kind": null,
+      "description": "Scrolls the window by the specified number of lines. A \"line\" corresponds to the distance scrolled by clicking the scroll arrow on the scroll bar once.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.WindowScrollOptions",
+              "required": false,
+              "description": "The options for scrolling the window by the specified number of lines. If no options are specified, the window is scrolled down by one line."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Scroll the active document window down by 5 lines to view content below the current viewport",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.getActiveWindow();\n    \n    // Scroll down by 5 lines\n    window.smallScroll({ down: 5 });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toggleRibbon",
+      "kind": null,
+      "description": "Shows or hides the ribbon.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the ribbon visibility to maximize the document editing area",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Toggle the ribbon visibility\n    window.toggleRibbon();\n    \n    await context.sync();\n    \n    console.log(\"Ribbon visibility toggled\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Window object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.WindowData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.WindowData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize the active window's properties to JSON format for logging or debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window\n    const window = context.document.window;\n    \n    // Load properties to serialize\n    window.load(\"width,height\");\n    \n    await context.sync();\n    \n    // Convert the window object to a plain JavaScript object\n    const windowData = window.toJSON();\n    \n    // Output the serialized data (e.g., for logging or debugging)\n    console.log(\"Window data:\", JSON.stringify(windowData, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a window object across multiple sync calls to maintain its reference while modifying document properties and reading window state",
+          "usage_code": "await Word.run(async (context) => {\n    const window = context.document.window;\n    window.track();\n    \n    // Load window properties\n    window.load(\"activePane\");\n    await context.sync();\n    \n    // Perform operations that might change the document\n    const body = context.document.body;\n    body.insertParagraph(\"New content added\", Word.InsertLocation.end);\n    await context.sync();\n    \n    // Access the tracked window object again after sync\n    console.log(\"Active pane type: \" + window.activePane);\n    \n    // Clean up tracking when done\n    window.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Window",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a reference to the active window, track it for change monitoring, then untrack it to release memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active window and track it\n    const window = context.document.window;\n    context.trackedObjects.add(window);\n    \n    // Load properties to use the window\n    window.load(\"width,height\");\n    await context.sync();\n    \n    console.log(`Window dimensions: ${window.width}x${window.height}`);\n    \n    // Untrack the window to release memory\n    window.untrack();\n    await context.sync();\n    \n    console.log(\"Window object memory released\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml"
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "class": {
+    "name": "Word.BreakCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Contains a collection of [Word.Break](/en-us/javascript/api/word/word.break) objects.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a BreakCollection to verify the connection to the Word host application and log its properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the breaks collection from the document body\n    const body = context.document.body;\n    const breaks = body.getBreaks();\n    \n    // Access the request context from the collection\n    const requestContext = breaks.context;\n    \n    // Use the context to verify connection and perform operations\n    console.log(\"Request context retrieved:\", requestContext);\n    console.log(\"Context is connected to Word application\");\n    \n    // Load and sync using the context\n    breaks.load(\"items\");\n    await context.sync();\n    \n    console.log(`Found ${breaks.items.length} breaks in the document`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.Break[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all page breaks in the document and display their count and types in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the body of the document\n    const body = context.document.body;\n    \n    // Get all breaks in the document\n    const breaks = body.getBreaks();\n    breaks.load(\"items\");\n    \n    await context.sync();\n    \n    // Access the items property to get the array of Break objects\n    const breakItems = breaks.items;\n    \n    console.log(`Total breaks found: ${breakItems.length}`);\n    \n    // Load type property for each break\n    for (let i = 0; i < breakItems.length; i++) {\n        breakItems[i].load(\"type\");\n    }\n    \n    await context.sync();\n    \n    // Display information about each break\n    breakItems.forEach((breakItem, index) => {\n        console.log(`Break ${index + 1}: ${breakItem.type}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.BreakCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BreakCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BreakCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BreakCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the types of all breaks in the active document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all breaks in the document\n    const breaks = context.document.body.getBreaks();\n    \n    // Load the type property for all breaks in the collection\n    breaks.load(\"type\");\n    \n    await context.sync();\n    \n    // Display the break types\n    console.log(`Found ${breaks.items.length} breaks in the document`);\n    breaks.items.forEach((breakItem, index) => {\n        console.log(`Break ${index + 1}: ${breakItem.type}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.BreakCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.BreakCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.BreakCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a JSON representation of all breaks in the document body for logging or data export purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all breaks in the document body\n    const breaks = context.document.body.getBreaks();\n    \n    // Load properties needed for the breaks\n    breaks.load(\"type\");\n    \n    await context.sync();\n    \n    // Convert the BreakCollection to a plain JavaScript object\n    const breaksJSON = breaks.toJSON();\n    \n    // Log the JSON representation\n    console.log(\"Breaks in document:\", JSON.stringify(breaksJSON, null, 2));\n    \n    // The breaksJSON object contains an \"items\" array with break data\n    console.log(`Total breaks found: ${breaksJSON.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BreakCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a collection of breaks across multiple sync calls to monitor and adjust them as the document changes, preventing \"InvalidObjectPath\" errors when accessing the collection after document modifications.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the breaks collection from the document body\n    const breaks = context.document.body.getBreaks();\n    \n    // Track the collection for automatic adjustment across sync calls\n    breaks.track();\n    \n    // Load the breaks collection\n    breaks.load(\"items\");\n    await context.sync();\n    \n    console.log(`Found ${breaks.items.length} breaks in the document`);\n    \n    // Make some changes to the document\n    context.document.body.insertText(\"New content added\", Word.InsertLocation.start);\n    await context.sync();\n    \n    // Access the tracked collection again after document changes\n    // Without track(), this might throw \"InvalidObjectPath\" error\n    breaks.load(\"items\");\n    await context.sync();\n    \n    console.log(`After changes: ${breaks.items.length} breaks`);\n    \n    // Untrack when done to free up memory\n    breaks.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BreakCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all breaks in the document, process them, and then untrack the collection to free memory after use.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the break collection from the document body\n    const breaks = context.document.body.getBreaks();\n    \n    // Track the collection for memory management\n    breaks.track();\n    \n    // Load the breaks to work with them\n    breaks.load(\"items\");\n    await context.sync();\n    \n    // Process the breaks (e.g., log the count)\n    console.log(`Found ${breaks.items.length} breaks in the document`);\n    \n    // Untrack the collection to release memory\n    breaks.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "class": {
+    "name": "Word.ColorFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the color formatting of a shape or text in Word.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "brightness",
+      "type": "number",
+      "description": "Specifies the brightness of a specified shape color. Valid values are from `-1` (darkest) to `1` (lightest), `0` represents neutral.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Increase the brightness of the first shape's fill color to make it 50% lighter",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Access the shape's fill color format and set brightness to 0.5 (50% lighter)\n        const colorFormat = shape.imageFormat.colorFormat;\n        colorFormat.brightness = 0.5;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Access the request context from a ColorFormat object to verify the connection between the add-in and Word before applying color changes to a shape.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const colorFormat = shape.fill.foregroundColor;\n        \n        // Access the request context from the ColorFormat object\n        const requestContext = colorFormat.context;\n        \n        // Verify the context is valid and connected\n        console.log(\"Context is connected:\", requestContext !== null);\n        \n        // Use the context to perform operations\n        colorFormat.load(\"value\");\n        await requestContext.sync();\n        \n        console.log(\"Current color:\", colorFormat.value);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "objectThemeColor",
+      "type": "Word.ThemeColorIndex | \"NotThemeColor\" | \"MainDark1\" | \"MainLight1\" | \"MainDark2\" | \"MainLight2\" | \"Accent1\" | \"Accent2\" | \"Accent3\" | \"Accent4\" | \"Accent5\" | \"Accent6\" | \"Hyperlink\" | \"HyperlinkFollowed\" | \"Background1\" | \"Text1\" | \"Background2\" | \"Text2\"",
+      "description": "Specifies the theme color for a color format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the fill color of the first shape in the document to use the Accent1 theme color",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const fill = shape.fill;\n        fill.load(\"foreColor\");\n        await context.sync();\n        \n        // Set the theme color to Accent1\n        fill.foreColor.objectThemeColor = Word.ThemeColorIndex.accent1;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rgb",
+      "type": "string",
+      "description": "Specifies the red-green-blue (RGB) value of the specified color. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the fill color of the first shape in the document to bright orange using RGB format",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const fill = shape.fill;\n        fill.setSolidColor(\"#FF6600\");\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tintAndShade",
+      "type": "number",
+      "description": "Specifies the lightening or darkening of a specified shape's color. Valid values are from `-1` (darkest) to `1` (lightest), `0` represents neutral.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lighten a shape's fill color by 40% to create a softer appearance",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Access the shape's fill color format and lighten it by 40%\n        const colorFormat = shape.fill.foregroundColor;\n        colorFormat.tintAndShade = 0.4;\n        \n        await context.sync();\n        console.log(\"Shape color lightened by 40%\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.ColorType | \"rgb\" | \"scheme\"",
+      "description": "Returns the shape color type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a shape's fill color is defined using RGB values or a theme color scheme",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const fillColor = shape.fill.foregroundColor;\n        fillColor.load(\"type\");\n        await context.sync();\n        \n        console.log(`Color type: ${fillColor.type}`);\n        \n        if (fillColor.type === Word.ColorType.rgb) {\n            console.log(\"The shape uses RGB color values\");\n        } else if (fillColor.type === Word.ColorType.scheme) {\n            console.log(\"The shape uses a theme color scheme\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ColorFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ColorFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ColorFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ColorFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display the RGB color value of the first shape's fill color in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    const firstShape = shapes.getFirst();\n    \n    // Get the fill color format\n    const fillColor = firstShape.fill.foregroundColor;\n    \n    // Load the RGB property of the color format\n    fillColor.load(\"rgb\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the RGB color value\n    console.log(\"Shape fill color (RGB):\", fillColor.rgb);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ColorFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ColorFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set the fill color of a shape to red using the set() method to configure multiple color properties at once",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the color format of the shape's fill\n        const colorFormat = shape.fill.foregroundColor;\n        \n        // Use set() to configure color properties\n        colorFormat.set({\n            rgb: \"#FF0000\" // Set to red\n        });\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.ColorFormat` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ColorFormatData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ColorFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a shape's color format to JSON and log it to the console for debugging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Access the shape's fill color format\n        const colorFormat = shape.imageFormat.colorFormat;\n        colorFormat.load(\"*\");\n        await context.sync();\n        \n        // Convert the ColorFormat object to a plain JavaScript object\n        const colorData = colorFormat.toJSON();\n        \n        // Log the serialized color data\n        console.log(\"Color Format Data:\", JSON.stringify(colorData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ColorFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a shape's color format object across multiple sync calls to safely modify its color properties without getting an \"InvalidObjectPath\" error.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const colorFormat = shape.fill.foregroundColor;\n        \n        // Track the color format object for use across sync calls\n        colorFormat.track();\n        \n        await context.sync();\n        \n        // Now we can safely use the color format object after sync\n        colorFormat.load(\"rgb\");\n        await context.sync();\n        \n        console.log(\"Current color:\", colorFormat.rgb);\n        \n        // Modify the color\n        colorFormat.rgb = \"#FF0000\"; // Set to red\n        await context.sync();\n        \n        // Untrack when done\n        colorFormat.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ColorFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the fill color of the first shape, use it for processing, then untrack the color format object to free memory.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    const shape = shapes.getFirstOrNullObject();\n    \n    // Load the shape and its fill color format\n    shape.load(\"fill\");\n    await context.sync();\n    \n    if (!shape.isNullObject) {\n        const colorFormat = shape.fill.foregroundColor;\n        \n        // Track the color format object for use\n        colorFormat.track();\n        colorFormat.load(\"rgb\");\n        await context.sync();\n        \n        // Use the color information\n        console.log(\"Shape color RGB:\", colorFormat.rgb);\n        \n        // Untrack the object to release memory after we're done\n        colorFormat.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets"
+    ]
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "class": {
+    "name": "Word.Annotation",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.7"
+    },
+    "description": "Represents an annotation attached to a paragraph.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Accepts the first annotation found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    if (annotation.state === Word.AnnotationState.created) {\n      console.log(`Accepting ID ${annotation.id}...`);\n      annotation.critiqueAnnotation.accept();\n\n      await context.sync();\n      break;\n    }\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access an annotation's request context to verify the connection to the Office host application before performing operations on the annotation.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph with annotations\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const annotations = paragraph.getAnnotations();\n    annotations.load(\"items\");\n    \n    await context.sync();\n    \n    if (annotations.items.length > 0) {\n        const annotation = annotations.items[0];\n        \n        // Access the annotation's request context\n        const annotationContext = annotation.context;\n        \n        // Verify the context is valid and connected\n        console.log(\"Annotation context is connected:\", annotationContext !== null);\n        \n        // Use the context to perform operations\n        annotation.load(\"id,critiqueAnnotation\");\n        await annotationContext.sync();\n        \n        console.log(\"Annotation ID:\", annotation.id);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "critiqueAnnotation",
+      "type": "Word.CritiqueAnnotation",
+      "description": "Gets the critique annotation object.",
+      "since": "WordApi 1.7",
+      "examples": [
+        {
+          "description": "Retrieve and display all annotations from the first paragraph in the current selection, including their ID, state, and critique content.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Gets annotations found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  console.log(\"Annotations found:\");\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    console.log(`ID ${annotation.id} - state '${annotation.state}':`, annotation.critiqueAnnotation.critique);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Gets the unique identifier, which is meant to be used for easier tracking of Annotation objects.",
+      "since": "WordApi 1.7",
+      "examples": [
+        {
+          "description": "Accept the first annotation in the created state found in the selected paragraph.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Accepts the first annotation found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    if (annotation.state === Word.AnnotationState.created) {\n      console.log(`Accepting ID ${annotation.id}...`);\n      annotation.critiqueAnnotation.accept();\n\n      await context.sync();\n      break;\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "state",
+      "type": "Word.AnnotationState | \"Created\" | \"Accepted\" | \"Rejected\"",
+      "description": "Gets the state of the annotation.",
+      "since": "WordApi 1.7",
+      "examples": [
+        {
+          "description": "Reject the last annotation in the selected paragraph that has a state of \"created\".",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Rejects the last annotation found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id,state,critiqueAnnotation\");\n\n  await context.sync();\n\n  for (let i = annotations.items.length - 1; i >= 0; i--) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    if (annotation.state === Word.AnnotationState.created) {\n      console.log(`Rejecting ID ${annotation.id}...`);\n      annotation.critiqueAnnotation.reject();\n\n      await context.sync();\n      break;\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the annotation.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete all annotations from the currently selected paragraph in the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-annotations.yaml\n\n// Deletes all annotations found in the selected paragraph.\nawait Word.run(async (context) => {\n  const paragraph: Word.Paragraph = context.document.getSelection().paragraphs.getFirst();\n  const annotations: Word.AnnotationCollection = paragraph.getAnnotations();\n  annotations.load(\"id\");\n\n  await context.sync();\n\n  const ids = [];\n  for (let i = 0; i < annotations.items.length; i++) {\n    const annotation: Word.Annotation = annotations.items[i];\n\n    ids.push(annotation.id);\n    annotation.delete();\n  }\n\n  await context.sync();\n\n  console.log(\"Annotations deleted:\", ids);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.AnnotationLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "select is a comma-delimited string that specifies the properties to load, and expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the ID and state of the first annotation in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first annotation in the document\n    const annotations = context.document.body.getAnnotations();\n    const firstAnnotation = annotations.getFirst();\n    \n    // Load specific properties of the annotation\n    firstAnnotation.load(\"id, state\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can read the loaded properties\n    console.log(\"Annotation ID: \" + firstAnnotation.id);\n    console.log(\"Annotation State: \" + firstAnnotation.state);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Annotation object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.AnnotationData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.AnnotationData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve annotation data from the first paragraph and serialize it to JSON format for logging or storage purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get annotations from the paragraph\n    const annotations = paragraph.getAnnotations();\n    annotations.load(\"items\");\n    \n    await context.sync();\n    \n    if (annotations.items.length > 0) {\n        const annotation = annotations.items[0];\n        \n        // Load properties you want to serialize\n        annotation.load(\"id,state,critiqueAnnotation\");\n        await context.sync();\n        \n        // Convert the annotation to a plain JavaScript object\n        const annotationData = annotation.toJSON();\n        \n        // Now you can use JSON.stringify or log the data\n        console.log(JSON.stringify(annotationData, null, 2));\n        console.log(\"Annotation ID:\", annotationData.id);\n        console.log(\"Annotation State:\", annotationData.state);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an annotation object to maintain its reference across multiple sync calls when checking and modifying its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph with annotations\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const annotations = paragraph.getAnnotations();\n    \n    await context.sync();\n    \n    if (annotations.items.length > 0) {\n        const annotation = annotations.items[0];\n        \n        // Track the annotation to use it across multiple sync calls\n        annotation.track();\n        \n        // Load properties\n        annotation.load(\"id,state,critiqueAnnotation\");\n        await context.sync();\n        \n        // Now we can safely use the annotation in subsequent operations\n        console.log(\"Annotation ID:\", annotation.id);\n        console.log(\"Annotation State:\", annotation.state);\n        \n        // Perform another sync and continue using the tracked object\n        await context.sync();\n        \n        // The tracked annotation remains valid\n        if (annotation.critiqueAnnotation) {\n            console.log(\"Critique found\");\n        }\n        \n        // Clean up tracking when done\n        annotation.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Annotation",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load an annotation, use its properties, then untrack it to free memory after you're done working with it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first annotation in the document\n    const annotations = context.document.body.getAnnotations();\n    const firstAnnotation = annotations.getFirstOrNullObject();\n    firstAnnotation.track();\n    firstAnnotation.load(\"id,state\");\n    \n    await context.sync();\n    \n    if (!firstAnnotation.isNullObject) {\n        console.log(`Annotation ID: ${firstAnnotation.id}`);\n        console.log(`Annotation state: ${firstAnnotation.state}`);\n        \n        // Untrack the annotation to release memory\n        firstAnnotation.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

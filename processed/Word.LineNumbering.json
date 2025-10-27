@@ -1,0 +1,271 @@
+{
+  "class": {
+    "name": "Word.LineNumbering",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents line numbers in the left margin or to the left of each newspaper-style column.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the line numbering context to ensure the object is properly loaded before reading its properties.",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.sections.getFirst().lineNumbering;\n    \n    // Access the context property to verify connection to Office host\n    const requestContext = lineNumbering.context;\n    \n    // Load properties using the context\n    lineNumbering.load(\"restartMode,startingNumber\");\n    await requestContext.sync();\n    \n    console.log(\"Line numbering restart mode: \" + lineNumbering.restartMode);\n    console.log(\"Starting number: \" + lineNumbering.startingNumber);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "countBy",
+      "type": "number",
+      "description": "Specifies the numeric increment for line numbers.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set line numbering to increment by 5 (showing line numbers 5, 10, 15, etc.)",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.sections.getFirst().lineNumbering;\n    lineNumbering.countBy = 5;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "distanceFromText",
+      "type": "number",
+      "description": "Specifies the distance (in points) between the right edge of line numbers and the left edge of the document text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the distance between line numbers and document text to 36 points (half an inch)",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    const lineNumbering = body.lineNumbering;\n    \n    lineNumbering.distanceFromText = 36;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "description": "Specifies if line numbering is active for the specified document, section, or sections.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if line numbering is currently active in the document and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.parentContentControlOrNullObject.parentBody.sections.getFirst().lineNumbering;\n    lineNumbering.load(\"isActive\");\n    \n    await context.sync();\n    \n    console.log(\"Line numbering is active: \" + lineNumbering.isActive);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "restartMode",
+      "type": "Word.NumberingRule | \"RestartContinuous\" | \"RestartSection\" | \"RestartPage\"",
+      "description": "Specifies the way line numbering runs; that is, whether it starts over at the beginning of a new page or section, or runs continuously.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure line numbering to restart at the beginning of each page in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the line numbering settings for the document body\n    const lineNumbering = context.document.body.sections.getFirst().lineNumbering;\n    \n    // Set line numbering to restart on each page\n    lineNumbering.restartMode = Word.NumberingRule.restartPage;\n    \n    await context.sync();\n    \n    console.log(\"Line numbering set to restart on each page\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "startingNumber",
+      "type": "number",
+      "description": "Specifies the starting line number.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the starting line number to 5 for the document's line numbering",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.parentContentControlOrNullObject.parentBody.sections.getFirst().lineNumbering;\n    \n    lineNumbering.startingNumber = 5;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.LineNumberingLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.LineNumbering",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.LineNumbering",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.LineNumbering",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and read the line numbering restart setting from the current document section",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section of the document\n    const section = context.document.sections.getFirst();\n    const lineNumbering = section.body.lineNumbering;\n    \n    // Load the restart mode property\n    lineNumbering.load(\"restartMode\");\n    \n    await context.sync();\n    \n    // Read the loaded property\n    console.log(\"Line numbering restart mode: \" + lineNumbering.restartMode);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.LineNumberingUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.LineNumbering",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure line numbering to restart at 1 for each page and display every 5th line number",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    const lineNumbering = body.sections.getFirst().lineNumbering;\n    \n    lineNumbering.set({\n        restartMode: Word.LineNumberingRestartMode.restartPage,\n        countBy: 5,\n        start: 1\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). Whereas the original Word.LineNumbering object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.LineNumberingData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.LineNumberingData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the line numbering settings from the document body and log them as a JSON string to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the line numbering settings from the document body\n    const lineNumbering = context.document.body.lineNumbering;\n    \n    // Load the properties we want to inspect\n    lineNumbering.load(\"startingNumber,countBy,restartMode\");\n    \n    await context.sync();\n    \n    // Convert the line numbering object to a plain JavaScript object\n    const lineNumberingData = lineNumbering.toJSON();\n    \n    // Log the JSON representation\n    console.log(\"Line Numbering Settings:\", JSON.stringify(lineNumberingData, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.LineNumbering",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track line numbering settings across multiple operations to ensure the object remains valid when reading and modifying properties in different sync calls.",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.sections.getFirst().lineNumbering;\n    \n    // Track the object to prevent InvalidObjectPath errors across sync calls\n    lineNumbering.track();\n    \n    // Load properties\n    lineNumbering.load(\"restartMode,startingNumber\");\n    await context.sync();\n    \n    console.log(\"Current restart mode:\", lineNumbering.restartMode);\n    console.log(\"Starting number:\", lineNumbering.startingNumber);\n    \n    // Modify properties in a subsequent operation\n    lineNumbering.startingNumber = 1;\n    lineNumbering.restartMode = \"RestartPage\";\n    await context.sync();\n    \n    // Untrack when done\n    lineNumbering.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.LineNumbering",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track line numbering settings, modify them, then untrack to release memory after the changes are complete.",
+          "usage_code": "await Word.run(async (context) => {\n    const lineNumbering = context.document.body.sections.getFirst().lineNumbering;\n    \n    // Track the object to monitor changes\n    lineNumbering.track();\n    lineNumbering.load(\"restartMode\");\n    \n    await context.sync();\n    \n    // Make changes to line numbering\n    lineNumbering.restartMode = Word.LineNumberRestartMode.continuous;\n    \n    await context.sync();\n    \n    // Release memory after we're done using the tracked object\n    lineNumbering.untrack();\n    \n    await context.sync();\n    \n    console.log(\"Line numbering updated and memory released\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.linenumbering",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets"
+    ]
+  }
+}

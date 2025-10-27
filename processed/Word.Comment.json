@@ -1,0 +1,363 @@
+{
+  "class": {
+    "name": "Word.Comment",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.4",
+      "status": null
+    },
+    "description": "Represents a comment in the document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml\n\n// Sets a comment on the selected content.\nawait Word.run(async (context) => {\n  const text = (document.getElementById(\"comment-text\") as HTMLInputElement).value;\n  const comment: Word.Comment = context.document.getSelection().insertComment(text);\n\n  // Load object to log in the console.\n  comment.load();\n  await context.sync();\n\n  console.log(\"Comment inserted:\", comment);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "authorEmail",
+      "type": null,
+      "description": "Gets the email of the comment's author.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Display the email address of the author who created the first comment in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.load(\"authorEmail\");\n        \n        await context.sync();\n        \n        console.log(\"Comment author email: \" + firstComment.authorEmail);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "authorName",
+      "type": null,
+      "description": "Gets the name of the comment's author.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get and display the author name of the first comment in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    await context.sync();\n\n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.load(\"authorName\");\n        await context.sync();\n\n        console.log(\"Comment author: \" + firstComment.authorName);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "type": null,
+      "description": "Specifies the comment's content as plain text.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the text content of the first comment in the document and display it in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    await context.sync();\n\n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.load(\"content\");\n        await context.sync();\n\n        console.log(\"Comment content: \" + firstComment.content);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contentRange",
+      "type": null,
+      "description": "Specifies the comment's content range.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Highlight the content range of the first comment in the document with yellow color to visually identify the commented text.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirst();\n    \n    // Get the content range of the comment\n    const contentRange = firstComment.contentRange;\n    \n    // Highlight the content range with yellow\n    contentRange.font.highlightColor = \"yellow\";\n    \n    // Load and sync to apply changes\n    await context.sync();\n    \n    console.log(\"Comment content range highlighted\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": null,
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access a comment's context to verify the connection to the Office host application and log its debug information",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    await context.sync();\n    \n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        \n        // Access the comment's context property\n        const commentContext = firstComment.context;\n        \n        // Use the context to perform operations\n        // For example, check if debug mode is enabled\n        console.log(\"Context debug info:\", commentContext.debugInfo);\n        \n        // The context connects the add-in to the Office host\n        // and is used internally for all API calls\n        firstComment.load(\"content\");\n        await commentContext.sync();\n        \n        console.log(\"Comment content:\", firstComment.content);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "creationDate",
+      "type": null,
+      "description": "Gets the creation date of the comment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Display the creation date of the first comment in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    await context.sync();\n\n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.load(\"creationDate\");\n        await context.sync();\n\n        console.log(\"Comment created on: \" + firstComment.creationDate);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": null,
+      "description": "Gets the ID of the comment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the ID of the first comment in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.load(\"id\");\n        \n        await context.sync();\n        \n        console.log(\"Comment ID: \" + firstComment.id);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "replies",
+      "type": null,
+      "description": "Gets the collection of reply objects associated with the comment.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all replies to the first comment in the document and display the count and content of each reply in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirst();\n    \n    // Get the replies collection for this comment\n    const replies = firstComment.replies;\n    replies.load(\"items\");\n    \n    await context.sync();\n    \n    // Display information about the replies\n    console.log(`Total replies: ${replies.items.length}`);\n    \n    replies.items.forEach((reply, index) => {\n        reply.load(\"content, authorName\");\n    });\n    \n    await context.sync();\n    \n    replies.items.forEach((reply, index) => {\n        console.log(`Reply ${index + 1}: ${reply.content} (by ${reply.authorName})`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "resolved",
+      "type": null,
+      "description": "Specifies the comment thread's status. Setting to true resolves the comment thread. Getting a value of true means that the comment thread is resolved.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Mark a comment thread as resolved after reviewing it",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comment = context.document.body.getComments().getFirst();\n    \n    // Mark the comment as resolved\n    comment.resolved = true;\n    \n    await context.sync();\n    \n    console.log(\"Comment has been marked as resolved\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the comment and its replies.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete all comments in the document that contain the word \"outdated\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all comments in the document\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    // Loop through comments and delete those containing \"outdated\"\n    for (let i = 0; i < comments.items.length; i++) {\n        const comment = comments.items[i];\n        comment.load(\"content\");\n        await context.sync();\n        \n        if (comment.content.toLowerCase().includes(\"outdated\")) {\n            comment.delete();\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the range in the main document where the comment is on.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Highlight the text range that a comment is attached to by applying a yellow background color to help visualize the commented area.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirst();\n    \n    // Get the range where the comment is attached\n    const commentRange = firstComment.getRange();\n    \n    // Highlight the commented range with yellow background\n    commentRange.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n    \n    console.log(\"Highlighted the range where the comment is located\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the content and author name of the first comment in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirstOrNullObject();\n    \n    // Load specific properties of the comment\n    firstComment.load(\"content, authorName, creationDate\");\n    \n    await context.sync();\n    \n    if (!firstComment.isNullObject) {\n        console.log(`Author: ${firstComment.authorName}`);\n        console.log(`Content: ${firstComment.content}`);\n        console.log(`Created: ${firstComment.creationDate}`);\n    } else {\n        console.log(\"No comments found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reply",
+      "kind": "create",
+      "description": "Adds a new reply to the end of the comment thread.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "replyText",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a reply \"I've addressed this feedback\" to the first comment in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    if (comments.items.length > 0) {\n        const firstComment = comments.items[0];\n        firstComment.reply(\"I've addressed this feedback\");\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update an existing comment's properties to mark it as resolved and change its content text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comment = context.document.body.getComments().getFirst();\n    \n    // Set multiple properties at once using the set() method\n    comment.set({\n        resolved: true,\n        content: \"This issue has been addressed and resolved.\"\n    });\n    \n    await context.sync();\n    \n    console.log(\"Comment properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Comment object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.CommentData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a comment from the document and serialize it to JSON format for logging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirstOrNullObject();\n    \n    // Load properties we want to serialize\n    firstComment.load(\"content,authorName,creationDate,resolved\");\n    \n    await context.sync();\n    \n    if (!firstComment.isNullObject) {\n        // Convert the comment to a plain JavaScript object\n        const commentData = firstComment.toJSON();\n        \n        // Now you can use the plain object (e.g., log it, send to server, etc.)\n        console.log(\"Comment as JSON:\", JSON.stringify(commentData, null, 2));\n        console.log(\"Author:\", commentData.authorName);\n        console.log(\"Content:\", commentData.content);\n    } else {\n        console.log(\"No comments found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a comment from the document, track it to maintain its reference across multiple sync calls, then modify its content and resolved status in separate operations.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first comment in the document\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    await context.sync();\n    \n    const firstComment = comments.items[0];\n    \n    // Track the comment object to use it across multiple sync calls\n    firstComment.track();\n    \n    // First operation: load and display current content\n    firstComment.load(\"content\");\n    await context.sync();\n    console.log(\"Current comment: \" + firstComment.content);\n    \n    // Second operation: modify the comment content\n    firstComment.content = \"Updated comment text\";\n    await context.sync();\n    \n    // Third operation: mark the comment as resolved\n    firstComment.resolved = true;\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    firstComment.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml"
+    ]
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "class": {
+    "name": "Word.Section",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi 1.1",
+      "status": null
+    },
+    "description": "Represents a section in a Word document.",
+    "examples": [
+      {
+        "description": "Inserts a section break on the next page.",
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-section-breaks.yaml\n\n// Inserts a section break on the next page.\nawait Word.run(async (context) => {\n  const body: Word.Body = context.document.body;\n  body.insertBreak(Word.BreakType.sectionNext, Word.InsertLocation.end);\n\n  await context.sync();\n\n  console.log(\"Inserted section break on next page.\");\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the section. This doesn't include the header/footer and other section metadata.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Add a paragraph with text to the body of the first section in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section in the document\n    const firstSection = context.document.sections.getFirst();\n    \n    // Get the body of the section\n    const sectionBody = firstSection.body;\n    \n    // Insert a paragraph at the end of the section body\n    sectionBody.insertParagraph(\"This text is added to the section body.\", Word.InsertLocation.end);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "borders",
+      "type": "Word.BorderUniversalCollection",
+      "description": "Returns a BorderUniversalCollection object that represents all the borders in the section.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set all section borders to a solid blue line with 2.25pt width",
+          "usage_code": "await Word.run(async (context) => {\n    const section = context.document.sections.getFirst();\n    const borders = section.borders;\n    borders.load(\"items\");\n    \n    await context.sync();\n    \n    for (let i = 0; i < borders.items.length; i++) {\n        borders.items[i].type = Word.BorderType.single;\n        borders.items[i].color = \"blue\";\n        borders.items[i].width = 2.25;\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the section's request context to load and read the section's body text",
+          "usage_code": "await Word.run(async (context) => {\n    const section = context.document.sections.getFirst();\n    \n    // Access the request context from the section object\n    const sectionContext = section.context;\n    \n    // Use the context to load properties\n    section.load(\"body/text\");\n    \n    await sectionContext.sync();\n    \n    console.log(\"Section text:\", section.body.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageSetup",
+      "type": "Word.PageSetup",
+      "description": "Returns a PageSetup object that's associated with the section.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the first section's page orientation to landscape and configure 1-inch margins on all sides",
+          "usage_code": "await Word.run(async (context) => {\n    const firstSection = context.document.sections.getFirst();\n    const pageSetup = firstSection.pageSetup;\n    \n    pageSetup.orientation = Word.PageOrientation.landscape;\n    pageSetup.topMargin = 72;    // 1 inch = 72 points\n    pageSetup.bottomMargin = 72;\n    pageSetup.leftMargin = 72;\n    pageSetup.rightMargin = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "protectedForForms",
+      "type": "boolean",
+      "description": "Specifies if the section is protected for forms.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the first section is protected for forms and display the result, then set the second section to be protected for forms.",
+          "usage_code": "await Word.run(async (context) => {\n    const sections = context.document.sections;\n    sections.load(\"items\");\n    await context.sync();\n\n    // Check if first section is protected for forms\n    const firstSection = sections.items[0];\n    firstSection.load(\"protectedForForms\");\n    await context.sync();\n    \n    console.log(`First section protected for forms: ${firstSection.protectedForForms}`);\n    \n    // Set second section to be protected for forms\n    if (sections.items.length > 1) {\n        const secondSection = sections.items[1];\n        secondSection.protectedForForms = true;\n        await context.sync();\n        \n        console.log(\"Second section is now protected for forms\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFooter",
+      "kind": "read",
+      "description": "Gets one of the section's footers.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "type",
+              "type": "Word.HeaderFooterType",
+              "required": true,
+              "description": "The type of footer to return. This value must be: 'Primary', 'FirstPage', or 'EvenPages'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "type",
+              "type": "\"Primary\" | \"FirstPage\" | \"EvenPages\"",
+              "required": true,
+              "description": "The type of footer to return. This value must be: 'Primary', 'FirstPage', or 'EvenPages'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add text \"This is a footer.\" to the primary footer of the first section and wrap it in a content control.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy sectionsCollection object.\n    const mySections = context.document.sections;\n    \n    // Queue a command to load the sections.\n    mySections.load('body/style');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        \n    // Create a proxy object the primary footer of the first section.\n    // Note that the footer is a body object.\n    const myFooter = mySections.items[0].getFooter(Word.HeaderFooterType.primary);\n    \n    // Queue a command to insert text at the end of the footer.\n    myFooter.insertText(\"This is a footer.\", Word.InsertLocation.end);\n    \n    // Queue a command to wrap the header in a content control.\n    myFooter.insertContentControl();\n                            \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(\"Added a footer to the first section.\");   \n});",
+          "output_code": null
+        },
+        {
+          "description": "Insert a paragraph with the text \"This is a primary footer.\" at the end of the primary footer in the first section of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/insert-header-and-footer.yaml\n\nawait Word.run(async (context) => {\n  context.document.sections\n    .getFirst()\n    .getFooter(\"Primary\")\n    .insertParagraph(\"This is a primary footer.\", \"End\");\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getHeader",
+      "kind": "read",
+      "description": "Gets one of the section's headers.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "type",
+              "type": "Word.HeaderFooterType",
+              "required": true,
+              "description": "The type of header to return. This value must be: 'Primary', 'FirstPage', or 'EvenPages'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "type",
+              "type": "\"Primary\" | \"FirstPage\" | \"EvenPages\"",
+              "required": true,
+              "description": "The type of header to return. This value must be: 'Primary', 'FirstPage', or 'EvenPages'."
+            }
+          ],
+          "returns": {
+            "type": "Word.Body",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a paragraph with the text \"This is a primary header.\" at the end of the primary header in the first section of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/25-paragraph/insert-header-and-footer.yaml\n\nawait Word.run(async (context) => {\n  context.document.sections\n    .getFirst()\n    .getHeader(Word.HeaderFooterType.primary)\n    .insertParagraph(\"This is a primary header.\", \"End\");\n\n  await context.sync();\n});",
+          "output_code": null
+        },
+        {
+          "description": "Add the text \"This is a header.\" to the primary header of the first section and wrap it in a content control.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy sectionsCollection object.\n    const mySections = context.document.sections;\n    \n    // Queue a command to load the sections.\n    mySections.load('body/style');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    \n    // Create a proxy object the primary header of the first section.\n    // Note that the header is a body object.\n    const myHeader = mySections.items[0].getHeader(\"Primary\");\n    \n    // Queue a command to insert text at the end of the header.\n    myHeader.insertText(\"This is a header.\", Word.InsertLocation.end);\n    \n    // Queue a command to wrap the header in a content control.\n    myHeader.insertContentControl();\n                            \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(\"Added a header to the first section.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next section. Throws an ItemNotFound error if this section is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if the current section is followed by another section, and if so, insert text at the beginning of the next section.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section\n    const firstSection = context.document.sections.getFirst();\n    \n    try {\n        // Get the next section after the first one\n        const nextSection = firstSection.getNext();\n        \n        // Insert text at the start of the next section\n        nextSection.body.insertText(\"This is the second section.\", Word.InsertLocation.start);\n        \n        await context.sync();\n        console.log(\"Text inserted in the next section.\");\n    } catch (error) {\n        console.log(\"No next section found - the first section is the last one.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next section. If this section is the last one, then this method will return an object with its isNullObject property set to true. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Iterate through all sections in a document and log the index of each section until reaching the last one",
+          "usage_code": "await Word.run(async (context) => {\n    const firstSection = context.document.sections.getFirst();\n    firstSection.load(\"isNullObject\");\n    \n    let currentSection = firstSection;\n    let sectionIndex = 0;\n    \n    while (currentSection) {\n        currentSection.load(\"isNullObject\");\n        await context.sync();\n        \n        if (!currentSection.isNullObject) {\n            console.log(`Processing section ${sectionIndex}`);\n            sectionIndex++;\n            \n            // Get the next section\n            const nextSection = currentSection.getNextOrNullObject();\n            nextSection.load(\"isNullObject\");\n            await context.sync();\n            \n            // Check if we've reached the last section\n            if (nextSection.isNullObject) {\n                console.log(\"Reached the last section\");\n                break;\n            }\n            \n            currentSection = nextSection;\n        } else {\n            break;\n        }\n    }\n    \n    console.log(`Total sections: ${sectionIndex}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.SectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the body text of the first section in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section in the document\n    const firstSection = context.document.sections.getFirst();\n    \n    // Load the body property of the section\n    firstSection.load(\"body\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Access the loaded body and get its text\n    const sectionBody = firstSection.body;\n    sectionBody.load(\"text\");\n    await context.sync();\n    \n    console.log(\"Section body text:\", sectionBody.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.SectionUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Section",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple properties of the first section to set different first page headers and adjust page margins",
+          "usage_code": "await Word.run(async (context) => {\n    const firstSection = context.document.sections.getFirst();\n    \n    firstSection.set({\n        differentFirstPageHeaderFooter: true,\n        leftMargin: 72,  // 1 inch in points\n        rightMargin: 72,\n        topMargin: 72,\n        bottomMargin: 72\n    });\n    \n    await context.sync();\n    console.log(\"Section properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Section object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.SectionData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.SectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a JSON representation of the first section's properties for logging or data export purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section in the document\n    const firstSection = context.document.sections.getFirst();\n    \n    // Load properties we want to include in the JSON output\n    firstSection.load(\"body\");\n    \n    await context.sync();\n    \n    // Convert the section to a plain JavaScript object\n    const sectionJSON = firstSection.toJSON();\n    \n    // Log or export the JSON data\n    console.log(\"Section data:\", JSON.stringify(sectionJSON, null, 2));\n    \n    // The JSON object can now be easily serialized, stored, or transmitted\n    return sectionJSON;\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a section object to maintain its reference across multiple sync calls when modifying section properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section\n    const section = context.document.sections.getFirst();\n    \n    // Track the section to prevent InvalidObjectPath errors across sync calls\n    section.track();\n    \n    // Load properties\n    section.load(\"body\");\n    await context.sync();\n    \n    // Make changes to the section after first sync\n    section.body.insertParagraph(\"This is added to the tracked section\", Word.InsertLocation.start);\n    await context.sync();\n    \n    // Continue working with the section after another sync\n    section.body.font.color = \"blue\";\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    section.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Section",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a section, track it for performance monitoring, perform operations, then untrack it to free memory when done",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section and track it\n    const section = context.document.sections.getFirst();\n    section.track();\n    \n    // Load and use the section properties\n    section.load(\"body\");\n    await context.sync();\n    \n    // Perform operations with the section\n    section.body.insertParagraph(\"This is added to the tracked section.\", Word.InsertLocation.start);\n    await context.sync();\n    \n    // Untrack the section to release memory\n    section.untrack();\n    await context.sync();\n    \n    console.log(\"Section operations completed and memory released.\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.section"
+    ]
+  }
+}

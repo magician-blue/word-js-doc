@@ -1,0 +1,307 @@
+{
+  "class": {
+    "name": "Word.SettingCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.4"
+    },
+    "description": "Contains the collection of [Word.Setting](/en-us/javascript/api/word/word.setting) objects.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-settings.yaml\n\n// Deletes all custom settings this add-in had set on this document.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.deleteAll();\n  await context.sync();\n  console.log(\"All settings deleted.\");\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a SettingCollection to verify the connection to the Word host application before performing operations on document settings.",
+          "usage_code": "await Word.run(async (context) => {\n    const settings = context.document.settings;\n    \n    // Access the request context associated with the SettingCollection\n    const requestContext = settings.context;\n    \n    // Use the context to load properties and verify connection\n    settings.load(\"items\");\n    await requestContext.sync();\n    \n    console.log(\"Connected to Word host application\");\n    console.log(`Number of settings: ${settings.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.Setting[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and display all custom settings that the add-in has stored in the current Word document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-settings.yaml\n\n// Gets all custom settings this add-in set on this document.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.load(\"items\");\n  await context.sync();\n\n  if (settings.items.length == 0) {\n    console.log(\"There are no settings.\");\n  } else {\n    console.log(\"All settings:\");\n    for (let i = 0; i < settings.items.length; i++) {\n      console.log(settings.items[i]);\n    }\n  }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "kind": "create",
+      "description": "Creates a new setting or sets an existing setting.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "required": true,
+              "description": "The setting's key, which is case-sensitive."
+            },
+            {
+              "name": "value",
+              "type": "any",
+              "required": true,
+              "description": "The setting's value."
+            }
+          ],
+          "returns": {
+            "type": "Word.Setting",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new custom setting to the Word document with a specified key-value pair, or update the value if the key already exists.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-settings.yaml\n\n// Adds a new custom setting or\n// edits the value of an existing one.\nawait Word.run(async (context) => {\n  const key = (document.getElementById(\"key\") as HTMLInputElement).value;\n  if (key == \"\") {\n    console.error(\"Key shouldn't be empty.\");\n    return;\n  }\n\n  const value = (document.getElementById(\"value\") as HTMLInputElement).value;\n  const settings: Word.SettingCollection = context.document.settings;\n  const setting: Word.Setting = settings.add(key, value);\n  setting.load();\n  await context.sync();\n\n  console.log(\"Setting added or edited:\", setting);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteAll",
+      "kind": "delete",
+      "description": "Deletes all settings in this add-in.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Demonstrate adding a custom setting to the document, verifying the setting count, deleting all settings, and confirming the settings collection is empty.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Queue commands add a setting.\n    const settings = context.document.settings;\n    settings.add('startMonth', { month: 'March', year: 1998 });\n\n    // Queue a command to get the count of settings.\n    const count = settings.getCount();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(count.value);\n\n    // Queue a command to delete all settings.\n    settings.deleteAll();\n\n    // Queue a command to get the new count of settings.\n    count = settings.getCount();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(count.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Gets the count of settings.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Demonstrate retrieving the count of document settings before and after adding a setting and then deleting all settings.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Queue commands add a setting.\n    const settings = context.document.settings;\n    settings.add('startMonth', { month: 'March', year: 1998 });\n\n    // Queue a command to get the count of settings.\n    const count = settings.getCount();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(count.value);\n\n    // Queue a command to delete all settings.\n    settings.deleteAll();\n\n    // Queue a command to get the new count of settings.\n    count = settings.getCount();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(count.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Gets a setting object by its key, which is case-sensitive. Throws an `ItemNotFound` error if the setting doesn't exist.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "required": true,
+              "description": "The key that identifies the setting object."
+            }
+          ],
+          "returns": {
+            "type": "Word.Setting",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom setting named 'startMonth' to the document, retrieve it, and log its value to the console.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Queue commands add a setting.\n    const settings = context.document.settings;\n    settings.add('startMonth', { month: 'March', year: 1998 });\n\n    // Queue a command to retrieve a setting.\n    const startMonth = settings.getItem('startMonth');\n\n    // Queue a command to load the setting.\n    startMonth.load();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log(JSON.stringify(startMonth.value));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItemOrNullObject",
+      "kind": "read",
+      "description": "Gets a setting object by its key, which is case-sensitive. If the setting doesn't exist, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "key",
+              "type": "string",
+              "required": true,
+              "description": "The key that identifies the setting object."
+            }
+          ],
+          "returns": {
+            "type": "Word.Setting",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the values of 'startMonth' and 'endMonth' settings from the document, handling cases where either setting may not exist.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Queue commands add a setting.\n    const settings = context.document.settings;\n    settings.add('startMonth', { month: 'March', year: 1998 });\n    \n    // Queue commands to retrieve settings.\n    const startMonth = settings.getItemOrNullObject('startMonth');\n    const endMonth = settings.getItemOrNullObject('endMonth');\n\n    // Queue commands to load settings.\n    startMonth.load();\n    endMonth.load();\n\n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        if (startMonth.isNullObject) {\n            console.log(\"No such setting.\");\n        }\n        else {\n            console.log(JSON.stringify(startMonth.value));\n        }\n        if (endMonth.isNullObject) {\n            console.log(\"No such setting.\");\n        }\n        else {\n            console.log(JSON.stringify(endMonth.value));\n        }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.SettingCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SettingCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SettingCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.SettingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display all custom document settings with their keys and values",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the settings collection\n    const settings = context.document.settings;\n    \n    // Load the settings collection with key and value properties\n    settings.load(\"items\");\n    \n    await context.sync();\n    \n    // Display all settings\n    console.log(`Total settings: ${settings.items.length}`);\n    settings.items.forEach(setting => {\n        console.log(`Key: ${setting.key}, Value: ${setting.value}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.SettingCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SettingCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.SettingCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a collection of document settings to JSON format for logging or external storage",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the settings collection\n    const settings = context.document.settings;\n    \n    // Load the settings collection with their properties\n    settings.load(\"key,value\");\n    \n    await context.sync();\n    \n    // Convert the settings collection to a plain JavaScript object\n    const settingsJSON = settings.toJSON();\n    \n    // Log the JSON representation (can be used for debugging or storage)\n    console.log(\"Settings as JSON:\", JSON.stringify(settingsJSON, null, 2));\n    \n    // Access the items array from the JSON object\n    console.log(\"Number of settings:\", settingsJSON.items.length);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.SettingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track custom document settings across multiple sync calls to monitor and update a document's metadata without encountering InvalidObjectPath errors",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the settings collection\n    const settings = context.document.settings;\n    \n    // Track the settings collection to use it across multiple sync calls\n    settings.track();\n    \n    // Load the settings\n    settings.load(\"items\");\n    await context.sync();\n    \n    // First sync - read existing settings\n    console.log(`Found ${settings.items.length} settings`);\n    \n    // Add a new setting\n    settings.add(\"lastModifiedBy\", \"John Doe\");\n    await context.sync();\n    \n    // Second sync - the tracked object remains valid\n    // Without track(), accessing settings here might cause InvalidObjectPath error\n    settings.add(\"documentVersion\", \"1.0\");\n    await context.sync();\n    \n    // Third sync - still valid because it's tracked\n    settings.load(\"items\");\n    await context.sync();\n    console.log(`Now have ${settings.items.length} settings`);\n    \n    // Untrack when done to free up resources\n    settings.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.SettingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and process document settings, then untrack the settings collection to free memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Load the settings collection\n    const settings = context.document.settings;\n    settings.load(\"items\");\n    \n    await context.sync();\n    \n    // Process the settings (e.g., read values)\n    console.log(`Found ${settings.items.length} settings`);\n    settings.items.forEach(setting => {\n        console.log(`${setting.key}: ${setting.value}`);\n    });\n    \n    // Untrack the collection to release memory\n    settings.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word"
+    ]
+  }
+}

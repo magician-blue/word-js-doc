@@ -2,7 +2,9 @@
   "class": {
     "name": "ContentControl",
     "package": "word",
-    "extends": ["OfficeExtension.ClientObject"],
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
     "api_set": {
       "name": "WordApi",
       "status": "1.1"
@@ -10,7 +12,7 @@
     "description": "Represents a content control. Content controls are bounded and potentially labeled regions in a document that serve as containers for specific types of content. Individual content controls may contain contents such as images, tables, or paragraphs of formatted text. Currently, only rich text, plain text, checkbox, dropdown list, and combo box content controls are supported.",
     "examples": [
       {
-        "description": null,
+        "description": "Run a batch operation against the Word object model.",
         "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n\n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to load the properties on the first content control.\n        contentControls.items[0].load(  'appearance,' +\n                                        'cannotDelete,' +\n                                        'cannotEdit,' +\n                                        'color,' +\n                                        'id,' +\n                                        'placeHolderText,' +\n                                        'removeWhenEdited,' +\n                                        'title,' +\n                                        'text,' +\n                                        'type,' +\n                                        'style,' +\n                                        'tag,' +\n                                        'font/size,' +\n                                        'font/name,' +\n                                        'font/color');\n\n        // Synchronize the document state by executing the queued commands,\n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Property values of the first content control:' +\n            '   ----- appearance: ' + contentControls.items[0].appearance +\n            '   ----- cannotDelete: ' + contentControls.items[0].cannotDelete +\n            '   ----- cannotEdit: ' + contentControls.items[0].cannotEdit +\n            '   ----- color: ' + contentControls.items[0].color +\n            '   ----- id: ' + contentControls.items[0].id +\n            '   ----- placeHolderText: ' + contentControls.items[0].placeholderText +\n            '   ----- removeWhenEdited: ' + contentControls.items[0].removeWhenEdited +\n            '   ----- title: ' + contentControls.items[0].title +\n            '   ----- text: ' + contentControls.items[0].text +\n            '   ----- type: ' + contentControls.items[0].type +\n            '   ----- style: ' + contentControls.items[0].style +\n            '   ----- tag: ' + contentControls.items[0].tag +\n            '   ----- font size: ' + contentControls.items[0].font.size +\n            '   ----- font name: ' + contentControls.items[0].font.name +\n            '   ----- font color: ' + contentControls.items[0].font.color);\n    }\n});",
         "output_code": null
       }
@@ -325,7 +327,7 @@
   "methods": [
     {
       "name": "clear",
-      "kind": "write",
+      "kind": "delete",
       "description": "Clears the contents of the content control. The user can perform the undo operation on the cleared content.",
       "signatures": [
         {
@@ -338,7 +340,7 @@
       ],
       "examples": [
         {
-          "description": null,
+          "description": "Run a batch operation against the Word object model.",
           "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the content controls collection.\n    contentControls.load('text');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        \n    if (contentControls.items.length === 0) {\n        console.log(\"There isn't a content control in this document.\");\n    } else {\n        // Queue a command to clear the contents of the first content control.\n        contentControls.items[0].clear();\n\n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Content control cleared of contents.');\n    }\n});",
           "output_code": null
         }
@@ -355,7 +357,7 @@
               "name": "keepContent",
               "type": "boolean",
               "required": true,
-              "description": "Indicates whether the content should be deleted with the content control. If keepContent is set to true, the content isn't deleted."
+              "description": "Required. Indicates whether the content should be deleted with the content control. If keepContent is set to true, the content isn't deleted."
             }
           ],
           "returns": {
@@ -366,7 +368,7 @@
       ],
       "examples": [
         {
-          "description": null,
+          "description": "Run a batch operation against the Word object model.",
           "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the content controls collection.\n    contentControls.load('text');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n        \n    if (contentControls.items.length === 0) {\n        console.log(\"There isn't a content control in this document.\");\n    } else {            \n        // Queue a command to delete the first content control. \n        // The contents will remain in the document.\n        contentControls.items[0].delete(true);\n\n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Content control cleared of contents.'); \n    }\n});",
           "output_code": null
         },
@@ -403,7 +405,7 @@
               "name": "options",
               "type": "Word.ContentControlOptions",
               "required": false,
-              "description": "Options that define which content controls are returned."
+              "description": "Optional. Options that define which content controls are returned."
             }
           ],
           "returns": {
@@ -416,7 +418,7 @@
     },
     {
       "name": "getHtml",
-      "kind": "read",
+      "kind": "serialize",
       "description": "Gets an HTML representation of the content control object. When rendered in a web page or HTML viewer, the formatting will be a close, but not exact, match for of the formatting of the document. This method doesn't return the exact same HTML for the same document on different platforms (Windows, Mac, Word on the web, etc.). If you need exact fidelity, or consistency across platforms, use `ContentControl.getOoxml()` and convert the returned XML to HTML.",
       "signatures": [
         {
@@ -429,7 +431,7 @@
       ],
       "examples": [
         {
-          "description": null,
+          "description": "Run a batch operation against the Word object model.",
           "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection that contains a specific tag.\n    const contentControlsWithTag = context.document.contentControls.getByTag('Customer-Address');\n    \n    // Queue a command to load the tag property for all of content controls.\n    contentControlsWithTag.load('tag');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControlsWithTag.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to get the HTML contents of the first content control.\n        const html = contentControlsWithTag.items[0].getHtml();\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Content control HTML: ' + html.value);\n    }\n});",
           "output_code": null
         }
@@ -437,7 +439,7 @@
     },
     {
       "name": "getOoxml",
-      "kind": "read",
+      "kind": "serialize",
       "description": "Gets the Office Open XML (OOXML) representation of the content control object.",
       "signatures": [
         {
@@ -450,7 +452,7 @@
       ],
       "examples": [
         {
-          "description": null,
+          "description": "Run a batch operation against the Word object model.",
           "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to get the OOXML contents of the first content control.\n        const ooxml = contentControls.items[0].getOoxml();\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Content control OOXML: ' + ooxml.value);\n    }\n});",
           "output_code": null
         }
@@ -467,7 +469,7 @@
               "name": "rangeLocation",
               "type": "Word.RangeLocation | \"Whole\" | \"Start\" | \"End\" | \"Before\" | \"After\" | \"Content\"",
               "required": false,
-              "description": "The range location must be 'Whole', 'Start', 'End', 'Before', 'After', or 'Content'."
+              "description": "Optional. The range location must be 'Whole', 'Start', 'End', 'Before', 'After', or 'Content'."
             }
           ],
           "returns": {
@@ -489,7 +491,7 @@
               "name": "changeTrackingVersion",
               "type": "Word.ChangeTrackingVersion",
               "required": false,
-              "description": "The value must be 'Original' or 'Current'. The default is 'Current'."
+              "description": "Optional. The value must be 'Original' or 'Current'. The default is 'Current'."
             }
           ],
           "returns": {
@@ -503,7 +505,7 @@
               "name": "changeTrackingVersion",
               "type": "\"Original\" | \"Current\"",
               "required": false,
-              "description": "The value must be 'Original' or 'Current'. The default is 'Current'."
+              "description": "Optional. The value must be 'Original' or 'Current'. The default is 'Current'."
             }
           ],
           "returns": {
@@ -525,13 +527,13 @@
               "name": "endingMarks",
               "type": "string[]",
               "required": true,
-              "description": "The punctuation marks and/or other ending marks as an array of strings."
+              "description": "Required. The punctuation marks and/or other ending marks as an array of strings."
             },
             {
               "name": "trimSpacing",
               "type": "boolean",
               "required": false,
-              "description": "Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection."
+              "description": "Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection."
             }
           ],
           "returns": {
@@ -568,13 +570,13 @@
               "name": "breakType",
               "type": "Word.BreakType | \"Page\" | \"Next\" | \"SectionNext\" | \"SectionContinuous\" | \"SectionEven\" | \"SectionOdd\" | \"Line\"",
               "required": true,
-              "description": "Type of break."
+              "description": "Required. Type of break."
             },
             {
               "name": "insertLocation",
               "type": "Word.InsertLocation.start | Word.InsertLocation.end | Word.InsertLocation.before | Word.InsertLocation.after | \"Start\" | \"End\" | \"Before\" | \"After\"",
               "required": true,
-              "description": "The value must be 'Start', 'End', 'Before', or 'After'."
+              "description": "Required. The value must be 'Start', 'End', 'Before', or 'After'."
             }
           ],
           "returns": {
@@ -585,7 +587,7 @@
       ],
       "examples": [
         {
-          "description": null,
+          "description": "Run a batch operation against the Word object model.",
           "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of content controls.\n    contentControls.load('id');\n    \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    // We now will have access to the content control collection.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to insert a page break after the first content control.\n        contentControls.items[0].insertBreak(Word.BreakType.page, Word.InsertLocation.after);\n        \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Inserted a page break after the first content control.');    \n    }\n});",
           "output_code": null
         }
@@ -602,13 +604,13 @@
               "name": "base64File",
               "type": "string",
               "required": true,
-              "description": "The Base64-encoded content of a .docx file."
+              "description": "Required. The Base64-encoded content of a .docx file."
             },
             {
               "name": "insertLocation",
               "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
               "required": true,
-              "description": "The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
+              "description": "Required. The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
             }
           ],
           "returns": {
@@ -630,13 +632,13 @@
               "name": "html",
               "type": "string",
               "required": true,
-              "description": "The HTML to be inserted in to the content control."
+              "description": "Required. The HTML to be inserted in to the content control."
             },
             {
               "name": "insertLocation",
               "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
               "required": true,
-              "description": "The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
+              "description": "Required. The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
             }
           ],
           "returns": {
@@ -647,5 +649,506 @@
       ],
       "examples": [
         {
+          "description": "Run a batch operation against the Word object model.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to put HTML into the contents of the first content control.\n        contentControls.items[0].insertHtml(\n            '<strong>HTML content inserted into the content control.</strong>',\n            'Start');\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Inserted HTML in the first content control.');\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertInlinePictureFromBase64",
+      "kind": "create",
+      "description": "Inserts an inline picture into the content control at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64EncodedImage",
+              "type": "string",
+              "required": true,
+              "description": "Required. The Base64-encoded image to be inserted in the content control."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
+              "required": true,
+              "description": "Required. The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
+            }
+          ],
+          "returns": {
+            "type": "Word.InlinePicture",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertOoxml",
+      "kind": "create",
+      "description": "Inserts OOXML into the content control at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "ooxml",
+              "type": "string",
+              "required": true,
+              "description": "Required. The OOXML to be inserted in to the content control."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
+              "required": true,
+              "description": "Required. The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Run a batch operation against the Word object model.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to put OOXML into the contents of the first content control.\n        contentControls.items[0].insertOoxml(\"<pkg:package xmlns:pkg='http://schemas.microsoft.com/office/2006/xmlPackage'><pkg:part pkg:name='/_rels/.rels' pkg:contentType='application/vnd.openxmlformats-package.relationships+xml' pkg:padding='512'><pkg:xmlData><Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'><Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/></Relationships></pkg:xmlData></pkg:part><pkg:part pkg:name='/word/document.xml' pkg:contentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'><pkg:xmlData><w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main' ><w:body><w:p><w:pPr><w:spacing w:before='360' w:after='0' w:line='480' w:lineRule='auto'/><w:rPr><w:color w:val='70AD47' w:themeColor='accent6'/><w:sz w:val='28'/></w:rPr></w:pPr><w:r><w:rPr><w:color w:val='70AD47' w:themeColor='accent6'/><w:sz w:val='28'/></w:rPr><w:t>This text has formatting directly applied to achieve its font size, color, line spacing, and paragraph spacing.</w:t></w:r></w:p></w:body></w:document></pkg:xmlData></pkg:part></pkg:package>\", \"End\");\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Inserted OOXML in the first content control.');\n    }\n});  \n\n// Read \"Create better add-ins for Word with Office Open XML\" for guidance on working with OOXML.\n// https://learn.microsoft.com/office/dev/add-ins/word/create-better-add-ins-for-word-with-office-open-xml",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertParagraph",
+      "kind": "create",
+      "description": "Inserts a paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "paragraphText",
+              "type": "string",
+              "required": true,
+              "description": "Required. The paragraph text to be inserted."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.start | Word.InsertLocation.end | Word.InsertLocation.before | Word.InsertLocation.after | \"Start\" | \"End\" | \"Before\" | \"After\"",
+              "required": true,
+              "description": "Required. The value must be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls."
+            }
+          ],
+          "returns": {
+            "type": "Word.Paragraph",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Run a batch operation against the Word object model.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to insert a paragraph after the first content control.\n        contentControls.items[0].insertParagraph('Text of the inserted paragraph.', 'After');\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Inserted a paragraph after the first content control.');\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertTable",
+      "kind": "create",
+      "description": "Inserts a table with the specified number of rows and columns into, or next to, a content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowCount",
+              "type": "number",
+              "required": true,
+              "description": "Required. The number of rows in the table."
+            },
+            {
+              "name": "columnCount",
+              "type": "number",
+              "required": true,
+              "description": "Required. The number of columns in the table."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.start | Word.InsertLocation.end | Word.InsertLocation.before | Word.InsertLocation.after | \"Start\" | \"End\" | \"Before\" | \"After\"",
+              "required": true,
+              "description": "Required. The value must be 'Start', 'End', 'Before', or 'After'. 'Before' and 'After' cannot be used with 'RichTextTable', 'RichTextTableRow' and 'RichTextTableCell' content controls."
+            },
+            {
+              "name": "values",
+              "type": "string[][]",
+              "required": false,
+              "description": "Optional 2D array. Cells are filled if the corresponding strings are specified in the array."
+            }
+          ],
+          "returns": {
+            "type": "Word.Table",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "insertText",
+      "kind": "create",
+      "description": "Inserts text into the content control at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "text",
+              "type": "string",
+              "required": true,
+              "description": "Required. The text to be inserted in to the content control."
+            },
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.replace | Word.InsertLocation.start | Word.InsertLocation.end | \"Replace\" | \"Start\" | \"End\"",
+              "required": true,
+              "description": "Required. The value must be 'Replace', 'Start', or 'End'. 'Replace' cannot be used with 'RichTextTable' and 'RichTextTableRow' content controls."
+            }
+          ],
+          "returns": {
+            "type": "Word.Range",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Run a batch operation against the Word object model.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to replace text in the first content control.\n        contentControls.items[0].insertText('Replaced text in the first content control.', 'Replace');\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Replaced text in the first content control.');\n    }\n});  \n\n// The Silly stories add-in sample shows how to use the insertText method.\n// https://aka.ms/sillystorywordaddin",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ContentControlLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load all of the content control properties",
+          "usage_code": "// Load all of the content control properties\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    } else {\n        // Queue a command to load the properties on the first content control.\n        contentControls.items[0].load(  'appearance,' +\n                                        'cannotDelete,' +\n                                        'cannotEdit,' +\n                                        'id,' +\n                                        'placeHolderText,' +\n                                        'removeWhenEdited,' +\n                                        'title,' +\n                                        'text,' +\n                                        'type,' +\n                                        'style,' +\n                                        'tag,' +\n                                        'font/size,' +\n                                        'font/name,' +\n                                        'font/color');             \n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Property values of the first content control:' + \n            '   ----- appearance: ' + contentControls.items[0].appearance + \n            '   ----- cannotDelete: ' + contentControls.items[0].cannotDelete +\n            '   ----- cannotEdit: ' + contentControls.items[0].cannotEdit +\n            '   ----- color: ' + contentControls.items[0].color +\n            '   ----- id: ' + contentControls.items[0].id +\n            '   ----- placeHolderText: ' + contentControls.items[0].placeholderText +\n            '   ----- removeWhenEdited: ' + contentControls.items[0].removeWhenEdited +\n            '   ----- title: ' + contentControls.items[0].title +\n            '   ----- text: ' + contentControls.items[0].text +\n            '   ----- type: ' + contentControls.items[0].type +\n            '   ----- style: ' + contentControls.items[0].style +\n            '   ----- tag: ' + contentControls.items[0].tag +\n            '   ----- font size: ' + contentControls.items[0].font.size +\n            '   ----- font name: ' + contentControls.items[0].font.name +\n            '   ----- font color: ' + contentControls.items[0].font.color);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "resetState",
+      "kind": "configure",
+      "description": "Resets the state of the content control.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
           "description": null,
-          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to put HTML into the contents of the first content control.\n        contentControls.items[0].insertHtml(\n            '<strong>HTML content inserted into the content control.</strong>
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/99-preview-apis/insert-and-change-content-controls.yaml\n\n// Resets the state of the first content control.\nawait Word.run(async (context) => {\n  let firstContentControl = context.document.contentControls.getFirstOrNullObject();\n  await context.sync();\n\n  if (firstContentControl.isNullObject) {\n    console.warn(\"There are no content controls in this document.\");\n    return;\n  }\n\n  firstContentControl.resetState();\n  firstContentControl.load(\"id\");\n  await context.sync();\n\n  console.log(`Reset state of first content control with ID: ${firstContentControl.id}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "kind": "read",
+      "description": "Performs a search with the specified SearchOptions on the scope of the content control object. The search results are a collection of range objects.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "searchText",
+              "type": "string",
+              "required": true,
+              "description": "Required. The search text."
+            },
+            {
+              "name": "searchOptions",
+              "type": "Word.SearchOptions | { ignorePunct?: boolean; ignoreSpace?: boolean; matchCase?: boolean; matchPrefix?: boolean; matchSuffix?: boolean; matchWholeWord?: boolean; matchWildcards?: boolean; }",
+              "required": false,
+              "description": "Optional. Options for the search."
+            }
+          ],
+          "returns": {
+            "type": "Word.RangeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Run a batch operation against the Word object model.",
+          "usage_code": "// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n    \n    // Create a proxy object for the content controls collection.\n    const contentControls = context.document.contentControls;\n    \n    // Queue a command to load the id property for all of the content controls.\n    contentControls.load('id');\n     \n    // Synchronize the document state by executing the queued commands, \n    // and return a promise to indicate task completion.\n    await context.sync();\n    if (contentControls.items.length === 0) {\n        console.log('No content control found.');\n    }\n    else {\n        // Queue a command to select the first content control.\n        contentControls.items[0].select();\n    \n        // Synchronize the document state by executing the queued commands, \n        // and return a promise to indicate task completion.\n        await context.sync();\n        console.log('Selected the first content control.');\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": "read",
+      "description": "Selects the content control. This causes Word to scroll to the selection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": "Word.SelectionMode",
+              "required": false,
+              "description": "Optional. The selection mode must be 'Select', 'Start', or 'End'. 'Select' is the default."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": "\"Select\" | \"Start\" | \"End\"",
+              "required": false,
+              "description": "Optional. The selection mode must be 'Select', 'Start', or 'End'. 'Select' is the default."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Interfaces.ContentControlUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ContentControl",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/10-content-controls/insert-and-change-content-controls.yaml\n\n// Adds title and colors to odd and even content controls and changes their appearance.\nawait Word.run(async (context) => {\n  // Get the complete sentence (as range) associated with the insertion point.\n  let evenContentControls = context.document.contentControls.getByTag(\"even\");\n  let oddContentControls = context.document.contentControls.getByTag(\"odd\");\n  evenContentControls.load(\"length\");\n  oddContentControls.load(\"length\");\n\n  await context.sync();\n\n  for (let i = 0; i < evenContentControls.items.length; i++) {\n    // Change a few properties and append a paragraph.\n    evenContentControls.items[i].set({\n      color: \"red\",\n      title: \"Odd ContentControl #\" + (i + 1),\n      appearance: Word.ContentControlAppearance.tags\n    });\n    evenContentControls.items[i].insertParagraph(\"This is an odd content control\", \"End\");\n  }\n\n  for (let j = 0; j < oddContentControls.items.length; j++) {\n    // Change a few properties and append a paragraph.\n    oddContentControls.items[j].set({\n      color: \"green\",\n      title: \"Even ContentControl #\" + (j + 1),\n      appearance: \"Tags\"\n    });\n    oddContentControls.items[j].insertHtml(\"This is an <b>even</b> content control\", \"End\");\n  }\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setState",
+      "kind": "configure",
+      "description": "Sets the state of the content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "contentControlState",
+              "type": "Word.ContentControlState",
+              "required": true,
+              "description": "State to be set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "contentControlState",
+              "type": "\"Error\" | \"Warning\"",
+              "required": true,
+              "description": "State to be set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": null,
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/99-preview-apis/insert-and-change-content-controls.yaml\n\n// Sets the state of the first content control.\nawait Word.run(async (context) => {\n  const state = ((document.getElementById(\"state-to-set\") as HTMLSelectElement)\n    .value as unknown) as Word.ContentControlState;\n  let firstContentControl = context.document.contentControls.getFirstOrNullObject();\n  await context.sync();\n\n  if (firstContentControl.isNullObject) {\n    console.warn(\"There are no content controls in this document.\");\n    return;\n  }\n\n  firstContentControl.setState(state);\n  firstContentControl.load(\"id\");\n  await context.sync();\n\n  console.log(`Set state of first content control with ID ${firstContentControl.id} to ${state}.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "split",
+      "kind": "write",
+      "description": "Splits the content control into child ranges by using delimiters.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "delimiters",
+              "type": "string[]",
+              "required": true,
+              "description": "Required. The delimiters as an array of strings."
+            },
+            {
+              "name": "multiParagraphs",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. Indicates whether a returned child range can cover multiple paragraphs. Default is false which indicates that the paragraph boundaries are also used as delimiters."
+            },
+            {
+              "name": "trimDelimiters",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. Indicates whether to trim delimiters from the ranges in the range collection. Default is false which indicates that the delimiters are included in the ranges returned in the range collection."
+            },
+            {
+              "name": "trimSpacing",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. Indicates whether to trim spacing characters (spaces, tabs, column breaks, and paragraph end marks) from the start and end of the ranges returned in the range collection. Default is false which indicates that spacing characters at the start and end of the ranges are included in the range collection."
+            }
+          ],
+          "returns": {
+            "type": "Word.RangeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.ContentControl` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ContentControlData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ContentControlData",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": []
+    }
+  ],
+  "source": {
+    "urls": []
+  }
+}

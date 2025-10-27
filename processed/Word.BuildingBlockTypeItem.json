@@ -1,0 +1,195 @@
+{
+  "class": {
+    "name": "BuildingBlockTypeItem",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a type of building block in a Word document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "categories",
+      "type": "Word.BuildingBlockCategoryCollection",
+      "description": "Returns a BuildingBlockCategoryCollection object that represents the categories for a building block type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display all category names for the \"General\" building block type.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"General\" building block type\n    const buildingBlockType = context.document.buildingBlockTypes.getByName(\"General\");\n    \n    // Get the categories collection for this building block type\n    const categories = buildingBlockType.categories;\n    categories.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Display all category names\n    console.log(\"Categories in General building block type:\");\n    categories.items.forEach(category => {\n        console.log(`- ${category.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a BuildingBlockTypeItem to verify the connection between the add-in and Word before performing operations on building blocks.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a building block type item\n    const gallery = context.document.buildingBlockGalleries.getByName(\"Quick Parts\");\n    const buildingBlockType = gallery.buildingBlockTypes.getFirst();\n    \n    // Load the building block type\n    buildingBlockType.load(\"name\");\n    await context.sync();\n    \n    // Access the request context from the BuildingBlockTypeItem\n    const itemContext = buildingBlockType.context;\n    \n    // Verify the context is valid and connected\n    if (itemContext) {\n        console.log(\"BuildingBlockTypeItem is connected to Word application\");\n        console.log(\"Building block type name: \" + buildingBlockType.name);\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "index",
+      "type": "number",
+      "description": "Returns the position of an item in a collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the position of the first building block type in the collection and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const buildingBlockTypes = context.document.buildingBlockTypes;\n    const firstType = buildingBlockTypes.getFirst();\n    firstType.load(\"index\");\n    \n    await context.sync();\n    \n    console.log(`The building block type is at position: ${firstType.index}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Returns the localized name of a building block type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the localized name of the first building block type in the document to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const buildingBlockTypes = context.document.buildingBlockTypes;\n    buildingBlockTypes.load(\"items\");\n    \n    await context.sync();\n    \n    if (buildingBlockTypes.items.length > 0) {\n        const firstType = buildingBlockTypes.items[0];\n        firstType.load(\"name\");\n        \n        await context.sync();\n        \n        console.log(\"Building block type name: \" + firstType.name);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.BuildingBlockTypeItemLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BuildingBlockTypeItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BuildingBlockTypeItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{select?: string; expand?: string}",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BuildingBlockTypeItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the name property of a building block type from the first gallery in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first building block gallery\n    const galleries = context.document.buildingBlockGalleries;\n    galleries.load(\"items\");\n    await context.sync();\n    \n    // Get the first type from the first gallery\n    const firstGallery = galleries.items[0];\n    const types = firstGallery.buildingBlockTypes;\n    types.load(\"items\");\n    await context.sync();\n    \n    const firstType = types.items[0];\n    \n    // Load the name property of the building block type\n    firstType.load(\"name\");\n    await context.sync();\n    \n    // Now we can read the loaded property\n    console.log(\"Building block type name: \" + firstType.name);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.BuildingBlockTypeItem object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.BuildingBlockTypeItemData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.BuildingBlockTypeItemData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a building block type item and serialize it to JSON format for logging or data transfer purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first building block type from the gallery\n    const buildingBlockTypes = context.document.getBuiltInBuildingBlockGalleries()\n        .getByName(\"Cover Pages\")\n        .buildingBlockTypes;\n    \n    buildingBlockTypes.load(\"items\");\n    await context.sync();\n    \n    if (buildingBlockTypes.items.length > 0) {\n        const firstType = buildingBlockTypes.items[0];\n        firstType.load(\"name, category\");\n        await context.sync();\n        \n        // Convert the building block type item to a plain JSON object\n        const jsonData = firstType.toJSON();\n        \n        // Now you can use the plain JavaScript object for logging or serialization\n        console.log(\"Building Block Type as JSON:\", JSON.stringify(jsonData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BuildingBlockTypeItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a building block type item across multiple sync calls to prevent \"InvalidObjectPath\" errors when accessing its properties after document changes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a building block type item\n    const buildingBlockTypes = context.document.buildingBlockTypes;\n    context.load(buildingBlockTypes);\n    await context.sync();\n    \n    const firstType = buildingBlockTypes.items[0];\n    \n    // Track the object to use it across multiple sync calls\n    firstType.track();\n    \n    // First sync - load initial properties\n    context.load(firstType, \"name\");\n    await context.sync();\n    \n    console.log(\"Building block type: \" + firstType.name);\n    \n    // Second sync - can still access the object without errors\n    context.load(firstType, \"description\");\n    await context.sync();\n    \n    console.log(\"Description: \" + firstType.description);\n    \n    // Untrack when done to free up memory\n    firstType.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BuildingBlockTypeItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Access a building block type, use it to retrieve information, then untrack it to free memory after you're done working with it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a building block type from the gallery\n    const buildingBlockType = context.document.settings.buildingBlockTypes.getFirst();\n    \n    // Track the object to work with it\n    buildingBlockType.track();\n    \n    // Load properties to use the building block type\n    buildingBlockType.load(\"name\");\n    await context.sync();\n    \n    // Use the building block type (e.g., log its name)\n    console.log(\"Building block type: \" + buildingBlockType.name);\n    \n    // Untrack the object to release memory when done\n    buildingBlockType.untrack();\n    await context.sync();\n    \n    console.log(\"Building block type has been untracked and memory released.\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.buildingblocktypeitem"
+    ]
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "class": {
+    "name": "Word.DocumentLibraryVersionCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the collection of [Word.DocumentLibraryVersion](https://learn.microsoft.com/en-us/javascript/api/word/word.documentlibraryversion) objects.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a DocumentLibraryVersionCollection to verify the connection between the add-in and Word host application.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library versions collection\n    const versions = context.document.properties.documentLibraryVersions;\n    \n    // Access the request context associated with the collection\n    const requestContext = versions.context;\n    \n    // Verify the context is available and connected to the Word application\n    console.log(\"Request context available:\", requestContext !== null);\n    console.log(\"Context type:\", requestContext.constructor.name);\n    \n    // The context can be used to sync changes or manage the connection\n    await context.sync();\n    \n    console.log(\"Successfully accessed the DocumentLibraryVersionCollection context\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.DocumentLibraryVersion[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Display the version history of the current document by iterating through all available library versions and logging their version numbers and modification dates.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library version collection\n    const versions = context.document.documentLibraryVersions;\n    \n    // Load the items property along with version details\n    versions.load(\"items\");\n    await context.sync();\n    \n    // Access the items array to iterate through all versions\n    const versionItems = versions.items;\n    \n    console.log(`Total versions: ${versionItems.length}`);\n    \n    // Loop through each version in the collection\n    for (let i = 0; i < versionItems.length; i++) {\n        const version = versionItems[i];\n        version.load(\"versionIndex, modified\");\n        await context.sync();\n        \n        console.log(`Version ${version.versionIndex}: Modified on ${version.modified}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Gets a DocumentLibraryVersion object by its index in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "The location of a DocumentLibraryVersion object."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentLibraryVersion",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display the comment from the third version in the document's version history",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library versions collection\n    const versions = context.document.documentLibraryVersions;\n    \n    // Get the third version (index 2) from the collection\n    const thirdVersion = versions.getItem(2);\n    \n    // Load the comment property of that version\n    thirdVersion.load(\"comment\");\n    \n    await context.sync();\n    \n    // Display the version comment\n    console.log(\"Version 3 comment: \" + thirdVersion.comment);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isVersioningEnabled",
+      "kind": "read",
+      "description": "Returns whether the document library in which the active document is saved on the server is configured to create a backup copy, or version, each time the file is edited on the website.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if versioning is enabled for the document library and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const documentLibraryVersions = context.document.properties.documentLibraryVersions;\n    const isEnabled = documentLibraryVersions.isVersioningEnabled();\n    \n    await context.sync();\n    \n    console.log(`Document library versioning is ${isEnabled.value ? 'enabled' : 'disabled'}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DocumentLibraryVersionCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentLibraryVersionCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentLibraryVersionCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentLibraryVersionCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display version information for all versions of the current document stored in a SharePoint library",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library versions collection\n    const versions = context.document.properties.documentLibraryVersions;\n    \n    // Load specific properties of all versions in the collection\n    versions.load(\"items/versionIndex, items/modifiedDate, items/modifiedBy\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display version information\n    console.log(`Total versions: ${versions.items.length}`);\n    versions.items.forEach(version => {\n        console.log(`Version ${version.versionIndex}: Modified on ${version.modifiedDate} by ${version.modifiedBy}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.DocumentLibraryVersionCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.DocumentLibraryVersionCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DocumentLibraryVersionCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve all document library versions and export them as a plain JavaScript object for logging or external storage",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library versions collection\n    const versions = context.document.properties.documentLibraryVersions;\n    \n    // Load the properties we want to access\n    versions.load(\"items\");\n    \n    await context.sync();\n    \n    // Convert the collection to a plain JavaScript object\n    const versionsData = versions.toJSON();\n    \n    // Now you can use the plain object (e.g., log it, store it, send it to a server)\n    console.log(\"Document versions:\", versionsData);\n    console.log(\"Number of versions:\", versionsData.items.length);\n    \n    // The versionsData object can be safely serialized\n    const jsonString = JSON.stringify(versionsData, null, 2);\n    console.log(\"Serialized versions:\", jsonString);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentLibraryVersionCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a document library version collection to maintain a reference across multiple sync calls when checking for version updates",
+          "usage_code": "await Word.run(async (context) => {\n    const document = context.document;\n    const versions = document.properties.documentLibraryVersions;\n    \n    // Track the collection to use it across multiple sync calls\n    versions.track();\n    \n    // Load version information\n    versions.load(\"items\");\n    await context.sync();\n    \n    // Process versions (can safely use the collection after sync)\n    console.log(`Total versions: ${versions.items.length}`);\n    \n    // Perform another sync operation\n    await context.sync();\n    \n    // Collection is still valid because it's tracked\n    for (let version of versions.items) {\n        version.load(\"versionIndex, comments\");\n    }\n    await context.sync();\n    \n    // Untrack when done to free up resources\n    versions.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DocumentLibraryVersionCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load document library versions, use them to display version information, then untrack the collection to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document library versions collection\n    const versions = context.document.properties.documentLibraryVersions;\n    \n    // Load the collection and its properties\n    versions.load(\"items\");\n    await context.sync();\n    \n    // Use the versions data (e.g., log version count)\n    console.log(`Total versions: ${versions.items.length}`);\n    \n    // Untrack the collection to release memory\n    versions.untrack();\n    await context.sync();\n    \n    console.log(\"Version collection memory released\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.documentlibraryversion",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.requestcontext",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.documentlibraryversioncollection",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientresult",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.documentlibraryversioncollectionloadoptions",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.collectionloadoptions",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.loadoption",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.documentlibraryversioncollectiondata",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member"
+    ]
+  }
+}

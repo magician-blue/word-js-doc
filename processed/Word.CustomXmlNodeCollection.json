@@ -1,0 +1,218 @@
+{
+  "class": {
+    "name": "Word.CustomXmlNodeCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Contains a collection of [Word.CustomXmlNode](/en-us/javascript/api/word/word.customxmlnode) objects representing the XML nodes in a document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CustomXmlNodeCollection to verify the connection to the Word host application and log context information.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get nodes from the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        await context.sync();\n        \n        // Access a collection of custom XML nodes (example assumes nodes exist)\n        const nodeCollection = xmlPart.query(\"//*\");\n        nodeCollection.load(\"items\");\n        await context.sync();\n        \n        // Access the context property from the CustomXmlNodeCollection\n        const requestContext = nodeCollection.context;\n        \n        // Verify the context is valid and connected\n        console.log(\"Context is connected:\", requestContext !== null);\n        console.log(\"Context type:\", typeof requestContext);\n        \n        // The context can be used for additional operations\n        await requestContext.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.CustomXmlNode[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and log all custom XML nodes from a custom XML part to the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get all XML nodes from the custom XML part\n        const xmlNodes = customXmlPart.getXml();\n        const nodeCollection = customXmlPart.query(\"*\");\n        nodeCollection.load(\"items\");\n        await context.sync();\n        \n        // Access the loaded child items using the items property\n        const nodes = nodeCollection.items;\n        \n        // Log information about each node\n        console.log(`Found ${nodes.length} XML nodes`);\n        for (let i = 0; i < nodes.length; i++) {\n            nodes[i].load(\"nodeType, baseName\");\n        }\n        await context.sync();\n        \n        nodes.forEach((node, index) => {\n            console.log(`Node ${index}: ${node.baseName} (Type: ${node.nodeType})`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the count of custom XML nodes in a custom XML part and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the collection of XML nodes\n        const xmlNodes = customXmlPart.getXmlNodes();\n        \n        // Get the count of nodes in the collection\n        const count = xmlNodes.getCount();\n        count.load();\n        await context.sync();\n        \n        console.log(`Number of custom XML nodes: ${count.value}`);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Returns a `CustomXmlNode` object that represents the specified item in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a CustomXMLNode object."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the second custom XML node from a collection and display its base name in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the collection of XML nodes\n        const xmlNodes = customXmlPart.getXml();\n        const xmlNodeCollection = customXmlPart.query(\"//*\");\n        xmlNodeCollection.load(\"items\");\n        await context.sync();\n\n        if (xmlNodeCollection.items.length >= 2) {\n            // Get the second node (index 1) from the collection\n            const secondNode = xmlNodeCollection.getItem(1);\n            secondNode.load(\"baseName\");\n            await context.sync();\n\n            console.log(\"Second node base name: \" + secondNode.baseName);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlNodeCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the base names of all custom XML nodes in the document's first custom XML part",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const firstPart = customXmlParts.items[0];\n        const xmlNodes = firstPart.getXmlNodes();\n        \n        // Load properties of the custom XML node collection\n        xmlNodes.load(\"items/baseName\");\n        await context.sync();\n        \n        // Display the base names of all nodes\n        console.log(\"Custom XML Nodes:\");\n        xmlNodes.items.forEach((node, index) => {\n            console.log(`Node ${index}: ${node.baseName}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. Whereas the original `Word.CustomXmlNodeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlNodeCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlNodeCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a collection of custom XML nodes to JSON format for logging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get all nodes in the custom XML part\n        const xmlNodes = customXmlPart.getXml();\n        const nodeCollection = customXmlPart.query(\"//node()\");\n        nodeCollection.load(\"items\");\n        await context.sync();\n\n        // Convert the collection to a plain JavaScript object\n        const jsonData = nodeCollection.toJSON();\n        \n        // Log the serialized data\n        console.log(\"Custom XML Nodes as JSON:\", JSON.stringify(jsonData, null, 2));\n        \n        // The jsonData object contains an \"items\" array with node properties\n        console.log(`Number of nodes: ${jsonData.items.length}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML node collection across multiple sync calls to prevent \"InvalidObjectPath\" errors when accessing the collection after document changes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Get the first custom XML part (if it exists)\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        const xmlNodes = customXmlPart.getXml();\n        \n        // Track the collection to use it across sync calls\n        xmlNodes.track();\n        \n        await context.sync();\n        \n        // Now safe to use the collection after sync\n        // Perform operations that might change the document\n        context.document.body.insertParagraph(\"New content\", Word.InsertLocation.end);\n        await context.sync();\n        \n        // The tracked collection remains valid\n        xmlNodes.load(\"items\");\n        await context.sync();\n        \n        console.log(`XML nodes count: ${xmlNodes.items.length}`);\n        \n        // Untrack when done\n        xmlNodes.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Query custom XML nodes from a document, use them to perform operations, then untrack the collection to free memory.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get custom XML parts from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get nodes from the first custom XML part\n        const xmlPart = customXmlParts.items[0];\n        const xmlNodes = xmlPart.getXml();\n        \n        // Load the collection for use\n        xmlNodes.load(\"items\");\n        await context.sync();\n\n        // Perform operations with the nodes\n        console.log(`Found ${xmlNodes.items.length} XML nodes`);\n\n        // Untrack the collection to release memory\n        xmlNodes.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

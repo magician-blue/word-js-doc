@@ -1,0 +1,420 @@
+{
+  "class": {
+    "name": "Word.ShapeCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Contains a collection of [Word.Shape](/en-us/javascript/api/word/word.shape) objects. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Gets text boxes in main document.\n  const shapes: Word.ShapeCollection = context.document.body.shapes;\n  shapes.load();\n  await context.sync();\n\n  if (shapes.items.length > 0) {\n    shapes.items.forEach(function(shape, index) {\n      if (shape.type === Word.ShapeType.textBox) {\n        console.log(`Shape ${index} in the main document has a text box. Properties:`, shape);\n      }\n    });\n  } else {\n    console.log(\"No shapes found in main document.\");\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a ShapeCollection to verify the connection between the add-in and Word, then use it to load and sync shape properties.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.getShapes();\n    \n    // Access the request context from the ShapeCollection\n    const requestContext = shapes.context;\n    \n    // Use the context to load properties\n    shapes.load(\"items\");\n    await requestContext.sync();\n    \n    console.log(`Found ${shapes.items.length} shapes in the document`);\n    console.log(`Context is connected: ${requestContext !== null}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.Shape[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Iterate through all shapes in the document and log their names and types to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`Found ${shapes.items.length} shapes in the document`);\n    \n    for (let i = 0; i < shapes.items.length; i++) {\n        const shape = shapes.items[i];\n        shape.load(\"name, type\");\n    }\n    \n    await context.sync();\n    \n    shapes.items.forEach((shape, index) => {\n        console.log(`Shape ${index + 1}: Name=\"${shape.name}\", Type=\"${shape.type}\"`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getByGeometricTypes",
+      "kind": "read",
+      "description": "Gets the shapes that have the specified geometric types. Only applied to geometric shapes.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "types",
+              "type": "Word.GeometricShapeType[]",
+              "required": true,
+              "description": "An array of geometric shape subtypes."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all rectangle and circle shapes from the document and change their fill color to blue",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document body\n    const shapes = context.document.body.shapes;\n    \n    // Filter to get only rectangles and circles\n    const geometricShapes = shapes.getByGeometricTypes([\n        Word.GeometricShapeType.rectangle,\n        Word.GeometricShapeType.oval\n    ]);\n    \n    // Load the shapes\n    geometricShapes.load(\"items\");\n    await context.sync();\n    \n    // Change fill color to blue for each shape\n    for (let i = 0; i < geometricShapes.items.length; i++) {\n        geometricShapes.items[i].fill.setSolidColor(\"blue\");\n    }\n    \n    await context.sync();\n    \n    console.log(`Found and updated ${geometricShapes.items.length} geometric shapes`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getById",
+      "kind": "read",
+      "description": "Gets a shape by its identifier. Throws an `ItemNotFound` error if there isn't a shape with the identifier in this collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": "number",
+              "required": true,
+              "description": "A shape identifier."
+            }
+          ],
+          "returns": {
+            "type": "Word.Shape",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a shape by its known identifier and change its fill color to blue",
+          "usage_code": "await Word.run(async (context) => {\n    // Assuming you have a known shape ID (e.g., from a previous operation)\n    const shapeId = \"12345678-1234-1234-1234-123456789012\";\n    \n    // Get the shape by its ID\n    const shape = context.document.body.shapes.getById(shapeId);\n    \n    // Change the shape's fill color to blue\n    shape.fill.setSolidColor(\"blue\");\n    \n    await context.sync();\n    \n    console.log(\"Shape found and updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getByIdOrNullObject",
+      "kind": "read",
+      "description": "Gets a shape by its identifier. If there isn't a shape with the identifier in this collection, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "id",
+              "type": "number",
+              "required": true,
+              "description": "A shape identifier."
+            }
+          ],
+          "returns": {
+            "type": "Word.Shape",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a shape with a specific ID exists in the document and display its type, or show a message if the shape is not found.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    const shapeId = \"12345\"; // The ID of the shape to find\n    \n    const shape = shapes.getByIdOrNullObject(shapeId);\n    shape.load(\"isNullObject, type\");\n    \n    await context.sync();\n    \n    if (shape.isNullObject) {\n        console.log(`Shape with ID ${shapeId} was not found.`);\n    } else {\n        console.log(`Shape found! Type: ${shape.type}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getByIds",
+      "kind": "read",
+      "description": "Gets the shapes by the identifiers.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "ids",
+              "type": "number[]",
+              "required": true,
+              "description": "An array of shape identifiers."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve specific shapes by their IDs and change their fill color to light blue",
+          "usage_code": "await Word.run(async (context) => {\n    // Array of shape IDs to retrieve\n    const shapeIds = [\"shape1-id-123\", \"shape2-id-456\", \"shape3-id-789\"];\n    \n    // Get the shapes by their IDs\n    const shapes = context.document.body.shapes.getByIds(shapeIds);\n    \n    // Load the fill property for each shape\n    shapes.load(\"items/fill\");\n    \n    await context.sync();\n    \n    // Change the fill color of each retrieved shape\n    for (let i = 0; i < shapes.items.length; i++) {\n        shapes.items[i].fill.setSolidColor(\"#ADD8E6\"); // Light blue\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getByNames",
+      "kind": "read",
+      "description": "Gets the shapes that have the specified names.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "names",
+              "type": "string[]",
+              "required": true,
+              "description": "An array of shape names."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get shapes named \"Logo\" and \"Signature\" from the document and change their fill color to blue.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    const targetShapes = shapes.getByNames([\"Logo\", \"Signature\"]);\n    \n    targetShapes.load(\"items\");\n    await context.sync();\n    \n    for (let i = 0; i < targetShapes.items.length; i++) {\n        targetShapes.items[i].fill.setSolidColor(\"blue\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getByTypes",
+      "kind": "read",
+      "description": "Gets the shapes that have the specified types.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "types",
+              "type": "Word.ShapeType[]",
+              "required": true,
+              "description": "An array of shape types."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve the first text box shape from the document body and update its position to top 115, left 0, and resize it to 50x50 dimensions.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Sets the properties of the first text box.\n  const firstShapeWithTextBox: Word.Shape = context.document.body.shapes\n    .getByTypes([Word.ShapeType.textBox])\n    .getFirst();\n  firstShapeWithTextBox.top = 115;\n  firstShapeWithTextBox.left = 0;\n  firstShapeWithTextBox.width = 50;\n  firstShapeWithTextBox.height = 50;\n  await context.sync();\n\n  console.log(\"The first text box's properties were updated:\", firstShapeWithTextBox);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getFirst",
+      "kind": "read",
+      "description": "Gets the first shape in this collection. Throws an `ItemNotFound` error if this collection is empty.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Shape",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a content control into the first paragraph of the first text box shape in the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Inserts a content control into the first paragraph in the first text box.\n  const firstShapeWithTextBox: Word.Shape = context.document.body.shapes\n    .getByTypes([Word.ShapeType.textBox])\n    .getFirst();\n  firstShapeWithTextBox.load(\"type/body\");\n  await context.sync();\n\n  const firstParagraphInTextBox: Word.Paragraph = firstShapeWithTextBox.body.paragraphs.getFirst();\n  const newControl: Word.ContentControl = firstParagraphInTextBox.insertContentControl();\n  newControl.load();\n  await context.sync();\n\n  console.log(\"New content control properties:\", newControl);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getFirstOrNullObject",
+      "kind": "read",
+      "description": "Gets the first shape in this collection. If this collection is empty, then this method will return an object with its `isNullObject` property set to `true`. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Shape",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a document contains any shapes and display the type of the first shape if it exists, or show a message if no shapes are present.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    const firstShape = shapes.getFirstOrNullObject();\n    firstShape.load(\"type, isNullObject\");\n    \n    await context.sync();\n    \n    if (firstShape.isNullObject) {\n        console.log(\"No shapes found in the document.\");\n    } else {\n        console.log(`First shape type: ${firstShape.type}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "group",
+      "kind": "create",
+      "description": "Groups floating shapes in this collection, inline shapes will be skipped. Returns a Shape object that represents the new group of shapes.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Shape",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Group all floating shapes in the document into a single group",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    // Group all floating shapes (inline shapes will be automatically skipped)\n    const shapeGroup = shapes.group();\n    shapeGroup.load(\"id, name\");\n    \n    await context.sync();\n    \n    console.log(`Created shape group with ID: ${shapeGroup.id}, Name: ${shapeGroup.name}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ShapeCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the count and types of all shapes in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the shapes collection from the document body\n    const shapes = context.document.body.shapes;\n    \n    // Load the count and type properties of all shapes\n    shapes.load(\"items/type\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the results\n    console.log(`Total shapes in document: ${shapes.items.length}`);\n    shapes.items.forEach((shape, index) => {\n        console.log(`Shape ${index + 1}: ${shape.type}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.ShapeCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ShapeCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ShapeCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a JSON representation of all shapes in the document to log their properties for debugging purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document\n    const shapes = context.document.body.shapes;\n    \n    // Load properties we want to serialize\n    shapes.load(\"items/id, items/name, items/type, items/width, items/height\");\n    \n    await context.sync();\n    \n    // Convert the ShapeCollection to a plain JavaScript object\n    const shapesJSON = shapes.toJSON();\n    \n    // Log the JSON representation\n    console.log(JSON.stringify(shapesJSON, null, 2));\n    \n    // You can now work with the plain object\n    console.log(`Total shapes found: ${shapesJSON.items.length}`);\n    shapesJSON.items.forEach(shape => {\n        console.log(`Shape: ${shape.name}, Type: ${shape.type}, Size: ${shape.width}x${shape.height}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a shape collection across multiple sync calls to maintain object references when modifying shape properties outside of a single batch operation",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    // Track the collection to use it across multiple sync calls\n    shapes.track();\n    \n    // First sync - get initial data\n    await context.sync();\n    \n    // Modify shapes in a subsequent operation\n    for (let i = 0; i < shapes.items.length; i++) {\n        shapes.items[i].fill.setSolidColor(\"blue\");\n    }\n    \n    await context.sync();\n    \n    // Untrack when done to free up memory\n    shapes.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ShapeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all shapes in the document, process them to log their IDs, then untrack the collection to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    // Process the shapes\n    console.log(`Found ${shapes.items.length} shapes`);\n    shapes.items.forEach(shape => {\n        console.log(`Shape ID: ${shape.id}`);\n    });\n    \n    // Release memory associated with the shapes collection\n    shapes.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/word/word.shape",
+      "/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.geometricshapetype",
+      "/en-us/javascript/api/word/word.shapecollection",
+      "/en-us/javascript/api/word/word.shape",
+      "/en-us/javascript/api/word/word.shapetype",
+      "/en-us/javascript/api/word/word.interfaces.shapecollectionloadoptions",
+      "/en-us/javascript/api/word/word.interfaces.collectionloadoptions",
+      "/en-us/javascript/api/office/officeextension.loadoption",
+      "/en-us/javascript/api/word/word.interfaces.shapecollectiondata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member"
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "class": {
+    "name": "Word.TabStop",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a tab stop in a Word document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": "Word.TabAlignment | \"Left\" | \"Center\" | \"Right\" | \"Decimal\" | \"Bar\" | \"List\"",
+      "description": "Gets a TabAlignment value that represents the alignment for the tab stop.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and display the alignment type of the first tab stop in the first paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const tabStops = firstParagraph.paragraphFormat.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        firstTabStop.load(\"alignment\");\n        \n        await context.sync();\n        \n        console.log(`Tab stop alignment: ${firstTabStop.alignment}`);\n        // Output example: \"Tab stop alignment: Left\" or \"Center\", \"Right\", etc.\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a TabStop object to verify the connection between the add-in and Word application before performing operations on tab stops.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph's tab stops\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        \n        // Access the request context from the TabStop object\n        const tabStopContext = firstTabStop.context;\n        \n        // Verify the context is valid and connected\n        if (tabStopContext) {\n            console.log(\"TabStop is connected to Word application context\");\n            \n            // Use the context to perform operations\n            firstTabStop.load(\"position,alignment\");\n            await tabStopContext.sync();\n            \n            console.log(`Tab stop position: ${firstTabStop.position}`);\n            console.log(`Tab stop alignment: ${firstTabStop.alignment}`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "customTab",
+      "type": "boolean",
+      "description": "Gets whether this tab stop is a custom tab stop.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the first tab stop in a paragraph is a custom tab stop and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        firstTabStop.load(\"customTab\");\n        \n        await context.sync();\n        \n        console.log(`Is custom tab stop: ${firstTabStop.customTab}`);\n    } else {\n        console.log(\"No tab stops found in the paragraph.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "leader",
+      "type": "Word.TabLeader | \"Spaces\" | \"Dots\" | \"Dashes\" | \"Lines\" | \"Heavy\" | \"MiddleDot\"",
+      "description": "Gets a TabLeader value that represents the leader for this TabStop object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and display the leader style of the first tab stop in the selected paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        firstTabStop.load(\"leader\");\n        \n        await context.sync();\n        \n        console.log(`Tab stop leader style: ${firstTabStop.leader}`);\n    } else {\n        console.log(\"No tab stops found in the selected paragraph.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "next",
+      "type": "Word.TabStop",
+      "description": "Gets the next tab stop in the collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Iterate through consecutive tab stops starting from the first one and log their positions to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        let currentTabStop = tabStops.items[0];\n        currentTabStop.load(\"alignment, position\");\n        \n        // Get the next tab stop\n        let nextTabStop = currentTabStop.next;\n        nextTabStop.load(\"alignment, position\");\n        \n        await context.sync();\n        \n        console.log(`Current tab stop position: ${currentTabStop.position}`);\n        console.log(`Next tab stop position: ${nextTabStop.position}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "position",
+      "type": "number",
+      "description": "Gets the position of the tab stop relative to the left margin.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and display the position of the first tab stop in the selected paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        firstTabStop.load(\"position\");\n        \n        await context.sync();\n        \n        console.log(`Tab stop position: ${firstTabStop.position} points from left margin`);\n    } else {\n        console.log(\"No tab stops found in the selected paragraph\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "previous",
+      "type": "Word.TabStop",
+      "description": "Gets the previous tab stop in the collection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Navigate backwards through tab stops to find and remove the previous tab stop before a specific position",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    // Get the last tab stop\n    if (tabStops.items.length > 0) {\n        const lastTabStop = tabStops.items[tabStops.items.length - 1];\n        lastTabStop.load(\"previous\");\n        \n        await context.sync();\n        \n        // Access the previous tab stop and delete it\n        if (lastTabStop.previous) {\n            lastTabStop.previous.delete();\n            console.log(\"Previous tab stop deleted\");\n        }\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "clear",
+      "kind": "delete",
+      "description": "Removes this custom tab stop.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove the first custom tab stop from the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the tab stops collection\n    const tabStops = paragraph.paragraphFormat.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    // Remove the first tab stop if it exists\n    if (tabStops.items.length > 0) {\n        tabStops.items[0].clear();\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TabStopLoadOptions",
+              "required": true,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TabStop",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": true,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TabStop",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": true,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TabStop",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Read and display the alignment and position properties of the first tab stop in the selected paragraph",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the selection\n    const paragraph = context.document.getSelection().paragraphs.getFirst();\n    \n    // Get the first tab stop from the paragraph\n    const tabStops = paragraph.tabStops;\n    tabStops.load(\"items\");\n    await context.sync();\n    \n    if (tabStops.items.length > 0) {\n        const firstTabStop = tabStops.items[0];\n        \n        // Load specific properties of the tab stop\n        firstTabStop.load(\"alignment, position\");\n        await context.sync();\n        \n        // Display the loaded properties\n        console.log(`Tab Stop Alignment: ${firstTabStop.alignment}`);\n        console.log(`Tab Stop Position: ${firstTabStop.position}`);\n    } else {\n        console.log(\"No tab stops found in the selected paragraph.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.TabStop object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.TabStopData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TabStopData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve tab stop information from the first paragraph and convert it to a plain JavaScript object for logging or serialization purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph\n    const paragraph = context.document.body.paragraphs.getFirst();\n    \n    // Get the tab stops collection\n    const tabStops = paragraph.format.tabStops;\n    tabStops.load(\"items\");\n    \n    await context.sync();\n    \n    // Get the first tab stop if it exists\n    if (tabStops.items.length > 0) {\n        const tabStop = tabStops.items[0];\n        tabStop.load(\"position,alignment,type\");\n        \n        await context.sync();\n        \n        // Convert the TabStop object to a plain JavaScript object\n        const tabStopData = tabStop.toJSON();\n        \n        // Now you can use the plain object for logging or serialization\n        console.log(\"Tab Stop Data:\", JSON.stringify(tabStopData, null, 2));\n        console.log(\"Position:\", tabStopData.position);\n        console.log(\"Alignment:\", tabStopData.alignment);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TabStop",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a tab stop object to maintain its reference across multiple sync calls when modifying paragraph formatting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.load(\"tabStops\");\n    \n    await context.sync();\n    \n    // Get the first tab stop (or add one if none exists)\n    let tabStop: Word.TabStop;\n    if (paragraph.tabStops.items.length > 0) {\n        tabStop = paragraph.tabStops.items[0];\n    } else {\n        tabStop = paragraph.tabStops.add(144, Word.TabStopType.left);\n    }\n    \n    // Track the tab stop to use it across multiple sync calls\n    tabStop.track();\n    \n    await context.sync();\n    \n    // Now we can safely modify the tab stop in subsequent operations\n    tabStop.alignment = Word.TabStopType.center;\n    \n    await context.sync();\n    \n    // Untrack when done\n    tabStop.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TabStop",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom tab stop to a paragraph, use it, and then untrack the tab stop object to free memory after the operation is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.load(\"tabStops\");\n    \n    await context.sync();\n    \n    // Add and track a tab stop at 144 points (2 inches)\n    const tabStop = paragraph.tabStops.add(144, Word.TabStopType.left);\n    \n    // Insert text with a tab character to use the tab stop\n    paragraph.insertText(\"\\tTabbed text\", Word.InsertLocation.end);\n    \n    await context.sync();\n    \n    // Untrack the tab stop object to release memory\n    tabStop.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

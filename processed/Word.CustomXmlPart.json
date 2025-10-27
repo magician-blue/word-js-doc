@@ -1,0 +1,789 @@
+{
+  "class": {
+    "name": "Word.CustomXmlPart",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.4"
+    },
+    "description": "Represents a custom XML part.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part.yaml\n\n// Adds a custom XML part.\nawait Word.run(async (context) => {\n  const originalXml =\n    \"<Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\";\n  const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.add(originalXml);\n  customXmlPart.load(\"id\");\n  const xmlBlob = customXmlPart.getXml();\n\n  await context.sync();\n\n  const readableXml = addLineBreaksToXML(xmlBlob.value);\n  console.log(\"Added custom XML part:\", readableXml);\n\n  // Store the XML part's ID in a setting so the ID is available to other functions.\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.add(\"ContosoReviewXmlPartId\", customXmlPart.id);\n\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "builtIn",
+      "type": "boolean",
+      "description": "Gets a value that indicates whether the CustomXmlPart is built-in.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a custom XML part is built-in and log the result to the console",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    \n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const firstPart = customXmlParts.items[0];\n        firstPart.load(\"builtIn\");\n        \n        await context.sync();\n        \n        console.log(`Is built-in: ${firstPart.builtIn}`);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access a custom XML part's request context to verify the connection to the Office host application before performing operations on the XML part.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Access the request context associated with the custom XML part\n        const partContext = customXmlPart.context;\n        \n        // Use the context to verify connection and perform operations\n        customXmlPart.load(\"id\");\n        await partContext.sync();\n        \n        console.log(\"Custom XML part ID: \" + customXmlPart.id);\n        console.log(\"Request context is connected to Office host\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "documentElement",
+      "type": "Word.CustomXmlNode",
+      "description": "Gets the root element of a bound region of data in the document. If the region is empty, the property returns Nothing.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the tag name of the root element from a custom XML part in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the root element of the custom XML part\n        const documentElement = customXmlPart.documentElement;\n        documentElement.load(\"baseName\");\n        await context.sync();\n\n        // Display the root element's tag name\n        console.log(\"Root element tag name: \" + documentElement.baseName);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "errors",
+      "type": "Word.CustomXmlValidationErrorCollection",
+      "description": "Gets a CustomXmlValidationErrorCollection object that provides access to any XML validation errors.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a custom XML part has any validation errors and log the error count to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Access the errors collection\n        const errors = customXmlPart.errors;\n        errors.load(\"items\");\n        await context.sync();\n        \n        // Log the number of validation errors\n        console.log(`Number of validation errors: ${errors.items.length}`);\n        \n        // Optionally, log details of each error\n        errors.items.forEach((error, index) => {\n            console.log(`Error ${index + 1}: ${error.reason}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Gets the ID of the custom XML part.",
+      "since": "WordApi 1.4",
+      "examples": [
+        {
+          "description": "Add a custom XML part containing reviewer names to the document and store its ID in the document settings for later retrieval.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part.yaml\n\n// Adds a custom XML part.\nawait Word.run(async (context) => {\n  const originalXml =\n    \"<Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\";\n  const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.add(originalXml);\n  customXmlPart.load(\"id\");\n  const xmlBlob = customXmlPart.getXml();\n\n  await context.sync();\n\n  const readableXml = addLineBreaksToXML(xmlBlob.value);\n  console.log(\"Added custom XML part:\", readableXml);\n\n  // Store the XML part's ID in a setting so the ID is available to other functions.\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.add(\"ContosoReviewXmlPartId\", customXmlPart.id);\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "namespaceManager",
+      "type": "Word.CustomXmlPrefixMappingCollection",
+      "description": "Gets the set of namespace prefix mappings used against the current CustomXmlPart object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get all namespace prefix mappings from a custom XML part and log them to the console to understand what XML namespaces are defined in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part in the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the namespace manager for this custom XML part\n        const namespaceManager = customXmlPart.namespaceManager;\n        namespaceManager.load(\"items\");\n        await context.sync();\n\n        // Log all prefix mappings\n        console.log(\"Namespace prefix mappings:\");\n        namespaceManager.items.forEach(mapping => {\n            mapping.load([\"prefix\", \"uri\"]);\n        });\n        await context.sync();\n\n        namespaceManager.items.forEach(mapping => {\n            console.log(`Prefix: ${mapping.prefix}, URI: ${mapping.uri}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "namespaceUri",
+      "type": "string",
+      "description": "Gets the namespace URI of the custom XML part.",
+      "since": "WordApi 1.4",
+      "examples": [
+        {
+          "description": "Retrieve and display the namespace URI from a custom XML part that was previously stored in the document settings.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Gets the namespace URI from a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    customXmlPart.load(\"namespaceUri\");\n    await context.sync();\n\n    const namespaceUri = customXmlPart.namespaceUri;\n    console.log(`Namespace URI: ${JSON.stringify(namespaceUri)}`);\n  } else {\n    console.warn(\"Didn't find custom XML part.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "schemaCollection",
+      "type": "Word.CustomXmlSchemaCollection",
+      "description": "Specifies a CustomXmlSchemaCollection object representing the set of schemas attached to a bound region of data in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the number of schemas attached to a custom XML part and log the namespace of the first schema in the collection.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the first custom XML part\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Access the schema collection for this custom XML part\n        const schemaCollection = customXmlPart.schemaCollection;\n        schemaCollection.load(\"items\");\n        await context.sync();\n\n        // Log the count and first schema namespace if available\n        console.log(`Number of schemas: ${schemaCollection.items.length}`);\n        \n        if (schemaCollection.items.length > 0) {\n            const firstSchema = schemaCollection.items[0];\n            firstSchema.load(\"namespaceUri\");\n            await context.sync();\n            console.log(`First schema namespace: ${firstSchema.namespaceUri}`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xml",
+      "type": "string",
+      "description": "Gets the XML representation of the current CustomXmlPart object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Read and display the XML content from the first custom XML part in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Load the xml property\n        customXmlPart.load(\"xml\");\n        await context.sync();\n        \n        // Display the XML content\n        console.log(\"Custom XML content:\", customXmlPart.xml);\n    } else {\n        console.log(\"No custom XML parts found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addNode",
+      "kind": "create",
+      "description": "Adds a node to the XML tree.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "parent",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The parent node to which the new node will be added."
+            },
+            {
+              "name": "options",
+              "type": "Word.CustomXmlAddNodeOptions",
+              "required": false,
+              "description": "Optional. The options that define the node to be added."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new customer element with name and email child nodes to an existing custom XML part in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlPart = context.document.customXmlParts.getByNamespace(\"http://schemas.contoso.com/customer\")[0];\n    \n    // Load the XML content to work with it\n    customXmlPart.load(\"namespaceUri\");\n    await context.sync();\n    \n    // Add a new customer node to the root\n    const customerNode = customXmlPart.addNode(\n        \"/root\",\n        {\n            nodeType: \"Element\",\n            nodeName: \"customer\",\n            nodeValue: \"\"\n        }\n    );\n    \n    // Add child nodes for customer details\n    customXmlPart.addNode(\n        \"/root/customer[last()]\",\n        {\n            nodeType: \"Element\",\n            nodeName: \"name\",\n            nodeValue: \"John Doe\"\n        }\n    );\n    \n    customXmlPart.addNode(\n        \"/root/customer[last()]\",\n        {\n            nodeType: \"Element\",\n            nodeName: \"email\",\n            nodeValue: \"john.doe@contoso.com\"\n        }\n    );\n    \n    await context.sync();\n    console.log(\"Customer node added successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the custom XML part.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a custom XML part from a Word document by retrieving its ID from settings, removing the XML part, verifying deletion, and cleaning up the associated setting.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part.yaml\n\n// Original XML: <Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Deletes a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartId\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    let customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    const xmlBlob = customXmlPart.getXml();\n    customXmlPart.delete();\n    customXmlPart = context.document.customXmlParts.getItemOrNullObject(xmlPartIDSetting.value);\n\n    await context.sync();\n\n    if (customXmlPart.isNullObject) {\n      console.log(`The XML part with the ID ${xmlPartIDSetting.value} has been deleted.`);\n\n      // Delete the associated setting too.\n      xmlPartIDSetting.delete();\n\n      await context.sync();\n    } else {\n      const readableXml = addLineBreaksToXML(xmlBlob.value);\n      console.error(`This is strange. The XML part with the id ${xmlPartIDSetting.value} wasn't deleted:`, readableXml);\n    }\n  } else {\n    console.warn(\"Didn't find custom XML part to delete.\");\n  }\n});\n\n...\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Deletes a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    let customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    const xmlBlob = customXmlPart.getXml();\n    customXmlPart.delete();\n    customXmlPart = context.document.customXmlParts.getItemOrNullObject(xmlPartIDSetting.value);\n\n    await context.sync();\n\n    if (customXmlPart.isNullObject) {\n      console.log(`The XML part with the ID ${xmlPartIDSetting.value} has been deleted.`);\n\n      // Delete the associated setting too.\n      xmlPartIDSetting.delete();\n\n      await context.sync();\n    } else {\n      const readableXml = addLineBreaksToXML(xmlBlob.value);\n      console.error(\n        `This is strange. The XML part with the id ${xmlPartIDSetting.value} wasn't deleted:`,\n        readableXml\n      );\n    }\n  } else {\n    console.warn(\"Didn't find custom XML part to delete.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteAttribute",
+      "kind": "delete",
+      "description": "Deletes an attribute with the given name from the element identified by xpath.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single element in XPath notation."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the attribute."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the \"status\" attribute from a \"document\" element in a custom XML part that uses a namespace",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlPart = context.document.customXmlParts.getByNamespace(\"http://schemas.contoso.com/document\").getOnlyItem();\n    \n    // Define namespace mappings for the XPath query\n    const namespaceMapping = {\n        prefix: \"ns\",\n        uri: \"http://schemas.contoso.com/document\"\n    };\n    \n    // Delete the \"status\" attribute from the document element\n    customXmlPart.deleteAttribute(\n        \"/ns:document\",\n        [namespaceMapping],\n        \"status\"\n    );\n    \n    await context.sync();\n    console.log(\"Attribute 'status' deleted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteElement",
+      "kind": "delete",
+      "description": "Deletes the element identified by xpath.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single element in XPath notation."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a specific customer element from a custom XML part using its ID xpath",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML part by ID or namespace\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Assume we have a custom XML part with customer data\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Define namespace mappings for the XML\n    const namespaceMappings = {\n        \"ns\": \"http://example.com/customers\"\n    };\n    \n    // Delete the customer element with ID \"12345\"\n    const xpath = \"//ns:customer[@id='12345']\";\n    customXmlPart.deleteElement(xpath, namespaceMappings);\n    \n    await context.sync();\n    console.log(\"Customer element deleted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getXml",
+      "kind": "read",
+      "description": "Gets the full XML content of the custom XML part.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom XML part to the Word document, retrieve its XML content, and store its ID in document settings for later access.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Adds a custom XML part.\n// If you want to populate the CustomXml.namespaceUri property, you must include the xmlns attribute.\nawait Word.run(async (context) => {\n  const originalXml =\n    \"<Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\";\n  const customXmlPart = context.document.customXmlParts.add(originalXml);\n  customXmlPart.load([\"id\", \"namespaceUri\"]);\n  const xmlBlob = customXmlPart.getXml();\n\n  await context.sync();\n\n  const readableXml = addLineBreaksToXML(xmlBlob.value);\n  console.log(`Added custom XML part with namespace URI ${customXmlPart.namespaceUri}:`, readableXml);\n\n  // Store the XML part's ID in a setting so the ID is available to other functions.\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.add(\"ContosoReviewXmlPartIdNS\", customXmlPart.id);\n\n  await context.sync();\n});\n\n...\n\n// Adds a custom XML part.\nawait Word.run(async (context) => {\n  const originalXml =\n    \"<Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\";\n  const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.add(originalXml);\n  customXmlPart.load(\"id\");\n  const xmlBlob = customXmlPart.getXml();\n\n  await context.sync();\n\n  const readableXml = addLineBreaksToXML(xmlBlob.value);\n  console.log(\"Added custom XML part:\", readableXml);\n\n  // Store the XML part's ID in a setting so the ID is available to other functions.\n  const settings: Word.SettingCollection = context.document.settings;\n  settings.add(\"ContosoReviewXmlPartId\", customXmlPart.id);\n\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertAttribute",
+      "kind": "write",
+      "description": "Inserts an attribute with the given name and value to the element identified by xpath.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single element in XPath notation."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the attribute."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "description": "Value of the attribute."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a \"Nation\" attribute with value \"US\" to the root element of a custom XML part stored in the Word document, using XPath to locate the target element.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Inserts an attribute into a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n\n    // The insertAttribute method inserts an attribute with the given name and value into the element identified by the xpath parameter.\n    customXmlPart.insertAttribute(\n      \"/contoso:Reviewers\",\n      { contoso: \"http://schemas.contoso.com/review/1.0\" },\n      \"Nation\",\n      \"US\"\n    );\n    const xmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    const readableXml = addLineBreaksToXML(xmlBlob.value);\n    console.log(\"Successfully inserted attribute:\", readableXml);\n  } else {\n    console.warn(\"Didn't find custom XML part to insert attribute into.\");\n  }\n});\n\n...\n\n// Original XML: <Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Inserts an attribute into a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartId\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n\n    // The insertAttribute method inserts an attribute with the given name and value into the element identified by the xpath parameter.\n    customXmlPart.insertAttribute(\"/Reviewers\", { contoso: \"http://schemas.contoso.com/review/1.0\" }, \"Nation\", \"US\");\n    const xmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    const readableXml = addLineBreaksToXML(xmlBlob.value);\n    console.log(\"Successfully inserted attribute:\", readableXml);\n  } else {\n    console.warn(\"Didn't find custom XML part to insert attribute into.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertElement",
+      "kind": "write",
+      "description": "Inserts the given XML under the parent element identified by xpath at child position index.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single parent element in XPath notation."
+            },
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "XML content to be inserted."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            },
+            {
+              "name": "index",
+              "type": "number",
+              "required": false,
+              "description": "Zero-based position at which the new XML to be inserted. If omitted, the XML will be appended as the last child of this parent."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a new XML element at a specified position within a custom XML part stored in a Word document, using XPath to locate the parent element.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Inserts an element into a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n\n    // The insertElement method inserts the given XML under the parent element identified by the xpath parameter at the provided child position index.\n    customXmlPart.insertElement(\n      \"/contoso:Reviewers\",\n      \"<Lead>Mark</Lead>\",\n      { contoso: \"http://schemas.contoso.com/review/1.0\" },\n      0\n    );\n    const xmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    const readableXml = addLineBreaksToXML(xmlBlob.value);\n    console.log(\"Successfully inserted element:\", readableXml);\n  } else {\n    console.warn(\"Didn't find custom XML part to insert element into.\");\n  }\n});\n\n...\n\n// Original XML: <Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Inserts an element into a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartId\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n\n    // The insertElement method inserts the given XML under the parent element identified by the xpath parameter at the provided child position index.\n    customXmlPart.insertElement(\n      \"/Reviewers\",\n      \"<Lead>Mark</Lead>\",\n      { contoso: \"http://schemas.contoso.com/review/1.0\" },\n      0\n    );\n    const xmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    const readableXml = addLineBreaksToXML(xmlBlob.value);\n    console.log(\"Successfully inserted element:\", readableXml);\n  } else {\n    console.warn(\"Didn't find custom XML part to insert element into.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlPartLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPart",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPart",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPart",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the namespace URI of a custom XML part in a Word document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Load the namespaceUri property of the custom XML part\n        customXmlPart.load(\"namespaceUri\");\n        await context.sync();\n        \n        // Display the namespace URI\n        console.log(\"Custom XML Part Namespace URI: \" + customXmlPart.namespaceUri);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "loadXml",
+      "kind": "load",
+      "description": "Populates the CustomXmlPart object from an XML string.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "The XML string to load."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace the XML content of an existing custom XML part with new product catalog data",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    \n    // Define new XML content for a product catalog\n    const newXml = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n        <catalog>\n            <product id=\"101\">\n                <name>Laptop</name>\n                <price>999.99</price>\n            </product>\n            <product id=\"102\">\n                <name>Mouse</name>\n                <price>29.99</price>\n            </product>\n        </catalog>`;\n    \n    // Load the new XML content into the custom XML part\n    customXmlPart.loadXml(newXml);\n    \n    await context.sync();\n    console.log(\"Custom XML part updated with new product catalog data\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "query",
+      "kind": "read",
+      "description": "Queries the XML content of the custom XML part.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "An XPath query."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string[]>",
+            "description": "An array where each item represents an entry matched by the XPath query."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Query a custom XML part in a Word document using XPath expressions to find matching elements, with support for both namespaced and non-namespaced XML.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Queries a custom XML part for elements matching the search terms.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    const xpathToQueryFor = \"/contoso:Reviewers\";\n    const clientResult = customXmlPart.query(xpathToQueryFor, {\n      contoso: \"http://schemas.contoso.com/review/1.0\"\n    });\n\n    await context.sync();\n\n    console.log(`Queried custom XML part for ${xpathToQueryFor} and found ${clientResult.value.length} matches:`);\n    for (let i = 0; i < clientResult.value.length; i++) {\n      console.log(clientResult.value[i]);\n    }\n  } else {\n    console.warn(\"Didn't find custom XML part to query.\");\n  }\n});\n\n...\n\n// Original XML: <Reviewers><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Queries a custom XML part for elements matching the search terms.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartId\").load(\"value\");\n\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    const xpathToQueryFor = \"/Reviewers/Reviewer\";\n    const clientResult = customXmlPart.query(xpathToQueryFor, {\n      contoso: \"http://schemas.contoso.com/review/1.0\"\n    });\n\n    await context.sync();\n\n    console.log(`Queried custom XML part for ${xpathToQueryFor} and found ${clientResult.value.length} matches:`);\n    for (let i = 0; i < clientResult.value.length; i++) {\n      console.log(clientResult.value[i]);\n    }\n  } else {\n    console.warn(\"Didn't find custom XML part to query.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "selectNodes",
+      "kind": "read",
+      "description": "Selects a collection of nodes from a custom XML part.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xPath",
+              "type": "string",
+              "required": true,
+              "description": "The XPath expression to evaluate."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNodeCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select all employee nodes from a custom XML part where the department is \"Engineering\" and log their count to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    \n    // Select nodes using XPath query\n    const nodes = customXmlPart.selectNodes(\"//employee[@department='Engineering']\");\n    nodes.load(\"items\");\n    await context.sync();\n    \n    console.log(`Found ${nodes.items.length} employees in Engineering department`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "selectSingleNode",
+      "kind": "read",
+      "description": "Selects a single node within a custom XML part matching an XPath expression.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xPath",
+              "type": "string",
+              "required": true,
+              "description": "The XPath expression to evaluate."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlNode",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select and retrieve the text content of a specific employee node from a custom XML part using an XPath expression to find the employee with ID \"E001\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlPart = context.document.customXmlParts.getByNamespace(\"http://company.com/employees\").getOnlyItem();\n    \n    // Select a single node using XPath\n    const node = customXmlPart.selectSingleNode(\"//employee[@id='E001']\");\n    \n    // Load the node's XML content\n    node.load(\"xml\");\n    \n    await context.sync();\n    \n    // Display the selected node's XML content\n    console.log(\"Selected employee node:\", node.xml);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.CustomXmlPartUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.CustomXmlPart",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a custom XML part by setting its namespace URI and ID at the same time",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    \n    // Set multiple properties at once\n    customXmlPart.set({\n        namespaceUri: \"http://schemas.example.com/mydata\",\n        id: \"customXmlPart1\"\n    });\n    \n    await context.sync();\n    console.log(\"Custom XML part properties updated\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setXml",
+      "kind": "write",
+      "description": "Sets the full XML content of the custom XML part.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "XML content to be set."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Replace an existing custom XML part in a Word document with new XML content containing a different set of reviewers.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml\n\n// Original XML: <Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>Juan</Reviewer><Reviewer>Hong</Reviewer><Reviewer>Sally</Reviewer></Reviewers>\n\n// Replaces a custom XML part.\nawait Word.run(async (context) => {\n  const settings: Word.SettingCollection = context.document.settings;\n  const xmlPartIDSetting: Word.Setting = settings.getItemOrNullObject(\"ContosoReviewXmlPartIdNS\").load(\"value\");\n  await context.sync();\n\n  if (xmlPartIDSetting.value) {\n    const customXmlPart: Word.CustomXmlPart = context.document.customXmlParts.getItem(xmlPartIDSetting.value);\n    const originalXmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    let readableXml = addLineBreaksToXML(originalXmlBlob.value);\n    console.log(\"Original custom XML part:\", readableXml);\n\n    // The setXml method replaces the entire XML part.\n    customXmlPart.setXml(\n      \"<Reviewers xmlns='http://schemas.contoso.com/review/1.0'><Reviewer>John</Reviewer><Reviewer>Hitomi</Reviewer></Reviewers>\"\n    );\n    const updatedXmlBlob = customXmlPart.getXml();\n    await context.sync();\n\n    readableXml = addLineBreaksToXML(updatedXmlBlob.value);\n    console.log(\"Replaced custom XML part:\", readableXml);\n  } else {\n    console.warn(\"Didn't find custom XML part to replace.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.CustomXmlPart object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.CustomXmlPartData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlPartData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a custom XML part and serialize it to JSON format for logging or external storage purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part from the document\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        customXmlPart.load(\"id,namespaceUri\");\n        await context.sync();\n        \n        // Convert the CustomXmlPart object to a plain JavaScript object\n        const customXmlPartData = customXmlPart.toJSON();\n        \n        // Now you can use JSON.stringify or log the plain object\n        console.log(\"Custom XML Part as JSON:\", JSON.stringify(customXmlPartData, null, 2));\n        console.log(\"ID:\", customXmlPartData.id);\n        console.log(\"Namespace URI:\", customXmlPartData.namespaceUri);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension.clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlPart",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML part object across multiple sync calls to prevent \"InvalidObjectPath\" errors when accessing its properties after synchronization.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    context.load(customXmlParts);\n    await context.sync();\n    \n    const customXmlPart = customXmlParts.items[0];\n    \n    // Track the object to use it across multiple sync calls\n    customXmlPart.track();\n    \n    // Load properties\n    context.load(customXmlPart, \"id, namespaceUri\");\n    await context.sync();\n    \n    // Can safely access properties after sync because object is tracked\n    console.log(\"Custom XML Part ID: \" + customXmlPart.id);\n    console.log(\"Namespace URI: \" + customXmlPart.namespaceUri);\n    \n    // Perform additional operations after another sync\n    await context.sync();\n    \n    // Still valid because the object is tracked\n    console.log(\"Still accessible: \" + customXmlPart.id);\n    \n    // Untrack when done to release memory\n    customXmlPart.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension.clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlPart",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom XML part to the document, use it to store data, then untrack it to release memory after the operation is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Create a custom XML part with sample data\n    const xmlString = \"<root><item>Sample Data</item></root>\";\n    const customXmlPart = context.document.customXmlParts.add(xmlString);\n    \n    // Load the custom XML part to work with it\n    customXmlPart.load(\"id\");\n    await context.sync();\n    \n    // Log the ID to confirm it was created\n    console.log(\"Custom XML Part ID: \" + customXmlPart.id);\n    \n    // Untrack the object to release memory since we're done using it\n    customXmlPart.untrack();\n    \n    // Sync to apply the memory release\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "updateAttribute",
+      "kind": "write",
+      "description": "Updates the value of an attribute with the given name of the element identified by xpath.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single element in XPath notation."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "Name of the attribute."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "required": true,
+              "description": "New value of the attribute."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update the author attribute of a book element in a custom XML part to change the author name from \"John Smith\" to \"Jane Doe\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML part by namespace\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Assume we have a custom XML part with book data\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Define namespace mappings for the XML\n    const namespaceMapping = {\n        \"bk\": \"http://example.com/books\"\n    };\n    \n    // Update the author attribute of the book element\n    customXmlPart.updateAttribute(\n        \"/bk:catalog/bk:book[@id='1']\",\n        namespaceMapping,\n        \"author\",\n        \"Jane Doe\"\n    );\n    \n    await context.sync();\n    console.log(\"Author attribute updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "updateElement",
+      "kind": "write",
+      "description": "Updates the XML of the element identified by xpath.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xpath",
+              "type": "string",
+              "required": true,
+              "description": "Absolute path to the single element in XPath notation."
+            },
+            {
+              "name": "xml",
+              "type": "string",
+              "required": true,
+              "description": "New XML content to be stored."
+            },
+            {
+              "name": "namespaceMappings",
+              "type": "{ [key: string]: string; }",
+              "required": true,
+              "description": "An object whose property values are namespace names and whose property names are aliases for the corresponding namespaces. For example, `{greg: \"http://calendartypes.org/xsds/GregorianCalendar\"}`. The property names (such as \"greg\") can be any string that doesn't used reserved XPath characters, such as the forward slash \"/\"."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update a customer's email address in a custom XML part by finding the customer element with a specific ID and replacing the email value",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML part by namespace\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Assume we have a custom XML part with customer data\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Define namespace mappings for the XPath query\n    const namespaceMappings = {\n        \"ns\": \"http://example.com/customers\"\n    };\n    \n    // Update the email element for customer with ID \"12345\"\n    const xpath = \"//ns:customer[@id='12345']/ns:email\";\n    const newEmailXml = \"<email>newemail@example.com</email>\";\n    \n    customXmlPart.updateElement(xpath, newEmailXml, namespaceMappings);\n    \n    await context.sync();\n    console.log(\"Customer email updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part.yaml",
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-custom-xml-part-ns.yaml"
+    ]
+  }
+}

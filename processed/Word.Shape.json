@@ -1,0 +1,785 @@
+{
+  "class": {
+    "name": "Word.Shape",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Represents a shape in the header, footer, or document body. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-shapes-text-boxes.yaml\n\nawait Word.run(async (context) => {\n  // Sets the properties of the first text box.\n  const firstShapeWithTextBox: Word.Shape = context.document.body.shapes\n    .getByTypes([Word.ShapeType.textBox])\n    .getFirst();\n  firstShapeWithTextBox.top = 115;\n  firstShapeWithTextBox.left = 0;\n  firstShapeWithTextBox.width = 50;\n  firstShapeWithTextBox.height = 50;\n  await context.sync();\n\n  console.log(\"The first text box's properties were updated:\", firstShapeWithTextBox);\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "allowOverlap",
+      "type": "boolean",
+      "description": "Specifies whether a given shape can overlap other shapes.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Prevent a text box shape from overlapping with other shapes in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape to not allow overlap with other shapes\n        shape.allowOverlap = false;\n        \n        await context.sync();\n        console.log(\"Shape overlap has been disabled\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "altTextDescription",
+      "type": "string",
+      "description": "Specifies a string that represents the alternative text associated with the shape.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Set the alternative text description for a shape to provide accessibility information for screen readers",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the alternative text description for the shape\n        shape.altTextDescription = \"A blue rectangle containing quarterly sales data for the marketing team\";\n        \n        await context.sync();\n        console.log(\"Alternative text description has been set for the shape\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Represents the body object of the shape. Only applies to text boxes and geometric shapes.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Add formatted text content to a text box shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    // Access the first shape (assuming it's a text box)\n    const textBoxShape = shapes.items[0];\n    \n    // Get the body of the shape and insert text\n    const shapeBody = textBoxShape.body;\n    shapeBody.insertText(\"This is text inside the shape\", Word.InsertLocation.start);\n    \n    // Format the text in the shape body\n    shapeBody.font.color = \"blue\";\n    shapeBody.font.size = 14;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "canvas",
+      "type": "Word.Canvas",
+      "description": "Gets the canvas associated with the shape. An object with its `isNullObject` property set to `true` will be returned if the shape type isn't \"Canvas\". For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Check if a shape is a canvas and log its width if it is, otherwise log that the shape is not a canvas.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const canvas = shape.canvas;\n        canvas.load(\"isNullObject, width\");\n        await context.sync();\n\n        if (!canvas.isNullObject) {\n            console.log(`Canvas width: ${canvas.width}`);\n        } else {\n            console.log(\"The shape is not a canvas.\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the shape's request context to verify the connection to the Word host application and log its diagnostic information.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Access the request context associated with the shape\n        const shapeContext = shape.context;\n        \n        // Use the context to perform operations\n        // For example, verify it matches the main context\n        console.log(\"Shape context is connected:\", shapeContext !== null);\n        console.log(\"Contexts match:\", shapeContext === context);\n        \n        // The context can be used for sync operations\n        shape.load(\"name,type\");\n        await shapeContext.sync();\n        \n        console.log(`Shape name: ${shape.name}, type: ${shape.type}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fill",
+      "type": "Word.ShapeFill",
+      "description": "Returns the fill formatting of the shape.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Set the fill color of a shape to blue with 80% transparency",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Access the fill property and set its color and transparency\n        shape.fill.setSolidColor(\"#0000FF\");\n        shape.fill.transparency = 0.8;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "geometricShapeType",
+      "type": "Word.GeometricShapeType",
+      "description": "The geometric shape type of the shape. It will be null if isn't a geometric shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a shape is a geometric shape and display its type, or insert a message if it's not a geometric shape.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"geometricShapeType\");\n        await context.sync();\n        \n        if (shape.geometricShapeType != null) {\n            console.log(`Shape is a geometric shape of type: ${shape.geometricShapeType}`);\n        } else {\n            console.log(\"Shape is not a geometric shape (may be a picture, text box, or other type)\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "The height, in points, of the shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the height of the first shape in the document to 150 points",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.height = 150;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "heightRelative",
+      "type": "number",
+      "description": "The percentage of shape height to vertical relative size, see [Word.RelativeSize](/en-us/javascript/api/word/word.relativesize). For an inline or child shape, it can't be set.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a floating shape's height to 50% relative to the page margin height",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape's height to 50% relative to the page margin\n        shape.heightRelative = 50;\n        \n        await context.sync();\n        console.log(\"Shape height set to 50% relative size\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "number",
+      "description": "Gets an integer that represents the shape identifier.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the shape identifier and display it in the console to track which shape is being processed",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"id\");\n        await context.sync();\n        \n        // Display the shape identifier\n        console.log(`Shape ID: ${shape.id}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isChild",
+      "type": "boolean",
+      "description": "Check whether this shape is a child of a group shape or a canvas shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a shape is a child of a group or canvas, and display an alert message indicating whether it's a child shape or a top-level shape.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"isChild\");\n        await context.sync();\n\n        if (shape.isChild) {\n            console.log(\"This shape is a child of a group or canvas.\");\n        } else {\n            console.log(\"This shape is a top-level shape.\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "type": "number",
+      "description": "The distance, in points, from the left side of the shape to the horizontal relative position, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition). For an inline shape, it will return 0 and can't be set. For a child shape in a canvas or group, it's relative to the top left corner.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Position a text box shape 100 points from the left side of the page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape's left position to 100 points from the left side\n        shape.left = 100;\n        \n        await context.sync();\n        console.log(\"Shape positioned 100 points from the left\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "leftRelative",
+      "type": "number",
+      "description": "The relative left position as a percentage from the left side of the shape to the horizontal relative position, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition). For an inline or child shape, it will return 0 and can't be set.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a floating text box shape to be positioned at 25% from the left side relative to its horizontal anchor point.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape's left position to 25% relative to its horizontal anchor\n        shape.leftRelative = 25;\n        \n        await context.sync();\n        console.log(\"Shape positioned at 25% from the left of its anchor point\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockAspectRatio",
+      "type": "boolean",
+      "description": "Specifies if the aspect ratio of this shape is locked.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Lock the aspect ratio of the first shape in the document to prevent distortion when resizing",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const firstShape = shapes.items[0];\n        firstShape.lockAspectRatio = true;\n        \n        await context.sync();\n        console.log(\"Shape aspect ratio has been locked\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the name of the first shape in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const firstShape = shapes.items[0];\n        firstShape.load(\"name\");\n        \n        await context.sync();\n        \n        console.log(\"Shape name: \" + firstShape.name);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentCanvas",
+      "type": "Word.Shape",
+      "description": "Gets the top-level parent canvas shape of this child shape. It will be null if it isn't a child shape of a canvas.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a shape is inside a canvas and if so, apply a border to the parent canvas shape.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the parent canvas (if it exists)\n        const parentCanvas = shape.parentCanvas;\n        parentCanvas.load(\"name\");\n        await context.sync();\n        \n        // Check if the shape is inside a canvas\n        if (parentCanvas) {\n            console.log(`Shape is inside canvas: ${parentCanvas.name}`);\n            \n            // Apply a border to the parent canvas\n            parentCanvas.lineFormat.color = \"blue\";\n            parentCanvas.lineFormat.weight = 2;\n            await context.sync();\n        } else {\n            console.log(\"Shape is not inside a canvas\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentGroup",
+      "type": "Word.Shape",
+      "description": "Gets the top-level parent group shape of this child shape. It will be null if it isn't a child shape of a group.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a shape is part of a group and if so, apply a border to the top-level parent group shape.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"parentGroup\");\n        await context.sync();\n\n        if (shape.parentGroup) {\n            // This shape is part of a group, apply border to the parent group\n            shape.parentGroup.lineFormat.color = \"red\";\n            shape.parentGroup.lineFormat.weight = 2;\n            console.log(\"Applied border to parent group shape\");\n        } else {\n            // This shape is not part of a group\n            console.log(\"Shape is not part of a group\");\n        }\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeHorizontalPosition",
+      "type": "Word.RelativeHorizontalPosition",
+      "description": "The relative horizontal position of the shape. For an inline shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a text box shape's horizontal position to be relative to the page margin",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the relative horizontal position to page margin\n        shape.relativeHorizontalPosition = Word.RelativeHorizontalPosition.page;\n        \n        await context.sync();\n        console.log(\"Shape horizontal position set relative to page\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeHorizontalSize",
+      "type": "Word.RelativeHorizontalSize",
+      "description": "The relative horizontal size of the shape. For an inline or child shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the relative horizontal size setting of a shape in the document to determine if it's sized relative to the margin, page, or other reference.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"relativeHorizontalSize\");\n        await context.sync();\n        \n        console.log(\"Relative horizontal size: \" + shape.relativeHorizontalSize);\n        // Possible values: \"margin\", \"page\", \"leftMargin\", \"rightMargin\", \n        // \"insideMargin\", \"outsideMargin\"\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeVerticalPosition",
+      "type": "Word.RelativeVerticalPosition",
+      "description": "The relative vertical position of the shape. For an inline shape, it can't be set. For details, see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition).",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the relative vertical position of a shape in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"relativeVerticalPosition\");\n        await context.sync();\n        \n        console.log(\"Shape's relative vertical position: \" + shape.relativeVerticalPosition);\n        // Possible values: \"margin\", \"page\", \"paragraph\", \"line\", \"topMargin\", \"bottomMargin\", \"insideMargin\", \"outsideMargin\"\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeVerticalSize",
+      "type": "Word.RelativeVerticalSize",
+      "description": "The relative vertical size of the shape. For an inline or child shape, it can't be set. For details, see [Word.RelativeHorizontalPosition](/en-us/javascript/api/word/word.relativehorizontalposition).",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the relative vertical size settings of a shape in the document to check its vertical sizing configuration.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const relativeVerticalSize = shape.relativeVerticalSize;\n        \n        // Load properties of the relative vertical size\n        relativeVerticalSize.load(\"relativeHeight, sizeRelativeTo\");\n        await context.sync();\n        \n        console.log(\"Relative Height: \" + relativeVerticalSize.relativeHeight);\n        console.log(\"Size Relative To: \" + relativeVerticalSize.sizeRelativeTo);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rotation",
+      "type": "number",
+      "description": "Specifies the rotation, in degrees, of the shape. Not applicable to Canvas shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Rotate a shape in the document by 45 degrees clockwise",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.rotation = 45;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shapeGroup",
+      "type": "Word.ShapeGroup",
+      "description": "Gets the shape group associated with the shape. An object with its isNullObject property set to true will be returned if the shape type isn't \"GroupShape\". For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a shape is a group and log the number of shapes within the group, or indicate if it's not a group shape.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const shapeGroup = shape.shapeGroup;\n        shapeGroup.load(\"isNullObject, shapes\");\n        await context.sync();\n        \n        if (shapeGroup.isNullObject) {\n            console.log(\"This shape is not a group shape.\");\n        } else {\n            shapeGroup.shapes.load(\"items\");\n            await context.sync();\n            console.log(`This is a group shape containing ${shapeGroup.shapes.items.length} shapes.`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textFrame",
+      "type": "Word.TextFrame",
+      "description": "Gets the text frame object of the shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the text frame of a shape and set its text content to \"Hello World\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the text frame of the shape\n        const textFrame = shape.textFrame;\n        textFrame.load(\"textRange\");\n        await context.sync();\n        \n        // Set text content in the text frame\n        textFrame.textRange.text = \"Hello World\";\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textWrap",
+      "type": "Word.TextWrap",
+      "description": "Returns the text wrap formatting of the shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the text wrap type of the first shape in the document and display it to the user.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const textWrap = shape.textWrap;\n        textWrap.load(\"type\");\n        await context.sync();\n        \n        console.log(`Shape text wrap type: ${textWrap.type}`);\n        // Possible values: \"inline\", \"square\", \"tight\", \"through\", \"topBottom\", \"behind\", \"inFrontOf\"\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "description": "The distance, in points, from the top edge of the shape to the vertical relative position (see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition)). For an inline shape, it will return 0 and can't be set. For a child shape in a canvas or group, it's relative to the top left corner.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the distance from the top edge of a floating shape to its vertical reference point and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.load(\"top, name\");\n        await context.sync();\n        \n        console.log(`Shape \"${shape.name}\" is ${shape.top} points from the top edge`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "topRelative",
+      "type": "number",
+      "description": "The relative top position as a percentage from the top edge of the shape to the vertical relative position, see [Word.RelativeVerticalPosition](/en-us/javascript/api/word/word.relativeverticalposition). For an inline or child shape, it will return 0 and can't be set.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a floating shape's vertical position to 25% from the top of the page using relative positioning",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape's vertical position to 25% from the top\n        shape.topRelative = 25;\n        \n        await context.sync();\n        console.log(\"Shape positioned at 25% from the top\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.ShapeType",
+      "description": "Gets the shape type. Currently, only the following shapes are supported: text boxes, geometric shapes, groups, pictures, and canvases.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the type of the first shape in the document and display it to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const firstShape = shapes.items[0];\n        firstShape.load(\"type\");\n        \n        await context.sync();\n        \n        console.log(`Shape type: ${firstShape.type}`);\n        // Type will be one of: \"TextBox\", \"GeometricShape\", \"Group\", \"Picture\", or \"Canvas\"\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "description": "Specifies if the shape is visible. Not applicable to inline shapes.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Hide all floating shapes in the document body that are currently visible",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    // Hide all visible shapes\n    for (let i = 0; i < shapes.items.length; i++) {\n        const shape = shapes.items[i];\n        shape.load(\"visible\");\n        await context.sync();\n        \n        if (shape.visible) {\n            shape.visible = false;\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "The width, in points, of the shape.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the width of the first shape in the document body to 200 points",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.width = 200;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "widthRelative",
+      "type": "number",
+      "description": "The percentage of shape width to horizontal relative size, see [Word.RelativeSize](/en-us/javascript/api/word/word.relativesize). For an inline or child shape, it can't be set.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set a floating shape's width to 50% of the page width using relative sizing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the shape's width to 50% of the page width\n        shape.widthRelative = 50;\n        \n        await context.sync();\n        console.log(\"Shape width set to 50% of page width\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the shape and its content.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete all shapes in the document body that contain the text \"Draft\" in their name",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    // Find and delete shapes with \"Draft\" in their name\n    for (let i = 0; i < shapes.items.length; i++) {\n        const shape = shapes.items[i];\n        shape.load(\"name\");\n        await context.sync();\n        \n        if (shape.name.includes(\"Draft\")) {\n            shape.delete();\n        }\n    }\n    \n    await context.sync();\n    console.log(\"Shapes containing 'Draft' have been deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "string[] | OfficeExtension.LoadOption",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string[]",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ [propertyName: string]: string }",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the width and height properties of the first shape in the document body.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    const firstShape = shapes.getFirst();\n    \n    // Load the width and height properties\n    firstShape.load(\"width, height\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the loaded properties\n    console.log(`Shape width: ${firstShape.width}`);\n    console.log(`Shape height: ${firstShape.height}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "moveHorizontally",
+      "kind": null,
+      "description": "Moves the shape horizontally by the number of points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "distance",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Move a text box shape 50 points to the right in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Move the shape 50 points to the right\n        shape.moveHorizontally(50);\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "moveVertically",
+      "kind": null,
+      "description": "Moves the shape vertically by the number of points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "distance",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Move a text box shape down by 50 points from its current position",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Move the shape down by 50 points\n        shape.moveVertically(50);\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "scaleHeight",
+      "kind": null,
+      "description": "Scales the height of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "scaleFactor",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleType",
+              "type": "Word.ShapeScaleType",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleFrom",
+              "type": "Word.ShapeScaleFrom",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Scale a text box shape in the document to 150% of its current height, scaling from the top edge",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Scale the shape height to 150% of current size, from the top\n        shape.scaleHeight(\n            1.5,                                    // scaleFactor: 150% of current height\n            Word.ScaleType.current,                 // scaleType: relative to current size\n            Word.ScaleFrom.topLeft                  // scaleFrom: scale from top edge\n        );\n        \n        await context.sync();\n        console.log(\"Shape height scaled successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "scaleWidth",
+      "kind": null,
+      "description": "Scales the width of the shape by a specified factor. For images, you can indicate whether you want to scale the shape relative to the original or the current size. Shapes other than pictures are always scaled relative to their current height.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "scaleFactor",
+              "type": "number",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleType",
+              "type": "Word.ShapeScaleType",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "scaleFrom",
+              "type": "Word.ShapeScaleFrom",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Scale a text box shape's width to 150% of its current size, anchoring the scaling from the center of the shape",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Scale the width to 150% of current size, from the center\n        shape.scaleWidth(\n            1.5,                                    // scaleFactor: 150% of current width\n            Word.ShapeScaleType.currentSize,        // scaleType: relative to current size\n            Word.ShapeScaleFrom.scaleFromMiddle     // scaleFrom: anchor from center\n        );\n        \n        await context.sync();\n        console.log(\"Shape width scaled successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the shape.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectMultipleShapes",
+              "type": "boolean",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select a specific shape in the document to prepare it for formatting or manipulation",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Select the shape\n        shape.select();\n        \n        await context.sync();\n        console.log(\"Shape selected successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Interfaces.ShapeUpdateData",
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": "string[]",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Shape",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a shape at once by setting its fill color, line color, and dimensions",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    \n    // Set multiple properties at once\n    shape.set({\n        fill: {\n            type: Word.ShapeFillType.solid,\n            color: \"#4472C4\"\n        },\n        lineFormat: {\n            color: \"#FF0000\",\n            weight: 2\n        },\n        width: 200,\n        height: 150\n    });\n    \n    await context.sync();\n    console.log(\"Shape properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Shape object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ShapeData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ShapeData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a shape from the document, load its properties, and serialize it to JSON format for logging or data transfer purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Load properties you want to serialize\n        shape.load(\"id,name,type,width,height,left,top\");\n        await context.sync();\n        \n        // Convert the shape to a plain JavaScript object\n        const shapeData = shape.toJSON();\n        \n        // Now you can use the plain object (e.g., log it, send it to a server)\n        console.log(\"Shape data:\", JSON.stringify(shapeData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a text box shape across multiple sync calls to modify its properties without getting an \"InvalidObjectPath\" error",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    \n    // Track the shape to use it across multiple sync calls\n    shape.track();\n    \n    // Load properties\n    shape.load(\"type,name\");\n    await context.sync();\n    \n    console.log(`Shape type: ${shape.type}, Name: ${shape.name}`);\n    \n    // Modify shape properties in a subsequent sync call\n    // Without track(), this would throw an \"InvalidObjectPath\" error\n    if (shape.type === Word.ShapeType.textBox) {\n        const textFrame = shape.textFrame;\n        textFrame.load(\"textRange\");\n        await context.sync();\n        \n        textFrame.textRange.text = \"Updated text content\";\n        await context.sync();\n    }\n    \n    // Untrack when done to free up memory\n    shape.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Process multiple shapes in a document, track them for batch operations, then untrack them to free memory after processing is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all shapes in the document body\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n\n    // Track shapes for processing\n    const trackedShapes: Word.Shape[] = [];\n    for (let i = 0; i < shapes.items.length; i++) {\n        const shape = shapes.items[i];\n        shape.track();\n        trackedShapes.push(shape);\n        shape.load(\"name,type\");\n    }\n    await context.sync();\n\n    // Process the shapes (e.g., log their properties)\n    trackedShapes.forEach(shape => {\n        console.log(`Shape: ${shape.name}, Type: ${shape.type}`);\n    });\n\n    // Untrack all shapes to release memory\n    trackedShapes.forEach(shape => {\n        shape.untrack();\n    });\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

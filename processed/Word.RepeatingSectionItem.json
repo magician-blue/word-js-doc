@@ -1,0 +1,280 @@
+{
+  "class": {
+    "name": "RepeatingSectionItem",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a single item in a [Word.RepeatingSectionContentControl](/en-us/javascript/api/word/word.repeatingsectioncontentcontrol).",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a RepeatingSectionItem to load and read its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirstOrNullObject().getAsRepeatingSectionItemOrNullObject();\n    \n    // Access the context property to use it for loading properties\n    const itemContext = firstItem.context;\n    \n    // Use the context to load properties\n    firstItem.load(\"id\");\n    await itemContext.sync();\n    \n    if (!firstItem.isNullObject) {\n        console.log(\"Repeating section item ID: \" + firstItem.id);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Returns the range of this repeating section item, excluding the start and end tags.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Highlight all text within the first repeating section item by applying a yellow background color to its range.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control in the document\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirst() as Word.RepeatingSectionContentControl;\n    \n    // Get the range of the repeating section item (excluding tags)\n    const itemRange = firstItem.range;\n    \n    // Apply yellow highlight to the range\n    itemRange.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes this RepeatingSectionItem object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first item from a repeating section content control in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control in the document\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstRepeatingSection = repeatingSections.getFirst();\n    \n    // Get the parent repeating section content control\n    const parentRepeatingSection = firstRepeatingSection.parentContentControl;\n    parentRepeatingSection.load(\"repeatingSectionItems\");\n    \n    await context.sync();\n    \n    // Get the first item in the repeating section\n    const firstItem = parentRepeatingSection.repeatingSectionItems.getFirst();\n    \n    // Delete the first item\n    firstItem.delete();\n    \n    await context.sync();\n    \n    console.log(\"First repeating section item deleted successfully.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertItemAfter",
+      "kind": "create",
+      "description": "Adds a repeating section item after this item and returns the new item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a new item after the first repeating section item in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirst();\n    \n    // Insert a new item after the first item\n    const newItem = firstItem.insertItemAfter();\n    \n    // Load the new item to work with it\n    newItem.load(\"id\");\n    \n    await context.sync();\n    \n    console.log(\"New repeating section item added with ID: \" + newItem.id);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertItemBefore",
+      "kind": "create",
+      "description": "Adds a repeating section item before this item and returns the new item.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a new repeating section item before the currently selected item in a repeating section",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document (assuming it's a repeating section)\n    const repeatingSectionCC = context.document.contentControls.getFirst();\n    repeatingSectionCC.load(\"type\");\n    \n    await context.sync();\n    \n    // Get the first item in the repeating section\n    const firstItem = repeatingSectionCC.repeatingSectionItems.getFirst();\n    \n    // Insert a new item before the first item\n    const newItem = firstItem.insertItemBefore();\n    newItem.load(\"index\");\n    \n    await context.sync();\n    \n    console.log(`New item inserted at index: ${newItem.index}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.RepeatingSectionItemLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the content of the first repeating section item in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control in the document\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirstOrNullObject() as Word.RepeatingSectionContentControl;\n    \n    // Load properties of the repeating section item\n    firstItem.load(\"text, tag, title\");\n    \n    await context.sync();\n    \n    if (!firstItem.isNullObject) {\n        console.log(\"Item text:\", firstItem.text);\n        console.log(\"Item tag:\", firstItem.tag);\n        console.log(\"Item title:\", firstItem.title);\n    } else {\n        console.log(\"No repeating section items found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.RepeatingSectionItemUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.RepeatingSectionItem",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a repeating section item, including its text content and font formatting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirst() as Word.RepeatingSectionContentControl;\n    \n    // Set multiple properties at once using the set() method\n    firstItem.set({\n        title: \"Updated Item\",\n        tag: \"item-001\",\n        appearance: Word.ContentControlAppearance.boundingBox,\n        color: \"#FF0000\"\n    });\n    \n    await context.sync();\n    console.log(\"Repeating section item properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.RepeatingSectionItem object is an API object, the toJSON method returns a plain JavaScript object (typed as [Word.Interfaces.RepeatingSectionItemData](/en-us/javascript/api/word/word.interfaces.repeatingsectionitemdata)) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.RepeatingSectionItemData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a repeating section item to a plain JavaScript object to log or store its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control in the document\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirstOrNullObject() as Word.RepeatingSectionItem;\n    \n    // Load properties we want to serialize\n    firstItem.load(\"id,tag,title,type\");\n    \n    await context.sync();\n    \n    if (!firstItem.isNullObject) {\n        // Convert the API object to a plain JavaScript object\n        const itemData = firstItem.toJSON();\n        \n        // Now we can use the plain object (e.g., log it, store it, etc.)\n        console.log(\"Repeating Section Item Data:\", JSON.stringify(itemData, null, 2));\n    } else {\n        console.log(\"No repeating section items found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a repeating section item to maintain its reference across multiple sync calls while modifying its content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    const firstItem = repeatingSections.getFirstOrNullObject() as Word.RepeatingSectionContentControl;\n    \n    await context.sync();\n    \n    if (!firstItem.isNullObject) {\n        const items = firstItem.repeatingSectionItemCollection;\n        items.load(\"items\");\n        await context.sync();\n        \n        if (items.items.length > 0) {\n            const item = items.items[0];\n            \n            // Track the item to use it across multiple sync calls\n            item.track();\n            \n            // First sync - modify content\n            item.contentControls.load(\"items\");\n            await context.sync();\n            \n            // Second sync - access the same tracked object\n            item.contentControls.items[0].insertText(\"Updated content\", Word.InsertLocation.replace);\n            await context.sync();\n            \n            // Untrack when done\n            item.untrack();\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RepeatingSectionItem",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Process repeating section items to collect their text content, then untrack them to free memory after processing is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first repeating section content control\n    const repeatingSections = context.document.contentControls.getByTypes([Word.ContentControlType.repeatingSectionItem]);\n    repeatingSections.load(\"items\");\n    await context.sync();\n\n    const textContents: string[] = [];\n    \n    // Process each repeating section item\n    for (let i = 0; i < repeatingSections.items.length; i++) {\n        const item = repeatingSections.items[i] as Word.RepeatingSectionItem;\n        item.load(\"text\");\n        await context.sync();\n        \n        // Collect the text content\n        textContents.push(item.text);\n        \n        // Untrack the item to release memory\n        item.untrack();\n    }\n    \n    await context.sync();\n    \n    console.log(\"Processed items:\", textContents);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word/word.repeatingsectionitem"
+    ]
+  }
+}

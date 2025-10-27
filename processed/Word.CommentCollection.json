@@ -1,0 +1,217 @@
+{
+  "class": {
+    "name": "Word.CommentCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.4"
+    },
+    "description": "Contains a collection of [Word.Comment](/en-us/javascript/api/word/word.comment) objects.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml\n\n// Replies to the first active comment in the selected content.\nawait Word.run(async (context) => {\n  const text = (document.getElementById(\"reply-text\") as HTMLInputElement).value;\n  const comments: Word.CommentCollection = context.document.getSelection().getComments();\n  comments.load(\"items\");\n  await context.sync();\n\n  const firstActiveComment: Word.Comment = comments.items.find((item) => item.resolved !== true);\n  if (firstActiveComment) {\n    const reply: Word.CommentReply = firstActiveComment.reply(text);\n    console.log(\"Reply added.\");\n  } else {\n    console.warn(\"No active comment was found in the selection, so couldn't reply.\");\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CommentCollection to verify the connection between the add-in and Word application before performing operations on comments.",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    \n    // Access the request context associated with the CommentCollection\n    const requestContext = comments.context;\n    \n    // Verify the context is valid by using it to load properties\n    comments.load(\"items\");\n    await requestContext.sync();\n    \n    console.log(`Successfully accessed context. Found ${comments.items.length} comments.`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.Comment[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Reply to the first unresolved comment in the selected content with text from an input field.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml\n\n// Replies to the first active comment in the selected content.\nawait Word.run(async (context) => {\n  const text = (document.getElementById(\"reply-text\") as HTMLInputElement).value;\n  const comments: Word.CommentCollection = context.document.getSelection().getComments();\n  comments.load(\"items\");\n  await context.sync();\n\n  const firstActiveComment: Word.Comment = comments.items.find((item) => item.resolved !== true);\n  if (firstActiveComment) {\n    const reply: Word.CommentReply = firstActiveComment.reply(text);\n    console.log(\"Reply added.\");\n  } else {\n    console.warn(\"No active comment was found in the selection, so couldn't reply.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFirst",
+      "kind": "read",
+      "description": "Gets the first comment in the collection. Throws an ItemNotFound error if this collection is empty.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Comment",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the first comment in the document and display its content in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    const firstComment = comments.getFirst();\n    firstComment.load(\"content\");\n    \n    await context.sync();\n    \n    console.log(\"First comment content: \" + firstComment.content);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getFirstOrNullObject",
+      "kind": "read",
+      "description": "Gets the first comment in the collection. If the collection is empty, returns an object with its isNullObject property set to true. For further information, see [*OrNullObject methods and properties*](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Comment",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the text range location and content range of the first comment in the selected content.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml\n\n// Gets the range of the first comment in the selected content.\nawait Word.run(async (context) => {\n  const comment: Word.Comment = context.document.getSelection().getComments().getFirstOrNullObject();\n  comment.load(\"contentRange\");\n  const range: Word.Range = comment.getRange();\n  range.load(\"text\");\n  await context.sync();\n\n  if (comment.isNullObject) {\n    console.warn(\"No comments in the selection, so no range to get.\");\n    return;\n  }\n\n  console.log(`Comment location: ${range.text}`);\n  const contentRange: Word.CommentContentRange = comment.contentRange;\n  console.log(\"Comment content range:\", contentRange);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CommentCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the author names of all comments in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the comment collection from the document\n    const comments = context.document.body.getComments();\n    \n    // Load the author property for all comments in the collection\n    comments.load(\"author\");\n    \n    // Synchronize to execute the load command\n    await context.sync();\n    \n    // Display the author of each comment\n    console.log(`Found ${comments.items.length} comments`);\n    comments.items.forEach((comment, index) => {\n        console.log(`Comment ${index + 1} author: ${comment.author}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method to provide more useful output when an API object is passed to JSON.stringify(). Returns a plain JavaScript object (typed as Word.Interfaces.CommentCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CommentCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all comments in the document and export them as a JSON string to log their content and author information.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all comments in the document\n    const comments = context.document.body.getComments();\n    \n    // Load properties we want to include in the JSON output\n    comments.load(\"content, authorName, creationDate\");\n    \n    await context.sync();\n    \n    // Convert the comment collection to a plain JavaScript object\n    const commentsJSON = comments.toJSON();\n    \n    // Convert to JSON string and log it\n    console.log(JSON.stringify(commentsJSON, null, 2));\n    \n    // The output will contain an \"items\" array with all loaded comment properties\n    console.log(`Total comments: ${commentsJSON.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. Shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If using this object across .sync calls and outside the sequential execution of a \".run\" batch and you get an \"InvalidObjectPath\" error, add the object to the tracked object collection when first created. If this object is part of a collection, also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a comment collection to maintain references across multiple sync calls when monitoring and displaying comment counts",
+          "usage_code": "await Word.run(async (context) => {\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    // Track the collection to use it across multiple sync calls\n    comments.track();\n    \n    await context.sync();\n    \n    console.log(`Initial comment count: ${comments.items.length}`);\n    \n    // Perform additional operations that might modify the document\n    // The tracked collection remains valid across sync calls\n    await context.sync();\n    \n    console.log(`Comment count after sync: ${comments.items.length}`);\n    \n    // Untrack when done to free up memory\n    comments.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object if previously tracked. Shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so free any objects you add once you're done using them. Call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CommentCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all comments in a document, process them, then untrack the collection to free memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Load the comments collection\n    const comments = context.document.body.getComments();\n    comments.load(\"items\");\n    \n    await context.sync();\n    \n    // Process the comments (e.g., log their count)\n    console.log(`Total comments: ${comments.items.length}`);\n    \n    // Untrack the collection to release memory\n    comments.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-comments.yaml"
+    ]
+  }
+}

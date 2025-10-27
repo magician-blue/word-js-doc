@@ -1,0 +1,352 @@
+{
+  "class": {
+    "name": "XmlMapping",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the XML mapping on a [Word.ContentControl](/en-us/javascript/api/word/word.contentcontrol) object between custom XML and that content control. An XML mapping is a link between the text in a content control and an XML element in the custom XML data store for this document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from an XML mapping to verify the connection between the add-in and Word, then use it to load and read the XML mapping's properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control with an XML mapping\n    const contentControls = context.document.contentControls;\n    contentControls.load(\"items\");\n    await context.sync();\n    \n    if (contentControls.items.length > 0) {\n        const contentControl = contentControls.items[0];\n        const xmlMapping = contentControl.xmlMapping;\n        \n        // Access the request context from the xmlMapping object\n        const mappingContext = xmlMapping.context;\n        \n        // Use the context to load properties of the XML mapping\n        xmlMapping.load(\"xpath, customXmlPart\");\n        await mappingContext.sync();\n        \n        console.log(\"XPath: \" + xmlMapping.xpath);\n        console.log(\"Context is connected: \" + (mappingContext !== null));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "customXmlNode",
+      "type": "Word.CustomXmlNode",
+      "description": "Returns a `CustomXmlNode` object that represents the custom XML node in the data store that the content control in the document maps to.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content of the custom XML node that is mapped to a content control",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Get the XML mapping and its custom XML node\n    const xmlMapping = contentControl.xmlMapping;\n    const customXmlNode = xmlMapping.customXmlNode;\n    \n    // Load the node's text property\n    customXmlNode.load(\"text\");\n    \n    await context.sync();\n    \n    // Display the XML node's text content\n    console.log(\"Custom XML node text: \" + customXmlNode.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "customXmlPart",
+      "type": "Word.CustomXmlPart",
+      "description": "Returns a `CustomXmlPart` object that represents the custom XML part to which the content control in the document maps.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the namespace URI of the custom XML part that is mapped to a content control",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Get the XML mapping and its custom XML part\n    const xmlMapping = contentControl.xmlMapping;\n    const customXmlPart = xmlMapping.customXmlPart;\n    \n    // Load the namespace URI property\n    customXmlPart.load(\"namespaceUri\");\n    \n    await context.sync();\n    \n    // Display the namespace URI of the mapped custom XML part\n    console.log(\"Custom XML Part Namespace URI: \" + customXmlPart.namespaceUri);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isMapped",
+      "type": "boolean",
+      "description": "Returns whether the content control in the document is mapped to an XML node in the document's XML data store.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a content control is mapped to XML data and display an alert message indicating the mapping status.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Load the XML mapping property\n    contentControl.load(\"xmlMapping\");\n    \n    await context.sync();\n    \n    // Check if the content control is mapped to XML\n    const xmlMapping = contentControl.xmlMapping;\n    xmlMapping.load(\"isMapped\");\n    \n    await context.sync();\n    \n    // Display the mapping status\n    if (xmlMapping.isMapped) {\n        console.log(\"This content control is mapped to an XML node.\");\n    } else {\n        console.log(\"This content control is not mapped to any XML node.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "prefixMappings",
+      "type": "string",
+      "description": "Returns the prefix mappings used to evaluate the XPath for the current XML mapping.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the prefix mappings (namespace definitions) used in the XPath expression of a content control's XML mapping.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Load the XML mapping and its prefix mappings\n    contentControl.load(\"xmlMapping\");\n    await context.sync();\n    \n    // Get the prefix mappings used for XPath evaluation\n    const prefixMappings = contentControl.xmlMapping.prefixMappings;\n    \n    console.log(\"Prefix mappings for XPath evaluation:\");\n    console.log(prefixMappings);\n    // Example output: \"xmlns:ns0='http://example.com/schema'\"\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xpath",
+      "type": "string",
+      "description": "Returns the XPath for the XML mapping, which evaluates to the currently mapped XML node.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the XPath expression of a content control's XML mapping to verify which XML node it is currently mapped to.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Load the XML mapping and its xpath property\n    contentControl.load(\"xmlMapping\");\n    const xmlMapping = contentControl.xmlMapping;\n    xmlMapping.load(\"xpath\");\n    \n    await context.sync();\n    \n    // Display the XPath expression\n    console.log(\"XPath expression: \" + xmlMapping.xpath);\n    // Example output: \"/root/customer/name\"\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the XML mapping from the parent content control.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove the XML mapping from a content control to unlink it from custom XML data",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Load the XML mapping\n    contentControl.load(\"xmlMapping\");\n    await context.sync();\n    \n    // Delete the XML mapping from the content control\n    contentControl.xmlMapping.delete();\n    \n    await context.sync();\n    \n    console.log(\"XML mapping deleted from content control\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.XmlMappingLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.XmlMapping",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.XmlMapping",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "object",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.XmlMapping",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the XML mapping properties of the first content control in the document to check if it's mapped to custom XML data.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Get the XML mapping object\n    const xmlMapping = contentControl.xmlMapping;\n    \n    // Load properties of the XML mapping\n    xmlMapping.load(\"isMapped, xpath, prefix, customXmlPart\");\n    \n    // Synchronize to read the loaded properties\n    await context.sync();\n    \n    // Display the XML mapping information\n    console.log(\"Is Mapped: \" + xmlMapping.isMapped);\n    if (xmlMapping.isMapped) {\n        console.log(\"XPath: \" + xmlMapping.xpath);\n        console.log(\"Prefix: \" + xmlMapping.prefix);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.XmlMappingUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.XmlMapping",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure an XML mapping on a content control by setting its XPath expression and prefix mappings to link the control to a custom XML part in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    const xmlMapping = contentControl.xmlMapping;\n    \n    // Set multiple XML mapping properties at once\n    xmlMapping.set({\n        xpath: \"/books/book[1]/title\",\n        prefixMappings: \"xmlns:ns='http://example.com/books'\"\n    });\n    \n    await context.sync();\n    \n    console.log(\"XML mapping properties configured successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setMapping",
+      "kind": "configure",
+      "description": "Allows creating or changing the XML mapping on the content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "xPath",
+              "type": "string",
+              "required": true,
+              "description": "The XPath expression to evaluate."
+            },
+            {
+              "name": "options",
+              "type": "Word.XmlSetMappingOptions",
+              "required": false,
+              "description": "Optional. The options available for setting the XML mapping."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Map a content control to a custom XML element using an XPath expression to bind the control's text to XML data",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Set the XML mapping using an XPath expression\n    // This maps the content control to an XML element at the specified path\n    contentControl.xmlMapping.setMapping(\n        \"/root/customer/name\",\n        { prefixMappings: \"xmlns:ns='http://example.com/schema'\" }\n    );\n    \n    await context.sync();\n    \n    console.log(\"XML mapping successfully set for the content control\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setMappingByNode",
+      "kind": "configure",
+      "description": "Allows creating or changing the XML data mapping on the content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "node",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The custom XML node to map."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Map a content control to a specific XML node from custom XML data in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    \n    // Load the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    \n    await context.sync();\n    \n    // Get the first custom XML part (or create one if needed)\n    const customXmlPart = customXmlParts.items[0];\n    \n    // Get the XML nodes from the custom XML part\n    const xmlNodes = customXmlPart.getXml();\n    \n    await context.sync();\n    \n    // Parse the XML and get a specific node\n    const parser = new DOMParser();\n    const xmlDoc = parser.parseFromString(xmlNodes.value, \"text/xml\");\n    const targetNode = xmlDoc.getElementsByTagName(\"employee\")[0];\n    \n    // Set the mapping using the XML node\n    const xmlMapping = contentControl.xmlMapping;\n    xmlMapping.setMappingByNode(targetNode);\n    \n    await context.sync();\n    \n    console.log(\"Content control mapped to XML node successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.XmlMapping` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.XmlMappingData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.XmlMappingData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize an XML mapping object to JSON format to inspect or log its properties, such as the XPath expression and custom XML part ID associated with a content control.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    const xmlMapping = contentControl.xmlMapping;\n    \n    // Load the XML mapping properties\n    xmlMapping.load(\"customXmlPartId, xpath\");\n    \n    await context.sync();\n    \n    // Convert the XML mapping to a plain JavaScript object\n    const xmlMappingData = xmlMapping.toJSON();\n    \n    // Log or use the serialized data\n    console.log(\"XML Mapping Data:\", JSON.stringify(xmlMappingData, null, 2));\n    console.log(\"XPath:\", xmlMappingData.xpath);\n    console.log(\"Custom XML Part ID:\", xmlMappingData.customXmlPartId);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.XmlMapping",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an XML mapping object across multiple sync calls to maintain its reference while checking and updating the mapping status of a content control.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first content control in the document\n    const contentControl = context.document.contentControls.getFirst();\n    const xmlMapping = contentControl.xmlMapping;\n    \n    // Track the xmlMapping object to use it across multiple sync calls\n    xmlMapping.track();\n    \n    // Load properties for the first sync\n    xmlMapping.load(\"isMapped\");\n    await context.sync();\n    \n    // Check if mapped (using tracked object after sync)\n    if (xmlMapping.isMapped) {\n        console.log(\"Content control is mapped to XML\");\n        \n        // Load additional properties in a second sync call\n        xmlMapping.load(\"xpath\");\n        await context.sync();\n        \n        // Access the tracked object again after another sync\n        console.log(\"XPath: \" + xmlMapping.xpath);\n    }\n    \n    // Untrack when done to free up memory\n    xmlMapping.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.XmlMapping",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Release memory for an XML mapping object after checking its properties to avoid memory leaks in a long-running add-in",
+          "usage_code": "await Word.run(async (context) => {\n    const contentControl = context.document.contentControls.getByTag(\"myXmlControl\").getFirst();\n    const xmlMapping = contentControl.xmlMapping;\n    xmlMapping.load(\"customXmlPart\");\n    \n    await context.sync();\n    \n    // Use the XML mapping object\n    console.log(\"XML mapping exists: \" + (xmlMapping.customXmlPart !== null));\n    \n    // Untrack the object to release memory after use\n    xmlMapping.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

@@ -1,0 +1,919 @@
+{
+  "class": {
+    "name": "Word.Font",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.1"
+    },
+    "description": "Represents a font.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Change the font color\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to change the font color of the current selection.\n    selection.font.color = 'blue';\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The font color of the selection has been changed.');\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "allCaps",
+      "type": "boolean",
+      "description": "Specifies whether the font is formatted as all capital letters, which makes lowercase letters appear as uppercase letters. The possible values are as follows:\n- true: All the text has the All Caps attribute.\n- false: None of the text has the All Caps attribute.\n- null: Returned if some, but not all, of the text has the All Caps attribute.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the selected text to display in all capital letters using the allCaps formatting",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.allCaps = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bold",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font is bold. True if the font is formatted as bold, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Apply bold formatting to the currently selected text in the document.",
+          "usage_code": "// Bold format text\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to make the current selection bold.\n    selection.font.bold = true;\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The selection is now bold.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "boldBidirectional",
+      "type": "boolean",
+      "description": "Specifies whether the font is formatted as bold in a right-to-left language document. The possible values are as follows:\n- true: All the text is bold.\n- false: None of the text is bold.\n- null: Returned if some, but not all, of the text is bold.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the selected text to bold formatting for right-to-left language content (such as Arabic or Hebrew)",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Set bold formatting for right-to-left text\n    font.boldBidirectional = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "borders",
+      "type": "Word.BorderUniversalCollection",
+      "description": "Returns a BorderUniversalCollection object that represents all the borders for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Add a red double-line border around all text formatted with a specific font style",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph's font\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Access the borders collection for the font\n    const borders = font.borders;\n    borders.load(\"items\");\n    \n    await context.sync();\n    \n    // Set border properties for all borders in the collection\n    borders.items.forEach(border => {\n        border.type = Word.BorderType.double;\n        border.color = \"#FF0000\"; // Red color\n        border.width = 2;\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Specifies the color for the specified font. You can provide the value in the '#RRGGBB' format or the color name.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Change the font color of the currently selected text to blue.",
+          "usage_code": "// Change the font color\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to change the font color of the current selection.\n    selection.font.color = 'blue';\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The font color of the selection has been changed.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "colorIndex",
+      "type": "Word.ColorIndex | \"Auto\" | \"Black\" | \"Blue\" | \"Turquoise\" | \"BrightGreen\" | \"Pink\" | \"Red\" | \"Yellow\" | \"White\" | \"DarkBlue\" | \"Teal\" | \"Green\" | \"Violet\" | \"DarkRed\" | \"DarkYellow\" | \"Gray50\" | \"Gray25\" | \"ClassicRed\" | \"ClassicBlue\" | \"ByAuthor\"",
+      "description": "Specifies a ColorIndex value that represents the color for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font color of the selected text to red using the color index",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.colorIndex = \"Red\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "colorIndexBidirectional",
+      "type": "Word.ColorIndex | \"Auto\" | \"Black\" | \"Blue\" | \"Turquoise\" | \"BrightGreen\" | \"Pink\" | \"Red\" | \"Yellow\" | \"White\" | \"DarkBlue\" | \"Teal\" | \"Green\" | \"Violet\" | \"DarkRed\" | \"DarkYellow\" | \"Gray50\" | \"Gray25\" | \"ClassicRed\" | \"ClassicBlue\" | \"ByAuthor\"",
+      "description": "Specifies the color for the Font object in a right-to-left language document.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font color to red for Arabic text in a right-to-left language document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the selected text\n    const range = context.document.getSelection();\n    \n    // Set the color index for right-to-left text to red\n    range.font.colorIndexBidirectional = \"Red\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context to verify the Office host connection before applying font formatting operations",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Access the request context associated with the font object\n    const fontContext = font.context;\n    \n    // Use the context to verify connection and perform operations\n    console.log(\"Context connected:\", fontContext !== null);\n    \n    // Apply font formatting using the same context\n    font.bold = true;\n    font.size = 14;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contextualAlternates",
+      "type": "boolean",
+      "description": "Specifies whether contextual alternates are enabled for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Enable contextual alternates for the selected text to improve the appearance of letter combinations",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.contextualAlternates = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "diacriticColor",
+      "type": "string",
+      "description": "Specifies the color to be used for diacritics for the Font object. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the diacritics color to red for the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Set diacritic color to red\n    font.diacriticColor = \"#FF0000\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "disableCharacterSpaceGrid",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word ignores the number of characters per line for the corresponding Font object.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Disable the character space grid for the selected text so that Word ignores character-per-line spacing constraints",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.disableCharacterSpaceGrid = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "doubleStrikeThrough",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font has a double strikethrough. True if the font is formatted as double strikethrough text, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Apply double strikethrough formatting to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Apply double strikethrough to the selected text\n    font.doubleStrikeThrough = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "emboss",
+      "type": "boolean",
+      "description": "Specifies whether the font is formatted as embossed. The possible values are as follows:\n- true: All the text is embossed.\n- false: None of the text is embossed.\n- null: Returned if some, but not all, of the text is embossed.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply embossed formatting to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Apply embossed formatting to the selected text\n    font.emboss = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "emphasisMark",
+      "type": "Word.EmphasisMark | \"None\" | \"OverSolidCircle\" | \"OverComma\" | \"OverWhiteCircle\" | \"UnderSolidCircle\"",
+      "description": "Specifies an EmphasisMark value that represents the emphasis mark for a character or designated character string.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Add emphasis marks above the selected text using solid circles to highlight important terms in a document.",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Set emphasis mark to display solid circles over the text\n    font.emphasisMark = Word.EmphasisMark.overSolidCircle;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "engrave",
+      "type": "boolean",
+      "description": "Specifies whether the font is formatted as engraved. The possible values are as follows:\n- true: All the text is engraved.\n- false: None of the text is engraved.\n- null: Returned if some, but not all, of the text is engraved.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply engraved formatting to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Apply engraved formatting to the selected text\n    font.engrave = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fill",
+      "type": "Word.FillFormat",
+      "description": "Returns a FillFormat object that contains fill formatting properties for the font used by the range of text.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font fill color to solid blue for the selected text in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    const fill = font.fill;\n    \n    fill.setSolidColor(\"blue\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "glow",
+      "type": "Word.GlowFormat",
+      "description": "Returns a GlowFormat object that represents the glow formatting for the font used by the range of text.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply a blue glow effect with 8pt size to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    const glow = font.glow;\n    \n    glow.color = \"blue\";\n    glow.radius = 8;\n    glow.transparency = 0.5;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hidden",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font is tagged as hidden. True if the font is formatted as hidden text, otherwise, false.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Mark selected text as hidden so it won't be visible when printed or displayed",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.font.hidden = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "highlightColor",
+      "type": "string",
+      "description": "Specifies the highlight color. To set it, use a value either in the '#RRGGBB' format or the color name. To remove highlight color, set it to null. The returned highlight color can be in the '#RRGGBB' format, an empty string for mixed highlight colors, or null for no highlight color. Note: Only the default highlight colors are available in Office for Windows Desktop. These are \"Yellow\", \"Lime\", \"Turquoise\", \"Pink\", \"Blue\", \"Red\", \"DarkBlue\", \"Teal\", \"Green\", \"Purple\", \"DarkRed\", \"Olive\", \"Gray\", \"LightGray\", and \"Black\". When the add-in runs in Office for Windows Desktop, any other color is converted to the closest color when applied to the font.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Highlight the currently selected text in the document with a yellow background color.",
+          "usage_code": "// Highlight selected text\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to highlight the current selection.\n    selection.font.highlightColor = '#FFFF00'; // Yellow\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The selection has been highlighted.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "italic",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font is italicized. True if the font is italicized, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Make the text in the first paragraph italic",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.font.italic = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "italicBidirectional",
+      "type": "boolean",
+      "description": "Specifies whether the font is italicized in a right-to-left language document. The possible values are as follows:\n- true: All the text is italicized.\n- false: None of the text is italicized.\n- null: Returned if some, but not all, of the text is italicized.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the selected text to italic formatting for right-to-left language content (such as Arabic or Hebrew)",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Set italic formatting for right-to-left text\n    font.italicBidirectional = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "kerning",
+      "type": "number",
+      "description": "Specifies the minimum font size for which Microsoft Word will adjust kerning automatically.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the minimum font size to 12 points for automatic kerning adjustment on the selected text",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.kerning = 12;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "ligature",
+      "type": "Word.Ligature | \"None\" | \"Standard\" | \"Contextual\" | \"StandardContextual\" | \"Historical\" | \"StandardHistorical\" | \"ContextualHistorical\" | \"StandardContextualHistorical\" | \"Discretional\" | \"StandardDiscretional\" | \"ContextualDiscretional\" | \"StandardContextualDiscretional\" | \"HistoricalDiscretional\" | \"StandardHistoricalDiscretional\" | \"ContextualHistoricalDiscretional\" | \"All\"",
+      "description": "Specifies the ligature setting for the Font object.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the ligature setting to \"Standard\" for the selected text to enable standard typographic ligatures",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.ligature = \"Standard\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "line",
+      "type": "Word.LineFormat",
+      "description": "Returns a LineFormat object that specifies the formatting for a line.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the underline style to single and change the underline color to red for selected text",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    const line = font.line;\n    \n    line.underlineStyle = Word.UnderlineType.single;\n    line.underlineColor = \"red\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Specifies a value that represents the name of the font.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Change the font name of the currently selected text to Arial.",
+          "usage_code": "// Change the font name\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to change the current selection's font name.\n    selection.font.name = 'Arial';\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The font name has changed.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nameAscii",
+      "type": "string",
+      "description": "Specifies the font used for Latin text (characters with character codes from 0 (zero) through 127).",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font for Latin characters in the selected text to \"Courier New\"",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    selection.font.nameAscii = \"Courier New\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nameBidirectional",
+      "type": "string",
+      "description": "Specifies the font name in a right-to-left language document.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the bidirectional font name to \"Arial\" for the selected text in a right-to-left language document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.nameBidirectional = \"Arial\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nameFarEast",
+      "type": "string",
+      "description": "Specifies the East Asian font name.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the East Asian font name to \"MS Mincho\" for the selected text in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    selection.font.nameFarEast = \"MS Mincho\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nameOther",
+      "type": "string",
+      "description": "Specifies the font used for characters with codes from 128 through 255.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font for extended ASCII characters (128-255) to \"Courier New\" in the selected text",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.nameOther = \"Courier New\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "numberForm",
+      "type": "Word.NumberForm | \"Default\" | \"Lining\" | \"OldStyle\"",
+      "description": "Specifies the number form setting for an OpenType font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the number form to old-style figures for the selected text to give numbers a more traditional, varying baseline appearance",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.numberForm = Word.NumberForm.oldStyle;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "numberSpacing",
+      "type": "Word.NumberSpacing | \"Default\" | \"Proportional\" | \"Tabular\"",
+      "description": "Specifies the number spacing setting for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the number spacing of selected text to tabular format so that numbers align vertically in columns",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.numberSpacing = Word.NumberSpacing.tabular;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "outline",
+      "type": "boolean",
+      "description": "Specifies if the font is formatted as outlined. The possible values are as follows:\n- true: All the text is outlined.\n- false: None of the text is outlined.\n- null: Returned if some, but not all, of the text is outlined.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply outline formatting to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Apply outline formatting to the selected text\n    font.outline = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "position",
+      "type": "number",
+      "description": "Specifies the position of text (in points) relative to the base line.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the selected text to appear 6 points above the baseline as superscript positioning",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    selection.font.position = 6;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reflection",
+      "type": "Word.ReflectionFormat",
+      "description": "Returns a ReflectionFormat object that represents the reflection formatting for a shape.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Add a reflection effect to the text in the first paragraph with 50% transparency and 4 points offset",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Access the reflection format\n    const reflection = font.reflection;\n    reflection.transparency = 0.5;\n    reflection.size = 100;\n    reflection.type = Word.ReflectionType.tight;\n    reflection.blur = 4;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "scaling",
+      "type": "number",
+      "description": "Specifies the scaling percentage applied to the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font scaling to 150% for the selected text to make it appear wider",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    font.scaling = 150;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shadow",
+      "type": "boolean",
+      "description": "Specifies if the font is formatted as shadowed. The possible values are as follows:\n- true: All the text is shadowed.\n- false: None of the text is shadowed.\n- null: Returned if some, but not all, of the text is shadowed.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply shadow formatting to the selected text in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Apply shadow formatting to the selected text\n    font.shadow = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "description": "Specifies a value that represents the font size in points.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Change the font size of the currently selected text to 20 points.",
+          "usage_code": "// Change the font size\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to change the current selection's font size.\n    selection.font.size = 20;\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The font size has changed.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sizeBidirectional",
+      "type": "number",
+      "description": "Specifies the font size in points for right-to-left text.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the font size to 18 points for right-to-left text in the selected range",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.font.sizeBidirectional = 18;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "smallCaps",
+      "type": "boolean",
+      "description": "Specifies whether the font is formatted as small caps, which makes lowercase letters appear as small uppercase letters. The possible values are as follows:\n- true: All the text has the Small Caps attribute.\n- false: None of the text has the Small Caps attribute.\n- null: Returned if some, but not all, of the text has the Small Caps attribute.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Format selected text to display in small caps style, making lowercase letters appear as small uppercase letters",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.font.smallCaps = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "spacing",
+      "type": "number",
+      "description": "Specifies the spacing between characters.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the character spacing of the selected text to 3 points to make it more spread out",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    selection.font.spacing = 3;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "strikeThrough",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font has a strikethrough. True if the font is formatted as strikethrough text, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Apply strikethrough formatting to the currently selected text in the document.",
+          "usage_code": "// Strike format text\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to strikethrough the font of the current selection.\n    selection.font.strikeThrough = true;\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The selection now has a strikethrough.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "stylisticSet",
+      "type": "Word.StylisticSet | \"Default\" | \"Set01\" | \"Set02\" | \"Set03\" | \"Set04\" | \"Set05\" | \"Set06\" | \"Set07\" | \"Set08\" | \"Set09\" | \"Set10\" | \"Set11\" | \"Set12\" | \"Set13\" | \"Set14\" | \"Set15\" | \"Set16\" | \"Set17\" | \"Set18\" | \"Set19\" | \"Set20\"",
+      "description": "Specifies the stylistic set for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply the stylistic set \"Set05\" to the selected text's font to use alternate character forms",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.stylisticSet = Word.StylisticSet.set05;\n    // Or use string literal: font.stylisticSet = \"Set05\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "subscript",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font is a subscript. True if the font is formatted as subscript, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Format the chemical formula \"H2O\" so that the \"2\" appears as a subscript",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    \n    // Insert the text \"H2O\"\n    const range = body.insertText(\"H2O\", Word.InsertLocation.end);\n    \n    // Select just the \"2\" character (index 1)\n    const subscriptRange = range.getRange().characters.items[1];\n    \n    // Make the \"2\" a subscript\n    subscriptRange.font.subscript = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "superscript",
+      "type": "boolean",
+      "description": "Specifies a value that indicates whether the font is a superscript. True if the font is formatted as superscript, otherwise, false.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Format the selected text as superscript (e.g., for mathematical exponents like x²)",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.font.superscript = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents the color for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Change the text color of the first paragraph to red",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    font.textColor.set(\"#FF0000\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textShadow",
+      "type": "Word.ShadowFormat",
+      "description": "Returns a ShadowFormat object that specifies the shadow formatting for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Add a blue shadow with 5pt blur and 3pt offset to the selected text's font",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    const textShadow = font.textShadow;\n    \n    textShadow.blur = 5;\n    textShadow.offsetX = 3;\n    textShadow.offsetY = 3;\n    textShadow.color = \"blue\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "threeDimensionalFormat",
+      "type": "Word.ThreeDimensionalFormat",
+      "description": "Returns a ThreeDimensionalFormat object that contains 3-dimensional (3D) effect formatting properties for the font.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Apply a 3D bevel effect to the selected text's font",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    // Access the 3D format properties\n    const threeDFormat = font.threeDimensionalFormat;\n    \n    // Apply 3D bevel effects\n    threeDFormat.bevelTop.type = Word.BevelType.angle;\n    threeDFormat.bevelTop.width = 5;\n    threeDFormat.bevelTop.height = 5;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "underline",
+      "type": "Word.UnderlineType | \"Mixed\" | \"None\" | \"Hidden\" | \"DotLine\" | \"Single\" | \"Word\" | \"Double\" | \"Thick\" | \"Dotted\" | \"DottedHeavy\" | \"DashLine\" | \"DashLineHeavy\" | \"DashLineLong\" | \"DashLineLongHeavy\" | \"DotDashLine\" | \"DotDashLineHeavy\" | \"TwoDotDashLine\" | \"TwoDotDashLineHeavy\" | \"Wave\" | \"WaveHeavy\" | \"WaveDouble\"",
+      "description": "Specifies a value that indicates the font's underline type. 'None' if the font isn't underlined.",
+      "since": "WordApi 1.1",
+      "examples": [
+        {
+          "description": "Apply single underline formatting to the currently selected text in the document.",
+          "usage_code": "// Underline format text\n// Run a batch operation against the Word object model.\nawait Word.run(async (context) => {\n\n    // Create a range proxy object for the current selection.\n    const selection = context.document.getSelection();\n\n    // Queue a command to underline the current selection.\n    selection.font.underline = Word.UnderlineType.single;\n\n    // Synchronize the document state by executing the queued commands,\n    // and return a promise to indicate task completion.\n    await context.sync();\n    console.log('The selection now has an underline style.');\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "underlineColor",
+      "type": "string",
+      "description": "Specifies the color of the underline for the Font object. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA",
+      "examples": [
+        {
+          "description": "Set the underline color of selected text to red (#FF0000)",
+          "usage_code": "await Word.run(async (context) => {\n    const range = context.document.getSelection();\n    range.font.underlineColor = \"#FF0000\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "decreaseFontSize",
+      "kind": "write",
+      "description": "Decreases the font size to the next available size.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Decrease the font size of the selected text to the next smaller available size",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.decreaseFontSize();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "increaseFontSize",
+      "kind": "write",
+      "description": "Increases the font size to the next available size.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Increase the font size of the selected text to the next available size",
+          "usage_code": "await Word.run(async (context) => {\n    const selection = context.document.getSelection();\n    const font = selection.font;\n    \n    font.increaseFontSize();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.FontLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the font name and size of the first paragraph in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Load the font properties we want to read\n    font.load(\"name, size\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can read the loaded properties\n    console.log(`Font name: ${font.name}`);\n    console.log(`Font size: ${font.size}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reset",
+      "kind": "write",
+      "description": "Removes manual character formatting.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove all manual character formatting from the first paragraph to restore it to the default style",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const font = firstParagraph.font;\n    \n    // Remove all manual character formatting\n    font.reset();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.FontUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Font",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Format the first paragraph's text by setting multiple font properties at once (bold, size, color, and font family)",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const font = firstParagraph.font;\n    \n    font.set({\n        bold: true,\n        size: 16,\n        color: \"#FF0000\",\n        name: \"Arial\"\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setAsTemplateDefault",
+      "kind": "configure",
+      "description": "Sets the specified font formatting as the default for the active document and all new documents based on the active template.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set Arial font with 14pt size and blue color as the default font for the current document and all new documents based on the active template",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the font of the body\n    const bodyFont = context.document.body.font;\n    \n    // Set desired font properties\n    bodyFont.name = \"Arial\";\n    bodyFont.size = 14;\n    bodyFont.color = \"#0000FF\"; // Blue\n    \n    // Set these font settings as the template default\n    bodyFont.setAsTemplateDefault();\n    \n    await context.sync();\n    \n    console.log(\"Font settings have been set as template default\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Font object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.FontData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.FontData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the font properties of the first paragraph as a plain JavaScript object for logging or data transfer purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Load font properties\n    font.load(\"name,size,bold,italic,color\");\n    \n    await context.sync();\n    \n    // Convert the Font object to a plain JavaScript object\n    const fontData = font.toJSON();\n    \n    // Now you can use the plain object for logging, storage, or transfer\n    console.log(\"Font properties:\", fontData);\n    console.log(\"Font name:\", fontData.name);\n    console.log(\"Font size:\", fontData.size);\n    console.log(\"Is bold:\", fontData.bold);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply bold formatting to the first paragraph's font and track it to maintain the reference across multiple sync calls for further modifications",
+          "usage_code": "await Word.run(async (context) => {\n    const firstParagraph = context.document.body.paragraphs.getFirst();\n    const font = firstParagraph.font;\n    \n    // Track the font object to use it across multiple sync calls\n    font.track();\n    \n    font.bold = true;\n    await context.sync();\n    \n    // Can safely modify the tracked font object after sync\n    font.color = \"blue\";\n    font.size = 14;\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    font.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Font",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply formatting to a paragraph's font, then untrack the font object to free memory after the changes are complete.",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const font = paragraph.font;\n    \n    // Track the font object to work with it\n    font.track();\n    \n    // Load and modify font properties\n    font.load(\"name,size\");\n    await context.sync();\n    \n    font.name = \"Arial\";\n    font.size = 14;\n    font.bold = true;\n    \n    await context.sync();\n    \n    // Release the memory associated with the tracked font object\n    font.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.font"
+    ]
+  }
+}

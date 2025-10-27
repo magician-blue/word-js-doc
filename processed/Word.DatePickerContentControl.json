@@ -1,0 +1,521 @@
+{
+  "class": {
+    "name": "DatePickerContentControl",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the DatePickerContentControl object.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "appearance",
+      "type": "Word.ContentControlAppearance | \"BoundingBox\" | \"Tags\" | \"Hidden\"",
+      "description": "Specifies the appearance of the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a date picker content control's appearance to show only bounding box borders without displaying tags",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject();\n    \n    datePicker.load(\"appearance\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set the appearance to BoundingBox\n        datePicker.appearance = Word.ContentControlAppearance.boundingBox;\n        \n        await context.sync();\n        console.log(\"Date picker appearance set to BoundingBox\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Specifies the red-green-blue (RGB) value of the color of the content control. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the color of a date picker content control to blue (#0000FF)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerContentControl = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]).getFirst();\n    \n    // Set the color to blue\n    datePickerContentControl.color = \"#0000FF\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a date picker content control to verify the connection to the Word host application and log its properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the date picker\n    datePicker.load(\"title\");\n    await context.sync();\n    \n    // Access the request context from the date picker content control\n    const requestContext = datePicker.context;\n    \n    // Verify the context is connected and log information\n    console.log(\"Request context is available:\", requestContext !== null);\n    console.log(\"Context type:\", typeof requestContext);\n    console.log(\"Date picker title:\", datePicker.title);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "dateCalendarType",
+      "type": "Word.CalendarType | \"Western\" | \"Arabic\" | \"Hebrew\" | \"Taiwan\" | \"Japan\" | \"Thai\" | \"Korean\" | \"SakaEra\" | \"TranslitEnglish\" | \"TranslitFrench\" | \"Umalqura\"",
+      "description": "Specifies a CalendarType value that represents the calendar type for the date picker content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a date picker content control to use the Hebrew calendar type",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the content control\n    datePicker.load(\"dateCalendarType\");\n    await context.sync();\n    \n    // Set the calendar type to Hebrew\n    if (!datePicker.isNullObject) {\n        datePicker.dateCalendarType = Word.CalendarType.hebrew;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "dateDisplayFormat",
+      "type": "string",
+      "description": "Specifies the format in which dates are displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the date display format to \"MMMM d, yyyy\" (e.g., \"January 15, 2024\") for a date picker content control",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControl = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]).getFirst();\n    \n    // Set the date display format\n    datePickerControl.dateDisplayFormat = \"MMMM d, yyyy\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "dateDisplayLocale",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies a LanguageId that represents the language format for the date displayed in the date picker content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the date display format in a date picker content control to use French (France) locale",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the content control to check if it exists\n    datePicker.load(\"id\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set the date display locale to French\n        datePicker.dateDisplayLocale = \"French\";\n        \n        await context.sync();\n        console.log(\"Date picker locale set to French\");\n    } else {\n        console.log(\"No date picker content control found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "dateStorageFormat",
+      "type": "Word.ContentControlDateStorageFormat | \"Text\" | \"Date\" | \"DateTime\"",
+      "description": "Specifies a ContentControlDateStorageFormat value that represents the format for storage and retrieval of dates when the date picker content control is bound to the XML data store of the active document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a date picker content control to store dates in DateTime format when bound to XML data",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject();\n    \n    datePicker.load(\"dateStorageFormat\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set the storage format to DateTime for XML data binding\n        datePicker.dateStorageFormat = Word.ContentControlDateStorageFormat.dateTime;\n        \n        await context.sync();\n        console.log(\"Date storage format set to DateTime\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Gets the identification for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the ID of a date picker content control in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerContentControl = context.document.contentControls\n        .getByTypes([Word.ContentControlType.datePicker])\n        .getFirst();\n    \n    // Load the id property\n    datePickerContentControl.load(\"id\");\n    \n    await context.sync();\n    \n    // Display the content control ID\n    console.log(\"Date Picker Content Control ID: \" + datePickerContentControl.id);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isTemporary",
+      "type": "boolean",
+      "description": "Specifies whether to remove the content control from the active document when the user edits the contents of the control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a date picker content control to be automatically removed from the document when the user edits its content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the control to check if it exists\n    datePicker.load(\"isTemporary\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set the control to be temporary (removed when user edits it)\n        datePicker.isTemporary = true;\n        await context.sync();\n        \n        console.log(\"Date picker will be removed when user edits its content\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "level",
+      "type": "Word.ContentControlLevel | \"Inline\" | \"Paragraph\" | \"Row\" | \"Cell\"",
+      "description": "Specifies the level of the content controlâwhether the content control surrounds text, paragraphs, table cells, or table rows; or if it is inline.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a date picker content control is inline or at paragraph level and display the level information to the user.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject();\n    \n    datePicker.load(\"level\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Get the level of the date picker content control\n        const level = datePicker.level;\n        console.log(`Date picker content control level: ${level}`);\n        // Output will be one of: \"Inline\", \"Paragraph\", \"Row\", or \"Cell\"\n    } else {\n        console.log(\"No date picker content control found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockContentControl",
+      "type": "boolean",
+      "description": "Specifies if the content control is locked (can't be deleted). true means that the user can't delete it from the active document, false means it can be deleted.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lock a date picker content control to prevent users from deleting it from the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerContentControl = context.document.contentControls.getByTag(\"myDatePicker\").getFirst();\n    \n    // Lock the content control so it cannot be deleted\n    datePickerContentControl.lockContentControl = true;\n    \n    await context.sync();\n    \n    console.log(\"Date picker content control is now locked and cannot be deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockContents",
+      "type": "boolean",
+      "description": "Specifies if the contents of the content control are locked (not editable). true means the user can't edit the contents, false means the contents are editable.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lock the contents of a date picker content control to prevent users from editing the selected date",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControl = context.document.contentControls.getByTag(\"dateOfBirth\").getFirst();\n    \n    // Lock the contents so users cannot edit the date\n    datePickerControl.lockContents = true;\n    \n    await context.sync();\n    \n    console.log(\"Date picker contents are now locked\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "placeholderText",
+      "type": "Word.BuildingBlock",
+      "description": "Returns a BuildingBlock object that represents the placeholder text for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the placeholder text content from a date picker content control by accessing its BuildingBlock object.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the placeholder text BuildingBlock\n    datePicker.load(\"placeholderText\");\n    const placeholderBlock = datePicker.placeholderText;\n    placeholderBlock.load(\"value\");\n    \n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        console.log(\"Placeholder text: \" + placeholderBlock.value);\n    } else {\n        console.log(\"No date picker content control found.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Gets a Range object that represents the contents of the content control in the active document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content from a date picker content control and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirst();\n    \n    // Get the range of the date picker content control\n    const range = datePicker.range;\n    range.load(\"text\");\n    \n    await context.sync();\n    \n    // Display the text content\n    console.log(\"Date picker content: \" + range.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showingPlaceholderText",
+      "type": "boolean",
+      "description": "Gets whether the placeholder text for the content control is being displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a date picker content control is showing placeholder text and display an alert with the result.",
+          "usage_code": "await Word.run(async (context) => {\n    const datePickerControl = context.document.contentControls.getByTag(\"myDatePicker\").getFirst();\n    datePickerControl.load(\"showingPlaceholderText\");\n    \n    await context.sync();\n    \n    if (datePickerControl.showingPlaceholderText) {\n        console.log(\"The date picker is showing placeholder text - no date has been selected yet.\");\n    } else {\n        console.log(\"The date picker has a value - a date has been selected.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Specifies a tag to identify the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a tag \"birthdate-field\" on a date picker content control to identify it for later retrieval or processing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject();\n    \n    datePicker.load(\"tag\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set a tag to identify this date picker\n        datePicker.tag = \"birthdate-field\";\n        await context.sync();\n        \n        console.log(\"Tag set successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Specifies the title for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the title of a date picker content control to \"Project Deadline\"",
+          "usage_code": "await Word.run(async (context) => {\n    const datePickerContentControl = context.document.contentControls.getByTag(\"datePickerTag\").getFirst();\n    datePickerContentControl.title = \"Project Deadline\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xmlMapping",
+      "type": "Word.XmlMapping",
+      "description": "Gets an XmlMapping object that represents the mapping of the content control to XML data in the data store of the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a date picker content control has an XML mapping and display the mapping's XPath if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load the XML mapping property\n    datePicker.load(\"xmlMapping\");\n    \n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        const xmlMapping = datePicker.xmlMapping;\n        xmlMapping.load(\"isMapped, xpath\");\n        \n        await context.sync();\n        \n        if (xmlMapping.isMapped) {\n            console.log(\"Date picker is mapped to XML path: \" + xmlMapping.xpath);\n        } else {\n            console.log(\"Date picker is not mapped to XML data\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "copy",
+      "kind": null,
+      "description": "Copies the content control from the active document to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Copy a date picker content control to the clipboard so it can be pasted elsewhere in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    datePickerControls.load(\"items\");\n    \n    await context.sync();\n    \n    if (datePickerControls.items.length > 0) {\n        const datePickerControl = datePickerControls.items[0] as Word.DatePickerContentControl;\n        \n        // Copy the date picker content control to the clipboard\n        datePickerControl.copy();\n        \n        await context.sync();\n        \n        console.log(\"Date picker content control copied to clipboard\");\n    } else {\n        console.log(\"No date picker content control found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "cut",
+      "kind": null,
+      "description": "Removes the content control from the active document and moves the content control to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove a date picker content control from the document and move it to the clipboard so it can be pasted elsewhere",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTag(\"dateControl\");\n    datePickerControls.load(\"items\");\n    \n    await context.sync();\n    \n    if (datePickerControls.items.length > 0) {\n        const datePicker = datePickerControls.items[0];\n        \n        // Cut the date picker content control to clipboard\n        datePicker.cut();\n        \n        await context.sync();\n        console.log(\"Date picker content control has been cut to clipboard\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes this content control and the contents of the content control.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "deleteContents",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. If true, deletes the contents as well."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a date picker content control and its contents from the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerContentControl = context.document.contentControls\n        .getByTag(\"dateControl\")\n        .getFirst();\n    \n    // Delete the date picker content control and its contents\n    datePickerContentControl.delete(true);\n    \n    await context.sync();\n    console.log(\"Date picker content control and its contents deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.DatePickerContentControlLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the date value and title properties of the first date picker content control in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControl = context.document.contentControls\n        .getByTypes([Word.ContentControlType.datePicker])\n        .getFirst() as Word.DatePickerContentControl;\n    \n    // Load the properties we want to read\n    datePickerControl.load(\"title, date\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can read the loaded properties\n    console.log(\"Title: \" + datePickerControl.title);\n    console.log(\"Date: \" + datePickerControl.date);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.DatePickerContentControlUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.DatePickerContentControl",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple properties of a date picker content control at once, including its title, placeholder text, and date display format.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControl = context.document.contentControls.getByTag(\"myDatePicker\").getFirst();\n    \n    // Set multiple properties at once\n    datePickerControl.set({\n        title: \"Project Deadline\",\n        placeholderText: \"Select a deadline date\",\n        dateDisplayFormat: \"MMMM dd, yyyy\"\n    });\n    \n    await context.sync();\n    console.log(\"Date picker properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setPlaceholderText",
+      "kind": "write",
+      "description": "Sets the placeholder text that displays in the content control until a user enters their own text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlPlaceholderOptions",
+              "required": false,
+              "description": "Optional. The options for configuring the content control's placeholder text."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set placeholder text \"Select a date...\" for a date picker content control at the beginning of the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject();\n    \n    datePicker.load(\"id\");\n    await context.sync();\n    \n    if (!datePicker.isNullObject) {\n        // Set the placeholder text\n        datePicker.setPlaceholderText(\"Select a date...\");\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.DatePickerContentControl object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.DatePickerContentControlData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.DatePickerContentControlData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a date picker content control to JSON format for logging or data transfer purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Load properties to serialize\n    datePicker.load(\"title,tag,dateDisplayFormat,placeholderText\");\n    \n    await context.sync();\n    \n    // Convert to JSON\n    const datePickerJSON = datePicker.toJSON();\n    \n    // Log the JSON representation\n    console.log(\"Date Picker Control as JSON:\", JSON.stringify(datePickerJSON, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a date picker content control across multiple sync calls to prevent InvalidObjectPath errors when accessing its properties after document changes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControls = context.document.contentControls.getByTypes([Word.ContentControlType.datePicker]);\n    const datePicker = datePickerControls.getFirstOrNullObject() as Word.DatePickerContentControl;\n    \n    // Track the object to use it across multiple sync calls\n    datePicker.track();\n    \n    await context.sync();\n    \n    // Now we can safely access and modify the date picker across syncs\n    if (!datePicker.isNullObject) {\n        datePicker.title = \"Updated Date\";\n        await context.sync();\n        \n        // Access properties again after sync without errors\n        datePicker.placeholderText = \"Select a date\";\n        await context.sync();\n        \n        // Untrack when done to free up memory\n        datePicker.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.DatePickerContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a date picker content control, modify its properties, then untrack it to release memory after the operations are complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first date picker content control in the document\n    const datePickerControl = context.document.contentControls.getByTag(\"myDatePicker\").getFirst();\n    \n    // Track the object to monitor changes\n    datePickerControl.track();\n    \n    // Load and modify properties\n    datePickerControl.load(\"title\");\n    await context.sync();\n    \n    datePickerControl.title = \"Updated Date\";\n    await context.sync();\n    \n    // Untrack the object to release memory after we're done using it\n    datePickerControl.untrack();\n    await context.sync();\n    \n    console.log(\"Date picker control updated and untracked\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": []
+  }
+}

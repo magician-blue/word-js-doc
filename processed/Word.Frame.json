@@ -1,0 +1,483 @@
+{
+  "class": {
+    "name": "Frame",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a frame. The Frame object is a member of the Word.FrameCollection object.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "borders",
+      "type": "Word.BorderUniversalCollection",
+      "description": "Returns a BorderUniversalCollection object that represents all the borders for the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the frame's top border to a double line style with blue color and 2.25pt width",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Access the borders collection\n    const borders = frame.borders;\n    const topBorder = borders.getItem(Word.BorderLocation.top);\n    \n    // Configure the top border\n    topBorder.type = Word.BorderType.double;\n    topBorder.color = \"#0000FF\"; // Blue\n    topBorder.width = 2.25;\n    \n    await context.sync();\n    console.log(\"Frame top border configured successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a frame object to verify the connection between the add-in and Word application before performing operations on the frame.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Access the request context associated with the frame\n        const frameContext = frame.context;\n        \n        // Use the context to load properties and sync\n        frame.load(\"width,height\");\n        await frameContext.sync();\n        \n        console.log(`Frame dimensions: ${frame.width} x ${frame.height}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Specifies the height (in points) of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the height of the first frame in the document to 150 points",
+          "usage_code": "await Word.run(async (context) => {\n    const frames = context.document.body.frameCollection;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const firstFrame = frames.items[0];\n        firstFrame.height = 150;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "heightRule",
+      "type": "Word.FrameSizeRule | \"Auto\" | \"AtLeast\" | \"Exact\"",
+      "description": "Specifies a FrameSizeRule value that represents the rule for determining the height of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's height rule to \"AtLeast\" to ensure the frame is at least a minimum height but can expand if needed",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Set the height rule to \"AtLeast\"\n    frame.heightRule = \"AtLeast\";\n    \n    await context.sync();\n    console.log(\"Frame height rule set to AtLeast\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "horizontalDistanceFromText",
+      "type": "number",
+      "description": "Specifies the horizontal distance between the frame and the surrounding text, in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the horizontal distance between a frame and its surrounding text to 20 points",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Set horizontal distance from text to 20 points\n        frame.horizontalDistanceFromText = 20;\n        \n        await context.sync();\n        console.log(\"Horizontal distance from text set to 20 points\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "horizontalPosition",
+      "type": "number",
+      "description": "Specifies the horizontal distance between the edge of the frame and the item specified by the relativeHorizontalPosition property.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's horizontal position to 72 points (1 inch) from its relative horizontal anchor point",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Set the horizontal position to 72 points from the anchor\n    frame.horizontalPosition = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockAnchor",
+      "type": "boolean",
+      "description": "Specifies if the frame is locked.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lock a frame's anchor position to prevent it from moving when content is added or removed from the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Lock the frame's anchor\n        frame.lockAnchor = true;\n        \n        await context.sync();\n        console.log(\"Frame anchor has been locked\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Returns a Range object that represents the portion of the document that's contained within the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content from a frame and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const firstFrame = frames.getFirst();\n    \n    // Get the range contained within the frame\n    const frameRange = firstFrame.range;\n    frameRange.load(\"text\");\n    \n    await context.sync();\n    \n    // Display the text content from the frame\n    console.log(\"Frame content: \" + frameRange.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeHorizontalPosition",
+      "type": "Word.RelativeHorizontalPosition | \"Margin\" | \"Page\" | \"Column\" | \"Character\" | \"LeftMargin\" | \"RightMargin\" | \"InsideMargin\" | \"OutsideMargin\"",
+      "description": "Specifies the relative horizontal position of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's horizontal position to be relative to the page margins",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameCollection;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Set the frame's horizontal position to be relative to the margin\n        frame.relativeHorizontalPosition = Word.RelativeHorizontalPosition.margin;\n        \n        await context.sync();\n        console.log(\"Frame horizontal position set to margin\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "relativeVerticalPosition",
+      "type": "Word.RelativeVerticalPosition | \"Margin\" | \"Page\" | \"Paragraph\" | \"Line\" | \"TopMargin\" | \"BottomMargin\" | \"InsideMargin\" | \"OutsideMargin\"",
+      "description": "Specifies the relative vertical position of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's vertical position to be relative to the page margins",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameCollection;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Set the frame's vertical position to be relative to the page margin\n        frame.relativeVerticalPosition = Word.RelativeVerticalPosition.margin;\n        \n        await context.sync();\n        console.log(\"Frame vertical position set to margin\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shading",
+      "type": "Word.ShadingUniversal",
+      "description": "Returns a ShadingUniversal object that refers to the shading formatting for the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Apply yellow background shading to a frame in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Access the shading property and set background color to yellow\n    frame.shading.backgroundPatternColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textWrap",
+      "type": "boolean",
+      "description": "Specifies if document text wraps around the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable text wrapping around a frame so that document text flows around it instead of being displaced by it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.framesets.getFirst().frames;\n    const frame = frames.getFirst();\n    \n    // Enable text wrapping around the frame\n    frame.textWrap = true;\n    \n    await context.sync();\n    \n    console.log(\"Text wrapping enabled for the frame\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalDistanceFromText",
+      "type": "number",
+      "description": "Specifies the vertical distance (in points) between the frame and the surrounding text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the vertical distance between a frame and its surrounding text to 12 points",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const frame = frames.items[0];\n        \n        // Set the vertical distance from text to 12 points\n        frame.verticalDistanceFromText = 12;\n        \n        await context.sync();\n        console.log(\"Vertical distance from text set to 12 points\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalPosition",
+      "type": "number",
+      "description": "Specifies the vertical distance between the edge of the frame and the item specified by the relativeVerticalPosition property.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's vertical position to 50 points from the top margin",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Set the vertical position to 50 points\n    frame.verticalPosition = 50;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Specifies the width (in points) of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the width of the first frame in the document to 300 points",
+          "usage_code": "await Word.run(async (context) => {\n    const frames = context.document.body.frameCollection;\n    frames.load(\"items\");\n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const firstFrame = frames.items[0];\n        firstFrame.width = 300;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "widthRule",
+      "type": "Word.FrameSizeRule | \"Auto\" | \"AtLeast\" | \"Exact\"",
+      "description": "Specifies the rule used to determine the width of the frame.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a frame's width rule to \"Exact\" to enforce a fixed width of 200 points",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const frame = frames.getFirst();\n    \n    // Set the width rule to \"Exact\" for fixed width\n    frame.widthRule = \"Exact\";\n    frame.width = 200; // Set width to 200 points\n    \n    await context.sync();\n    \n    console.log(\"Frame width rule set to Exact with 200 points width\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "copy",
+      "kind": null,
+      "description": "Copies the frame to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Copy the first frame in the document to the Clipboard so it can be pasted elsewhere",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    const firstFrame = frames.getFirst();\n    \n    // Copy the frame to the Clipboard\n    firstFrame.copy();\n    \n    await context.sync();\n    \n    console.log(\"Frame copied to Clipboard\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "cut",
+      "kind": null,
+      "description": "Removes the frame from the document and places it on the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Remove the first frame from the document and place it on the Clipboard",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameCollection;\n    frames.load(\"items\");\n    \n    await context.sync();\n    \n    if (frames.items.length > 0) {\n        const firstFrame = frames.items[0];\n        \n        // Cut the frame to the Clipboard\n        firstFrame.cut();\n        \n        await context.sync();\n        console.log(\"Frame has been cut to the Clipboard\");\n    } else {\n        console.log(\"No frames found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the frame.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first frame in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameCollection;\n    const firstFrame = frames.getFirst();\n    \n    // Delete the frame\n    firstFrame.delete();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.FrameLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Frame",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Frame",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Frame",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the width and height properties of the first frame in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const firstFrame = frames.getFirst();\n    \n    // Load the width and height properties of the frame\n    firstFrame.load(\"width, height\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the loaded properties\n    console.log(`Frame width: ${firstFrame.width}`);\n    console.log(`Frame height: ${firstFrame.height}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the frame.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the first frame in the document to highlight it for the user",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    const firstFrame = frames.getFirst();\n    \n    // Select the frame\n    firstFrame.select();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.FrameUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Frame",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple frame properties at once to set the frame's width to 200 points and height to 150 points",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    const frame = frames.items[0];\n    \n    // Set multiple properties at once using the set() method\n    frame.set({\n        width: 200,\n        height: 150\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Frame object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.FrameData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.FrameData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a frame's properties to a plain JavaScript object and log it to the console for debugging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.framesets.getFirst().frames;\n    const frame = frames.getFirst();\n    \n    // Load properties we want to serialize\n    frame.load(\"width,height,left,top\");\n    \n    await context.sync();\n    \n    // Convert the frame to a plain JavaScript object\n    const frameData = frame.toJSON();\n    \n    // Log the serialized data\n    console.log(\"Frame data:\", JSON.stringify(frameData, null, 2));\n    \n    // The frameData object can now be used for storage, comparison, or transmission\n    // It contains only the loaded properties as plain JavaScript values\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Frame",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a frame object to maintain its reference across multiple sync calls while modifying its properties and content in separate operations.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    frames.load(\"items\");\n    await context.sync();\n    \n    const frame = frames.items[0];\n    \n    // Track the frame object for use across multiple sync calls\n    frame.track();\n    \n    // Load and modify frame properties in first operation\n    frame.load(\"width,height\");\n    await context.sync();\n    \n    console.log(`Original size: ${frame.width}pt x ${frame.height}pt`);\n    \n    // Modify the frame in a second operation\n    frame.width = 300;\n    frame.height = 200;\n    await context.sync();\n    \n    console.log(\"Frame resized successfully\");\n    \n    // Untrack when done to release memory\n    frame.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Frame",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a frame from the document, perform operations on it, then untrack it to release memory after you're done using it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first frame in the document\n    const frames = context.document.body.frameSet.frames;\n    const firstFrame = frames.getFirst();\n    \n    // Track the frame object for changes\n    firstFrame.track();\n    \n    // Load properties to work with\n    firstFrame.load(\"width,height\");\n    await context.sync();\n    \n    // Perform operations with the frame\n    console.log(`Frame dimensions: ${firstFrame.width} x ${firstFrame.height}`);\n    \n    // Untrack the frame to release memory when done\n    firstFrame.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

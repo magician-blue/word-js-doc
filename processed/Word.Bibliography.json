@@ -1,0 +1,262 @@
+{
+  "class": {
+    "name": "Word.Bibliography",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the list of available sources attached to the document (in the current list) or the list of sources available in the application (in the master list).",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "bibliographyStyle",
+      "type": "string",
+      "description": "Specifies the name of the active style to use for the bibliography.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the bibliography style to APA (American Psychological Association) format for the document's bibliography.",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    bibliography.bibliographyStyle = \"APA\";\n    \n    await context.sync();\n    console.log(\"Bibliography style set to APA\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the bibliography's request context to verify the add-in is properly connected to the Word host application before performing bibliography operations.",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    \n    // Access the request context associated with the bibliography object\n    const requestContext = bibliography.context;\n    \n    // Verify the context is valid by checking if it's defined\n    if (requestContext) {\n        console.log(\"Bibliography is connected to Word host application\");\n        \n        // Load bibliography properties using the context\n        bibliography.load(\"sources\");\n        await context.sync();\n        \n        console.log(`Number of sources: ${bibliography.sources.items.length}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sources",
+      "type": "Word.SourceCollection",
+      "description": "Returns a SourceCollection object that represents all the sources contained in the bibliography.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get all sources from the document's bibliography and display the count and title of each source in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bibliography from the document\n    const bibliography = context.document.bibliography;\n    \n    // Get the sources collection\n    const sources = bibliography.sources;\n    \n    // Load the count and title properties\n    sources.load(\"items/title\");\n    \n    await context.sync();\n    \n    // Display the count and each source title\n    console.log(`Total sources: ${sources.items.length}`);\n    \n    sources.items.forEach((source, index) => {\n        console.log(`Source ${index + 1}: ${source.title}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "generateUniqueTag",
+      "kind": null,
+      "description": "Generates a unique identification tag for a bibliography source and returns a string that represents the tag.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Generate a unique tag for a new bibliography source before adding it to the document's bibliography",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    \n    // Generate a unique tag for a new source\n    const uniqueTag = bibliography.generateUniqueTag();\n    \n    await context.sync();\n    \n    console.log(\"Generated unique tag for new bibliography source:\", uniqueTag);\n    \n    // The tag can now be used when creating a new bibliography source\n    // Example: \"Smi23\" or \"Jon24\" depending on existing sources\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.BibliographyLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Bibliography",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Bibliography",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "object",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Bibliography",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the number of sources in the document's bibliography",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    \n    // Load the sources property of the bibliography\n    bibliography.load(\"sources\");\n    \n    await context.sync();\n    \n    // Display the count of bibliography sources\n    console.log(`Number of bibliography sources: ${bibliography.sources.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.BibliographyUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Bibliography",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update bibliography settings to set the bibliography style to APA and enable automatic updates",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    \n    bibliography.set({\n        bibliographyStyle: \"APA\",\n        automaticUpdate: true\n    });\n    \n    await context.sync();\n    console.log(\"Bibliography settings updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). Whereas the original Word.Bibliography object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.BibliographyData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.BibliographyData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize the document's bibliography data to JSON format and log it to the console for debugging or export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bibliography from the document\n    const bibliography = context.document.bibliography;\n    \n    // Load the bibliography properties\n    bibliography.load(\"*\");\n    \n    await context.sync();\n    \n    // Convert the bibliography to a plain JavaScript object\n    const bibliographyData = bibliography.toJSON();\n    \n    // Log the JSON representation\n    console.log(\"Bibliography data:\", JSON.stringify(bibliographyData, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Bibliography",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a bibliography object to maintain its reference across multiple sync calls while adding sources and updating properties",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.document.bibliography;\n    \n    // Track the bibliography object to use it across multiple sync calls\n    bibliography.track();\n    \n    // Load properties\n    bibliography.load(\"sources\");\n    await context.sync();\n    \n    // Use the bibliography object after sync (tracking prevents InvalidObjectPath error)\n    console.log(`Current source count: ${bibliography.sources.items.length}`);\n    \n    // Perform another sync and continue using the tracked object\n    await context.sync();\n    \n    // Access the bibliography again safely\n    console.log(\"Bibliography is still accessible after multiple syncs\");\n    \n    // Untrack when done to free up memory\n    bibliography.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Bibliography",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Access the document's bibliography, perform operations with it, then untrack it to free memory after use.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bibliography and track it\n    const bibliography = context.document.bibliography;\n    bibliography.track();\n    \n    // Load properties to work with the bibliography\n    bibliography.load(\"sources\");\n    await context.sync();\n    \n    // Perform operations (e.g., log the number of sources)\n    console.log(`Number of sources: ${bibliography.sources.items.length}`);\n    \n    // Untrack the bibliography to release memory\n    bibliography.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.sourcecollection",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.interfaces.bibliographyloadoptions",
+      "/en-us/javascript/api/word/word.bibliography",
+      "/en-us/javascript/api/word/word.interfaces.bibliographyupdatedata",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.interfaces.bibliographydata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext"
+    ]
+  }
+}

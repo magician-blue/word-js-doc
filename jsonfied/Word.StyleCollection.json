@@ -13,7 +13,7 @@
     "examples": [
       {
         "description": null,
-        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+        "usage_code": "// Link to full sample: // Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
         "output_code": null
       }
     ]
@@ -80,7 +80,7 @@
       "examples": [
         {
           "description": null,
-          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Adds a new style.\nawait Word.run(async (context) => {\n  const newStyleName = (document.getElementById(\"new-style-name\") as HTMLInputElement).value;\n  if (newStyleName == \"\") {\n    console.warn(\"Enter a style name to add.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(newStyleName);\n  style.load();\n  await context.sync();\n\n  if (!style.isNullObject) {\n    console.warn(\n      `There's an existing style with the same name '${newStyleName}'! Please provide another style name.`\n    );\n    return;\n  }\n\n  const newStyleType = ((document.getElementById(\"new-style-type\") as HTMLSelectElement).value as unknown) as Word.StyleType;\n  context.document.addStyle(newStyleName, newStyleType);\n  await context.sync();\n\n  console.log(newStyleName + \" has been added to the style list.\");\n});",
+          "usage_code": "// Link to full sample: // Adds a new style.\nawait Word.run(async (context) => {\n  const newStyleName = (document.getElementById(\"new-style-name\") as HTMLInputElement).value;\n  if (newStyleName == \"\") {\n    console.warn(\"Enter a style name to add.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(newStyleName);\n  style.load();\n  await context.sync();\n\n  if (!style.isNullObject) {\n    console.warn(\n      `There's an existing style with the same name '${newStyleName}'! Please provide another style name.`\n    );\n    return;\n  }\n\n  const newStyleType = ((document.getElementById(\"new-style-type\") as HTMLSelectElement).value as unknown) as Word.StyleType;\n  context.document.addStyle(newStyleName, newStyleType);\n  await context.sync();\n\n  console.log(newStyleName + \" has been added to the style list.\");\n});",
           "output_code": null
         }
       ]
@@ -101,7 +101,7 @@
       "examples": [
         {
           "description": null,
-          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml\n\n// Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
+          "usage_code": "// Link to full sample: // Gets the number of available styles stored with the document.\nawait Word.run(async (context) => {\n  const styles: Word.StyleCollection = context.document.getStyles();\n  const count = styles.getCount();\n  await context.sync();\n\n  console.log(`Number of styles: ${count.value}`);\n});",
           "output_code": null
         }
       ]

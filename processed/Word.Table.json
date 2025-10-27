@@ -1,0 +1,1415 @@
+{
+  "class": {
+    "name": "Word.Table",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Represents a table in a Word document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/table-cell-access.yaml\n\nawait Word.run(async (context) => {\n  // Use a two-dimensional array to hold the initial table values.\n  const data = [\n    [\"Tokyo\", \"Beijing\", \"Seattle\"],\n    [\"Apple\", \"Orange\", \"Pineapple\"]\n  ];\n  const table: Word.Table = context.document.body.insertTable(2, 3, \"Start\", data);\n  table.styleBuiltIn = Word.BuiltInStyleName.gridTable5Dark_Accent2;\n  table.styleFirstColumn = false;\n\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "alignment",
+      "type": null,
+      "description": "Specifies the alignment of the table against the page column. The value can be 'Left', 'Centered', or 'Right'.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Center align a table in the document so it appears in the middle of the page column",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set the table alignment to centered\n    table.alignment = \"Centered\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": null,
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the table's request context to verify the connection between the add-in and Word before performing table operations",
+          "usage_code": "await Word.run(async (context) => {\n    const table = context.document.body.tables.getFirst();\n    table.load(\"values\");\n    \n    // Access the request context associated with the table\n    const tableContext = table.context;\n    \n    // Verify the context is connected before proceeding\n    if (tableContext) {\n        await context.sync();\n        console.log(\"Table context is connected to Word\");\n        console.log(\"Table has \" + table.values.length + \" rows\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "endnotes",
+      "type": null,
+      "description": "Gets the collection of endnotes in the table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all endnotes from a table and display their reference numbers in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the endnotes collection from the table\n    const endnotes = table.endnotes;\n    \n    // Load the endnote reference numbers\n    endnotes.load(\"items/reference\");\n    \n    await context.sync();\n    \n    // Display the endnote reference numbers\n    console.log(`Found ${endnotes.items.length} endnote(s) in the table:`);\n    endnotes.items.forEach((endnote, index) => {\n        console.log(`Endnote ${index + 1}: Reference number ${endnote.reference}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fields",
+      "type": null,
+      "description": "Gets the collection of field objects in the table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all fields in a table and display their types in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the fields collection from the table\n    const fields = table.fields;\n    \n    // Load the items and their types\n    fields.load(\"items/type\");\n    \n    await context.sync();\n    \n    // Display information about each field\n    console.log(`Found ${fields.items.length} field(s) in the table`);\n    fields.items.forEach((field, index) => {\n        console.log(`Field ${index + 1}: ${field.type}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "font",
+      "type": null,
+      "description": "Gets the font. Use this to get and set font name, size, color, and other properties.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the table font to Arial, size 14, and color it blue",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Access the table's font property and set formatting\n    table.font.name = \"Arial\";\n    table.font.size = 14;\n    table.font.color = \"blue\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "footnotes",
+      "type": null,
+      "description": "Gets the collection of footnotes in the table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all footnotes from a table and display their reference marks and text content in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the footnotes collection from the table\n    const footnotes = table.footnotes;\n    footnotes.load(\"items\");\n    \n    await context.sync();\n    \n    // Log information about each footnote\n    console.log(`Found ${footnotes.items.length} footnote(s) in the table`);\n    \n    for (let i = 0; i < footnotes.items.length; i++) {\n        const footnote = footnotes.items[i];\n        footnote.load(\"reference, body/text\");\n        await context.sync();\n        \n        console.log(`Footnote ${i + 1}:`);\n        console.log(`  Reference: ${footnote.reference}`);\n        console.log(`  Text: ${footnote.body.text}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "headerRowCount",
+      "type": null,
+      "description": "Specifies the number of header rows.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the first 2 rows of a table as header rows",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set the number of header rows to 2\n    table.headerRowCount = 2;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "horizontalAlignment",
+      "type": null,
+      "description": "Specifies the horizontal alignment of every cell in the table. The value can be 'Left', 'Centered', 'Right', or 'Justified'.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Center align all cells in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set horizontal alignment to centered for all cells\n    table.horizontalAlignment = \"Centered\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isUniform",
+      "type": null,
+      "description": "Indicates whether all of the table rows are uniform.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table has uniform rows and display an alert message based on the result",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Load the isUniform property\n    table.load(\"isUniform\");\n    \n    await context.sync();\n    \n    // Check if all rows are uniform and display appropriate message\n    if (table.isUniform) {\n        console.log(\"All table rows are uniform (same number of cells).\");\n    } else {\n        console.log(\"Table rows are not uniform (different number of cells).\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nestingLevel",
+      "type": null,
+      "description": "Gets the nesting level of the table. Top-level tables have level 1.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is a top-level table or nested, and display its nesting level in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const table = context.document.body.tables.getFirst();\n    table.load(\"nestingLevel\");\n    \n    await context.sync();\n    \n    console.log(`Table nesting level: ${table.nestingLevel}`);\n    \n    if (table.nestingLevel === 1) {\n        console.log(\"This is a top-level table\");\n    } else {\n        console.log(\"This is a nested table\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentBody",
+      "type": null,
+      "description": "Gets the parent body of the table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the table's parent body and highlight it with yellow background color to visually identify which body section contains the table.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the parent body of the table\n    const parentBody = table.parentBody;\n    \n    // Highlight the parent body with yellow background\n    parentBody.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControl",
+      "type": null,
+      "description": "Gets the content control that contains the table. Throws an ItemNotFound error if there isn't a parent content control.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get the title of the content control that contains a table and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the parent content control that contains the table\n    const parentContentControl = table.parentContentControl;\n    \n    // Load the title property of the parent content control\n    parentContentControl.load(\"title\");\n    \n    await context.sync();\n    \n    // Display the parent content control's title\n    console.log(\"Parent content control title: \" + parentContentControl.title);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentContentControlOrNullObject",
+      "type": null,
+      "description": "Gets the content control that contains the table. If there isn't a parent content control, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is inside a content control and highlight the content control's title if it exists",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the parent content control (or null object if none exists)\n    const parentContentControl = table.parentContentControlOrNullObject;\n    \n    // Load properties\n    parentContentControl.load(\"isNullObject, title\");\n    \n    await context.sync();\n    \n    // Check if the table has a parent content control\n    if (!parentContentControl.isNullObject) {\n        console.log(\"Table is inside a content control with title: \" + parentContentControl.title);\n        // Highlight the content control\n        parentContentControl.appearance = Word.ContentControlAppearance.tags;\n    } else {\n        console.log(\"Table is not inside a content control\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTable",
+      "type": null,
+      "description": "Gets the table that contains this table. Throws an ItemNotFound error if it isn't contained in a table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is nested inside another table and highlight the parent table's first cell if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    const table = context.document.body.tables.getFirst();\n    \n    try {\n        const parentTable = table.parentTable;\n        parentTable.load(\"values\");\n        await context.sync();\n        \n        // If we reach here, the table is nested - highlight parent's first cell\n        parentTable.getCell(0, 0).body.font.highlightColor = \"yellow\";\n        await context.sync();\n        \n        console.log(\"Table is nested inside a parent table\");\n    } catch (error) {\n        if (error.code === \"ItemNotFound\") {\n            console.log(\"Table is not nested - it's a top-level table\");\n        } else {\n            throw error;\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCell",
+      "type": null,
+      "description": "Gets the table cell that contains this table. Throws an ItemNotFound error if it isn't contained in a table cell.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is nested inside another table by accessing its parent table cell and logging the cell's position information.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the parent table cell that contains this table\n    const parentCell = table.parentTableCell;\n    \n    // Load properties of the parent cell\n    parentCell.load(\"rowIndex, columnIndex\");\n    \n    await context.sync();\n    \n    // Log the parent cell information\n    console.log(`This table is nested in cell at row ${parentCell.rowIndex}, column ${parentCell.columnIndex}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableCellOrNullObject",
+      "type": null,
+      "description": "Gets the table cell that contains this table. If it isn't contained in a table cell, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is nested inside another table's cell, and if so, highlight the parent cell with yellow shading.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the parent table cell (or null object if not nested)\n    const parentCell = table.parentTableCellOrNullObject;\n    \n    // Load the isNullObject property to check if the table is nested\n    parentCell.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    // Check if the table is nested in another table\n    if (!parentCell.isNullObject) {\n        // Table is nested - highlight the parent cell\n        parentCell.shadingColor = \"yellow\";\n        console.log(\"Table is nested. Parent cell highlighted.\");\n    } else {\n        console.log(\"Table is not nested in another table.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTableOrNullObject",
+      "type": null,
+      "description": "Gets the table that contains this table. If it isn't contained in a table, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Check if a table is nested inside another table and highlight the parent table's borders in red if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    const parentTable = table.parentTableOrNullObject;\n    \n    // Load properties to check if parent exists\n    parentTable.load(\"isNullObject\");\n    await context.sync();\n    \n    if (!parentTable.isNullObject) {\n        // This table is nested - highlight the parent table's borders\n        parentTable.load(\"borders\");\n        await context.sync();\n        \n        parentTable.borders.outsideBorderColor = \"red\";\n        parentTable.borders.outsideBorderWidth = 3;\n        console.log(\"This table is nested. Parent table borders highlighted.\");\n    } else {\n        console.log(\"This table is not nested inside another table.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rowCount",
+      "type": null,
+      "description": "Gets the number of rows in the table.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Display an alert showing how many rows are in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    firstTable.load(\"rowCount\");\n    \n    await context.sync();\n    \n    console.log(`The table has ${firstTable.rowCount} rows`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rows",
+      "type": null,
+      "description": "Gets all of the table rows.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all rows from a table and highlight the text in each row with yellow color.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get all rows from the table\n    const rows = table.rows;\n    rows.load(\"items\");\n    \n    await context.sync();\n    \n    // Highlight text in each row\n    for (let i = 0; i < rows.items.length; i++) {\n        rows.items[i].font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shadingColor",
+      "type": null,
+      "description": "Specifies the shading color. Color is specified in \"#RRGGBB\" format or by using the color name.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the shading color of a table to light blue",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set the shading color to light blue\n    table.shadingColor = \"#ADD8E6\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "style",
+      "type": null,
+      "description": "Specifies the style name for the table. Use this property for custom styles and localized style names. To use the built-in styles that are portable between locales, see the \"styleBuiltIn\" property.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Apply a custom table style named \"MyCustomTableStyle\" to the first table in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Apply the custom style to the table\n    table.style = \"MyCustomTableStyle\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleBandedColumns",
+      "type": null,
+      "description": "Specifies whether the table has banded columns.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Enable banded columns styling on the first table in the document to create alternating column colors",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Enable banded columns\n    table.styleBandedColumns = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleBandedRows",
+      "type": null,
+      "description": "Specifies whether the table has banded rows.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Enable banded rows styling on a table to alternate row colors for better readability",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Enable banded rows\n    table.styleBandedRows = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleBuiltIn",
+      "type": null,
+      "description": "Specifies the built-in style name for the table. Use this property for built-in styles that are portable between locales. To use custom styles or localized style names, see the \"style\" property.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Apply the built-in \"Grid Table 1 Light\" style to the first table in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Apply a built-in table style\n    table.styleBuiltIn = Word.BuiltInStyleName.gridTable1Light;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleFirstColumn",
+      "type": null,
+      "description": "Specifies whether the table has a first column with a special style.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Apply special styling to the first column of a table by enabling the first column style option.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Enable special styling for the first column\n    table.styleFirstColumn = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleLastColumn",
+      "type": null,
+      "description": "Specifies whether the table has a last column with a special style.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Enable special styling for the last column of a table to make it visually distinct from other columns",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Enable special styling for the last column\n    table.styleLastColumn = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "styleTotalRow",
+      "type": null,
+      "description": "Specifies whether the table has a total (last) row with a special style.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Enable the total row style for a table to highlight the last row with special formatting",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Enable the total row style\n    table.styleTotalRow = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tables",
+      "type": null,
+      "description": "Gets the child tables nested one level deeper.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all child tables nested within the first table of the document and highlight them in yellow.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the child tables nested one level deeper within the first table\n    const childTables = firstTable.tables;\n    childTables.load(\"items\");\n    \n    await context.sync();\n    \n    // Highlight each child table in yellow\n    for (let i = 0; i < childTables.items.length; i++) {\n        childTables.items[i].shadingColor = \"#FFFF00\";\n    }\n    \n    await context.sync();\n    \n    console.log(`Found ${childTables.items.length} nested table(s)`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "values",
+      "type": null,
+      "description": "Specifies the text values in the table, as a 2D JavaScript array.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Read all text values from a table and display them in the console, then update specific cell values in the table.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Load the values property\n    table.load(\"values\");\n    await context.sync();\n    \n    // Read and log the current table values\n    console.log(\"Current table values:\", table.values);\n    \n    // Update the table values (modify specific cells)\n    const updatedValues = table.values;\n    updatedValues[0][0] = \"Updated Header\";\n    updatedValues[1][1] = \"New Value\";\n    \n    // Set the new values back to the table\n    table.values = updatedValues;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalAlignment",
+      "type": null,
+      "description": "Specifies the vertical alignment of every cell in the table. The value can be 'Top', 'Center', or 'Bottom'.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the vertical alignment of all cells in the first table to center",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set vertical alignment to center for all cells\n    table.verticalAlignment = \"Center\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": null,
+      "description": "Specifies the width of the table in points.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Set the width of the first table in the document to 400 points",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    firstTable.width = 400;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addColumns",
+      "kind": "create",
+      "description": "Adds columns to the start or end of the table, using the first or last existing column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "columnCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "values",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add 2 columns to the end of the first table in the document with header values \"Q3\" and \"Q4\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Add 2 columns to the end of the table with values\n    table.addColumns(\"End\", 2, [[\"Q3\", \"Q4\"]]);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "addRows",
+      "kind": "create",
+      "description": "Adds rows to the start or end of the table, using the first or last existing row as a template. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "rowCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "values",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add 3 new rows at the end of the first table with employee data",
+          "usage_code": "await Word.run(async (context) => {\n    const table = context.document.body.tables.getFirst();\n    \n    // Add 3 rows at the end with employee data\n    table.addRows(\n        Word.InsertLocation.end,\n        3,\n        [\n            [\"John Smith\", \"Engineering\", \"Senior Developer\"],\n            [\"Sarah Johnson\", \"Marketing\", \"Manager\"],\n            [\"Mike Davis\", \"Sales\", \"Representative\"]\n        ]\n    );\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "autoFitWindow",
+      "kind": "configure",
+      "description": "Autofits the table columns to the width of the window.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Autofit an existing table's columns to match the window width",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Autofit the table columns to the window width\n    table.autoFitWindow();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "clear",
+      "kind": "write",
+      "description": "Clears the contents of the table.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Clear all contents from the first table in the document while keeping the table structure intact",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Clear the contents of the table\n    firstTable.clear();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the entire table.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first table found in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Delete the table\n    firstTable.delete();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteColumns",
+      "kind": "delete",
+      "description": "Deletes specific columns. This is applicable to uniform tables.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "columnIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "columnCount",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete 2 columns starting from column index 1 in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Delete 2 columns starting at index 1 (second column)\n    firstTable.deleteColumns(1, 2);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteRows",
+      "kind": "delete",
+      "description": "Deletes specific rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "rowCount",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete 2 rows starting from row index 1 (the second row) in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    firstTable.deleteRows(1, 2);\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "distributeColumns",
+      "kind": "configure",
+      "description": "Distributes the column widths evenly. This is applicable to uniform tables.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Distribute the column widths evenly across all columns in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Distribute the column widths evenly\n    table.distributeColumns();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBorder",
+      "kind": "read",
+      "description": "Gets the border style for the specified border.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the border style of the top border of the first table in the document and display its properties in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the top border of the table\n    const topBorder = table.getBorder(Word.BorderLocation.top);\n    \n    // Load border properties\n    topBorder.load(\"type, color, width\");\n    \n    await context.sync();\n    \n    // Display border properties\n    console.log(\"Top Border Type:\", topBorder.type);\n    console.log(\"Top Border Color:\", topBorder.color);\n    console.log(\"Top Border Width:\", topBorder.width);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCell",
+      "kind": "read",
+      "description": "Gets the table cell at a specified row and column. Throws an ItemNotFound error if the specified table cell doesn't exist.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "cellIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the cell in the second row and third column of the first table and highlight it with yellow background color.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the cell at row index 1 (second row) and cell index 2 (third column)\n    const cell = table.getCell(1, 2);\n    \n    // Highlight the cell with yellow background\n    cell.shadingColor = \"#FFFF00\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCellOrNullObject",
+      "kind": "read",
+      "description": "Gets the table cell at a specified row and column. If the specified table cell doesn't exist, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "cellIndex",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a cell exists at row 2, column 3 of the first table, and if it exists, highlight it yellow; otherwise, insert a paragraph indicating the cell doesn't exist.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const cell = firstTable.getCellOrNullObject(2, 3);\n    \n    cell.load(\"isNullObject\");\n    await context.sync();\n    \n    if (cell.isNullObject) {\n        const paragraph = context.document.body.insertParagraph(\n            \"Cell at row 2, column 3 does not exist.\",\n            Word.InsertLocation.end\n        );\n        paragraph.font.color = \"red\";\n    } else {\n        cell.body.font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCellPadding",
+      "kind": "read",
+      "description": "Gets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the top cell padding value from the first cell in the first table and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the first cell in the table\n    const cell = table.getCell(0, 0);\n    \n    // Get the top cell padding\n    const topPadding = cell.getCellPadding(Word.CellPaddingLocation.top);\n    \n    // Load the value property\n    topPadding.load(\"value\");\n    \n    // Sync to get the actual value\n    await context.sync();\n    \n    // Display the padding value\n    console.log(`Top cell padding: ${topPadding.value} points`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next table. Throws an ItemNotFound error if this table is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the next table after the first table in the document and highlight it with a yellow background color.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the next table after the first one\n    const nextTable = firstTable.getNext();\n    \n    // Apply yellow shading to the next table\n    nextTable.shadingColor = \"#FFFF00\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next table. If this table is the last one, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if there is a table after the current table and highlight it yellow if it exists",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the next table (or null object if none exists)\n    const nextTable = firstTable.getNextOrNullObject();\n    \n    // Load properties to check if it exists\n    nextTable.load(\"isNullObject\");\n    \n    await context.sync();\n    \n    // Check if the next table exists\n    if (!nextTable.isNullObject) {\n        // Highlight the next table with yellow shading\n        nextTable.shadingColor = \"#FFFF00\";\n        console.log(\"Next table found and highlighted\");\n    } else {\n        console.log(\"No table exists after the first table\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getParagraphAfter",
+      "kind": "read",
+      "description": "Gets the paragraph after the table. Throws an ItemNotFound error if there isn't a paragraph after the table.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the paragraph that follows a table and highlight it in yellow to make it stand out.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the paragraph after the table\n    const paragraphAfter = table.getParagraphAfter();\n    \n    // Highlight the paragraph in yellow\n    paragraphAfter.font.highlightColor = \"Yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getParagraphAfterOrNullObject",
+      "kind": "read",
+      "description": "Gets the paragraph after the table. If there isn't a paragraph after the table, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if there is a paragraph after the first table in the document, and if it exists, highlight it in yellow.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const paragraphAfter = firstTable.getParagraphAfterOrNullObject();\n    \n    await context.sync();\n    \n    if (!paragraphAfter.isNullObject) {\n        paragraphAfter.font.highlightColor = \"yellow\";\n    } else {\n        console.log(\"No paragraph exists after the table.\");\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getParagraphBefore",
+      "kind": "read",
+      "description": "Gets the paragraph before the table. Throws an ItemNotFound error if there isn't a paragraph before the table.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if there's a paragraph before the first table and highlight it in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    \n    try {\n        const paragraphBefore = firstTable.getParagraphBefore();\n        paragraphBefore.load(\"text\");\n        \n        await context.sync();\n        \n        // Highlight the paragraph before the table\n        paragraphBefore.font.highlightColor = \"yellow\";\n        \n        await context.sync();\n        \n        console.log(\"Highlighted paragraph before table:\", paragraphBefore.text);\n    } catch (error) {\n        console.log(\"No paragraph found before the table\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getParagraphBeforeOrNullObject",
+      "kind": "read",
+      "description": "Gets the paragraph before the table. If there isn't a paragraph before the table, then this method will return an object with its isNullObject property set to true. For further information, see *OrNullObject methods and properties.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if there is a paragraph before the first table and highlight it yellow if it exists, otherwise insert a new paragraph before the table.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const paragraphBefore = firstTable.getParagraphBeforeOrNullObject();\n    \n    await context.sync();\n    \n    if (paragraphBefore.isNullObject) {\n        // No paragraph exists before the table, so insert one\n        const newParagraph = firstTable.insertParagraph(\"This paragraph was inserted before the table.\", Word.InsertLocation.before);\n        newParagraph.font.color = \"blue\";\n    } else {\n        // Paragraph exists, highlight it\n        paragraphBefore.font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getRange",
+      "kind": "read",
+      "description": "Gets the range that contains this table, or the range at the start or end of the table.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rangeLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the range of the first table in the document and highlight it with yellow color",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the range that contains the entire table\n    const tableRange = table.getRange(Word.RangeLocation.whole);\n    \n    // Highlight the table range with yellow color\n    tableRange.font.highlightColor = \"yellow\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertContentControl",
+      "kind": "create",
+      "description": "Inserts a content control on the table.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a content control around an existing table to make it a reusable building block",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Insert a content control on the table\n    const contentControl = table.insertContentControl();\n    contentControl.title = \"Sales Data Table\";\n    contentControl.tag = \"salesTable\";\n    contentControl.appearance = \"BoundingBox\";\n    \n    // Load and sync to apply changes\n    await context.sync();\n    \n    console.log(\"Content control inserted on table\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertParagraph",
+      "kind": "create",
+      "description": "Inserts a paragraph at the specified location.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "paragraphText",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a paragraph with text \"Summary of Results\" after an existing table in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Insert a paragraph after the table\n    table.insertParagraph(\"Summary of Results\", Word.InsertLocation.after);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertTable",
+      "kind": "create",
+      "description": "Inserts a table with the specified number of rows and columns.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "columnCount",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "insertLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "values",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert a 3x4 table below an existing table with predefined header and data values",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Define table data with headers and sample rows\n    const tableData = [\n        [\"Product\", \"Category\", \"Price\", \"Stock\"],\n        [\"Laptop\", \"Electronics\", \"$999\", \"15\"],\n        [\"Mouse\", \"Accessories\", \"$25\", \"50\"]\n    ];\n    \n    // Insert a new 3x4 table below the first table\n    const newTable = firstTable.insertTable(3, 4, Word.InsertLocation.after, tableData);\n    \n    // Optional: Format the new table\n    newTable.styleBuiltIn = Word.BuiltInStyleName.gridTable1Light;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the row count and column count of the first table in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Load specific properties of the table\n    firstTable.load(\"rowCount, columnCount\");\n    \n    await context.sync();\n    \n    console.log(`Table has ${firstTable.rowCount} rows and ${firstTable.columnCount} columns`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "mergeCells",
+      "kind": "write",
+      "description": "Merges the cells bounded inclusively by a first and last cell.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "topRow",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "firstCell",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "bottomRow",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "lastCell",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Merge a 2x2 range of cells in the first table by combining cells from row 1 column 0 to row 2 column 1",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Merge cells from row 1, cell 0 to row 2, cell 1 (creating a 2x2 merged cell)\n    firstTable.mergeCells(1, 0, 2, 1);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "kind": "read",
+      "description": "Performs a search with the specified SearchOptions on the scope of the table object. The search results are a collection of range objects.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "searchText",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "searchOptions",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Search for all instances of the word \"Revenue\" in the first table and highlight them in yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Search for \"Revenue\" in the table\n    const searchResults = firstTable.search(\"Revenue\", { matchCase: false });\n    \n    // Load the search results\n    searchResults.load(\"font\");\n    \n    await context.sync();\n    \n    // Highlight all found instances\n    for (let i = 0; i < searchResults.items.length; i++) {\n        searchResults.items[i].font.highlightColor = \"yellow\";\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "kind": null,
+      "description": "Selects the table, or the position at the start or end of the table, and navigates the Word UI to it.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "selectionMode",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Select the first table in the document and navigate to it in the Word UI",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Select the entire table and navigate to it\n    firstTable.select(Word.SelectionMode.select);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "options",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Format an existing table by setting multiple properties at once including style, width, and alignment",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Set multiple properties at once\n    table.set({\n        style: \"Grid Table 4 - Accent 1\",\n        width: 400,\n        horizontalAlignment: Word.Alignment.centered,\n        shadingColor: \"#F0F0F0\"\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setCellPadding",
+      "kind": "write",
+      "description": "Sets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "cellPadding",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": null,
+              "required": true,
+              "description": null
+            },
+            {
+              "name": "cellPadding",
+              "type": null,
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set 10-point padding on all sides of cells in the first table of the document",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    \n    firstTable.setCellPadding(Word.CellPaddingLocation.all, 10);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Table object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.TableData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Export a table's properties to JSON format for logging or external storage",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Load properties you want to export\n    table.load(\"values, rowCount, columnCount, style, width\");\n    \n    await context.sync();\n    \n    // Convert the table to a plain JavaScript object\n    const tableData = table.toJSON();\n    \n    // Now you can use the plain object (e.g., log it, store it, send it)\n    console.log(\"Table data:\", JSON.stringify(tableData, null, 2));\n    \n    // Example: Access properties from the plain object\n    console.log(`Rows: ${tableData.rowCount}, Columns: ${tableData.columnCount}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a table object to maintain its reference across multiple sync calls while modifying its properties in different batches",
+          "usage_code": "await Word.run(async (context) => {\n    const table = context.document.body.tables.getFirst();\n    table.load(\"values\");\n    await context.sync();\n    \n    // Track the table to use it across multiple sync calls\n    table.track();\n    \n    // First batch of changes\n    table.headerRowCount = 1;\n    await context.sync();\n    \n    // Second batch - table reference is still valid because it's tracked\n    table.styleBuiltIn = Word.BuiltInStyleName.gridTable1Light;\n    await context.sync();\n    \n    // Third batch - still valid\n    table.shadingColor = \"#E7E6E6\";\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    table.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so p",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": null,
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a table, perform operations on it, then untrack it to release memory when no longer needed",
+          "usage_code": "await Word.run(async (context) => {\n    // Insert and track a table\n    const body = context.document.body;\n    const table = body.insertTable(3, 3, Word.InsertLocation.end, [\n        [\"Header 1\", \"Header 2\", \"Header 3\"],\n        [\"Row 1 Col 1\", \"Row 1 Col 2\", \"Row 1 Col 3\"],\n        [\"Row 2 Col 1\", \"Row 2 Col 2\", \"Row 2 Col 3\"]\n    ]);\n    \n    // Track the table for automatic memory management\n    table.track();\n    \n    // Perform operations on the table\n    table.headerRowCount = 1;\n    table.styleBuiltIn = Word.BuiltInStyleName.gridTable1Light;\n    \n    await context.sync();\n    \n    // Once done with the table, untrack it to release memory\n    table.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.table"
+    ]
+  }
+}

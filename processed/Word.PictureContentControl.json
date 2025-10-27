@@ -1,0 +1,471 @@
+{
+  "class": {
+    "name": "Word.PictureContentControl",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the PictureContentControl object.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "appearance",
+      "type": "Word.ContentControlAppearance | \"BoundingBox\" | \"Tags\" | \"Hidden\"",
+      "description": "Specifies the appearance of the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a picture content control's appearance to show only a bounding box without tags",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureContentControl = pictureContentControls.getFirst() as Word.PictureContentControl;\n    \n    // Set the appearance to BoundingBox\n    pictureContentControl.appearance = Word.ContentControlAppearance.boundingBox;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Specifies the red-green-blue (RGB) value of the color of the content control. You can provide the value in the '#RRGGBB' format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the color of a picture content control to blue (#0000FF)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTypes([Word.ContentControlType.picture]).getFirst();\n    \n    // Set the color to blue\n    pictureContentControl.color = \"#0000FF\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a picture content control to verify the connection to the Office host application and log context information.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureContentControl = pictureContentControls.getFirst();\n    \n    // Load the picture content control\n    pictureContentControl.load(\"id\");\n    await context.sync();\n    \n    // Access the request context from the picture content control\n    const requestContext = pictureContentControl.context;\n    \n    // Verify the context is available and log information\n    console.log(\"Request context is connected:\", requestContext !== null);\n    console.log(\"Picture content control ID:\", pictureContentControl.id);\n    \n    // The context property allows you to perform operations on the same context\n    // For example, you can use it to access the document through the control's context\n    const document = requestContext.document;\n    document.body.load(\"text\");\n    await requestContext.sync();\n    \n    console.log(\"Document accessed via picture control's context\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Returns the identification for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Retrieve and display the unique identifier of a picture content control in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureContentControl = pictureContentControls.getFirstOrNullObject();\n    \n    // Load the id property\n    pictureContentControl.load(\"id\");\n    \n    await context.sync();\n    \n    if (!pictureContentControl.isNullObject) {\n        // Display the content control ID\n        console.log(\"Picture Content Control ID: \" + pictureContentControl.id);\n    } else {\n        console.log(\"No picture content control found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isTemporary",
+      "type": "boolean",
+      "description": "Specifies whether to remove the content control from the active document when the user edits the contents of the control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a picture content control to be automatically removed from the document when the user edits its contents",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureControl = pictureContentControls.getFirstOrNullObject();\n    \n    pictureControl.load(\"isTemporary\");\n    await context.sync();\n    \n    if (!pictureControl.isNullObject) {\n        // Set the control to be temporary (removed when user edits it)\n        pictureControl.isTemporary = true;\n        await context.sync();\n        \n        console.log(\"Picture content control set to temporary\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "level",
+      "type": "Word.ContentControlLevel | \"Inline\" | \"Paragraph\" | \"Row\" | \"Cell\"",
+      "description": "Returns the level of the content control—whether the content control surrounds text, paragraphs, table cells, or table rows; or if it is inline.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a picture content control is inline or at paragraph level and display the level information in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureContentControl = pictureContentControls.getFirstOrNullObject() as Word.PictureContentControl;\n    \n    // Load the level property\n    pictureContentControl.load(\"level\");\n    \n    await context.sync();\n    \n    if (!pictureContentControl.isNullObject) {\n        // Display the content control level\n        console.log(`Picture content control level: ${pictureContentControl.level}`);\n        \n        // You can also check the level programmatically\n        if (pictureContentControl.level === Word.ContentControlLevel.inline) {\n            console.log(\"This is an inline picture content control\");\n        } else if (pictureContentControl.level === Word.ContentControlLevel.paragraph) {\n            console.log(\"This is a paragraph-level picture content control\");\n        }\n    } else {\n        console.log(\"No picture content control found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockContentControl",
+      "type": "boolean",
+      "description": "Specifies if the content control is locked (can't be deleted). true means that the user can't delete it from the active document, false means it can be deleted.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lock a picture content control to prevent users from deleting it from the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTag(\"myPicture\").getFirst();\n    \n    // Lock the content control to prevent deletion\n    pictureContentControl.lockContentControl = true;\n    \n    await context.sync();\n    console.log(\"Picture content control is now locked and cannot be deleted.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lockContents",
+      "type": "boolean",
+      "description": "Specifies if the contents of the content control are locked (not editable). true means the user can't edit the contents, false means the contents are editable.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Lock the contents of a picture content control to prevent users from editing or replacing the image",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureControl = pictureContentControls.getFirst();\n    \n    // Lock the contents to prevent editing\n    pictureControl.lockContents = true;\n    \n    await context.sync();\n    console.log(\"Picture content control contents are now locked.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "placeholderText",
+      "type": "Word.BuildingBlock",
+      "description": "Returns a BuildingBlock object that represents the placeholder text for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the placeholder text content from a picture content control by accessing its BuildingBlock object properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureCC = pictureContentControls.getFirstOrNullObject();\n    \n    // Load the placeholder text BuildingBlock\n    const placeholder = pictureCC.placeholderText;\n    placeholder.load(\"value\");\n    \n    await context.sync();\n    \n    if (!pictureCC.isNullObject) {\n        console.log(\"Placeholder text: \" + placeholder.value);\n    } else {\n        console.log(\"No picture content control found.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Returns a Range object that represents the contents of the content control in the active document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content from a picture content control by accessing its range and reading the text property.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTag(\"myPicture\").getFirst();\n    \n    // Get the range of the picture content control\n    const range = pictureContentControl.range;\n    \n    // Load the text property of the range\n    range.load(\"text\");\n    \n    await context.sync();\n    \n    // Log the text content (if any) within the picture content control\n    console.log(\"Content control range text: \" + range.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showingPlaceholderText",
+      "type": "boolean",
+      "description": "Returns whether the placeholder text for the content control is being displayed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a picture content control is showing placeholder text and log the result to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    pictureContentControls.load(\"showingPlaceholderText\");\n    \n    await context.sync();\n    \n    if (pictureContentControls.items.length > 0) {\n        const pictureControl = pictureContentControls.items[0];\n        console.log(\"Is showing placeholder text: \" + pictureControl.showingPlaceholderText);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Specifies a tag to identify the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a tag \"employee-photo\" on a picture content control to identify it for later retrieval or processing.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTypes([Word.ContentControlType.picture]).getFirst();\n    \n    // Set a tag to identify this picture content control\n    pictureContentControl.tag = \"employee-photo\";\n    \n    await context.sync();\n    \n    console.log(\"Tag 'employee-photo' has been set on the picture content control\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Specifies the title for the content control.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the title of a picture content control to \"Company Logo\" to help identify it in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTypes([Word.ContentControlType.picture]).getFirst();\n    \n    // Set the title property\n    pictureContentControl.title = \"Company Logo\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "xmlMapping",
+      "type": "Word.XmlMapping",
+      "description": "Returns an XmlMapping object that represents the mapping of the content control to XML data in the data store of the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a picture content control has XML mapping configured and display the mapping's XPath expression if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureCC = pictureContentControls.getFirstOrNullObject();\n    \n    // Load the xmlMapping property\n    pictureCC.load(\"xmlMapping\");\n    \n    await context.sync();\n    \n    if (!pictureCC.isNullObject) {\n        const xmlMapping = pictureCC.xmlMapping;\n        xmlMapping.load(\"xpath\");\n        \n        await context.sync();\n        \n        if (xmlMapping.xpath) {\n            console.log(\"XML Mapping XPath: \" + xmlMapping.xpath);\n        } else {\n            console.log(\"No XML mapping configured for this picture content control\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "copy",
+      "kind": null,
+      "description": "Copies the content control from the active document to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Copy a picture content control to the clipboard so it can be pasted elsewhere in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    pictureContentControls.load(\"items\");\n    \n    await context.sync();\n    \n    if (pictureContentControls.items.length > 0) {\n        const pictureControl = pictureContentControls.items[0] as Word.PictureContentControl;\n        \n        // Copy the picture content control to the clipboard\n        pictureControl.copy();\n        \n        await context.sync();\n        console.log(\"Picture content control copied to clipboard\");\n    } else {\n        console.log(\"No picture content controls found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "cut",
+      "kind": null,
+      "description": "Removes the content control from the active document and moves the content control to the Clipboard.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Cut the first picture content control from the document and move it to the clipboard",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    pictureContentControls.load(\"items\");\n    \n    await context.sync();\n    \n    if (pictureContentControls.items.length > 0) {\n        const firstPictureControl = pictureContentControls.items[0] as Word.PictureContentControl;\n        \n        // Cut the picture content control to clipboard\n        firstPictureControl.cut();\n        \n        await context.sync();\n        console.log(\"Picture content control cut to clipboard\");\n    } else {\n        console.log(\"No picture content controls found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the content control and optionally its contents.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "deleteContents",
+              "type": "boolean",
+              "required": false,
+              "description": "Optional. Decides whether to delete the contents of the content control."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first picture content control in the document while keeping its image content in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const firstPictureControl = pictureContentControls.getFirstOrNullObject();\n    \n    firstPictureControl.load(\"id\");\n    await context.sync();\n    \n    if (!firstPictureControl.isNullObject) {\n        // Delete the content control but keep its contents (the image)\n        firstPictureControl.delete(false);\n        await context.sync();\n        \n        console.log(\"Picture content control deleted, image retained\");\n    } else {\n        console.log(\"No picture content control found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.PictureContentControlLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PictureContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PictureContentControl",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PictureContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the image width and height properties of the first picture content control in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureContentControl = pictureContentControls.getFirstOrNullObject();\n    \n    // Load specific properties of the picture content control\n    pictureContentControl.load(\"image/width, image/height, title\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Check if picture content control exists and display properties\n    if (!pictureContentControl.isNullObject) {\n        console.log(`Picture Title: ${pictureContentControl.title}`);\n        console.log(`Image Width: ${pictureContentControl.image.width}`);\n        console.log(`Image Height: ${pictureContentControl.image.height}`);\n    } else {\n        console.log(\"No picture content control found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.PictureContentControlUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.PictureContentControl",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of a picture content control, including its title and tag, to organize and identify it within the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTag(\"myPicture\").getFirst();\n    \n    // Set multiple properties at once\n    pictureContentControl.set({\n        title: \"Company Logo\",\n        tag: \"companyLogo\",\n        cannotDelete: true,\n        cannotEdit: false\n    });\n    \n    await context.sync();\n    console.log(\"Picture content control properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setPlaceholderText",
+      "kind": null,
+      "description": "Sets the placeholder text that displays in the content control until a user enters their own text.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.ContentControlPlaceholderOptions",
+              "required": false,
+              "description": "Optional. The options for configuring the content control's placeholder text."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set placeholder text for a picture content control to guide users to insert a company logo",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureControl = pictureContentControls.getFirst() as Word.PictureContentControl;\n    \n    // Set placeholder text to guide the user\n    pictureControl.setPlaceholderText(\"Click here to insert your company logo\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.PictureContentControl object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.PictureContentControlData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.PictureContentControlData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a JSON representation of a picture content control to log or store its properties for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    const pictureControl = pictureContentControls.getFirstOrNullObject();\n    \n    // Load properties we want to include in the JSON output\n    pictureControl.load(\"id,tag,title,appearance\");\n    \n    await context.sync();\n    \n    if (!pictureControl.isNullObject) {\n        // Convert the picture content control to a plain JavaScript object\n        const jsonData = pictureControl.toJSON();\n        \n        // Now you can use the plain object (e.g., log it, store it, etc.)\n        console.log(\"Picture Content Control Data:\", JSON.stringify(jsonData, null, 2));\n    } else {\n        console.log(\"No picture content control found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.PictureContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a picture content control across multiple sync calls to update its properties without getting an InvalidObjectPath error",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControls = context.document.contentControls.getByTypes([Word.ContentControlType.picture]);\n    context.load(pictureContentControls, \"items\");\n    await context.sync();\n    \n    const pictureControl = pictureContentControls.items[0] as Word.PictureContentControl;\n    \n    // Track the object to use it across multiple sync calls\n    pictureControl.track();\n    \n    // First sync - load initial properties\n    pictureControl.load(\"title,tag\");\n    await context.sync();\n    \n    console.log(\"Current title:\", pictureControl.title);\n    \n    // Second sync - modify properties (tracking prevents InvalidObjectPath error)\n    pictureControl.title = \"Updated Picture Title\";\n    pictureControl.tag = \"tracked-picture\";\n    await context.sync();\n    \n    // Untrack when done to free up memory\n    pictureControl.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.PictureContentControl",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Release memory for a tracked picture content control after modifying its properties to prevent memory leaks in the host application.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first picture content control in the document\n    const pictureContentControl = context.document.contentControls.getByTag(\"myPicture\").getFirstOrNullObject();\n    \n    // Track the object for change monitoring\n    pictureContentControl.track();\n    \n    // Load and modify properties\n    pictureContentControl.load(\"title\");\n    await context.sync();\n    \n    pictureContentControl.title = \"Updated Picture\";\n    await context.sync();\n    \n    // Untrack the object to release memory after we're done using it\n    pictureContentControl.untrack();\n    await context.sync();\n    \n    console.log(\"Picture content control updated and memory released\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

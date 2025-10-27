@@ -1,0 +1,355 @@
+{
+  "class": {
+    "name": "Word.Index",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a single index. The Index object is a member of the Word.IndexCollection. The IndexCollection includes all the indexes in the document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Access the request context from an Index object to synchronize changes and load properties for a document index.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.getIndexes();\n    const firstIndex = indexes.getFirst();\n    \n    // Load the heading property using the index's context\n    firstIndex.load('heading');\n    \n    // Sync using the context from the index object\n    await firstIndex.context.sync();\n    \n    // Access the loaded property\n    console.log(\"Index heading: \" + firstIndex.heading);\n    \n    // The index.context property connects to the same context as the Word.run context\n    console.log(\"Contexts match: \" + (firstIndex.context === context));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "filter",
+      "type": "Word.IndexFilter | \"None\" | \"Aiueo\" | \"Akasatana\" | \"Chosung\" | \"Low\" | \"Medium\" | \"Full\"",
+      "description": "Gets a value that represents how Microsoft Word classifies the first character of entries in the index. See IndexFilter for available values.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the filter classification of the first index in the document and display it in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Load the filter property\n    firstIndex.load(\"filter\");\n    \n    await context.sync();\n    \n    // Display the filter classification\n    console.log(\"Index filter classification: \" + firstIndex.filter);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "headingSeparator",
+      "type": "Word.HeadingSeparator | \"None\" | \"BlankLine\" | \"Letter\" | \"LetterLow\" | \"LetterFull\"",
+      "description": "Gets the text between alphabetical groups (entries that start with the same letter) in the index. Corresponds to the \\h switch for an INDEX field.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the current heading separator style used between alphabetical groups in the first index of the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        firstIndex.load(\"headingSeparator\");\n        await context.sync();\n        \n        console.log(\"Heading separator: \" + firstIndex.headingSeparator);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "indexLanguage",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Gets a LanguageId value that represents the sorting language to use for the index.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the sorting language of the first index in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.getIndexes();\n    const firstIndex = indexes.getFirst();\n    \n    // Load the indexLanguage property\n    firstIndex.load(\"indexLanguage\");\n    \n    await context.sync();\n    \n    // Display the index language\n    console.log(\"Index sorting language: \" + firstIndex.indexLanguage);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "numberOfColumns",
+      "type": "number",
+      "description": "Gets the number of columns for each page of the index.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the number of columns configured for the first index in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Load the numberOfColumns property\n    firstIndex.load(\"numberOfColumns\");\n    \n    await context.sync();\n    \n    // Display the number of columns\n    console.log(`The index has ${firstIndex.numberOfColumns} column(s)`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Returns a Range object that represents the portion of the document that is contained within the index.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content from the first index in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Get the range of the index\n    const indexRange = firstIndex.range;\n    \n    // Load the text property of the range\n    indexRange.load(\"text\");\n    \n    await context.sync();\n    \n    // Display the index content\n    console.log(\"Index content: \" + indexRange.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rightAlignPageNumbers",
+      "type": "boolean",
+      "description": "Specifies if page numbers are aligned with the right margin in the index.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the first index in the document to right-align its page numbers",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Set page numbers to be right-aligned\n    firstIndex.rightAlignPageNumbers = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "separateAccentedLetterHeadings",
+      "type": "boolean",
+      "description": "Gets if the index contains separate headings for accented letters (for example, words that begin with \"À\" are under one heading and words that begin with \"A\" are under another).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the first index in the document uses separate headings for accented letters and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    \n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        firstIndex.load(\"separateAccentedLetterHeadings\");\n        \n        await context.sync();\n        \n        console.log(`Separate accented letter headings: ${firstIndex.separateAccentedLetterHeadings}`);\n    } else {\n        console.log(\"No indexes found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sortBy",
+      "type": "Word.IndexSortBy | \"Stroke\" | \"Syllable\"",
+      "description": "Specifies the sorting criteria for the index.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the index sorting criteria to sort by syllable instead of the default stroke order",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Set the sorting criteria to syllable\n        firstIndex.sortBy = Word.IndexSortBy.syllable;\n        \n        await context.sync();\n        console.log(\"Index sorting set to syllable\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tabLeader",
+      "type": "Word.TabLeader | \"Spaces\" | \"Dots\" | \"Dashes\" | \"Lines\" | \"Heavy\" | \"MiddleDot\"",
+      "description": "Specifies the leader character between entries in the index and their associated page numbers.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the index tab leader to dots so that page numbers in the index are connected to their entries with dotted lines",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Set the tab leader to dots\n        firstIndex.tabLeader = Word.TabLeader.dots;\n        \n        await context.sync();\n        console.log(\"Index tab leader set to dots\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.IndexType | \"Indent\" | \"Runin\"",
+      "description": "Gets the index type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the first index in the document is formatted as an indented index or a run-in index and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Load the type property\n    firstIndex.load(\"type\");\n    \n    await context.sync();\n    \n    // Display the index type\n    console.log(`Index type: ${firstIndex.type}`);\n    // Output will be either \"Indent\" or \"Runin\"\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes this index.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first index from the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Delete the index\n    firstIndex.delete();\n    \n    await context.sync();\n    console.log(\"Index deleted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.IndexLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Index",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Index",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Index",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the heading type property of the first index in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    const firstIndex = indexes.getFirst();\n    \n    // Load the headingType property\n    firstIndex.load(\"headingType\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Display the loaded property\n    console.log(\"Index heading type: \" + firstIndex.headingType);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.IndexUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Index",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update an existing index in the document by setting multiple properties at once, including its heading and letter navigation settings",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Set multiple properties at once\n        firstIndex.set({\n            heading: \"A\",\n            letterNavigation: true\n        });\n        \n        await context.sync();\n        console.log(\"Index properties updated successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Index object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.IndexData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.IndexData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize an index object to JSON format to log or store its properties outside of the Word context.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Load properties you want to serialize\n        firstIndex.load(\"type\");\n        await context.sync();\n        \n        // Convert the Index object to a plain JavaScript object\n        const indexData = firstIndex.toJSON();\n        \n        // Now you can use the plain object outside Word context\n        console.log(\"Index data:\", JSON.stringify(indexData, null, 2));\n        \n        // The plain object can be stored, transmitted, or processed\n        // without maintaining the Word API context\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Index",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track an index object across multiple sync calls to maintain its reference while modifying its properties and reading updated values from the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Track the index object to use it across multiple sync calls\n        firstIndex.track();\n        \n        // Load properties\n        firstIndex.load(\"type\");\n        await context.sync();\n        \n        // Use the tracked object after sync - it remains valid\n        console.log(\"Index type: \" + firstIndex.type);\n        \n        // Can continue to use the tracked object in subsequent operations\n        firstIndex.load(\"headingSeparator\");\n        await context.sync();\n        \n        console.log(\"Heading separator: \" + firstIndex.headingSeparator);\n        \n        // Untrack when done to free up memory\n        firstIndex.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Index",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the first index in the document, use it to perform operations, then untrack it to release memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first index in the document\n    const indexes = context.document.body.indexes;\n    indexes.load(\"items\");\n    await context.sync();\n    \n    if (indexes.items.length > 0) {\n        const firstIndex = indexes.items[0];\n        \n        // Track the object for use\n        firstIndex.track();\n        \n        // Load properties to work with\n        firstIndex.load(\"type\");\n        await context.sync();\n        \n        // Perform operations with the index\n        console.log(\"Index type: \" + firstIndex.type);\n        \n        // Untrack the object to release memory\n        firstIndex.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.index"
+    ]
+  }
+}

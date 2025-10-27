@@ -1,0 +1,225 @@
+{
+  "class": {
+    "name": "Word.BookmarkCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "A collection of Word.Bookmark objects that represent the bookmarks in the specified selection, range, or document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a BookmarkCollection to verify the connection to the Word host application and log its properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.getRange().bookmarks;\n    \n    // Access the request context associated with the bookmark collection\n    const requestContext = bookmarks.context;\n    \n    // Use the context to verify connection and perform operations\n    console.log(\"Request context retrieved:\", requestContext);\n    console.log(\"Context is connected to host application\");\n    \n    // Load bookmark properties using the same context\n    bookmarks.load(\"items\");\n    await context.sync();\n    \n    console.log(`Found ${bookmarks.items.length} bookmarks using the request context`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.Bookmark[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Get all bookmarks in the document and log their names to the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Load the items property to access the array of bookmarks\n    bookmarks.load(\"items\");\n    \n    await context.sync();\n    \n    // Access the loaded bookmark items and log their names\n    console.log(`Total bookmarks: ${bookmarks.items.length}`);\n    \n    bookmarks.items.forEach((bookmark, index) => {\n        bookmark.load(\"name\");\n    });\n    \n    await context.sync();\n    \n    bookmarks.items.forEach((bookmark, index) => {\n        console.log(`Bookmark ${index + 1}: ${bookmark.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "exists",
+      "kind": "read",
+      "description": "Determines whether the specified bookmark exists.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "name",
+              "type": "string",
+              "required": true,
+              "description": "A bookmark name than cannot include more than 40 characters or more than one word."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": "true if the bookmark exists."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a bookmark named \"Introduction\" exists in the document and display an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const bookmarks = context.document.body.bookmarks;\n    const bookmarkExists = bookmarks.exists(\"Introduction\");\n    \n    await context.sync();\n    \n    if (bookmarkExists.value) {\n        console.log(\"The bookmark 'Introduction' exists in the document.\");\n    } else {\n        console.log(\"The bookmark 'Introduction' does not exist in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Gets a Bookmark object by its index in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a Bookmark object."
+            }
+          ],
+          "returns": {
+            "type": "Word.Bookmark",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the first bookmark in the document and change its name to \"UpdatedBookmark\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Get the first bookmark by index (0)\n    const firstBookmark = bookmarks.getItem(0);\n    \n    // Load the name property to read it\n    firstBookmark.load(\"name\");\n    \n    await context.sync();\n    \n    console.log(\"Original bookmark name: \" + firstBookmark.name);\n    \n    // Update the bookmark name\n    firstBookmark.name = \"UpdatedBookmark\";\n    \n    await context.sync();\n    \n    console.log(\"Bookmark name updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.BookmarkCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BookmarkCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BookmarkCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.BookmarkCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the names of all bookmarks in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Load the bookmark names\n    bookmarks.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Display the bookmark names\n    console.log(\"Bookmarks in document:\");\n    bookmarks.items.forEach(bookmark => {\n        console.log(`- ${bookmark.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.BookmarkCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.BookmarkCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.BookmarkCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Export all bookmarks in the document to a JSON string for logging or external storage purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all bookmarks in the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Load the bookmark properties\n    bookmarks.load(\"name, isHidden\");\n    \n    await context.sync();\n    \n    // Convert the bookmark collection to a plain JavaScript object\n    const bookmarksData = bookmarks.toJSON();\n    \n    // Convert to JSON string for logging or storage\n    const jsonString = JSON.stringify(bookmarksData, null, 2);\n    \n    console.log(\"Bookmarks as JSON:\", jsonString);\n    \n    // Example: You could also access the items array directly\n    console.log(`Total bookmarks: ${bookmarksData.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BookmarkCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a bookmark collection across multiple sync calls to monitor and access bookmarks even after document changes occur",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Track the collection to maintain reference across sync calls\n    bookmarks.track();\n    \n    // Load bookmark properties\n    bookmarks.load(\"items\");\n    await context.sync();\n    \n    // First sync - log current bookmark count\n    console.log(`Initial bookmark count: ${bookmarks.items.length}`);\n    \n    // Make changes to the document (e.g., insert text)\n    context.document.body.insertText(\"New content added to document\", Word.InsertLocation.end);\n    await context.sync();\n    \n    // Second sync - the tracked collection still works\n    bookmarks.load(\"items\");\n    await context.sync();\n    console.log(`Bookmark count after changes: ${bookmarks.items.length}`);\n    \n    // Untrack when done to free up memory\n    bookmarks.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.BookmarkCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get all bookmarks in the document, process them to log their names, then untrack the collection to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the bookmark collection from the document\n    const bookmarks = context.document.body.bookmarks;\n    \n    // Track the collection for processing\n    context.trackedObjects.add(bookmarks);\n    \n    // Load bookmark properties\n    bookmarks.load(\"items\");\n    await context.sync();\n    \n    // Process the bookmarks\n    for (let i = 0; i < bookmarks.items.length; i++) {\n        console.log(`Bookmark ${i + 1}: ${bookmarks.items[i].name}`);\n    }\n    \n    // Untrack the collection to release memory\n    bookmarks.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.bookmarkcollection"
+    ]
+  }
+}

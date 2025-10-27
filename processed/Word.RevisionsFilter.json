@@ -1,0 +1,264 @@
+{
+  "class": {
+    "name": "Word.RevisionsFilter",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the current settings related to the display of reviewers' comments and revision marks in the document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from the RevisionsFilter object to verify the connection to the Office host application before configuring revision display settings.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter for the document\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Access the request context associated with the RevisionsFilter object\n    const requestContext = revisionsFilter.context;\n    \n    // Use the context to load properties and verify the connection\n    revisionsFilter.load(\"showRevisions\");\n    await requestContext.sync();\n    \n    console.log(\"Request context is connected to Office host application\");\n    console.log(\"Show revisions setting:\", revisionsFilter.showRevisions);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "markup",
+      "type": "Word.RevisionsMarkup | \"None\" | \"Simple\" | \"All\"",
+      "description": "Specifies a RevisionsMarkup value that represents the extent of reviewer markup displayed in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document's revision markup display to show all tracked changes and comments",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter for the document\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Set markup to display all revision marks and comments\n    revisionsFilter.markup = Word.RevisionsMarkup.all;\n    \n    await context.sync();\n    \n    console.log(\"Revision markup set to display all changes\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "reviewers",
+      "type": "Word.ReviewerCollection",
+      "description": "Gets the ReviewerCollection object that represents the collection of reviewers of one or more documents.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get all reviewers who have made changes to the document and display their names in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Get the reviewers collection\n    const reviewers = revisionsFilter.reviewers;\n    \n    // Load the reviewer names\n    reviewers.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Display all reviewer names\n    console.log(\"Document reviewers:\");\n    for (let i = 0; i < reviewers.items.length; i++) {\n        console.log(`- ${reviewers.items[i].name}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "view",
+      "type": "Word.RevisionsView | \"Final\" | \"Original\"",
+      "description": "Specifies a RevisionsView value that represents globally whether Word displays the original version of the document or the final version, which might have revisions and formatting changes applied.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document view to show the original version without revisions and formatting changes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Set the view to show the original document\n    revisionsFilter.view = Word.RevisionsView.original;\n    \n    await context.sync();\n    \n    console.log(\"Document view set to original (without revisions)\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.RevisionsFilterLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RevisionsFilter",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RevisionsFilter",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.RevisionsFilter",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the current revision filter settings to check which types of revisions are visible in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revision filter from the document\n    const revisionFilter = context.document.getRevisionsFilter();\n    \n    // Load the properties of the revision filter\n    revisionFilter.load(\"showRevisions,showComments,showInsertions,showDeletions\");\n    \n    // Sync to read the loaded properties\n    await context.sync();\n    \n    // Display the current filter settings\n    console.log(\"Show Revisions:\", revisionFilter.showRevisions);\n    console.log(\"Show Comments:\", revisionFilter.showComments);\n    console.log(\"Show Insertions:\", revisionFilter.showInsertions);\n    console.log(\"Show Deletions:\", revisionFilter.showDeletions);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.RevisionsFilterUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.RevisionsFilter",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure the revisions filter to hide all revision marks and comments from specific reviewers in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Set multiple filter properties at once\n    revisionsFilter.set({\n        showRevisions: false,\n        showComments: false,\n        reviewers: [\"John Doe\", \"Jane Smith\"]\n    });\n    \n    await context.sync();\n    console.log(\"Revisions filter settings updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toggleShowAllReviewers",
+      "kind": null,
+      "description": "Shows or hides all revisions in the document that contain comments and tracked changes.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the visibility of all reviewers' revisions (comments and tracked changes) in the active document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter for the document\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Toggle the display of all reviewers' revisions\n    revisionsFilter.toggleShowAllReviewers();\n    \n    await context.sync();\n    \n    console.log(\"Toggled visibility of all reviewers' revisions\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.RevisionsFilter object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.RevisionsFilterData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.RevisionsFilterData",
+            "description": "Whereas the original Word.RevisionsFilter object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.RevisionsFilterData) that contains shallow copies of any loaded child properties from the original object."
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the current revision filter settings as a plain JavaScript object and log it to the console for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revision filter settings\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Load the properties\n    revisionsFilter.load();\n    \n    await context.sync();\n    \n    // Convert to plain JavaScript object\n    const filterData = revisionsFilter.toJSON();\n    \n    // Log the plain object (useful for debugging or serialization)\n    console.log(\"Revision Filter Settings:\", JSON.stringify(filterData, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RevisionsFilter",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a RevisionsFilter object to maintain its reference across multiple sync calls while toggling revision display settings",
+          "usage_code": "await Word.run(async (context) => {\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Track the object to use it across multiple sync calls\n    revisionsFilter.track();\n    \n    // Load current settings\n    revisionsFilter.load(\"showRevisions\");\n    await context.sync();\n    \n    console.log(\"Current show revisions: \" + revisionsFilter.showRevisions);\n    \n    // Toggle the setting\n    revisionsFilter.showRevisions = !revisionsFilter.showRevisions;\n    await context.sync();\n    \n    console.log(\"Updated show revisions: \" + revisionsFilter.showRevisions);\n    \n    // Untrack when done\n    revisionsFilter.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.RevisionsFilter",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the revisions filter settings, use them to check the current state, then untrack the object to free memory after you're done with it.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the revisions filter from the document\n    const revisionsFilter = context.document.getRevisionsFilter();\n    \n    // Load properties to use the object\n    revisionsFilter.load(\"showRevisions\");\n    await context.sync();\n    \n    // Use the revisions filter object\n    console.log(\"Show revisions: \" + revisionsFilter.showRevisions);\n    \n    // Untrack the object to release memory when done\n    revisionsFilter.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.revisionsfilter"
+    ]
+  }
+}

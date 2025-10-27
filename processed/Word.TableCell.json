@@ -1,0 +1,709 @@
+{
+  "class": {
+    "name": "Word.TableCell",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Represents a table cell in a Word document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "body",
+      "type": "Word.Body",
+      "description": "Gets the body object of the cell.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Add formatted text content to the first cell of the first table in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the first cell (row 0, column 0)\n    const cell = table.getCell(0, 0);\n    \n    // Access the cell's body and insert text\n    cell.body.insertText(\"Product Name\", Word.InsertLocation.start);\n    cell.body.font.bold = true;\n    cell.body.font.color = \"#0066CC\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "cellIndex",
+      "type": "number",
+      "description": "Gets the index of the cell in its row.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Highlight the first cell in each table row by setting its background color to yellow, using the cellIndex property to identify first cells.",
+          "usage_code": "await Word.run(async (context) => {\n    const body = context.document.body;\n    const tables = body.tables;\n    tables.load(\"items\");\n    \n    await context.sync();\n    \n    for (let i = 0; i < tables.items.length; i++) {\n        const table = tables.items[i];\n        const cells = table.getRange().cells;\n        cells.load(\"items\");\n        \n        await context.sync();\n        \n        for (let j = 0; j < cells.items.length; j++) {\n            const cell = cells.items[j];\n            cell.load(\"cellIndex\");\n            \n            await context.sync();\n            \n            if (cell.cellIndex === 0) {\n                cell.shadingColor = \"yellow\";\n            }\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "columnWidth",
+      "type": "number",
+      "description": "Specifies the width of the cell's column in points. This is applicable to uniform tables.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Set the column width of the first cell in the first table to 100 points",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const firstCell = firstTable.tables.getFirst().getCell(0, 0);\n    \n    firstCell.columnWidth = 100;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the table cell's request context to load and read the cell's text content",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table cell in the document\n    const tableCell = context.document.body.tables.getFirst().getCell(0, 0);\n    \n    // Access the cell's context to load properties\n    tableCell.context.load(tableCell, 'value');\n    \n    await tableCell.context.sync();\n    \n    console.log(\"Cell content: \" + tableCell.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "horizontalAlignment",
+      "type": "Word.Alignment | \"Mixed\" | \"Unknown\" | \"Left\" | \"Centered\" | \"Right\" | \"Justified\"",
+      "description": "Specifies the horizontal alignment of the cell. The value can be 'Left', 'Centered', 'Right', or 'Justified'.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Retrieve and display the horizontal and vertical alignment settings of the first cell in the first table of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentRow",
+      "type": "Word.TableRow",
+      "description": "Gets the parent row of the cell.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Highlight the entire row that contains a specific cell by setting its shading color to light yellow",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get a specific cell (e.g., first cell in second row)\n    const cell = table.getCell(1, 0);\n    \n    // Get the parent row of the cell\n    const parentRow = cell.parentRow;\n    \n    // Set shading color for the entire parent row\n    parentRow.shadingColor = \"#FFFFE0\"; // Light yellow\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "parentTable",
+      "type": "Word.Table",
+      "description": "Gets the parent table of the cell.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Get the parent table of a cell and apply a blue border to the entire table",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table cell in the document\n    const cell = context.document.body.tables.getFirst().getCell(0, 0);\n    \n    // Get the parent table of the cell\n    const parentTable = cell.parentTable;\n    \n    // Apply a blue border to the parent table\n    parentTable.set({\n        styleBuiltIn: Word.Style.gridTable1Light,\n        styleBandedColumns: false,\n        styleBandedRows: true\n    });\n    \n    parentTable.getBorder(Word.BorderLocation.all).set({\n        type: Word.BorderType.single,\n        color: \"0000FF\",\n        width: 2\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rowIndex",
+      "type": "number",
+      "description": "Gets the index of the cell's row in the table.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Get the row index of a clicked table cell and display it in the cell's text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table cell in the document\n    const tableCell = context.document.body.tables.getFirst().getCell(2, 1);\n    \n    // Load the rowIndex property\n    tableCell.load(\"rowIndex\");\n    \n    await context.sync();\n    \n    // Display the row index in the cell\n    tableCell.body.insertText(`Row Index: ${tableCell.rowIndex}`, Word.InsertLocation.replace);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shadingColor",
+      "type": "string",
+      "description": "Specifies the shading color of the cell. Color is specified in \"#RRGGBB\" format or by using the color name.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Set the shading color of the first cell in the first table to light blue",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const firstCell = firstTable.getCell(0, 0);\n    \n    firstCell.shadingColor = \"#ADD8E6\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Specifies the text of the cell.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Set the text content of the first cell in the first table to \"Product Name\"",
+          "usage_code": "await Word.run(async (context) => {\n    const firstTable = context.document.body.tables.getFirst();\n    const firstCell = firstTable.getCell(0, 0);\n    \n    firstCell.value = \"Product Name\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalAlignment",
+      "type": "Word.VerticalAlignment | \"Mixed\" | \"Top\" | \"Center\" | \"Bottom\"",
+      "description": "Specifies the vertical alignment of the cell. The value can be 'Top', 'Center', or 'Bottom'.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Retrieve and display the horizontal and vertical alignment settings of the first cell in the first table of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets content alignment details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstTableRow: Word.TableRow = firstTable.rows.getFirst();\n  const firstCell: Word.TableCell = firstTableRow.cells.getFirst();\n  firstCell.load([\"horizontalAlignment\", \"verticalAlignment\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the alignment of the first table's first cell:`,\n    `- Horizontal alignment of the cell's content: ${firstCell.horizontalAlignment}`,\n    `- Vertical alignment of the cell's content: ${firstCell.verticalAlignment}`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Gets the width of the cell in points.",
+      "since": "1.3",
+      "examples": [
+        {
+          "description": "Get the width of the first cell in the first table and display it in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell from the first row\n    const firstCell = firstTable.rows.getFirst().cells.getFirst();\n    \n    // Load the width property\n    firstCell.load(\"width\");\n    \n    await context.sync();\n    \n    // Display the cell width in points\n    console.log(`Cell width: ${firstCell.width} points`);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "deleteColumn",
+      "kind": "delete",
+      "description": "Deletes the column containing this cell. This is applicable to uniform tables.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the second column from the first table in the document by selecting a cell in that column",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get a cell from the second column (row 0, column 1)\n    const cell = table.getCell(0, 1);\n    \n    // Delete the column containing this cell\n    cell.deleteColumn();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "deleteRow",
+      "kind": "delete",
+      "description": "Deletes the row containing this cell.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete the first row of the first table in the document by accessing a cell in that row",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell of the first row\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Delete the row containing this cell\n    firstCell.deleteRow();\n    \n    await context.sync();\n    \n    console.log(\"First row deleted successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getBorder",
+      "kind": "read",
+      "description": "Gets the border style for the specified border.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": "Word.BorderLocation",
+              "required": true,
+              "description": "The border location."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableBorder",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "borderLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\" | \"InsideHorizontal\" | \"InsideVertical\" | \"Inside\" | \"Outside\" | \"All\"",
+              "required": true,
+              "description": "The border location."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableBorder",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve and display the type, color, and width properties of the left border of the first cell in the first table of the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets border details about the first of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstCell: Word.TableCell = firstTable.getCell(0, 0);\n  const borderLocation = \"Left\";\n  const border: Word.TableBorder = firstCell.getBorder(borderLocation);\n  border.load([\"type\", \"color\", \"width\"]);\n  await context.sync();\n\n  console.log(\n    `Details about the ${borderLocation} border of the first table's first cell:`,\n    `- Color: ${border.color}`,\n    `- Type: ${border.type}`,\n    `- Width: ${border.width} points`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCellPadding",
+      "kind": "read",
+      "description": "Gets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "Word.CellPaddingLocation",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\"",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve the left border cell padding value in points from the first cell of the first table in the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml\n\n// Gets cell padding details about the first cell of the first table in the document.\nawait Word.run(async (context) => {\n  const firstTable: Word.Table = context.document.body.tables.getFirst();\n  const firstCell: Word.TableCell = firstTable.getCell(0, 0);\n  const cellPaddingLocation = \"Left\";\n  const cellPadding = firstCell.getCellPadding(cellPaddingLocation);\n  await context.sync();\n\n  console.log(\n    `Cell padding details about the ${cellPaddingLocation} border of the first table's first cell: ${cellPadding.value} points`\n  );\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next cell. Throws an `ItemNotFound` error if this cell is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Highlight the next cell after the first cell in the first table by setting its shading color to yellow.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell in the table\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Get the next cell after the first cell\n    const nextCell = firstCell.getNext();\n    \n    // Set the shading color of the next cell to yellow\n    nextCell.shadingColor = \"#FFFF00\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next cell. If this cell is the last one, returns an object with `isNullObject` set to `true`. For further information, see [OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Iterate through all cells in the first row of a table and highlight every other cell",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    const firstRow = table.rows.getFirst();\n    \n    // Start with the first cell\n    let cell = firstRow.cells.getFirst();\n    cell.load(\"cellIndex\");\n    await context.sync();\n    \n    // Iterate through cells using getNextOrNullObject\n    let isAlternate = false;\n    while (cell) {\n        if (isAlternate) {\n            cell.body.font.highlightColor = \"yellow\";\n        }\n        isAlternate = !isAlternate;\n        \n        // Get next cell or null\n        const nextCell = cell.getNextOrNullObject();\n        nextCell.load(\"isNullObject, cellIndex\");\n        await context.sync();\n        \n        // Break if we've reached the end\n        if (nextCell.isNullObject) {\n            break;\n        }\n        \n        cell = nextCell;\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertColumns",
+      "kind": "create",
+      "description": "Adds columns to the left or right of the cell, using the cell's column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "It must be 'Before' or 'After'."
+            },
+            {
+              "name": "columnCount",
+              "type": "number",
+              "required": true,
+              "description": "Number of columns to add."
+            },
+            {
+              "name": "values",
+              "type": "string[][]",
+              "required": false,
+              "description": "Optional 2D array. Cells are filled if the corresponding strings are specified in the array."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add 2 columns to the right of the first cell in the first table and populate them with header values",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell in the table\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Insert 2 columns to the right of this cell with values\n    firstCell.insertColumns(\n        Word.InsertLocation.after,\n        2,\n        [[\"Column A\", \"Column B\"]]\n    );\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "insertRows",
+      "kind": "create",
+      "description": "Inserts rows above or below the cell, using the cell's row as a template. The string values, if specified, are set in the newly inserted rows.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "insertLocation",
+              "type": "Word.InsertLocation.before | Word.InsertLocation.after | \"Before\" | \"After\"",
+              "required": true,
+              "description": "It must be 'Before' or 'After'."
+            },
+            {
+              "name": "rowCount",
+              "type": "number",
+              "required": true,
+              "description": "Number of rows to add."
+            },
+            {
+              "name": "values",
+              "type": "string[][]",
+              "required": false,
+              "description": "Optional 2D array. Cells are filled if the corresponding strings are specified in the array."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableRowCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert 2 new rows below the first cell of the first table and populate them with employee data",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell of the table\n    const firstCell = firstTable.tables.getFirst().getCell(0, 0);\n    \n    // Insert 2 rows below this cell with employee data\n    const newRows = firstCell.insertRows(\n        Word.InsertLocation.after,\n        2,\n        [\n            [\"John Doe\", \"Sales\", \"50000\"],\n            [\"Jane Smith\", \"Marketing\", \"55000\"]\n        ]\n    );\n    \n    await context.sync();\n    \n    console.log(\"Successfully inserted 2 rows with employee data\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. Call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TableCellLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the text content and width of the first cell in the first table",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell from the table\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Load specific properties of the cell\n    firstCell.load(\"value, width\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now we can read the loaded properties\n    console.log(\"Cell text:\", firstCell.value);\n    console.log(\"Cell width:\", firstCell.width);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. Accepts either a plain object with the appropriate properties or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.TableCellUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.TableCell",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Format a table cell by setting multiple properties at once, including background color, vertical alignment, and cell padding",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const table = context.document.body.tables.getFirst();\n    \n    // Get the first cell in the first row\n    const cell = table.rows.getFirst().cells.getFirst();\n    \n    // Set multiple properties at once using the set() method\n    cell.set({\n        shadingColor: \"#FFFF00\",  // Yellow background\n        verticalAlignment: Word.VerticalAlignment.center,\n        width: 100\n    });\n    \n    await context.sync();\n    \n    console.log(\"Table cell properties have been set\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setCellPadding",
+      "kind": "write",
+      "description": "Sets cell padding in points.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "Word.CellPaddingLocation",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            },
+            {
+              "name": "cellPadding",
+              "type": "number",
+              "required": true,
+              "description": "The cell padding."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "cellPaddingLocation",
+              "type": "\"Top\" | \"Left\" | \"Bottom\" | \"Right\"",
+              "required": true,
+              "description": "The cell padding location must be 'Top', 'Left', 'Bottom', or 'Right'."
+            },
+            {
+              "name": "cellPadding",
+              "type": "number",
+              "required": true,
+              "description": "The cell padding."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set 10-point padding on all sides of the first cell in the first table",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell (row 0, column 0)\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Set 10-point padding on all sides\n    firstCell.setCellPadding(Word.CellPaddingLocation.top, 10);\n    firstCell.setCellPadding(Word.CellPaddingLocation.bottom, 10);\n    firstCell.setCellPadding(Word.CellPaddingLocation.left, 10);\n    firstCell.setCellPadding(Word.CellPaddingLocation.right, 10);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "split",
+      "kind": null,
+      "description": "Splits the cell into the specified number of rows and columns.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "rowCount",
+              "type": "number",
+              "required": true,
+              "description": "The number of rows to split into. Must be a divisor of the number of underlying rows."
+            },
+            {
+              "name": "columnCount",
+              "type": "number",
+              "required": true,
+              "description": "The number of columns to split into."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Split the first cell of the first table into 2 rows and 3 columns",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell (row 0, column 0)\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Split the cell into 2 rows and 3 columns\n    firstCell.split(2, 3);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method to provide more useful output when an API object is passed to `JSON.stringify()`. Returns a plain JavaScript object (typed as `Word.Interfaces.TableCellData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TableCellData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load table cell properties and serialize them to JSON format for logging or data export purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table cell in the document\n    const firstTable = context.document.body.tables.getFirst();\n    const cell = firstTable.getCell(0, 0);\n    \n    // Load properties we want to serialize\n    cell.load(\"value,rowIndex,columnIndex,width,cellIndex\");\n    \n    await context.sync();\n    \n    // Convert the cell object to a plain JSON object\n    const cellData = cell.toJSON();\n    \n    // Now you can stringify and use the data\n    console.log(JSON.stringify(cellData, null, 2));\n    \n    // Example output:\n    // {\n    //   \"value\": \"Header 1\",\n    //   \"rowIndex\": 0,\n    //   \"columnIndex\": 0,\n    //   \"width\": 100,\n    //   \"cellIndex\": 0\n    // }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. Shorthand for `context.trackedObjects.add(thisObject)`.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a table cell to monitor its properties after making formatting changes, ensuring the object reference remains valid throughout the document session.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table in the document\n    const firstTable = context.document.body.tables.getFirst();\n    \n    // Get the first cell in the first row\n    const cell = firstTable.rows.getFirst().cells.getFirst();\n    \n    // Track the cell for automatic adjustment\n    cell.track();\n    \n    // Make changes to the cell\n    cell.body.insertText(\"Tracked Cell Content\", Word.InsertLocation.replace);\n    cell.shadingColor = \"#FFFF00\";\n    \n    // Load cell properties\n    cell.load(\"width, cellIndex\");\n    \n    await context.sync();\n    \n    // The tracked cell reference remains valid even after sync\n    console.log(`Cell index: ${cell.cellIndex}, Width: ${cell.width}`);\n    \n    // Untrack when done to free up memory\n    cell.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. Shorthand for `context.trackedObjects.remove(thisObject)`. Call `context.sync()` for the release to take effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.TableCell",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a reference to the first table cell, perform operations on it, then untrack it to release memory after syncing changes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first table cell in the document\n    const firstTable = context.document.body.tables.getFirst();\n    const firstCell = firstTable.getCell(0, 0);\n    \n    // Track the cell for change tracking\n    firstCell.track();\n    \n    // Load and modify the cell\n    firstCell.load(\"value\");\n    await context.sync();\n    \n    console.log(\"Cell value:\", firstCell.value);\n    firstCell.value = \"Updated content\";\n    \n    await context.sync();\n    \n    // Untrack the cell to release memory\n    firstCell.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/40-tables/manage-formatting.yaml",
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties",
+      "/en-us/javascript/api/word/word.body",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.alignment",
+      "/en-us/javascript/api/word/word.tablerow",
+      "/en-us/javascript/api/word/word.table",
+      "/en-us/javascript/api/word/word.verticalalignment",
+      "/en-us/javascript/api/word/word.borderlocation",
+      "/en-us/javascript/api/word/word.tableborder",
+      "/en-us/javascript/api/word/word.cellpaddinglocation",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.tablecell",
+      "/en-us/javascript/api/word/word.interfaces.tablecellloadoptions",
+      "/en-us/javascript/api/word/word.interfaces.tablecellupdatedata",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.tablerowcollection",
+      "/en-us/javascript/api/word/word.interfaces.tablecelldata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member"
+    ]
+  }
+}

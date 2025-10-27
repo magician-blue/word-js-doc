@@ -1,0 +1,611 @@
+{
+  "class": {
+    "name": "Word.Style",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Represents a style in a Word document.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: // Applies the specified style to a paragraph.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to apply.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else if (style.type != Word.StyleType.paragraph) {\n    console.log(`The '${styleName}' style isn't a paragraph style.`);\n  } else {\n    const body: Word.Body = context.document.body;\n    body.clear();\n    body.insertParagraph(\n      \"Do you want to create a solution that extends the functionality of Word? You can use the Office Add-ins platform to extend Word clients running on the web, on a Windows desktop, or on a Mac.\",\n      \"Start\"\n    );\n    const paragraph: Word.Paragraph = body.paragraphs.getFirst();\n    paragraph.style = style.nameLocal;\n    console.log(`'${styleName}' style applied to first paragraph.`);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "automaticallyUpdate",
+      "type": "boolean",
+      "description": "Specifies whether the style is automatically redefined based on the selection.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Disable automatic style updates for the \"Heading 1\" style to prevent it from changing when users modify formatted text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Disable automatic updates for this style\n    heading1Style.automaticallyUpdate = false;\n    \n    await context.sync();\n    \n    console.log(\"Automatic updates disabled for Heading 1 style\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "baseStyle",
+      "type": "string",
+      "description": "Specifies the name of an existing style to use as the base formatting of another style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Set a custom style to inherit formatting from the built-in \"Heading 1\" style as its base",
+          "usage_code": "await Word.run(async (context) => {\n    // Get or create a custom style\n    const customStyle = context.document.getStyles().getByNameOrNullObject(\"MyCustomStyle\");\n    await context.sync();\n\n    let style: Word.Style;\n    if (customStyle.isNullObject) {\n        style = context.document.getStyles().add(\"MyCustomStyle\", Word.StyleType.paragraph);\n    } else {\n        style = customStyle;\n    }\n\n    // Set \"Heading 1\" as the base style\n    style.baseStyle = \"Heading 1\";\n\n    await context.sync();\n    console.log(\"Custom style now inherits from Heading 1\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "borders",
+      "type": "Word.BorderCollection",
+      "description": "Specifies a BorderCollection object that represents all the borders for the specified style.",
+      "since": "WordApiDesktop 1.1",
+      "examples": [
+        {
+          "description": "Update the outside border properties of a specified style to use dashed green borders with 0.25 point width.",
+          "usage_code": "// Link to full sample: // Updates border properties (e.g., type, width, color) of the specified style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to update border properties.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else {\n    const borders: Word.BorderCollection = style.borders;\n    borders.load(\"items\");\n    await context.sync();\n\n    borders.outsideBorderType = Word.BorderType.dashed;\n    borders.outsideBorderWidth = Word.BorderWidth.pt025;\n    borders.outsideBorderColor = \"green\";\n    console.log(\"Updated outside borders.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "builtIn",
+      "type": "boolean",
+      "description": "Gets whether the specified style is a built-in style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Check if a paragraph's style is a built-in Word style and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const style = paragraph.style;\n    \n    // Load the style object with the builtIn property\n    context.load(style, \"builtIn, name\");\n    \n    await context.sync();\n    \n    console.log(`Style \"${style.name}\" is ${style.builtIn ? \"a built-in\" : \"a custom\"} style`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a Style object to load and read the style's name property",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a style from the document\n    const style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Access the request context associated with the style object\n    const styleContext = style.context;\n    \n    // Use the context to load properties\n    style.load(\"nameLocal\");\n    \n    await styleContext.sync();\n    \n    if (!style.isNullObject) {\n        console.log(\"Style name: \" + style.nameLocal);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Gets the description of the specified style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the description of the \"Heading 1\" style in the console to understand its purpose and usage.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style from the document\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Load the description property\n    heading1Style.load(\"description\");\n    \n    await context.sync();\n    \n    // Display the style description\n    if (!heading1Style.isNullObject) {\n        console.log(\"Heading 1 style description: \" + heading1Style.description);\n    } else {\n        console.log(\"Heading 1 style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "font",
+      "type": "Word.Font",
+      "description": "Gets a font object that represents the character formatting of the specified style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Update the font color to red and font size to 20 points for a specified style in the document.",
+          "usage_code": "// Link to full sample: // Updates font properties (e.g., color, size) of the specified style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to update font properties.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else {\n    const font: Word.Font = style.font;\n    font.color = \"#FF0000\";\n    font.size = 20;\n    console.log(`Successfully updated font properties of the '${styleName}' style.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "frame",
+      "type": "Word.Frame",
+      "description": "Returns a Frame object that represents the frame formatting for the style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the frame settings of a paragraph style and display whether the style has frame formatting enabled.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a style by name\n    const style = context.document.getStyles().getByNameOrNullObject(\"MyCustomStyle\");\n    \n    // Get the frame object for this style\n    const frame = style.frame;\n    \n    // Load properties to check frame settings\n    frame.load(\"width, height, horizontalPosition\");\n    \n    await context.sync();\n    \n    if (!style.isNullObject) {\n        console.log(`Frame width: ${frame.width}`);\n        console.log(`Frame height: ${frame.height}`);\n        console.log(`Frame horizontal position: ${frame.horizontalPosition}`);\n    } else {\n        console.log(\"Style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hasProofing",
+      "type": "boolean",
+      "description": "Specifies whether the spelling and grammar checker ignores text formatted with this style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Disable spell-checking and grammar-checking for text formatted with the \"Code\" style by setting hasProofing to true",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Code\" style from the document\n    const codeStyle = context.document.getStyles().getByNameOrNullObject(\"Code\");\n    \n    // Load the style properties\n    await context.sync();\n    \n    // Check if the style exists\n    if (!codeStyle.isNullObject) {\n        // Set hasProofing to true to ignore spelling and grammar checking\n        codeStyle.hasProofing = true;\n        \n        await context.sync();\n        console.log(\"Proofing disabled for Code style\");\n    } else {\n        console.log(\"Code style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "inUse",
+      "type": "boolean",
+      "description": "Gets whether the specified style is a built-in style that has been modified or applied in the document or a new style that has been created in the document.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Check if a specific style has been used or modified in the document and display a message to the user",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    heading1Style.load(\"inUse\");\n    \n    await context.sync();\n    \n    if (!heading1Style.isNullObject) {\n        if (heading1Style.inUse) {\n            console.log(\"Heading 1 style is being used or has been modified in this document.\");\n        } else {\n            console.log(\"Heading 1 style has not been used or modified in this document.\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "languageId",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies a LanguageId value that represents the language for the style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the language of the \"Heading 1\" style to French",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Set the language to French\n    heading1Style.languageId = \"French\";\n    \n    await context.sync();\n    \n    console.log(\"Language set to French for Heading 1 style\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "languageIdFarEast",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies an East Asian language for the style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the Far East language to Japanese for the \"Heading 1\" style to ensure proper text rendering for Japanese characters",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Set the Far East language to Japanese\n    heading1Style.languageIdFarEast = \"Japanese\";\n    \n    await context.sync();\n    \n    console.log(\"Far East language set to Japanese for Heading 1 style\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "linked",
+      "type": "boolean",
+      "description": "Gets whether a style is a linked style that can be used for both paragraph and character formatting.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Check if the \"Heading 1\" style is a linked style that can be used for both paragraph and character formatting, and display the result in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Load the linked property\n    heading1Style.load(\"linked\");\n    \n    await context.sync();\n    \n    // Check if the style is linked\n    if (!heading1Style.isNullObject) {\n        console.log(`Heading 1 is a linked style: ${heading1Style.linked}`);\n    } else {\n        console.log(\"Heading 1 style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "linkStyle",
+      "type": "Word.Style",
+      "description": "Specifies a link between a paragraph and a character style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Link a paragraph style named \"CustomHeading\" to a character style named \"CustomHeadingChar\" so that character formatting can be applied independently within paragraphs using the heading style.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the paragraph style and character style\n    const paragraphStyle = context.document.getStyles().getByNameOrNullObject(\"CustomHeading\");\n    const characterStyle = context.document.getStyles().getByNameOrNullObject(\"CustomHeadingChar\");\n    \n    // Load the styles\n    paragraphStyle.load(\"name\");\n    characterStyle.load(\"name\");\n    \n    await context.sync();\n    \n    // Check if both styles exist\n    if (!paragraphStyle.isNullObject && !characterStyle.isNullObject) {\n        // Link the character style to the paragraph style\n        paragraphStyle.linkStyle = characterStyle;\n        \n        await context.sync();\n        console.log(\"Successfully linked CustomHeadingChar to CustomHeading style\");\n    } else {\n        console.log(\"One or both styles do not exist\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listLevelNumber",
+      "type": "number",
+      "description": "Returns the list level for the style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the list level number of a paragraph's style to determine its position in the outline hierarchy",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const style = paragraph.style;\n    \n    // Load the style object\n    context.load(style);\n    await context.sync();\n    \n    // Get the style by name and load its list level number\n    const styleObject = context.document.getStyles().getByNameOrNullObject(style);\n    styleObject.load(\"listLevelNumber\");\n    await context.sync();\n    \n    if (!styleObject.isNullObject) {\n        console.log(`List level number: ${styleObject.listLevelNumber}`);\n        // Returns 0-8 for heading levels, or 0 if not a list style\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "listTemplate",
+      "type": "Word.ListTemplate",
+      "description": "Gets a ListTemplate object that represents the list formatting for the specified Style object.",
+      "since": "WordApiDesktop 1.1",
+      "examples": [
+        {
+          "description": "Retrieve and display the properties and list levels of a specified list style from the document.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/manage-list-styles.yaml\n\n// Gets the properties of the specified style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to get properties.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load(\"type\");\n  await context.sync();\n\n  if (style.isNullObject || style.type != Word.StyleType.list) {\n    console.warn(`There's no existing style with the name '${styleName}'. Or this isn't a list style.`);\n  } else {\n    // Load objects to log properties and their values in the console.\n    style.load();\n    style.listTemplate.load();\n    await context.sync();\n\n    console.log(`Properties of the '${styleName}' style:`, style);\n\n    const listLevels = style.listTemplate.listLevels;\n    listLevels.load(\"items\");\n    await context.sync();\n\n    console.log(`List levels of the '${styleName}' style:`, listLevels);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "locked",
+      "type": "boolean",
+      "description": "Specifies whether the style cannot be changed or edited.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the \"Heading 1\" style is locked and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Load the locked property\n    heading1Style.load(\"locked\");\n    \n    await context.sync();\n    \n    // Check if the style exists and display its locked status\n    if (!heading1Style.isNullObject) {\n        console.log(`Heading 1 style is ${heading1Style.locked ? \"locked\" : \"unlocked\"}`);\n    } else {\n        console.log(\"Heading 1 style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nameLocal",
+      "type": "string",
+      "description": "Gets the name of a style in the language of the user.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Apply a user-specified paragraph style to the first paragraph of the document body after validating the style exists and is of paragraph type.",
+          "usage_code": "// Link to full sample: // Applies the specified style to a paragraph.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name-to-use\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to apply.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else if (style.type != Word.StyleType.paragraph) {\n    console.log(`The '${styleName}' style isn't a paragraph style.`);\n  } else {\n    const body: Word.Body = context.document.body;\n    body.clear();\n    body.insertParagraph(\n      \"Do you want to create a solution that extends the functionality of Word? You can use the Office Add-ins platform to extend Word clients running on the web, on a Windows desktop, or on a Mac.\",\n      \"Start\"\n    );\n    const paragraph: Word.Paragraph = body.paragraphs.getFirst();\n    paragraph.style = style.nameLocal;\n    console.log(`'${styleName}' style applied to first paragraph.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "nextParagraphStyle",
+      "type": "string",
+      "description": "Specifies the name of the style to be applied automatically to a new paragraph that is inserted after a paragraph formatted with the specified style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Set the \"Heading 1\" style so that when a user presses Enter after a Heading 1 paragraph, the next paragraph automatically uses the \"Normal\" style instead of continuing with Heading 1.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Set the next paragraph style to \"Normal\"\n    heading1Style.nextParagraphStyle = \"Normal\";\n    \n    await context.sync();\n    \n    console.log(\"Heading 1 will now automatically switch to Normal style for the next paragraph\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "noSpaceBetweenParagraphsOfSameStyle",
+      "type": "boolean",
+      "description": "Specifies whether to remove spacing between paragraphs that are formatted using the same style.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Remove spacing between paragraphs that use the \"Heading 1\" style to create a more compact appearance",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Load the style\n    heading1Style.load(\"noSpaceBetweenParagraphsOfSameStyle\");\n    await context.sync();\n    \n    // Remove spacing between paragraphs of the same style\n    if (!heading1Style.isNullObject) {\n        heading1Style.noSpaceBetweenParagraphsOfSameStyle = true;\n        await context.sync();\n        \n        console.log(\"Spacing removed between consecutive Heading 1 paragraphs\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "paragraphFormat",
+      "type": "Word.ParagraphFormat",
+      "description": "Gets a ParagraphFormat object that represents the paragraph settings for the specified style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Update a Word style's paragraph format by setting its left indent to 30 points and alignment to centered.",
+          "usage_code": "// Link to full sample: // Sets certain aspects of the specified style's paragraph format e.g., the left indent size and the alignment.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to update its paragraph format.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else {\n    style.paragraphFormat.leftIndent = 30;\n    style.paragraphFormat.alignment = Word.Alignment.centered;\n    console.log(`Successfully the paragraph format of the '${styleName}' style.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "priority",
+      "type": "number",
+      "description": "Specifies the priority.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Set the priority of the \"Heading 1\" style to 10 to control its position in the style gallery",
+          "usage_code": "await Word.run(async (context) => {\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    heading1Style.load(\"priority\");\n    await context.sync();\n    \n    if (!heading1Style.isNullObject) {\n        heading1Style.priority = 10;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "quickStyle",
+      "type": "boolean",
+      "description": "Specifies whether the style corresponds to an available quick style.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Check if a paragraph's style is a quick style and display an alert with the result",
+          "usage_code": "await Word.run(async (context) => {\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const style = paragraph.style;\n    \n    // Load the style object to access its properties\n    context.load(style, \"quickStyle\");\n    \n    await context.sync();\n    \n    if (style.quickStyle) {\n        console.log(\"This paragraph uses a quick style.\");\n    } else {\n        console.log(\"This paragraph does not use a quick style.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "shading",
+      "type": "Word.Shading",
+      "description": "Gets a Shading object that represents the shading for the specified style. Not applicable to List style.",
+      "since": "WordApi 1.6",
+      "examples": [
+        {
+          "description": "Update the shading properties of a specified style by setting its background pattern color to blue, foreground pattern color to yellow, and texture to dark trellis.",
+          "usage_code": "// Link to full sample: // Updates shading properties (e.g., texture, pattern colors) of the specified style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to update shading properties.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else {\n    const shading: Word.Shading = style.shading;\n    shading.load();\n    await context.sync();\n\n    shading.backgroundPatternColor = \"blue\";\n    shading.foregroundPatternColor = \"yellow\";\n    shading.texture = Word.ShadingTextureType.darkTrellis;\n\n    console.log(\"Updated shading.\");\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "tableStyle",
+      "type": "Word.TableStyle",
+      "description": "Gets a TableStyle object representing Style properties that can be applied to a table.",
+      "since": "WordApi 1.6",
+      "examples": [
+        {
+          "description": "Apply table-specific formatting to a style by setting the table style's row banding and header row properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a style from the document\n    const style = context.document.getStyles().getByNameOrNullObject(\"MyTableStyle\");\n    style.load(\"type\");\n    \n    await context.sync();\n    \n    if (!style.isNullObject && style.type === Word.StyleType.table) {\n        // Access the tableStyle property to configure table-specific formatting\n        const tableStyle = style.tableStyle;\n        \n        // Enable row banding and configure header row\n        tableStyle.allowBreakAcrossPage = false;\n        \n        await context.sync();\n        console.log(\"Table style properties configured successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.StyleType | \"Character\" | \"List\" | \"Paragraph\" | \"Table\"",
+      "description": "Gets the style type.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Check if a specific style is a paragraph style before applying it to selected text",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the style named \"Heading 1\"\n    const style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    style.load(\"type\");\n    \n    await context.sync();\n    \n    if (!style.isNullObject) {\n        // Check if the style is a paragraph style\n        if (style.type === Word.StyleType.paragraph || style.type === \"Paragraph\") {\n            console.log(\"Heading 1 is a paragraph style\");\n            \n            // Safe to apply to the current paragraph\n            const paragraph = context.document.getSelection().paragraphs.getFirst();\n            paragraph.style = \"Heading 1\";\n        } else {\n            console.log(`Heading 1 is a ${style.type} style, not a paragraph style`);\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "unhideWhenUsed",
+      "type": "boolean",
+      "description": "Specifies whether the specified style is made visible as a recommended style in the Styles and in the Styles task pane in Microsoft Word after it's used in the document.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Configure a custom style to automatically appear in the recommended styles gallery after it has been used in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the style by name\n    const style = context.document.getStyles().getByNameOrNullObject(\"MyCustomStyle\");\n    \n    // Load the style properties\n    style.load(\"unhideWhenUsed\");\n    await context.sync();\n    \n    // Check if style exists\n    if (!style.isNullObject) {\n        // Set the style to appear in recommended styles after use\n        style.unhideWhenUsed = true;\n        \n        await context.sync();\n        console.log(\"Style will be visible in recommended styles after use\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "visibility",
+      "type": "boolean",
+      "description": "Specifies whether the specified style is visible as a recommended style in the Styles gallery and in the Styles task pane.",
+      "since": "WordApi 1.5",
+      "examples": [
+        {
+          "description": "Hide a custom style named \"CustomHeading\" from appearing in the Styles gallery and Styles task pane",
+          "usage_code": "await Word.run(async (context) => {\n    const style = context.document.getStyles().getByNameOrNullObject(\"CustomHeading\");\n    style.load(\"visibility\");\n    \n    await context.sync();\n    \n    if (!style.isNullObject) {\n        style.visibility = false;\n        await context.sync();\n        console.log(\"Style 'CustomHeading' is now hidden from the Styles gallery\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the style.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete a custom style from the Word document by retrieving it by name and removing it if it exists.",
+          "usage_code": "// Link to full sample: // Deletes the custom style.\nawait Word.run(async (context) => {\n  const styleName = (document.getElementById(\"style-name\") as HTMLInputElement).value;\n  if (styleName == \"\") {\n    console.warn(\"Enter a style name to delete.\");\n    return;\n  }\n\n  const style: Word.Style = context.document.getStyles().getByNameOrNullObject(styleName);\n  style.load();\n  await context.sync();\n\n  if (style.isNullObject) {\n    console.warn(`There's no existing style with the name '${styleName}'.`);\n  } else {\n    style.delete();\n    console.log(`Successfully deleted custom style '${styleName}'.`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "linkToListTemplate",
+      "kind": null,
+      "description": "Links this style to a list template so that the style's formatting can be applied to lists.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "listTemplate",
+              "type": "Word.ListTemplate",
+              "required": true,
+              "description": "A ListTemplate to link to the style."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a custom list style and link it to a list template to apply numbered formatting to paragraphs",
+          "usage_code": "await Word.run(async (context) => {\n    // Get or create a list template\n    const listTemplate = context.document.body.lists.getFirst().listTemplate;\n    \n    // Get or create a custom style\n    const customStyle = context.document.getStyles().getByNameOrNullObject(\"MyListStyle\");\n    await context.sync();\n    \n    let style: Word.Style;\n    if (customStyle.isNullObject) {\n        style = context.document.addStyle(\"MyListStyle\", \"Paragraph\");\n    } else {\n        style = customStyle;\n    }\n    \n    // Link the style to the list template\n    style.linkToListTemplate(listTemplate);\n    \n    // Apply the style to a paragraph\n    const paragraph = context.document.body.paragraphs.getFirst();\n    paragraph.style = \"MyListStyle\";\n    \n    await context.sync();\n    console.log(\"Style linked to list template and applied to paragraph\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.StyleLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{\n            select?: string;\n            expand?: string;\n        }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the name and font properties of the \"Heading 1\" style from the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Load specific properties of the style\n    heading1Style.load(\"nameLocal, font/name, font/size, font/color\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Check if style exists and display properties\n    if (!heading1Style.isNullObject) {\n        console.log(`Style Name: ${heading1Style.nameLocal}`);\n        console.log(`Font Name: ${heading1Style.font.name}`);\n        console.log(`Font Size: ${heading1Style.font.size}`);\n        console.log(`Font Color: ${heading1Style.font.color}`);\n    } else {\n        console.log(\"Heading 1 style not found\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.StyleUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Style",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update multiple properties of the \"Heading 1\" style to change its font name, size, and color",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the \"Heading 1\" style\n    const heading1Style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    \n    // Set multiple properties at once\n    heading1Style.set({\n        font: {\n            name: \"Arial\",\n            size: 16,\n            color: \"#0066CC\"\n        }\n    });\n    \n    await context.sync();\n    console.log(\"Heading 1 style updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method to provide more useful output when an API object is passed to JSON.stringify().",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.StyleData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve a paragraph's style properties and log them as a JSON string to the console for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph in the document\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const style = paragraph.style;\n    \n    // Load the style properties\n    style.load();\n    \n    // Sync to get the values\n    await context.sync();\n    \n    // Convert the style object to JSON and log it\n    const styleJSON = style.toJSON();\n    console.log(\"Style properties as JSON:\", JSON.stringify(styleJSON, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom style object to automatically maintain its reference while modifying multiple paragraphs in the document, ensuring the style properties remain accessible even as the document structure changes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a custom style from the document\n    const style = context.document.getStyles().getByNameOrNullObject(\"Heading1\");\n    \n    // Track the style object for automatic adjustment\n    style.track();\n    \n    // Load style properties\n    style.load(\"font/bold,font/size\");\n    \n    // Make changes to the document that might affect object references\n    const paragraphs = context.document.body.paragraphs;\n    paragraphs.load(\"items\");\n    \n    await context.sync();\n    \n    // Add new paragraphs which changes the document structure\n    context.document.body.insertParagraph(\"New paragraph 1\", \"Start\");\n    context.document.body.insertParagraph(\"New paragraph 2\", \"Start\");\n    \n    await context.sync();\n    \n    // The tracked style object is still valid and accessible\n    console.log(`Style font size: ${style.font.size}`);\n    console.log(`Style font bold: ${style.font.bold}`);\n    \n    // Untrack when done to release memory\n    style.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Style",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load a style object to check its properties, then release it from memory tracking to optimize performance when the style is no longer needed.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a style and track it\n    const style = context.document.getStyles().getByNameOrNullObject(\"Heading 1\");\n    style.track();\n    \n    // Load and use the style\n    style.load(\"font/size\");\n    await context.sync();\n    \n    if (!style.isNullObject) {\n        console.log(`Heading 1 font size: ${style.font.size}`);\n        \n        // Release the style from tracking when done\n        style.untrack();\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/manage-styles.yaml",
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/20-lists/manage-list-styles.yaml"
+    ]
+  }
+}

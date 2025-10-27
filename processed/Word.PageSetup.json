@@ -1,0 +1,637 @@
+{
+  "class": {
+    "name": "Word.PageSetup",
+    "package": "https://learn.microsoft.com/en-us/javascript/api/word",
+    "extends": [
+      "officeextension.clientobject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents the page setup settings for a Word document or section.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "bookFoldPrinting",
+      "type": "boolean",
+      "description": "Specifies whether Microsoft Word prints the document as a booklet.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable book fold printing to format the document as a booklet",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable book fold printing\n    pageSetup.bookFoldPrinting = true;\n    \n    await context.sync();\n    \n    console.log(\"Book fold printing enabled\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bookFoldPrintingSheets",
+      "type": "number",
+      "description": "Specifies the number of pages for each booklet.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set up a document for booklet printing with 4 pages per booklet sheet",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the number of pages for each booklet\n    pageSetup.bookFoldPrintingSheets = 4;\n    \n    await context.sync();\n    \n    console.log(\"Booklet printing configured with 4 pages per sheet\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bookFoldReversePrinting",
+      "type": "boolean",
+      "description": "Specifies if Microsoft Word reverses the printing order for book fold printing of bidirectional or Asian language documents.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable reverse printing order for book fold printing to properly print a bidirectional language document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the active document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable reverse printing for book fold printing\n    pageSetup.bookFoldReversePrinting = true;\n    \n    await context.sync();\n    \n    console.log(\"Book fold reverse printing has been enabled.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bottomMargin",
+      "type": "number",
+      "description": "Specifies the distance (in points) between the bottom edge of the page and the bottom boundary of the body text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the bottom margin of the document to 72 points (1 inch)",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.bottomMargin = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "charsLine",
+      "type": "number",
+      "description": "Specifies the number of characters per line in the document grid.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document grid to display 40 characters per line",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.charsLine = 40;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the page setup's request context to verify the connection to the Word host application and log its diagnostic information",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the active document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Access the request context associated with the page setup object\n    const requestContext = pageSetup.context;\n    \n    // Use the context to verify connection and get diagnostic info\n    console.log(\"Request context is connected:\", requestContext !== null);\n    console.log(\"Context debug info:\", requestContext.debugInfo);\n    \n    // The context connects the add-in process to Word's process\n    // and is used internally for all API operations\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "differentFirstPageHeaderFooter",
+      "type": "boolean",
+      "description": "Specifies whether the first page has a different header and footer.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the document to use a different header and footer on the first page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document body\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable different header/footer for the first page\n    pageSetup.differentFirstPageHeaderFooter = true;\n    \n    await context.sync();\n    \n    console.log(\"First page will now have different headers and footers\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "footerDistance",
+      "type": "number",
+      "description": "Specifies the distance between the footer and the bottom of the page in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the footer distance to 36 points (0.5 inches) from the bottom of the page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the active document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the footer distance to 36 points (0.5 inches)\n    pageSetup.footerDistance = 36;\n    \n    await context.sync();\n    \n    console.log(\"Footer distance set to 36 points\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "gutter",
+      "type": "number",
+      "description": "Specifies the amount (in points) of extra margin space added to each page in a document or section for binding.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a 36-point gutter margin for binding on the left side of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the gutter to 36 points for binding\n    pageSetup.gutter = 36;\n    \n    await context.sync();\n    \n    console.log(\"Gutter margin set to 36 points for binding.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "gutterPosition",
+      "type": "Word.GutterPosition | \"Left\" | \"Right\" | \"Top\"",
+      "description": "Specifies on which side the gutter appears in a document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the gutter position to the top of the page for binding at the top edge of the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the active document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the gutter position to top\n    pageSetup.gutterPosition = Word.GutterPosition.top;\n    \n    await context.sync();\n    \n    console.log(\"Gutter position set to top\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "gutterStyle",
+      "type": "Word.GutterStyle | \"Bidirectional\" | \"Latin\"",
+      "description": "Specifies whether Microsoft Word uses gutters for the current document based on a right-to-left language or a left-to-right language.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the gutter style to right-to-left (bidirectional) for the current document to accommodate Arabic or Hebrew text layout",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the gutter style to bidirectional (right-to-left)\n    pageSetup.gutterStyle = Word.GutterStyle.bidirectional;\n    \n    await context.sync();\n    \n    console.log(\"Gutter style set to bidirectional\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "headerDistance",
+      "type": "number",
+      "description": "Specifies the distance between the header and the top of the page in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the header distance to 36 points (0.5 inches) from the top of the page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the header distance to 36 points (0.5 inches)\n    pageSetup.headerDistance = 36;\n    \n    await context.sync();\n    \n    console.log(\"Header distance set to 36 points\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "layoutMode",
+      "type": "Word.LayoutMode | \"Default\" | \"Grid\" | \"LineGrid\" | \"Genko\"",
+      "description": "Specifies the layout mode for the current document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document's layout mode to Grid for precise character and line positioning",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the layout mode to Grid\n    pageSetup.layoutMode = Word.LayoutMode.grid;\n    \n    await context.sync();\n    \n    console.log(\"Layout mode set to Grid\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "leftMargin",
+      "type": "number",
+      "description": "Specifies the distance (in points) between the left edge of the page and the left boundary of the body text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the left margin of the document to 1 inch (72 points)",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.leftMargin = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lineNumbering",
+      "type": "Word.LineNumbering",
+      "description": "Specifies a LineNumbering object that represents the line numbers for the PageSetup object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure line numbering to restart at 1 on each page with numbers appearing every 5 lines",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Configure line numbering settings\n    const lineNumbering = pageSetup.lineNumbering;\n    lineNumbering.restartMode = Word.LineNumberRestartMode.restartPage;\n    lineNumbering.countBy = 5;\n    lineNumbering.startingNumber = 1;\n    \n    await context.sync();\n    \n    console.log(\"Line numbering configured successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "linesPage",
+      "type": "number",
+      "description": "Specifies the number of lines per page in the document grid.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document to display 44 lines per page in the document grid",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the number of lines per page to 44\n    pageSetup.linesPage = 44;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "mirrorMargins",
+      "type": "boolean",
+      "description": "Specifies if the inside and outside margins of facing pages are the same width.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable mirror margins for a document so that inside and outside margins are swapped on facing pages for book-style printing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable mirror margins for facing pages\n    pageSetup.mirrorMargins = true;\n    \n    await context.sync();\n    \n    console.log(\"Mirror margins enabled for the document\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "oddAndEvenPagesHeaderFooter",
+      "type": "boolean",
+      "description": "Specifies whether odd and even pages have different headers and footers.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure a document to use different headers and footers for odd and even pages",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable different headers/footers for odd and even pages\n    pageSetup.oddAndEvenPagesHeaderFooter = true;\n    \n    await context.sync();\n    \n    console.log(\"Odd and even pages will now have different headers and footers\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "orientation",
+      "type": "Word.PageOrientation | \"Portrait\" | \"Landscape\"",
+      "description": "Specifies the orientation of the page.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Change the page orientation of the active document to landscape mode",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document body\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the orientation to landscape\n    pageSetup.orientation = Word.PageOrientation.landscape;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageHeight",
+      "type": "number",
+      "description": "Specifies the page height in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the page height to 792 points (11 inches) for the active document",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.pageHeight = 792;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pageWidth",
+      "type": "number",
+      "description": "Specifies the page width in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the page width to 8.5 inches (612 points) for the active document",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set page width to 8.5 inches (8.5 * 72 = 612 points)\n    pageSetup.pageWidth = 612;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "paperSize",
+      "type": "Word.PaperSize | \"Size10x14\" | \"Size11x17\" | \"Letter\" | \"LetterSmall\" | \"Legal\" | \"Executive\" | \"A3\" | \"A4\" | \"A4Small\" | \"A5\" | \"B4\" | \"B5\" | \"CSheet\" | \"DSheet\" | \"ESheet\" | \"FanfoldLegalGerman\" | \"FanfoldStdGerman\" | \"FanfoldUS\" | \"Folio\" | \"Ledger\" | \"Note\" | \"Quarto\" | \"Statement\" | \"Tabloid\" | \"Envelope9\" | \"Envelope10\" | \"Envelope11\" | \"Envelope12\" | \"Envelope14\" | \"EnvelopeB4\" | \"EnvelopeB5\" | \"EnvelopeB6\" | \"EnvelopeC3\" | \"EnvelopeC4\" | \"EnvelopeC5\" | \"EnvelopeC6\" | \"EnvelopeC65\" | \"EnvelopeDL\" | \"EnvelopeItaly\" | \"EnvelopeMonarch\" | \"EnvelopePersonal\" | \"Custom\"",
+      "description": "Specifies the paper size of the page.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document's paper size to A4 format",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document body\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the paper size to A4\n    pageSetup.paperSize = \"A4\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rightMargin",
+      "type": "number",
+      "description": "Specifies the distance (in points) between the right edge of the page and the right boundary of the body text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the right margin of the document to 1 inch (72 points)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Set the right margin to 72 points (1 inch)\n    pageSetup.rightMargin = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sectionDirection",
+      "type": "Word.SectionDirection | \"RightToLeft\" | \"LeftToRight\"",
+      "description": "Specifies the reading order and alignment for the specified sections.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the section direction to right-to-left for the first section of the document to support languages like Arabic or Hebrew",
+          "usage_code": "await Word.run(async (context) => {\n    const firstSection = context.document.sections.getFirst();\n    firstSection.pageSetup.sectionDirection = Word.SectionDirection.rightToLeft;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "sectionStart",
+      "type": "Word.SectionStart | \"Continuous\" | \"NewColumn\" | \"NewPage\" | \"EvenPage\" | \"OddPage\"",
+      "description": "Specifies the type of section break for the specified object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the section to start on a new page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section of the document\n    const section = context.document.sections.getFirst();\n    \n    // Load the page setup\n    section.load(\"pageSetup\");\n    await context.sync();\n    \n    // Set the section to start on a new page\n    section.pageSetup.sectionStart = Word.SectionStart.newPage;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "showGrid",
+      "type": "boolean",
+      "description": "Specifies whether to show the grid.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Show the document grid to help with alignment and layout",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Show the grid\n    pageSetup.showGrid = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "suppressEndnotes",
+      "type": "boolean",
+      "description": "Specifies if endnotes are printed at the end of the next section that doesn't suppress endnotes.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the current section to suppress endnotes so they print at the end of the next section that allows them",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section of the document\n    const section = context.document.sections.getFirst();\n    \n    // Access the page setup for this section\n    const pageSetup = section.pageSetup;\n    \n    // Suppress endnotes in this section\n    pageSetup.suppressEndnotes = true;\n    \n    await context.sync();\n    \n    console.log(\"Endnotes will be suppressed in this section and printed at the end of the next section that doesn't suppress them.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textColumns",
+      "type": "Word.TextColumnCollection",
+      "description": "Gets a TextColumnCollection object that represents the set of text columns for the PageSetup object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the document to use a two-column layout with a 0.5 inch spacing between columns",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Access the text columns collection\n    const textColumns = pageSetup.textColumns;\n    \n    // Set the number of columns to 2\n    textColumns.set({\n        columnCount: 2,\n        spacing: 36 // 0.5 inch in points (72 points = 1 inch)\n    });\n    \n    await context.sync();\n    \n    console.log(\"Document configured with 2 columns\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "topMargin",
+      "type": "number",
+      "description": "Specifies the top margin of the page in points.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the top margin of the document to 1 inch (72 points)",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.topMargin = 72;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "twoPagesOnOne",
+      "type": "boolean",
+      "description": "Specifies whether to print two pages per sheet.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Configure the document to print two pages on one sheet of paper",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Enable printing two pages on one sheet\n    pageSetup.twoPagesOnOne = true;\n    \n    await context.sync();\n    \n    console.log(\"Document configured to print two pages per sheet\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "verticalAlignment",
+      "type": "Word.PageSetupVerticalAlignment | \"Top\" | \"Center\" | \"Justify\" | \"Bottom\"",
+      "description": "Specifies the vertical alignment of text on each page in a document or section.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the vertical alignment of the document to center so that text is vertically centered on each page",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the first section\n    const pageSetup = context.document.sections.getFirst().pageSetup;\n    \n    // Set vertical alignment to center\n    pageSetup.verticalAlignment = Word.PageSetupVerticalAlignment.center;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.PageSetupLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PageSetup",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PageSetup",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.PageSetup",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the current page orientation and margins of the active document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document body\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Load specific properties\n    pageSetup.load(\"orientation, topMargin, bottomMargin, leftMargin, rightMargin\");\n    \n    // Sync to read the loaded properties\n    await context.sync();\n    \n    // Display the loaded properties\n    console.log(`Orientation: ${pageSetup.orientation}`);\n    console.log(`Top Margin: ${pageSetup.topMargin}`);\n    console.log(`Bottom Margin: ${pageSetup.bottomMargin}`);\n    console.log(`Left Margin: ${pageSetup.leftMargin}`);\n    console.log(`Right Margin: ${pageSetup.rightMargin}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.PageSetupUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.PageSetup",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure page setup for the document by setting multiple properties including orientation, margins, and paper size at once",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    \n    pageSetup.set({\n        orientation: Word.PageOrientation.landscape,\n        topMargin: 72,      // 1 inch in points\n        bottomMargin: 72,\n        leftMargin: 54,     // 0.75 inches\n        rightMargin: 54,\n        pageWidth: 792,     // 11 inches (letter size)\n        pageHeight: 612     // 8.5 inches (letter size)\n    });\n    \n    await context.sync();\n    console.log(\"Page setup configured successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setAsTemplateDefault",
+      "kind": "configure",
+      "description": "Sets the specified page setup formatting as the default for the active document and all new documents based on the active template.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Set custom page margins (1 inch top/bottom, 1.5 inch left/right) as the default for all new documents based on the current template",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup for the document\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Configure custom margins\n    pageSetup.topMargin = 72;      // 1 inch (72 points)\n    pageSetup.bottomMargin = 72;   // 1 inch\n    pageSetup.leftMargin = 108;    // 1.5 inches (108 points)\n    pageSetup.rightMargin = 108;   // 1.5 inches\n    \n    // Set these settings as the default for the template\n    pageSetup.setAsTemplateDefault();\n    \n    await context.sync();\n    \n    console.log(\"Page setup saved as template default\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "togglePortrait",
+      "kind": "configure",
+      "description": "Switches between portrait and landscape page orientations for a document or section.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Toggle the page orientation of the current document from portrait to landscape (or vice versa)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the document body\n    const pageSetup = context.document.body.pageSetup;\n    \n    // Toggle between portrait and landscape orientation\n    pageSetup.togglePortrait();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.PageSetup object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.PageSetupData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.PageSetupData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve page setup settings as a plain JavaScript object and log them to the console for debugging or data export purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the page setup of the first section\n    const firstSection = context.document.sections.getFirst();\n    const pageSetup = firstSection.pageSetup;\n    \n    // Load the properties we want to serialize\n    pageSetup.load(\"orientation,pageWidth,pageHeight,topMargin,bottomMargin,leftMargin,rightMargin\");\n    \n    await context.sync();\n    \n    // Convert the PageSetup object to a plain JavaScript object\n    const pageSetupData = pageSetup.toJSON();\n    \n    // Now we can use the plain object for logging, storage, or comparison\n    console.log(\"Page Setup Data:\", pageSetupData);\n    console.log(\"Page Width:\", pageSetupData.pageWidth);\n    console.log(\"Page Height:\", pageSetupData.pageHeight);\n    console.log(\"Orientation:\", pageSetupData.orientation);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.PageSetup",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a page setup object across multiple sync calls to modify its margins and orientation without encountering InvalidObjectPath errors",
+          "usage_code": "await Word.run(async (context) => {\n    const pageSetup = context.document.body.pageSetup;\n    pageSetup.load(\"topMargin,orientation\");\n    \n    // Track the object to use it across multiple sync calls\n    pageSetup.track();\n    \n    await context.sync();\n    \n    console.log(`Current top margin: ${pageSetup.topMargin}`);\n    \n    // Modify properties after sync - tracking prevents InvalidObjectPath error\n    pageSetup.topMargin = 72; // 1 inch\n    pageSetup.orientation = Word.PageOrientation.landscape;\n    \n    await context.sync();\n    \n    console.log(\"Page setup updated successfully\");\n    \n    // Untrack when done to free up memory\n    pageSetup.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.PageSetup",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply page setup changes to a section and then untrack the PageSetup object to free memory after the modifications are complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first section's page setup\n    const pageSetup = context.document.sections.getFirst().pageSetup;\n    \n    // Track the object to work with it\n    pageSetup.track();\n    \n    // Load and modify page setup properties\n    pageSetup.load(\"orientation\");\n    await context.sync();\n    \n    // Make changes to page setup\n    pageSetup.orientation = Word.PageOrientation.landscape;\n    pageSetup.topMargin = 72; // 1 inch\n    \n    await context.sync();\n    \n    // Untrack the object to release memory\n    pageSetup.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets"
+    ]
+  }
+}

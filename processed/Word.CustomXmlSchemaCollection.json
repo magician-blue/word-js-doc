@@ -1,0 +1,316 @@
+{
+  "class": {
+    "name": "Word.CustomXmlSchemaCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a collection of [Word.CustomXmlSchema](https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlschema) objects attached to a data stream.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CustomXmlSchemaCollection to verify the connection between the add-in and Word, then use it to sync changes after loading schema properties.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get a custom XML part and its schema collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const schemas = customXmlParts.items[0].getSchemas();\n        schemas.load(\"items\");\n        \n        // Access the request context from the schema collection\n        const schemaContext = schemas.context;\n        \n        // Use the context to sync and load schema data\n        await schemaContext.sync();\n        \n        console.log(`Schema collection has ${schemas.items.length} schemas`);\n        console.log(`Context is connected: ${schemaContext !== null}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.CustomXmlSchema[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Display the namespace URIs of all custom XML schemas attached to the document in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    const firstPart = customXmlParts.getByNamespace(\"http://example.com/data\").getFirstOrNullObject();\n    \n    firstPart.load(\"schemaCollection\");\n    await context.sync();\n    \n    if (!firstPart.isNullObject) {\n        const schemaCollection = firstPart.schemaCollection;\n        schemaCollection.load(\"items\");\n        await context.sync();\n        \n        // Access the items property to get all schemas\n        const schemas = schemaCollection.items;\n        \n        console.log(`Found ${schemas.length} schema(s):`);\n        schemas.forEach((schema, index) => {\n            schema.load(\"namespaceUri\");\n        });\n        \n        await context.sync();\n        \n        schemas.forEach((schema, index) => {\n            console.log(`Schema ${index + 1}: ${schema.namespaceUri}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "kind": "create",
+      "description": "Adds one or more schemas to the schema collection that can then be added to a stream in the data store and to the schema library.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.CustomXmlAddSchemaOptions",
+              "required": false,
+              "description": "Optional. The options that define the schema to be added."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchema",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom XML schema to the schema collection for validating custom XML parts in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML part collection\n    const customXmlParts = context.document.customXmlParts;\n    const customXmlPart = customXmlParts.getByNamespace(\"http://schemas.contoso.com/customer\")[0];\n    \n    // Get the schema collection for this custom XML part\n    const schemaCollection = customXmlPart.schemaCollection;\n    \n    // Define the XML schema to add\n    const schemaXml = `<?xml version=\"1.0\" encoding=\"utf-8\"?>\n        <xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" \n                   targetNamespace=\"http://schemas.contoso.com/customer\">\n            <xs:element name=\"customer\">\n                <xs:complexType>\n                    <xs:sequence>\n                        <xs:element name=\"name\" type=\"xs:string\"/>\n                        <xs:element name=\"email\" type=\"xs:string\"/>\n                    </xs:sequence>\n                </xs:complexType>\n            </xs:element>\n        </xs:schema>`;\n    \n    // Add the schema to the collection\n    schemaCollection.add(schemaXml);\n    \n    await context.sync();\n    console.log(\"Schema added to the collection successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "addCollection",
+      "kind": "create",
+      "description": "Adds an existing schema collection to the current schema collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "schemaCollection",
+              "type": "Word.CustomXmlSchemaCollection",
+              "required": true,
+              "description": "The schema collection to add."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add all schemas from a secondary custom XML part's schema collection to the primary custom XML part's schema collection",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Assume we have at least two custom XML parts\n    if (customXmlParts.items.length >= 2) {\n        const primaryPart = customXmlParts.items[0];\n        const secondaryPart = customXmlParts.items[1];\n\n        // Get the schema collections\n        const primarySchemas = primaryPart.schemaCollection;\n        const secondarySchemas = secondaryPart.schemaCollection;\n\n        // Add all schemas from secondary part to primary part\n        primarySchemas.addCollection(secondarySchemas);\n\n        await context.sync();\n        console.log(\"Schema collection added successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display the count of custom XML schemas attached to the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML schema collection from the document\n    const schemaCollection = context.document.customXmlSchemaCollection;\n    \n    // Get the count of schemas in the collection\n    const count = schemaCollection.getCount();\n    \n    // Sync to get the actual count value\n    await context.sync();\n    \n    // Display the count\n    console.log(`Number of custom XML schemas: ${count.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Returns a `CustomXmlSchema` object that represents the specified item in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a paragraph object."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchema",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the first custom XML schema from the collection and display its namespace URI in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the schema collection for the first custom XML part\n        const schemaCollection = customXmlParts.items[0].schemaCollection;\n        schemaCollection.load(\"items\");\n        await context.sync();\n\n        if (schemaCollection.items.length > 0) {\n            // Get the first schema from the collection using getItem()\n            const firstSchema = schemaCollection.getItem(0);\n            firstSchema.load(\"namespaceUri\");\n            await context.sync();\n\n            console.log(\"First schema namespace URI: \" + firstSchema.namespaceUri);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNamespaceUri",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the namespace URI of the first custom XML schema in the collection",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the schemas collection for the first custom XML part\n        const schemas = customXmlParts.items[0].getSchemas();\n        schemas.load(\"items\");\n        await context.sync();\n\n        if (schemas.items.length > 0) {\n            // Get the namespace URI of the first schema\n            const namespaceUri = schemas.items[0].getNamespaceUri();\n            await context.sync();\n\n            console.log(\"Schema namespace URI: \" + namespaceUri.value);\n        } else {\n            console.log(\"No schemas found in the custom XML part.\");\n        }\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlSchemaCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the namespace URIs of all custom XML schemas attached to the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    // Get the schema collection from the first custom XML part\n    if (customXmlParts.items.length > 0) {\n        const schemaCollection = customXmlParts.items[0].getSchemaCollection();\n        \n        // Load the schema collection properties\n        schemaCollection.load(\"items\");\n        await context.sync();\n\n        // Display the namespace URIs of all schemas\n        console.log(`Found ${schemaCollection.items.length} schema(s)`);\n        schemaCollection.items.forEach((schema, index) => {\n            schema.load(\"namespaceUri\");\n        });\n        await context.sync();\n\n        schemaCollection.items.forEach((schema, index) => {\n            console.log(`Schema ${index + 1}: ${schema.namespaceUri}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.CustomXmlSchemaCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.CustomXmlSchemaCollectionData`) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlSchemaCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a custom XML schema collection to JSON format for logging or debugging purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    \n    // Get the first custom XML part (if it exists)\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const firstPart = customXmlParts.items[0];\n        \n        // Get the schema collection for this custom XML part\n        const schemaCollection = firstPart.schemaCollection;\n        schemaCollection.load(\"items\");\n        await context.sync();\n        \n        // Convert the schema collection to a plain JavaScript object\n        const schemaCollectionData = schemaCollection.toJSON();\n        \n        // Log the serialized data\n        console.log(\"Schema Collection Data:\", JSON.stringify(schemaCollectionData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across `.sync` calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a CustomXmlSchemaCollection object to maintain its reference across multiple sync calls when working with custom XML parts in a document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the schema collection for this custom XML part\n        const schemaCollection = customXmlPart.getSchemas();\n        \n        // Track the collection to use it across multiple sync calls\n        schemaCollection.track();\n        \n        // Load properties\n        schemaCollection.load(\"items\");\n        await context.sync();\n        \n        // Now we can safely use the collection across syncs\n        console.log(`Schema count: ${schemaCollection.items.length}`);\n        \n        // Perform additional operations...\n        await context.sync();\n        \n        // Still valid to use the tracked collection\n        console.log(`Still accessible: ${schemaCollection.items.length} schemas`);\n        \n        // Untrack when done to free up memory\n        schemaCollection.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlSchemaCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load a custom XML schema collection, use it to verify schemas are present, then untrack it to free memory after the operation is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Get the schema collection from the first custom XML part\n    if (customXmlParts.items.length > 0) {\n        const schemaCollection = customXmlParts.items[0].getSchemas();\n        schemaCollection.load(\"items\");\n        await context.sync();\n        \n        // Use the schema collection\n        console.log(`Found ${schemaCollection.items.length} schemas`);\n        \n        // Untrack the schema collection to release memory\n        schemaCollection.untrack();\n        await context.sync();\n        \n        console.log(\"Schema collection untracked and memory released\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "validate",
+      "kind": "read",
+      "description": "Specifies whether the schemas in the schema collection are valid (conforms to the syntactic rules of XML and the rules for a specified vocabulary).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<boolean>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Validate all XML schemas attached to a custom XML part to ensure they conform to XML syntactic rules and vocabulary specifications.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the schema collection for this XML part\n        const schemaCollection = customXmlPart.schemaCollection;\n        \n        // Validate the schemas in the collection\n        const isValid = schemaCollection.validate();\n        \n        await context.sync();\n        \n        console.log(`Schema collection is valid: ${isValid.value}`);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.customxmlschemacollection"
+    ]
+  }
+}

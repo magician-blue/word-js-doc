@@ -1,0 +1,427 @@
+{
+  "class": {
+    "name": "Hyperlink",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a hyperlink in a Word document.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Specifies the address (for example, a file name or URL) of the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Update an existing hyperlink's address to point to a different URL",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Update the hyperlink address to a new URL\n    firstHyperlink.address = \"https://www.microsoft.com\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the hyperlink's request context to verify the connection between the add-in and Word before performing operations on the hyperlink.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    hyperlinks.load(\"items\");\n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const hyperlink = hyperlinks.items[0];\n        \n        // Access the request context associated with the hyperlink\n        const hyperlinkContext = hyperlink.context;\n        \n        // Verify the context is valid and connected\n        console.log(\"Context is connected:\", hyperlinkContext !== null);\n        \n        // Use the context to load properties\n        hyperlink.load(\"address, displayText\");\n        await hyperlinkContext.sync();\n        \n        console.log(\"Hyperlink address:\", hyperlink.address);\n        console.log(\"Hyperlink text:\", hyperlink.displayText);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "emailSubject",
+      "type": "string",
+      "description": "Specifies the text string for the hyperlink's subject line.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the subject line of an email hyperlink to \"Quarterly Report Review\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Set the email subject line\n    firstHyperlink.emailSubject = \"Quarterly Report Review\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isExtraInfoRequired",
+      "type": "boolean",
+      "description": "Returns true if extra information is required to resolve the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if a hyperlink requires extra information to be resolved and display an alert to the user if additional details are needed.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Load the isExtraInfoRequired property\n    firstHyperlink.load(\"isExtraInfoRequired\");\n    \n    await context.sync();\n    \n    // Check if extra information is required\n    if (firstHyperlink.isExtraInfoRequired) {\n        console.log(\"This hyperlink requires additional information to resolve.\");\n    } else {\n        console.log(\"This hyperlink can be resolved without extra information.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Returns the name of the Hyperlink object.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the name of the first hyperlink in the document and display it in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const hyperlinks = context.document.body.hyperlinks;\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const firstHyperlink = hyperlinks.items[0];\n        firstHyperlink.load(\"name\");\n        \n        await context.sync();\n        \n        console.log(\"Hyperlink name: \" + firstHyperlink.name);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "range",
+      "type": "Word.Range",
+      "description": "Returns a Range object that represents the portion of the document that's contained within the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the text content of a hyperlink by accessing its range property and then highlight that range in yellow.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.hyperlinks;\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Get the range of the hyperlink\n    const hyperlinkRange = firstHyperlink.range;\n    \n    // Highlight the hyperlink range in yellow\n    hyperlinkRange.font.highlightColor = \"yellow\";\n    \n    // Load the text to display it\n    hyperlinkRange.load(\"text\");\n    \n    await context.sync();\n    \n    console.log(\"Hyperlink text: \" + hyperlinkRange.text);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "screenTip",
+      "type": "string",
+      "description": "Specifies the text that appears as a ScreenTip when the mouse pointer is positioned over the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a custom tooltip message \"Click to visit our documentation\" for a hyperlink's ScreenTip",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Set the ScreenTip text\n    firstHyperlink.screenTip = \"Click to visit our documentation\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "subAddress",
+      "type": "string",
+      "description": "Specifies a named location in the destination of the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a hyperlink to jump to a specific bookmark named \"Section3\" within the same document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlink = context.document.body.getHyperlinks().getFirst();\n    \n    // Set the subAddress to point to a bookmark named \"Section3\"\n    hyperlink.subAddress = \"Section3\";\n    \n    await context.sync();\n    \n    console.log(\"Hyperlink subAddress set to Section3\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "description": "Specifies the name of the frame or window in which to load the hyperlink.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a hyperlink to open in a new browser window named \"_blank\"",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Set the target to open in a new window\n    firstHyperlink.target = \"_blank\";\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "textToDisplay",
+      "type": "string",
+      "description": "Specifies the hyperlink's visible text in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Change the display text of the first hyperlink in the document to \"Click here for more information\"",
+          "usage_code": "await Word.run(async (context) => {\n    const hyperlinks = context.document.body.getHyperlinks();\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const firstHyperlink = hyperlinks.items[0];\n        firstHyperlink.textToDisplay = \"Click here for more information\";\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.HyperlinkType | \"Range\" | \"Shape\" | \"InlineShape\"",
+      "description": "Returns the hyperlink type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check the type of a hyperlink in the document and display different messages based on whether it's a Range, Shape, or InlineShape hyperlink.",
+          "usage_code": "await Word.run(async (context) => {\n    const hyperlinks = context.document.body.hyperlinks;\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const firstHyperlink = hyperlinks.items[0];\n        firstHyperlink.load(\"type\");\n        \n        await context.sync();\n        \n        const hyperlinkType = firstHyperlink.type;\n        \n        if (hyperlinkType === Word.HyperlinkType.range || hyperlinkType === \"Range\") {\n            console.log(\"This is a text-based hyperlink\");\n        } else if (hyperlinkType === Word.HyperlinkType.shape || hyperlinkType === \"Shape\") {\n            console.log(\"This is a shape hyperlink\");\n        } else if (hyperlinkType === Word.HyperlinkType.inlineShape || hyperlinkType === \"InlineShape\") {\n            console.log(\"This is an inline shape hyperlink\");\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addToFavorites",
+      "kind": null,
+      "description": "Creates a shortcut to the document or hyperlink and adds it to the Favorites folder.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add the first hyperlink found in the document to the user's Favorites folder",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.hyperlinks;\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const firstHyperlink = hyperlinks.items[0];\n        \n        // Add the hyperlink to Favorites\n        firstHyperlink.addToFavorites();\n        \n        await context.sync();\n        console.log(\"Hyperlink added to Favorites successfully\");\n    } else {\n        console.log(\"No hyperlinks found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "createNewDocument",
+      "kind": "create",
+      "description": "Creates a new document linked to the hyperlink.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "fileName",
+              "type": "string",
+              "required": true,
+              "description": "The name of the file."
+            },
+            {
+              "name": "editNow",
+              "type": "boolean",
+              "required": true,
+              "description": "true to start editing now."
+            },
+            {
+              "name": "overwrite",
+              "type": "boolean",
+              "required": true,
+              "description": "true to overwrite if there's another file with the same name."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Create a hyperlink in the document that, when clicked, creates a new Word document named \"ProjectNotes.docx\" and opens it for editing",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first paragraph and insert a hyperlink\n    const paragraph = context.document.body.paragraphs.getFirst();\n    const hyperlink = paragraph.insertText(\"Click to create new document\", Word.InsertLocation.end)\n        .insertHyperlink(\"\", Word.InsertLocation.replace, \"Create Project Notes\");\n    \n    // Create a new document linked to this hyperlink\n    // fileName: \"ProjectNotes.docx\" - name of the new document\n    // editNow: true - open the document immediately for editing\n    // overwrite: false - don't overwrite if file already exists\n    hyperlink.createNewDocument(\"ProjectNotes.docx\", true, false);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "kind": "delete",
+      "description": "Deletes the hyperlink.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Delete all hyperlinks in the document that contain \"example.com\" in their address",
+          "usage_code": "await Word.run(async (context) => {\n    // Get all hyperlinks in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    hyperlinks.load(\"items\");\n    \n    await context.sync();\n    \n    // Delete hyperlinks that contain \"example.com\"\n    for (let i = 0; i < hyperlinks.items.length; i++) {\n        const hyperlink = hyperlinks.items[i];\n        hyperlink.load(\"address\");\n        await context.sync();\n        \n        if (hyperlink.address.includes(\"example.com\")) {\n            hyperlink.delete();\n        }\n    }\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.HyperlinkLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Hyperlink",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Hyperlink",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "object",
+              "required": false,
+              "description": "select is a comma-delimited string that specifies the properties to load, and expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Hyperlink",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the URL and text of the first hyperlink in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.hyperlinks;\n    hyperlinks.load(\"items\");\n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const firstHyperlink = hyperlinks.items[0];\n        \n        // Load specific properties of the hyperlink\n        firstHyperlink.load(\"address, textToDisplay\");\n        await context.sync();\n        \n        // Display the loaded properties\n        console.log(\"URL: \" + firstHyperlink.address);\n        console.log(\"Display Text: \" + firstHyperlink.textToDisplay);\n    } else {\n        console.log(\"No hyperlinks found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "configure",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.HyperlinkUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Hyperlink",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Update an existing hyperlink's display text and screen tip properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Set multiple properties at once using the set() method\n    firstHyperlink.set({\n        textToDisplay: \"Visit Microsoft\",\n        screenTip: \"Click to visit Microsoft's official website\"\n    });\n    \n    await context.sync();\n    console.log(\"Hyperlink properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Hyperlink object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.HyperlinkData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.HyperlinkData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a hyperlink's properties to a plain JavaScript object and log it to the console for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Load properties we want to serialize\n    firstHyperlink.load(\"address, screenTip, textToDisplay\");\n    \n    await context.sync();\n    \n    // Convert the hyperlink to a plain JavaScript object\n    const hyperlinkData = firstHyperlink.toJSON();\n    \n    // Now we can safely log or manipulate the plain object\n    console.log(\"Hyperlink data:\", hyperlinkData);\n    console.log(\"Address:\", hyperlinkData.address);\n    console.log(\"Screen tip:\", hyperlinkData.screenTip);\n    console.log(\"Display text:\", hyperlinkData.textToDisplay);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Hyperlink",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a hyperlink object across multiple sync calls to modify its properties without encountering InvalidObjectPath errors",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.hyperlinks;\n    hyperlinks.load(\"items\");\n    await context.sync();\n    \n    if (hyperlinks.items.length > 0) {\n        const hyperlink = hyperlinks.items[0];\n        \n        // Track the hyperlink to use it across multiple sync calls\n        hyperlink.track();\n        \n        // Load properties\n        hyperlink.load(\"textToDisplay, address\");\n        await context.sync();\n        \n        console.log(\"Original text: \" + hyperlink.textToDisplay);\n        console.log(\"Original address: \" + hyperlink.address);\n        \n        // Modify the hyperlink after another sync\n        hyperlink.textToDisplay = \"Updated Link Text\";\n        await context.sync();\n        \n        console.log(\"Updated text: \" + hyperlink.textToDisplay);\n        \n        // Untrack when done\n        hyperlink.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Hyperlink",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load hyperlink properties, use them, then untrack the hyperlink object to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first hyperlink in the document\n    const hyperlinks = context.document.body.getHyperlinks();\n    const firstHyperlink = hyperlinks.getFirst();\n    \n    // Track the object to work with it\n    firstHyperlink.track();\n    firstHyperlink.load(\"address, textToDisplay\");\n    \n    await context.sync();\n    \n    // Use the hyperlink data\n    console.log(`Link text: ${firstHyperlink.textToDisplay}`);\n    console.log(`Link address: ${firstHyperlink.address}`);\n    \n    // Untrack to release memory after we're done using it\n    firstHyperlink.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientobject",
+      "https://learn.microsoft.com/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.requestcontext",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.range",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.hyperlinktype",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.hyperlinkloadoptions",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.hyperlink",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.hyperlinkupdatedata",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.updateoptions",
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.interfaces.hyperlinkdata",
+      "https://learn.microsoft.com/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member"
+    ]
+  }
+}

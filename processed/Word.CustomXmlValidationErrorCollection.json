@@ -1,0 +1,272 @@
+{
+  "class": {
+    "name": "Word.CustomXmlValidationErrorCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a collection of [Word.CustomXmlValidationError](/en-us/javascript/api/word/word.customxmlvalidationerror) objects.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CustomXmlValidationErrorCollection to verify the connection between the add-in and Word before processing validation errors.",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const validationErrors = customXmlParts.items[0].validationErrors;\n        validationErrors.load(\"items\");\n        await context.sync();\n\n        // Access the request context from the collection\n        const requestContext = validationErrors.context;\n        \n        // Verify the context is valid and connected\n        console.log(\"Context is connected:\", requestContext !== null);\n        console.log(\"Number of validation errors:\", validationErrors.items.length);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.CustomXmlValidationError[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and log all validation errors from a custom XML part to the console for debugging purposes.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the validation errors collection\n        const validationErrors = customXmlPart.validationErrors;\n        validationErrors.load(\"items\");\n        await context.sync();\n        \n        // Access the items property to get all validation errors\n        const errorItems = validationErrors.items;\n        \n        console.log(`Found ${errorItems.length} validation error(s)`);\n        \n        // Loop through each error item\n        errorItems.forEach((error, index) => {\n            error.load(\"text, type\");\n        });\n        \n        await context.sync();\n        \n        errorItems.forEach((error, index) => {\n            console.log(`Error ${index + 1}: ${error.text} (Type: ${error.type})`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "kind": "create",
+      "description": "Adds a CustomXmlValidationError object containing an XML validation error to the CustomXmlValidationErrorCollection object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "node",
+              "type": "Word.CustomXmlNode",
+              "required": true,
+              "description": "The XML node where the error occurred."
+            },
+            {
+              "name": "errorName",
+              "type": "string",
+              "required": true,
+              "description": "The name of the error."
+            },
+            {
+              "name": "options",
+              "type": "Word.CustomXmlAddValidationErrorOptions",
+              "required": false,
+              "description": "Optional. The options that define the error message and other settings."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a validation error to a custom XML part's error collection when detecting an invalid XML node structure",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlPart = context.document.customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem();\n    \n    // Get the validation error collection\n    const errorCollection = customXmlPart.validationErrors;\n    \n    // Get a specific XML node (assuming we have a reference to it)\n    const xmlNodes = customXmlPart.query(\"//invalidNode\");\n    const node = xmlNodes.getItem(0);\n    \n    // Add a validation error for this node\n    errorCollection.add(node, \"InvalidNodeStructure\", { errorText: \"The node structure does not match the schema requirements\" });\n    \n    await context.sync();\n    \n    console.log(\"Validation error added to the custom XML part\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if a custom XML part has any validation errors and display the count",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get validation errors for this custom XML part\n        const validationErrors = customXmlPart.validationErrors;\n        \n        // Get the count of validation errors\n        const errorCount = validationErrors.getCount();\n        await context.sync();\n        \n        console.log(`Number of validation errors: ${errorCount.value}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Returns a CustomXmlValidationError object that represents the specified item in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a paragraph object."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlValidationError",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get and display the error message from the first custom XML validation error in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML validation errors collection\n    const validationErrors = context.document.customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem().validationErrors;\n    \n    // Get the first validation error from the collection\n    const firstError = validationErrors.getItem(0);\n    \n    // Load the error's properties\n    firstError.load(\"errorCode, errorMessage\");\n    \n    await context.sync();\n    \n    // Display the error information\n    console.log(`Error Code: ${firstError.errorCode}`);\n    console.log(`Error Message: ${firstError.errorMessage}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlValidationErrorCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlValidationErrorCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlValidationErrorCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlValidationErrorCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display validation error details from a custom XML part's validation errors collection",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the validation errors collection\n        const validationErrors = customXmlPart.validationErrors;\n        \n        // Load properties of the validation errors\n        validationErrors.load(\"items\");\n        await context.sync();\n        \n        // Display validation error information\n        console.log(`Total validation errors: ${validationErrors.items.length}`);\n        \n        validationErrors.items.forEach((error, index) => {\n            error.load(\"errorCode, errorType\");\n        });\n        await context.sync();\n        \n        validationErrors.items.forEach((error, index) => {\n            console.log(`Error ${index + 1}: Code=${error.errorCode}, Type=${error.errorType}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.CustomXmlValidationErrorCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.CustomXmlValidationErrorCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlValidationErrorCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize custom XML validation errors to JSON format for logging or debugging purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    context.load(customXmlParts, \"items\");\n    await context.sync();\n\n    // Get validation errors from the first custom XML part (if it exists)\n    if (customXmlParts.items.length > 0) {\n        const validationErrors = customXmlParts.items[0].validationErrors;\n        context.load(validationErrors, \"items\");\n        await context.sync();\n\n        // Convert the validation errors collection to a plain JSON object\n        const errorsJson = validationErrors.toJSON();\n        \n        // Log or process the JSON representation\n        console.log(\"Validation Errors:\", JSON.stringify(errorsJson, null, 2));\n        \n        // Access the items array from the JSON object\n        if (errorsJson.items && errorsJson.items.length > 0) {\n            console.log(`Found ${errorsJson.items.length} validation error(s)`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlValidationErrorCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML validation error collection across multiple sync calls to monitor validation errors without encountering InvalidObjectPath errors",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the validation errors collection\n        const validationErrors = customXmlPart.validationErrors;\n        validationErrors.load(\"items\");\n        \n        // Track the collection for use across sync calls\n        validationErrors.track();\n        \n        await context.sync();\n        \n        // Now we can safely use the collection across multiple syncs\n        console.log(`Found ${validationErrors.items.length} validation errors`);\n        \n        await context.sync();\n        \n        // The tracked object remains valid even after additional sync calls\n        for (const error of validationErrors.items) {\n            error.load(\"errorCode, errorText\");\n        }\n        \n        await context.sync();\n        \n        // Clean up tracking when done\n        validationErrors.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlValidationErrorCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get custom XML validation errors, process them, then untrack the collection to free memory",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    context.load(customXmlParts, \"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const validationErrors = customXmlParts.items[0].validationErrors;\n        context.load(validationErrors, \"items\");\n        await context.sync();\n        \n        // Process the validation errors\n        console.log(`Found ${validationErrors.items.length} validation errors`);\n        \n        // Untrack the collection to release memory\n        validationErrors.untrack();\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/word/word.customxmlvalidationerror",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.customxmlvalidationerror",
+      "/en-us/javascript/api/word/word.customxmlnode",
+      "/en-us/javascript/api/word/word.customxmladdvalidationerroroptions",
+      "/en-us/javascript/api/office/officeextension.clientresult",
+      "/en-us/javascript/api/word/word.interfaces.customxmlvalidationerrorcollectionloadoptions",
+      "/en-us/javascript/api/word/word.interfaces.collectionloadoptions",
+      "/en-us/javascript/api/word/word.customxmlvalidationerrorcollection",
+      "/en-us/javascript/api/office/officeextension.loadoption",
+      "/en-us/javascript/api/word/word.interfaces.customxmlvalidationerrorcollectiondata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext"
+    ]
+  }
+}

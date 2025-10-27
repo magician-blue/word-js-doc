@@ -1,0 +1,308 @@
+{
+  "class": {
+    "name": "Word.CustomXmlPrefixMappingCollection",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a collection of Word.CustomXmlPrefixMapping objects.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a CustomXmlPrefixMappingCollection to verify the connection between the add-in and Word before performing operations on custom XML prefix mappings.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML prefix mappings collection\n    const prefixMappings = context.document.customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem().prefixMappings;\n    \n    // Access the request context associated with the collection\n    const requestContext = prefixMappings.context;\n    \n    // Verify the context is valid by checking if it matches the current context\n    if (requestContext === context) {\n        console.log(\"Request context is properly connected to the Word application\");\n    }\n    \n    // Load the collection to ensure the context connection is working\n    prefixMappings.load(\"items\");\n    await context.sync();\n    \n    console.log(`Successfully accessed ${prefixMappings.items.length} prefix mappings through the context`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "Word.CustomXmlPrefixMapping[]",
+      "description": "Gets the loaded child items in this collection.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Retrieve and log all custom XML prefix mappings (namespace prefixes and URIs) from the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML prefix mappings collection\n    const prefixMappings = context.document.customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem().namespaceManager.prefixMappings;\n    \n    // Load the items property\n    prefixMappings.load(\"items\");\n    \n    await context.sync();\n    \n    // Access the loaded items array\n    const mappingsArray = prefixMappings.items;\n    \n    // Iterate through the items\n    for (let i = 0; i < mappingsArray.length; i++) {\n        const mapping = mappingsArray[i];\n        mapping.load(\"prefix, namespaceUri\");\n    }\n    \n    await context.sync();\n    \n    // Log each prefix mapping\n    mappingsArray.forEach(mapping => {\n        console.log(`Prefix: ${mapping.prefix}, URI: ${mapping.namespaceUri}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addNamespace",
+      "kind": "configure",
+      "description": "Adds a custom namespace/prefix mapping to use when querying an item.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "prefix",
+              "type": "string",
+              "required": true,
+              "description": "The prefix to associate with the namespace."
+            },
+            {
+              "name": "namespaceUri",
+              "type": "string",
+              "required": true,
+              "description": "The namespace URI to map."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Add a custom XML namespace mapping with prefix \"contoso\" for the namespace URI \"http://schemas.contoso.com/2024/data\" to enable querying custom XML parts",
+          "usage_code": "await Word.run(async (context) => {\n    const prefixMappings = context.document.customXmlParts.getByNamespace(\"http://schemas.contoso.com/2024/data\").getOnlyItem().namespaceManager;\n    \n    // Add a custom namespace/prefix mapping\n    prefixMappings.addNamespace(\"contoso\", \"http://schemas.contoso.com/2024/data\");\n    \n    await context.sync();\n    \n    console.log(\"Custom namespace mapping added successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getCount",
+      "kind": "read",
+      "description": "Returns the number of items in the collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<number>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the count of custom XML prefix mappings in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const prefixMappings = customXmlParts.items[0].namespaceManager.customPrefixes;\n        prefixMappings.load(\"count\");\n        await context.sync();\n        \n        const count = prefixMappings.getCount();\n        await context.sync();\n        \n        console.log(`Number of custom XML prefix mappings: ${count.value}`);\n    } else {\n        console.log(\"No custom XML parts found in the document.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "kind": "read",
+      "description": "Returns a CustomXmlPrefixMapping object that represents the specified item in the collection.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "index",
+              "type": "number",
+              "required": true,
+              "description": "A number that identifies the index location of a paragraph object."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMapping",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the first prefix mapping from a custom XML part and display its namespace URI in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first custom XML part\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    if (customXmlParts.items.length > 0) {\n        const customXmlPart = customXmlParts.items[0];\n        \n        // Get the prefix mappings collection\n        const prefixMappings = customXmlPart.namespaceManager.customPrefixMappings;\n        prefixMappings.load(\"items\");\n        await context.sync();\n        \n        // Get the first prefix mapping using getItem()\n        if (prefixMappings.items.length > 0) {\n            const firstMapping = prefixMappings.getItem(0);\n            firstMapping.load(\"prefix, namespaceUri\");\n            await context.sync();\n            \n            console.log(`Prefix: ${firstMapping.prefix}, Namespace URI: ${firstMapping.namespaceUri}`);\n        }\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.CustomXmlPrefixMappingCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMappingCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMappingCollection",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "OfficeExtension.LoadOption",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMappingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display all custom XML namespace prefix mappings in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML prefix mappings collection\n    const prefixMappings = context.document.customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem().namespaceManager.prefixMappings;\n    \n    // Load the prefix and namespaceUri properties for all mappings\n    prefixMappings.load(\"items/prefix, items/namespaceUri\");\n    \n    await context.sync();\n    \n    // Display the loaded prefix mappings\n    console.log(\"Custom XML Prefix Mappings:\");\n    for (let i = 0; i < prefixMappings.items.length; i++) {\n        const mapping = prefixMappings.items[i];\n        console.log(`Prefix: ${mapping.prefix}, Namespace: ${mapping.namespaceUri}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lookupNamespace",
+      "kind": "read",
+      "description": "Gets the namespace corresponding to the specified prefix.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "prefix",
+              "type": "string",
+              "required": true,
+              "description": "The prefix to look up."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Look up and display the namespace URI associated with the \"contoso\" prefix in the document's custom XML prefix mappings.",
+          "usage_code": "await Word.run(async (context) => {\n    const prefixMappings = context.document.customXmlParts.getByNamespace(\"http://schemas.contoso.com/example\").getOnlyItem().namespaceManager.customPrefixMappings;\n    \n    const namespace = prefixMappings.lookupNamespace(\"contoso\");\n    \n    context.load(namespace);\n    await context.sync();\n    \n    console.log(`Namespace for prefix 'contoso': ${namespace.value}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lookupPrefix",
+      "kind": "read",
+      "description": "Gets the prefix corresponding to the specified namespace.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "namespaceUri",
+              "type": "string",
+              "required": true,
+              "description": "The namespace URI to look up."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Look up and display the namespace prefix for a specific XML namespace URI in the document's custom XML mappings",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        const prefixMappings = customXmlParts.items[0].namespaceManager.customPrefixes;\n        prefixMappings.load(\"items\");\n        await context.sync();\n\n        // Look up the prefix for a specific namespace URI\n        const namespaceUri = \"http://www.example.com/schema\";\n        const prefix = prefixMappings.lookupPrefix(namespaceUri);\n        \n        console.log(`Prefix for namespace '${namespaceUri}': ${prefix}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.CustomXmlPrefixMappingCollection object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.CustomXmlPrefixMappingCollectionData) that contains an \"items\" array with shallow copies of any loaded properties from the collection's items.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.CustomXmlPrefixMappingCollectionData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Export custom XML prefix mappings to JSON format for logging or external storage",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML parts collection\n    const customXmlParts = context.document.customXmlParts;\n    context.load(customXmlParts, \"items\");\n    await context.sync();\n\n    if (customXmlParts.items.length > 0) {\n        // Get the namespace prefix mappings from the first custom XML part\n        const prefixMappings = customXmlParts.items[0].namespaceManager.customPrefixes;\n        context.load(prefixMappings, \"items\");\n        await context.sync();\n\n        // Convert the prefix mappings collection to JSON\n        const jsonData = prefixMappings.toJSON();\n        \n        // Log or use the JSON data\n        console.log(\"Custom XML Prefix Mappings:\", JSON.stringify(jsonData, null, 2));\n        \n        // The jsonData object contains an \"items\" array with prefix mapping details\n        jsonData.items.forEach((mapping: any) => {\n            console.log(`Prefix: ${mapping.prefix}, Namespace: ${mapping.namespaceUri}`);\n        });\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMappingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML prefix mapping collection across multiple sync calls to maintain object references when checking and modifying namespace mappings in a document.",
+          "usage_code": "await Word.run(async (context) => {\n    const customXmlParts = context.document.customXmlParts;\n    customXmlParts.load(\"items\");\n    await context.sync();\n    \n    // Get the first custom XML part\n    const customXmlPart = customXmlParts.items[0];\n    \n    if (customXmlPart) {\n        const prefixMappings = customXmlPart.namespaceManager.customPrefixes;\n        \n        // Track the collection to use it across multiple sync calls\n        prefixMappings.track();\n        \n        prefixMappings.load(\"items\");\n        await context.sync();\n        \n        // Now we can safely use the collection after sync\n        console.log(`Found ${prefixMappings.items.length} prefix mappings`);\n        \n        // Perform additional operations\n        await context.sync();\n        \n        // Still safe to access the tracked collection\n        prefixMappings.items.forEach(mapping => {\n            console.log(`Prefix: ${mapping.prefix}, Namespace: ${mapping.namespaceUri}`);\n        });\n        \n        // Untrack when done\n        prefixMappings.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.CustomXmlPrefixMappingCollection",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a custom XML prefix mapping collection during operations, then untrack it to release memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the custom XML prefix mappings collection\n    const customXmlParts = context.document.customXmlParts;\n    const customXmlPart = customXmlParts.getByNamespace(\"http://example.com/schema\").getOnlyItem();\n    const prefixMappings = customXmlPart.namespaceManager.customPrefixMappings;\n    \n    // Track the collection for performance monitoring\n    prefixMappings.track();\n    \n    // Load properties\n    prefixMappings.load(\"items\");\n    await context.sync();\n    \n    // Perform operations with the collection\n    console.log(`Found ${prefixMappings.items.length} prefix mappings`);\n    \n    // Untrack the collection to release memory\n    prefixMappings.untrack();\n    await context.sync();\n    \n    console.log(\"Memory released for prefix mappings collection\");\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word"
+    ]
+  }
+}

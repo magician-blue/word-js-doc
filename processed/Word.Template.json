@@ -1,0 +1,449 @@
+{
+  "class": {
+    "name": "Word.Template",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a document template.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "buildingBlockEntries",
+      "type": "Word.BuildingBlockEntryCollection",
+      "description": "Returns a BuildingBlockEntryCollection object that represents the collection of building block entries in the template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get all building block entries from the current document's template and log their names to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template of the current document\n    const template = context.document.getTemplate();\n    \n    // Get the building block entries collection from the template\n    const buildingBlockEntries = template.buildingBlockEntries;\n    \n    // Load the name property for each building block entry\n    buildingBlockEntries.load(\"items/name\");\n    \n    await context.sync();\n    \n    // Log the names of all building block entries\n    console.log(\"Building Block Entries in Template:\");\n    buildingBlockEntries.items.forEach((entry) => {\n        console.log(`- ${entry.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "buildingBlockTypes",
+      "type": "Word.BuildingBlockTypeItemCollection",
+      "description": "Returns a BuildingBlockTypeItemCollection object that represents the collection of building block types that are contained in the template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the names of all building block types available in the current document's template",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.getActiveTemplate();\n    const buildingBlockTypes = template.buildingBlockTypes;\n    buildingBlockTypes.load(\"items/name\");\n    \n    await context.sync();\n    \n    console.log(\"Available building block types:\");\n    buildingBlockTypes.items.forEach(type => {\n        console.log(`- ${type.name}`);\n    });\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a Template object to verify the connection between the add-in and Word application before performing template operations.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the current document's template\n    const template = context.document.properties.template;\n    \n    // Access the request context associated with the template\n    const templateContext = template.context;\n    \n    // Use the context to load template properties\n    template.load(\"name\");\n    \n    await templateContext.sync();\n    \n    console.log(\"Template context is connected to Word\");\n    console.log(\"Template name: \" + template.name);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "farEastLineBreakLanguage",
+      "type": "Word.FarEastLineBreakLanguageId | \"TraditionalChinese\" | \"Japanese\" | \"Korean\" | \"SimplifiedChinese\"",
+      "description": "Specifies the East Asian language to use when breaking lines of text in the document or template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document template's line break language to Japanese for proper East Asian text formatting",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.styleTemplates;\n    \n    // Set the Far East line break language to Japanese\n    context.document.body.style = \"Normal\";\n    const docTemplate = context.document.properties.template;\n    \n    // Access template and set Far East line break language\n    const settings = context.document;\n    settings.properties.farEastLineBreakLanguage = Word.FarEastLineBreakLanguageId.japanese;\n    // Or use string literal:\n    // settings.properties.farEastLineBreakLanguage = \"Japanese\";\n    \n    await context.sync();\n    \n    console.log(\"Far East line break language set to Japanese\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "farEastLineBreakLevel",
+      "type": "Word.FarEastLineBreakLevel | \"Normal\" | \"Strict\" | \"Custom\"",
+      "description": "Specifies the line break control level for the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the document's Far East line break control level to \"Strict\" to enforce stricter line breaking rules for Asian languages",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document template\n    const template = context.document.body.style.template;\n    \n    // Set the Far East line break level to Strict\n    template.farEastLineBreakLevel = Word.FarEastLineBreakLevel.strict;\n    \n    await context.sync();\n    \n    console.log(\"Far East line break level set to Strict\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fullName",
+      "type": "string",
+      "description": "Returns the name of the template, including the drive or Web path.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get and display the full path and name of the current document's template",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template of the current document\n    const template = context.document.template;\n    \n    // Load the fullName property\n    template.load(\"fullName\");\n    \n    await context.sync();\n    \n    // Display the full template path and name\n    console.log(\"Template full path: \" + template.fullName);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "hasNoProofing",
+      "type": "boolean",
+      "description": "Specifies whether the spelling and grammar checker ignores documents based on this template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if spell-checking is disabled for the current document's template and display the result in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.properties.template;\n    template.load(\"hasNoProofing\");\n    \n    await context.sync();\n    \n    console.log(`Spell-checking disabled: ${template.hasNoProofing}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "justificationMode",
+      "type": "Word.JustificationMode | \"Expand\" | \"Compress\" | \"CompressKana\"",
+      "description": "Specifies the character spacing adjustment for the template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the template's character spacing adjustment to compress text for a more compact document layout",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.styleTemplates.getByNameOrNullObject(\"Normal\");\n    template.load(\"justificationMode\");\n    await context.sync();\n    \n    // Set the justification mode to compress characters\n    template.justificationMode = Word.JustificationMode.compress;\n    // Or use the string literal: template.justificationMode = \"Compress\";\n    \n    await context.sync();\n    console.log(\"Template character spacing set to compress mode\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "kerningByAlgorithm",
+      "type": "boolean",
+      "description": "Specifies if Microsoft Word kerns half-width Latin characters and punctuation marks in the document.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable kerning for half-width Latin characters and punctuation marks in the document template",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document template\n    const template = context.document.body.template;\n    \n    // Enable kerning for half-width Latin characters and punctuation\n    template.kerningByAlgorithm = true;\n    \n    // Sync to apply the changes\n    await context.sync();\n    \n    console.log(\"Kerning by algorithm has been enabled for the document.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "languageId",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies a LanguageId value that represents the language in the template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the template's language to French Canadian for a document being prepared for Quebec-based users",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.insertTemplate();\n    template.languageId = \"FrenchCanadian\";\n    \n    await context.sync();\n    console.log(\"Template language set to French Canadian\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "languageIdFarEast",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Specifies an East Asian language for the language in the template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the template's East Asian language to Japanese for proper text formatting and spell-checking of Japanese content.",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.styleOrNullObject.template;\n    template.languageIdFarEast = \"Japanese\";\n    \n    await context.sync();\n    console.log(\"Template East Asian language set to Japanese\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Returns only the name of the document template (excluding any path or other location information).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the current document template name in a message to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.properties.template;\n    template.load(\"name\");\n    \n    await context.sync();\n    \n    console.log(`Current template name: ${template.name}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "noLineBreakAfter",
+      "type": "string",
+      "description": "Specifies the kinsoku characters after which Microsoft Word will not break a line.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the kinsoku characters after which Word will not break a line to include common Japanese punctuation marks",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the document template\n    const template = context.document.body.style.template;\n    \n    // Set characters that should not appear at the end of a line\n    template.noLineBreakAfter = \"([{「『（［｛〈《【〔〖〘〚\";\n    \n    // Sync to apply the changes\n    await context.sync();\n    \n    console.log(\"No line break after characters set successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "noLineBreakBefore",
+      "type": "string",
+      "description": "Specifies the kinsoku characters before which Microsoft Word will not break a line.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the kinsoku characters before which Word will not break a line to include common Japanese punctuation marks",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.style.template;\n    \n    // Set characters that should not appear at the beginning of a line\n    template.noLineBreakBefore = \"、。，．）」』】\";\n    \n    await context.sync();\n    \n    console.log(\"No line break before characters set successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Returns the path to the document template.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the file path of the current document's template in the console",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.properties.template;\n    template.load(\"path\");\n    \n    await context.sync();\n    \n    console.log(\"Template path: \" + template.path);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "saved",
+      "type": "boolean",
+      "description": "Specifies true if the template has not changed since it was last saved, false if Microsoft Word displays a prompt to save changes when the document is closed.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the template has unsaved changes and display the save status to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.properties.template;\n    template.load(\"saved\");\n    \n    await context.sync();\n    \n    if (template.saved) {\n        console.log(\"Template has no unsaved changes\");\n    } else {\n        console.log(\"Template has unsaved changes\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "type": "Word.TemplateType | \"Normal\" | \"Global\" | \"Attached\"",
+      "description": "Returns the template type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Check if the current document's template is a \"Normal\" template and display the template type in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.properties.template;\n    template.load(\"type\");\n    \n    await context.sync();\n    \n    console.log(`Template type: ${template.type}`);\n    \n    if (template.type === \"Normal\" || template.type === Word.TemplateType.normal) {\n        console.log(\"This document uses the Normal template.\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.TemplateLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Template",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Template",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Template",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the template's name and type properties from a Word document template",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template object\n    const template = context.document.properties.template;\n    \n    // Load specific properties of the template\n    template.load(\"name, type\");\n    \n    // Sync to execute the load command\n    await context.sync();\n    \n    // Now the properties are available to read\n    console.log(\"Template Name: \" + template.name);\n    console.log(\"Template Type: \" + template.type);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "save",
+      "kind": "write",
+      "description": "Saves the template.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Save changes made to a document template after modifying its properties",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template\n    const template = context.document.template;\n    \n    // Load template properties\n    template.load(\"name\");\n    await context.sync();\n    \n    // Make changes to the template (example: modify content)\n    context.document.body.insertParagraph(\"Template content updated\", Word.InsertLocation.end);\n    \n    // Save the template\n    template.save();\n    \n    await context.sync();\n    console.log(\"Template saved successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.TemplateUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Template",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple template properties at once, including its name and description",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.template;\n    \n    // Set multiple properties of the template at once\n    template.set({\n        name: \"Company Report Template\",\n        description: \"Standard template for quarterly reports\"\n    });\n    \n    await context.sync();\n    console.log(\"Template properties updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Template object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.TemplateData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.TemplateData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a template object to JSON format for logging or data transfer purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template associated with the current document\n    const template = context.document.properties.template;\n    \n    // Load the template properties\n    template.load(\"name\");\n    \n    await context.sync();\n    \n    // Convert the template object to a plain JavaScript object\n    const templateData = template.toJSON();\n    \n    // Log the serialized template data\n    console.log(\"Template data:\", JSON.stringify(templateData, null, 2));\n    \n    // You can now use this plain object for storage, transmission, or comparison\n    return templateData;\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Template",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a template object across multiple sync calls to prevent InvalidObjectPath errors when accessing its properties after document changes",
+          "usage_code": "await Word.run(async (context) => {\n    const template = context.document.body.insertTemplate(\"MyTemplate\", Word.InsertLocation.start);\n    \n    // Track the template object to maintain reference across sync calls\n    template.track();\n    \n    // First sync to load initial data\n    await context.sync();\n    \n    // Perform some operations that might change the document\n    context.document.body.insertParagraph(\"New content\", Word.InsertLocation.end);\n    \n    // Second sync - without track(), accessing template here might throw InvalidObjectPath\n    await context.sync();\n    \n    // Safe to access template properties because it's being tracked\n    template.load(\"name\");\n    await context.sync();\n    \n    console.log(\"Template name: \" + template.name);\n    \n    // Clean up: untrack when done\n    template.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Template",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get a template object, track it for performance optimization, use it to retrieve template information, then untrack it to free memory when done.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the template and track it\n    const template = context.document.properties.template;\n    template.track();\n    template.load(\"name\");\n    \n    await context.sync();\n    \n    // Use the template object\n    console.log(\"Template name: \" + template.name);\n    \n    // Untrack the template to release memory\n    template.untrack();\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "/en-us/javascript/api/office/officeextension.clientobject",
+      "/en-us/javascript/api/requirement-sets/word/word-api-requirement-sets",
+      "/en-us/javascript/api/word/word.buildingblockentrycollection",
+      "/en-us/javascript/api/word/word.buildingblocktypeitemcollection",
+      "/en-us/javascript/api/word/word.requestcontext",
+      "/en-us/javascript/api/word/word.fareastlinebreaklanguageid",
+      "/en-us/javascript/api/word/word.fareastlinebreaklevel",
+      "/en-us/javascript/api/word/word.justificationmode",
+      "/en-us/javascript/api/word/word.languageid",
+      "/en-us/javascript/api/word/word.templatetype",
+      "/en-us/javascript/api/word/word.interfaces.templateloadoptions",
+      "/en-us/javascript/api/word/word.template",
+      "/en-us/javascript/api/office/officeextension.updateoptions",
+      "/en-us/javascript/api/word/word.interfaces.templateupdatedata",
+      "/en-us/javascript/api/word/word.interfaces.templatedata",
+      "/en-us/javascript/api/office/officeextension.clientrequestcontext"
+    ]
+  }
+}

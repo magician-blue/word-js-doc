@@ -1,0 +1,216 @@
+{
+  "class": {
+    "name": "Word.Pane",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApiDesktop",
+      "status": "1.2"
+    },
+    "description": "Represents a window pane. The Pane object is a member of the pane collection. The pane collection includes all the window panes for a single window.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a window pane to verify the connection between the add-in and Word, then use it to load and log the pane's index property.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the active pane\n    const activePane = context.document.getActiveWindow().panes.getFirst();\n    \n    // Access the request context from the pane object\n    const paneContext = activePane.context;\n    \n    // Use the context to load properties\n    activePane.load(\"index\");\n    \n    await paneContext.sync();\n    \n    console.log(`Pane index: ${activePane.index}`);\n    console.log(\"Request context successfully accessed from pane object\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pages",
+      "type": "Word.PageCollection",
+      "description": "Gets the collection of pages in the pane.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Retrieve and display the page index, total number of paragraphs, and first paragraph text for each page in the active document pane.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the first paragraph of each page.\n  console.log(\"Getting first paragraph of each page...\");\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get all pages.\n  const pages: Word.PageCollection = activePane.pages;\n  pages.load();\n\n  await context.sync();\n\n  // Get page index and paragraphs of each page.\n  const pagesIndexes = [];\n  const pagesNumberOfParagraphs = [];\n  const pagesFirstParagraphText = [];\n  for (let i = 0; i < pages.items.length; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n\n    const paragraphs = page.getRange().paragraphs;\n    paragraphs.load('items/length');\n    pagesNumberOfParagraphs.push(paragraphs);\n\n    const firstParagraph = paragraphs.getFirst();\n    firstParagraph.load('text');\n    pagesFirstParagraphText.push(firstParagraph);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n    console.log(`Number of paragraphs: ${pagesNumberOfParagraphs[i].items.length}`);\n    console.log(\"First paragraph's text:\", pagesFirstParagraphText[i].text);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "pagesEnclosingViewport",
+      "type": "Word.PageCollection",
+      "description": "Gets the PageCollection shown in the viewport of the pane. If a page is partially visible in the pane, the whole page is returned.",
+      "since": "WordApiDesktop 1.2",
+      "examples": [
+        {
+          "description": "Retrieve and log the count and index values of all pages that are currently visible within the active document window's viewport.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/35-ranges/get-pages.yaml\n\nawait Word.run(async (context) => {\n  // Gets the pages enclosing the viewport.\n\n  // Get the active window.\n  const activeWindow: Word.Window = context.document.activeWindow;\n  activeWindow.load();\n\n  // Get the active pane.\n  const activePane: Word.Pane = activeWindow.activePane;\n  activePane.load();\n\n  // Get pages enclosing the viewport.\n  const pages: Word.PageCollection = activePane.pagesEnclosingViewport;\n  pages.load();\n\n  await context.sync();\n\n  // Log the number of pages.\n  const pageCount = pages.items.length;\n  console.log(`Number of pages enclosing the viewport: ${pageCount}`);\n\n  // Log index info of these pages.\n  const pagesIndexes = [];\n  for (let i = 0; i < pageCount; i++) {\n    const page = pages.items[i];\n    page.load('index');\n    pagesIndexes.push(page);\n  }\n\n  await context.sync();\n\n  for (let i = 0; i < pagesIndexes.length; i++) {\n    console.log(`Page index: ${pagesIndexes[i].index}`);\n  }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getNext",
+      "kind": "read",
+      "description": "Gets the next pane in the window. Throws an ItemNotFound error if this pane is the last one.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Navigate through all window panes sequentially and display their index positions in the document body.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstPane = context.document.application.activeWindow.panes.getFirst();\n    firstPane.load(\"index\");\n    \n    let currentPane = firstPane;\n    let paneCount = 1;\n    let paneInfo = \"\";\n    \n    // Get the first pane info\n    await context.sync();\n    paneInfo += `Pane ${paneCount}: Index ${currentPane.index}\\n`;\n    \n    // Navigate through remaining panes using getNext()\n    let hasNext = true;\n    while (hasNext) {\n        try {\n            currentPane = currentPane.getNext();\n            currentPane.load(\"index\");\n            await context.sync();\n            \n            paneCount++;\n            paneInfo += `Pane ${paneCount}: Index ${currentPane.index}\\n`;\n        } catch (error) {\n            // ItemNotFound error means we've reached the last pane\n            hasNext = false;\n        }\n    }\n    \n    // Display results in document\n    const body = context.document.body;\n    body.insertParagraph(paneInfo, Word.InsertLocation.end);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "getNextOrNullObject",
+      "kind": "read",
+      "description": "Gets the next pane. If this pane is the last one, then this method will return an object with its isNullObject property set to true. For further information, see [*OrNullObject methods and properties](/en-us/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties).",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Check if there are multiple panes in the active window and display information about the current pane and the next pane if it exists.",
+          "usage_code": "await Word.run(async (context) => {\n    const firstPane = context.document.getActiveWindow().panes.getFirst();\n    const nextPane = firstPane.getNextOrNullObject();\n    \n    firstPane.load(\"index\");\n    nextPane.load(\"isNullObject, index\");\n    \n    await context.sync();\n    \n    console.log(`Current pane index: ${firstPane.index}`);\n    \n    if (nextPane.isNullObject) {\n        console.log(\"This is the last pane in the window.\");\n    } else {\n        console.log(`Next pane exists with index: ${nextPane.index}`);\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the index property of the first pane in the active document's window",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first pane from the active document's window\n    const pane = context.document.application.activeWindow.panes.getFirst();\n    \n    // Queue a command to load the index property\n    pane.load(\"index\");\n    \n    // Sync to execute the queued command\n    await context.sync();\n    \n    // Now we can read the loaded property\n    console.log(`Pane index: ${pane.index}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.Pane object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.PaneData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.PaneData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize a window pane object to JSON format for logging or debugging purposes",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first pane of the active window\n    const pane = context.document.application.windows.getActiveOrNullObject().panes.getFirst();\n    \n    // Load properties of the pane\n    pane.load(\"index\");\n    \n    await context.sync();\n    \n    // Convert the pane object to a plain JavaScript object\n    const paneData = pane.toJSON();\n    \n    // Log the serialized data (useful for debugging)\n    console.log(\"Pane data:\", JSON.stringify(paneData, null, 2));\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for [context.trackedObjects.add(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Track a window pane object across multiple sync calls to maintain its reference while monitoring and logging its view type property",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first pane of the active window\n    const pane = context.document.application.activeWindow.panes.getFirst();\n    \n    // Track the pane object to use it across multiple sync calls\n    pane.track();\n    \n    // Load the view type property\n    pane.load(\"viewType\");\n    await context.sync();\n    \n    console.log(\"Initial view type:\", pane.viewType);\n    \n    // Perform additional operations with the tracked pane\n    // The pane reference remains valid across sync calls\n    pane.load(\"viewType\");\n    await context.sync();\n    \n    console.log(\"View type after second sync:\", pane.viewType);\n    \n    // Untrack when done to free up resources\n    pane.untrack();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for [context.trackedObjects.remove(thisObject)](/en-us/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Pane",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Access a window pane, perform operations with it, then untrack it to free memory after use",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first pane of the active window\n    const pane = context.document.application.activeWindow.panes.getFirst();\n    \n    // Track the pane object for use\n    pane.track();\n    \n    // Load properties to work with the pane\n    pane.load(\"index\");\n    await context.sync();\n    \n    // Use the pane (e.g., log its index)\n    console.log(`Pane index: ${pane.index}`);\n    \n    // Untrack the pane to release memory\n    pane.untrack();\n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://docs.microsoft.com/en-us/javascript/api/word/word.pane"
+    ]
+  }
+}

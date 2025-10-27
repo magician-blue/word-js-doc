@@ -1,0 +1,842 @@
+{
+  "class": {
+    "name": "ThreeDimensionalFormat",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "BETA (PREVIEW ONLY)"
+    },
+    "description": "Represents a shape's three-dimensional formatting.",
+    "examples": []
+  },
+  "properties": [
+    {
+      "name": "bevelBottomDepth",
+      "type": "number",
+      "description": "Specifies the depth of the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the bottom bevel depth of a selected shape to 10 points to create a three-dimensional effect.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.threeDFormat.bevelBottomDepth = 10;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bevelBottomInset",
+      "type": "number",
+      "description": "Specifies the inset size for the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the bottom bevel inset to 10 points for a selected shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the bottom bevel inset to 10 points\n        shape.threeDFormat.bevelBottomInset = 10;\n        \n        await context.sync();\n        console.log(\"Bottom bevel inset set to 10 points\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bevelBottomType",
+      "type": "Word.BevelType | \"mixed\" | \"none\" | \"relaxedInset\" | \"circle\" | \"slope\" | \"cross\" | \"angle\" | \"softRound\" | \"convex\" | \"coolSlant\" | \"divot\" | \"riblet\" | \"hardEdge\" | \"artDeco\"",
+      "description": "Specifies a BevelType value that represents the bevel type for the bottom bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the bottom bevel type of a selected shape to \"softRound\" to give it a smooth, rounded 3D edge effect at the bottom.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.bevelBottomType = Word.BevelType.softRound;\n        \n        await context.sync();\n        console.log(\"Bottom bevel type set to softRound\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bevelTopDepth",
+      "type": "number",
+      "description": "Specifies the depth of the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the top bevel depth of a selected shape to 10 points to create a three-dimensional appearance.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.threeDFormat.bevelTopDepth = 10;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bevelTopInset",
+      "type": "number",
+      "description": "Specifies the inset size for the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the top bevel inset size to 10 points for a selected shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.bevelTopInset = 10;\n        \n        await context.sync();\n        console.log(\"Top bevel inset set to 10 points\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "bevelTopType",
+      "type": "Word.BevelType | \"mixed\" | \"none\" | \"relaxedInset\" | \"circle\" | \"slope\" | \"cross\" | \"angle\" | \"softRound\" | \"convex\" | \"coolSlant\" | \"divot\" | \"riblet\" | \"hardEdge\" | \"artDeco\"",
+      "description": "Specifies a BevelType value that represents the bevel type for the top bevel.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Apply a \"softRound\" bevel type to the top of a 3D shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the top bevel type to soft round\n        shape.threeDimensionalFormat.bevelTopType = Word.BevelType.softRound;\n        \n        await context.sync();\n        console.log(\"Top bevel type set to soft round\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context from a ThreeDimensionalFormat object to synchronize changes to a shape's 3D properties with the Office host application.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    const threeDFormat = shape.threeDimensionalFormat;\n    \n    // Access the request context from the ThreeDimensionalFormat object\n    const formatContext = threeDFormat.context;\n    \n    // Use the context to load properties\n    threeDFormat.load(\"visible\");\n    await formatContext.sync();\n    \n    console.log(\"3D Format visible:\", threeDFormat.visible);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contourColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents color of the contour of a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the contour color of a 3D shape to red with full opacity",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        const contourColor = threeDFormat.contourColor;\n        \n        // Set the contour color to red\n        contourColor.setSolidColor(\"#FF0000\");\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "contourWidth",
+      "type": "number",
+      "description": "Specifies the width of the contour of a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the contour width of a selected shape to 5 points to create a visible outline effect",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.threeDFormat.contourWidth = 5;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "depth",
+      "type": "number",
+      "description": "Specifies the depth of the shape's extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D extrusion depth of a selected shape to 50 points to create a deeper three-dimensional effect.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.depth = 50;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "extrusionColor",
+      "type": "Word.ColorFormat",
+      "description": "Returns a ColorFormat object that represents the color of the shape's extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the extrusion color of a selected shape to red",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        const extrusionColor = threeDFormat.extrusionColor;\n        \n        // Set the extrusion color to red\n        extrusionColor.setRgb(255, 0, 0);\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "extrusionColorType",
+      "type": "Word.ExtrusionColorType | \"mixed\" | \"automatic\" | \"custom\"",
+      "description": "Specifies whether the extrusion color is based on the extruded shape's fill (the front face of the extrusion) and automatically changes when the shape's fill changes, or whether the extrusion color is independent of the shape's fill.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a shape's extrusion color type to automatic so it changes based on the shape's fill color",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    // Get the first shape\n    const shape = shapes.items[0];\n    \n    // Set the extrusion color type to automatic\n    shape.threeDFormat.extrusionColorType = Word.ExtrusionColorType.automatic;\n    \n    await context.sync();\n    console.log(\"Extrusion color type set to automatic\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "fieldOfView",
+      "type": "number",
+      "description": "Specifies the amount of perspective for a shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the field of view to 60 degrees to add perspective to a 3D shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    // Get the first shape\n    const shape = shapes.items[0];\n    const threeDFormat = shape.threeDFormat;\n    \n    // Set the field of view to 60 degrees for perspective\n    threeDFormat.fieldOfView = 60;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isPerspective",
+      "type": "boolean",
+      "description": "Specifies true if the extrusion appears in perspective — that is, if the walls of the extrusion narrow toward a vanishing point, false if the extrusion is a parallel, or orthographic, projection — that is, if the walls don't narrow toward a vanishing point.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable perspective projection on a shape's 3D extrusion so that the walls narrow toward a vanishing point, creating a realistic depth effect.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        \n        // Enable perspective projection for realistic 3D depth\n        threeDFormat.isPerspective = true;\n        \n        await context.sync();\n        console.log(\"Perspective projection enabled on shape\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "isVisible",
+      "type": "boolean",
+      "description": "Specifies if the specified object, or the formatting applied to it, is visible.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Make a shape's 3D formatting visible by setting the isVisible property to true",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.isVisible = true;\n        \n        await context.sync();\n        console.log(\"3D formatting is now visible\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "lightAngle",
+      "type": "number",
+      "description": "Specifies the angle of the lighting.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D lighting angle to 45 degrees for a selected shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    const shape = shapes.getFirst();\n    \n    shape.threeDFormat.lightAngle = 45;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetCamera",
+      "type": "Word.PresetCamera | \"Mixed\" | \"LegacyObliqueTopLeft\" | \"LegacyObliqueTop\" | \"LegacyObliqueTopRight\" | \"LegacyObliqueLeft\" | \"LegacyObliqueFront\" | \"LegacyObliqueRight\" | \"LegacyObliqueBottomLeft\" | \"LegacyObliqueBottom\" | \"LegacyObliqueBottomRight\" | \"LegacyPerspectiveTopLeft\" | \"LegacyPerspectiveTop\" | \"LegacyPerspectiveTopRight\" | \"LegacyPerspectiveLeft\" | \"LegacyPerspectiveFront\" | \"LegacyPerspectiveRight\" | \"LegacyPerspectiveBottomLeft\" | \"LegacyPerspectiveBottom\" | \"LegacyPerspectiveBottomRight\" | \"OrthographicFront\" | \"IsometricTopUp\" | \"IsometricTopDown\" | \"IsometricBottomUp\" | \"IsometricBottomDown\" | \"IsometricLeftUp\" | \"IsometricLeftDown\" | \"IsometricRightUp\" | \"IsometricRightDown\" | \"IsometricOffAxis1Left\" | \"IsometricOffAxis1Right\" | \"IsometricOffAxis1Top\" | \"IsometricOffAxis2Left\" | \"IsometricOffAxis2Right\" | \"IsometricOffAxis2Top\" | \"IsometricOffAxis3Left\" | \"IsometricOffAxis3Right\" | \"IsometricOffAxis3Bottom\" | \"IsometricOffAxis4Left\" | \"IsometricOffAxis4Right\" | \"IsometricOffAxis4Bottom\" | \"ObliqueTopLeft\" | \"ObliqueTop\" | \"ObliqueTopRight\" | \"ObliqueLeft\" | \"ObliqueRight\" | \"ObliqueBottomLeft\" | \"ObliqueBottom\" | \"ObliqueBottomRight\" | \"PerspectiveFront\" | \"PerspectiveLeft\" | \"PerspectiveRight\" | \"PerspectiveAbove\" | \"PerspectiveBelow\" | \"PerspectiveAboveLeftFacing\" | \"PerspectiveAboveRightFacing\" | \"PerspectiveContrastingLeftFacing\" | \"PerspectiveContrastingRightFacing\" | \"PerspectiveHeroicLeftFacing\" | \"PerspectiveHeroicRightFacing\" | \"PerspectiveHeroicExtremeLeftFacing\" | \"PerspectiveHeroicExtremeRightFacing\" | \"PerspectiveRelaxed\" | \"PerspectiveRelaxedModerately\"",
+      "description": "Returns a PresetCamera value that represents the camera presets.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D camera preset to \"PerspectiveRelaxed\" for the first shape in the document to create a relaxed perspective view.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.presetCamera = \"PerspectiveRelaxed\";\n        \n        await context.sync();\n        console.log(\"3D camera preset applied successfully\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetExtrusionDirection",
+      "type": "Word.PresetExtrusionDirection | \"Mixed\" | \"BottomRight\" | \"Bottom\" | \"BottomLeft\" | \"Right\" | \"None\" | \"Left\" | \"TopRight\" | \"Top\" | \"TopLeft\"",
+      "description": "Returns the direction taken by the extrusion's sweep path leading away from the extruded shape (the front face of the extrusion).",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the extrusion direction of a selected shape and display it to the user, then set it to a top-right direction.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.load(\"presetExtrusionDirection\");\n        await context.sync();\n\n        // Get current extrusion direction\n        console.log(\"Current extrusion direction: \" + threeDFormat.presetExtrusionDirection);\n\n        // Set extrusion direction to TopRight\n        threeDFormat.presetExtrusionDirection = Word.PresetExtrusionDirection.topRight;\n        await context.sync();\n\n        console.log(\"Extrusion direction set to TopRight\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetLighting",
+      "type": "Word.LightRigType | \"Mixed\" | \"LegacyFlat1\" | \"LegacyFlat2\" | \"LegacyFlat3\" | \"LegacyFlat4\" | \"LegacyNormal1\" | \"LegacyNormal2\" | \"LegacyNormal3\" | \"LegacyNormal4\" | \"LegacyHarsh1\" | \"LegacyHarsh2\" | \"LegacyHarsh3\" | \"LegacyHarsh4\" | \"ThreePoint\" | \"Balanced\" | \"Soft\" | \"Harsh\" | \"Flood\" | \"Contrasting\" | \"Morning\" | \"Sunrise\" | \"Sunset\" | \"Chilly\" | \"Freezing\" | \"Flat\" | \"TwoPoint\" | \"Glow\" | \"BrightRoom\"",
+      "description": "Specifies a LightRigType value that represents the lighting preset.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Apply a \"Sunrise\" lighting preset to the 3D formatting of the first shape in the document to create a warm, directional lighting effect.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDFormat;\n        threeDFormat.presetLighting = \"Sunrise\";\n        \n        await context.sync();\n        console.log(\"Applied Sunrise lighting preset to the shape\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetLightingDirection",
+      "type": "Word.PresetLightingDirection | \"Mixed\" | \"TopLeft\" | \"Top\" | \"TopRight\" | \"Left\" | \"None\" | \"Right\" | \"BottomLeft\" | \"Bottom\" | \"BottomRight\"",
+      "description": "Specifies the position of the light source relative to the extrusion.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D lighting direction to come from the top-right for a selected shape in the document.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the preset lighting direction to top-right\n        shape.threeDFormat.presetLightingDirection = Word.PresetLightingDirection.topRight;\n        \n        await context.sync();\n        console.log(\"Lighting direction set to top-right\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetLightingSoftness",
+      "type": "Word.PresetLightingSoftness | \"Mixed\" | \"Dim\" | \"Normal\" | \"Bright\"",
+      "description": "Specifies the intensity of the extrusion lighting.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D lighting softness of a selected shape to \"Bright\" to increase the intensity of the extrusion lighting.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.presetLightingSoftness = Word.PresetLightingSoftness.bright;\n        \n        await context.sync();\n        console.log(\"3D lighting softness set to Bright\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetMaterial",
+      "type": "Word.PresetMaterial | \"Mixed\" | \"Matte\" | \"Plastic\" | \"Metal\" | \"WireFrame\" | \"Matte2\" | \"Plastic2\" | \"Metal2\" | \"WarmMatte\" | \"TranslucentPowder\" | \"Powder\" | \"DarkEdge\" | \"SoftEdge\" | \"Clear\" | \"Flat\" | \"SoftMetal\"",
+      "description": "Specifies the extrusion surface material.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D surface material of a selected shape to a metallic finish",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Set the preset material to Metal\n        shape.threeDFormat.presetMaterial = Word.PresetMaterial.metal;\n        \n        await context.sync();\n        console.log(\"Shape material set to Metal\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "presetThreeDimensionalFormat",
+      "type": "Word.PresetThreeDimensionalFormat | \"Mixed\" | \"Format1\" | \"Format2\" | \"Format3\" | \"Format4\" | \"Format5\" | \"Format6\" | \"Format7\" | \"Format8\" | \"Format9\" | \"Format10\" | \"Format11\" | \"Format12\" | \"Format13\" | \"Format14\" | \"Format15\" | \"Format16\" | \"Format17\" | \"Format18\" | \"Format19\" | \"Format20\"",
+      "description": "Returns the preset extrusion format.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the preset 3D format applied to a shape and display it to the user",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.load(\"presetThreeDimensionalFormat\");\n        await context.sync();\n        \n        console.log(\"Preset 3D Format: \" + threeDFormat.presetThreeDimensionalFormat);\n    } else {\n        console.log(\"No shapes found in the document\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "projectText",
+      "type": "boolean",
+      "description": "Specifies whether text on a shape rotates with shape. true rotates the text.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Enable text rotation on a shape so that the text rotates along with the shape's 3D orientation",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    // Get the first shape\n    const shape = shapes.items[0];\n    \n    // Enable text rotation with the shape\n    shape.threeDFormat.projectText = true;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rotationX",
+      "type": "number",
+      "description": "Specifies the rotation of the extruded shape around the x-axis in degrees.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Rotate a shape 45 degrees around the x-axis to create a tilted 3D effect",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    const shape = shapes.getItemAt(0);\n    \n    // Rotate the shape 45 degrees around the x-axis\n    shape.threeDFormat.rotationX = 45;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rotationY",
+      "type": "number",
+      "description": "Specifies the rotation of the extruded shape around the y-axis in degrees.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Rotate a selected shape 45 degrees around the y-axis to create a three-dimensional perspective effect",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        shape.threeDFormat.rotationY = 45;\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "rotationZ",
+      "type": "number",
+      "description": "Specifies the z-axis rotation of the camera.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set the 3D camera's z-axis rotation to 45 degrees for a selected shape",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    \n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.rotationZ = 45;\n        \n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "z",
+      "type": "number",
+      "description": "Specifies the position on the z-axis for the shape.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Set a shape's z-axis position to 50 to move it forward in 3D space",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    shape.threeDFormat.z = 50;\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "incrementRotationHorizontal",
+      "kind": "write",
+      "description": "Horizontally rotates a shape on the x-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Rotate a selected shape horizontally by 45 degrees on the x-axis",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.incrementRotationHorizontal(45);\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "incrementRotationVertical",
+      "kind": "write",
+      "description": "Vertically rotates a shape on the y-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Rotate a selected shape vertically by 45 degrees on the y-axis to create a 3D tilting effect",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the 3D format of the shape\n        const threeDFormat = shape.threeDFormat;\n        \n        // Rotate the shape vertically by 45 degrees on the y-axis\n        threeDFormat.incrementRotationVertical(45);\n        \n        await context.sync();\n        console.log(\"Shape rotated vertically by 45 degrees\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "incrementRotationX",
+      "kind": "write",
+      "description": "Changes the rotation around the x-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Rotate a shape 45 degrees around the x-axis to create a tilted 3D effect",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    const threeDFormat = shape.threeDimensionalFormat;\n    \n    // Rotate the shape 45 degrees around the x-axis\n    threeDFormat.incrementRotationX(45);\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "incrementRotationY",
+      "kind": "write",
+      "description": "Changes the rotation around the y-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Rotate a selected shape 45 degrees around the y-axis to create a three-dimensional rotation effect",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().getShapes();\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDFormat;\n        \n        // Rotate the shape 45 degrees around the y-axis\n        threeDFormat.incrementRotationY(45);\n        \n        await context.sync();\n        console.log(\"Shape rotated 45 degrees around y-axis\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "incrementRotationZ",
+      "kind": "write",
+      "description": "Rotates a shape on the z-axis. The number of degrees to rotate.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "increment",
+              "type": "number",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Rotate a selected shape 45 degrees clockwise around the z-axis (depth rotation)",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.getSelection().inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n\n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        \n        // Rotate the shape 45 degrees on the z-axis\n        threeDFormat.incrementRotationZ(45);\n        \n        await context.sync();\n        console.log(\"Shape rotated 45 degrees on z-axis\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call context.sync() before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ThreeDimensionalFormatLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "propertyNamesAndPaths.select is a comma-delimited string that specifies the properties to load, and propertyNamesAndPaths.expand is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and read the depth property of a shape's 3D formatting to check if it has depth applied.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    const threeDFormat = shape.threeDFormat;\n    \n    // Load the depth property of the 3D format\n    threeDFormat.load(\"depth\");\n    await context.sync();\n    \n    // Read the loaded property\n    console.log(`Shape 3D depth: ${threeDFormat.depth}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "resetRotation",
+      "kind": "write",
+      "description": "Resets the extrusion rotation around the x-axis, y-axis, and z-axis to 0.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Reset the 3D rotation of a selected shape back to its default orientation (0 degrees on all axes)",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the 3D format of the shape\n        const threeDFormat = shape.threeDFormat;\n        \n        // Reset the rotation to 0 on all axes\n        threeDFormat.resetRotation();\n        \n        await context.sync();\n        console.log(\"Shape rotation has been reset to default (0, 0, 0)\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ThreeDimensionalFormatUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.ThreeDimensionalFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply multiple 3D formatting properties to a shape at once, setting depth, contour width, and material type",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    const threeDFormat = shape.threeDFormat;\n    \n    // Set multiple 3D properties at once\n    threeDFormat.set({\n        depth: 50,\n        contourWidth: 5,\n        presetMaterial: Word.PresetMaterial.metal\n    });\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setExtrusionDirection",
+      "kind": "write",
+      "description": "Sets the direction of the extrusion's sweep path.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetExtrusionDirection",
+              "type": "Word.PresetExtrusionDirection",
+              "required": true,
+              "description": "The preset direction."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetExtrusionDirection",
+              "type": "\"Mixed\" | \"BottomRight\" | \"Bottom\" | \"BottomLeft\" | \"Right\" | \"None\" | \"Left\" | \"TopRight\" | \"Top\" | \"TopLeft\"",
+              "required": true,
+              "description": "The preset direction."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply a 3D extrusion effect to a shape with a bottom-right direction to create a perspective effect",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    const shape = shapes.items[0];\n    \n    // Get the 3D format of the shape\n    const threeDFormat = shape.threeDFormat;\n    \n    // Set the extrusion direction to bottom-right\n    threeDFormat.setExtrusionDirection(Word.PresetExtrusionDirection.bottomRight);\n    \n    await context.sync();\n    \n    console.log(\"Extrusion direction set to bottom-right\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setPresetCamera",
+      "kind": "write",
+      "description": "Sets the camera preset for the shape. The preset camera type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetCamera",
+              "type": "Word.PresetCamera",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetCamera",
+              "type": "\"Mixed\" | \"LegacyObliqueTopLeft\" | \"LegacyObliqueTop\" | \"LegacyObliqueTopRight\" | \"LegacyObliqueLeft\" | \"LegacyObliqueFront\" | \"LegacyObliqueRight\" | \"LegacyObliqueBottomLeft\" | \"LegacyObliqueBottom\" | \"LegacyObliqueBottomRight\" | \"LegacyPerspectiveTopLeft\" | \"LegacyPerspectiveTop\" | \"LegacyPerspectiveTopRight\" | \"LegacyPerspectiveLeft\" | \"LegacyPerspectiveFront\" | \"LegacyPerspectiveRight\" | \"LegacyPerspectiveBottomLeft\" | \"LegacyPerspectiveBottom\" | \"LegacyPerspectiveBottomRight\" | \"OrthographicFront\" | \"IsometricTopUp\" | \"IsometricTopDown\" | \"IsometricBottomUp\" | \"IsometricBottomDown\" | \"IsometricLeftUp\" | \"IsometricLeftDown\" | \"IsometricRightUp\" | \"IsometricRightDown\" | \"IsometricOffAxis1Left\" | \"IsometricOffAxis1Right\" | \"IsometricOffAxis1Top\" | \"IsometricOffAxis2Left\" | \"IsometricOffAxis2Right\" | \"IsometricOffAxis2Top\" | \"IsometricOffAxis3Left\" | \"IsometricOffAxis3Right\" | \"IsometricOffAxis3Bottom\" | \"IsometricOffAxis4Left\" | \"IsometricOffAxis4Right\" | \"IsometricOffAxis4Bottom\" | \"ObliqueTopLeft\" | \"ObliqueTop\" | \"ObliqueTopRight\" | \"ObliqueLeft\" | \"ObliqueRight\" | \"ObliqueBottomLeft\" | \"ObliqueBottom\" | \"ObliqueBottomRight\" | \"PerspectiveFront\" | \"PerspectiveLeft\" | \"PerspectiveRight\" | \"PerspectiveAbove\" | \"PerspectiveBelow\" | \"PerspectiveAboveLeftFacing\" | \"PerspectiveAboveRightFacing\" | \"PerspectiveContrastingLeftFacing\" | \"PerspectiveContrastingRightFacing\" | \"PerspectiveHeroicLeftFacing\" | \"PerspectiveHeroicRightFacing\" | \"PerspectiveHeroicExtremeLeftFacing\" | \"PerspectiveHeroicExtremeRightFacing\" | \"PerspectiveRelaxed\" | \"PerspectiveRelaxedModerately\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply a 3D isometric left camera preset to the first shape in the document to create a three-dimensional viewing perspective.",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDFormat;\n        threeDFormat.setPresetCamera(Word.PresetCameraType.isometricLeft);\n        await context.sync();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "setThreeDimensionalFormat",
+      "kind": "write",
+      "description": "Sets the preset extrusion format. The preset format.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "presetThreeDimensionalFormat",
+              "type": "Word.PresetThreeDimensionalFormat",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "presetThreeDimensionalFormat",
+              "type": "\"Mixed\" | \"Format1\" | \"Format2\" | \"Format3\" | \"Format4\" | \"Format5\" | \"Format6\" | \"Format7\" | \"Format8\" | \"Format9\" | \"Format10\" | \"Format11\" | \"Format12\" | \"Format13\" | \"Format14\" | \"Format15\" | \"Format16\" | \"Format17\" | \"Format18\" | \"Format19\" | \"Format20\"",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply a preset 3D extrusion format to a shape in the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get the 3D format of the shape and set a preset 3D format\n        const threeDFormat = shape.threeDimensionalFormat;\n        threeDFormat.setThreeDimensionalFormat(Word.PresetThreeDimensionalFormat.preset1);\n        \n        await context.sync();\n        console.log(\"Preset 3D format applied to the shape\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript toJSON() method in order to provide more useful output when an API object is passed to JSON.stringify(). (JSON.stringify, in turn, calls the toJSON method of the object that's passed to it.) Whereas the original Word.ThreeDimensionalFormat object is an API object, the toJSON method returns a plain JavaScript object (typed as Word.Interfaces.ThreeDimensionalFormatData) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ThreeDimensionalFormatData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Get the 3D formatting properties of a shape as a plain JavaScript object and log it to the console for inspection or serialization.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDFormat;\n        \n        // Load the 3D format properties\n        threeDFormat.load(\"*\");\n        await context.sync();\n        \n        // Convert to plain JavaScript object\n        const threeDFormatData = threeDFormat.toJSON();\n        \n        // Log the plain object (useful for debugging or serialization)\n        console.log(\"3D Format Properties:\", JSON.stringify(threeDFormatData, null, 2));\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "kind": "track",
+      "description": "Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for context.trackedObjects.add(thisObject). If you're using this object across .sync calls and outside the sequential execution of a \".run\" batch, and get an \"InvalidObjectPath\" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply 3D formatting to a shape and track it across multiple sync calls to maintain the reference while modifying its properties",
+          "usage_code": "await Word.run(async (context) => {\n    const shapes = context.document.body.inlinePictures;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        const threeDFormat = shape.threeDimensionalFormat;\n        \n        // Track the 3D format object to use it across sync calls\n        threeDFormat.track();\n        \n        // First sync: load current properties\n        threeDFormat.load(\"depth\");\n        await context.sync();\n        \n        console.log(\"Current depth: \" + threeDFormat.depth);\n        \n        // Second sync: modify properties\n        threeDFormat.depth = 50;\n        await context.sync();\n        \n        // Untrack when done\n        threeDFormat.untrack();\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "untrack",
+      "kind": "untrack",
+      "description": "Release the memory associated with this object, if it has previously been tracked. This call is shorthand for context.trackedObjects.remove(thisObject). Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call context.sync() before the memory release takes effect.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.ThreeDimensionalFormat",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Apply 3D formatting to a shape, then untrack the ThreeDimensionalFormat object to free memory after the formatting is complete.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the first shape in the document\n    const shapes = context.document.body.shapes;\n    shapes.load(\"items\");\n    await context.sync();\n    \n    if (shapes.items.length > 0) {\n        const shape = shapes.items[0];\n        \n        // Get and track the 3D format object\n        const threeDFormat = shape.threeDFormat;\n        context.trackedObjects.add(threeDFormat);\n        \n        // Apply 3D formatting properties\n        threeDFormat.load(\"presetCamera\");\n        await context.sync();\n        \n        // Modify 3D properties\n        threeDFormat.presetCamera = Word.PresetCameraType.isometricLeftDown;\n        await context.sync();\n        \n        // Untrack the object to release memory\n        threeDFormat.untrack();\n        await context.sync();\n        \n        console.log(\"3D formatting applied and object untracked\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "https://learn.microsoft.com/en-us/javascript/api/word/word.threedimensionalformat"
+    ]
+  }
+}

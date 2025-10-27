@@ -1,0 +1,334 @@
+{
+  "class": {
+    "name": "Word.Application",
+    "package": "word",
+    "extends": [
+      "OfficeExtension.ClientObject"
+    ],
+    "api_set": {
+      "name": "WordApi",
+      "status": "1.3"
+    },
+    "description": "Represents the application object.",
+    "examples": [
+      {
+        "description": null,
+        "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml\n\n// Updates the text of the current document with the text from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  // Use the Base64-encoded string representation of the selected .docx file.\n  const externalDoc: Word.DocumentCreated = context.application.createDocument(externalDocument);\n  await context.sync();\n\n  if (!Office.context.requirements.isSetSupported(\"WordApiHiddenDocument\", \"1.3\")) {\n    console.warn(\"The WordApiHiddenDocument 1.3 requirement set isn't supported on this client so can't proceed. Try this action on a platform that supports this requirement set.\");\n    return;\n  }\n\n  const externalDocBody: Word.Body = externalDoc.body;\n  externalDocBody.load(\"text\");\n  await context.sync();\n\n  // Insert the external document's text at the beginning of the current document's body.\n  const externalDocBodyText = externalDocBody.text;\n  const currentDocBody: Word.Body = context.document.body;\n  currentDocBody.insertText(externalDocBodyText, Word.InsertLocation.start);\n  await context.sync();\n});",
+        "output_code": null
+      }
+    ]
+  },
+  "properties": [
+    {
+      "name": "bibliography",
+      "type": "Word.Bibliography",
+      "description": "Returns a `Bibliography` object that represents the bibliography reference sources stored in Microsoft Word.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the count of bibliography sources currently stored in the document and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const bibliography = context.application.bibliography;\n    const sources = bibliography.sources;\n    sources.load(\"items\");\n    \n    await context.sync();\n    \n    console.log(`Total bibliography sources: ${sources.items.length}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "checkLanguage",
+      "type": "boolean",
+      "description": "Specifies if Microsoft Word automatically detects the language you are using as you type.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Disable automatic language detection while typing in the Word document",
+          "usage_code": "await Word.run(async (context) => {\n    // Disable automatic language detection\n    context.application.checkLanguage = false;\n    \n    await context.sync();\n    console.log(\"Automatic language detection has been disabled.\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "RequestContext",
+      "description": "The request context associated with the object. This connects the add-in's process to the Office host application's process.",
+      "since": null,
+      "examples": [
+        {
+          "description": "Access the request context to check the Office host application's connection status and sync changes to the document",
+          "usage_code": "await Word.run(async (context) => {\n    // Access the application object\n    const app = context.application;\n    \n    // The context property connects the add-in to the Office host\n    const requestContext = app.context;\n    \n    // Use the context to load application properties\n    app.load(\"name\");\n    \n    // Sync the context to execute queued commands and retrieve data\n    await requestContext.sync();\n    \n    console.log(\"Connected to: \" + app.name);\n    \n    // Make changes to the document\n    const body = context.document.body;\n    body.insertText(\"Context synced successfully!\", Word.InsertLocation.end);\n    \n    // Sync again to apply changes\n    await requestContext.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "language",
+      "type": "Word.LanguageId | \"Afrikaans\" | \"Albanian\" | \"Amharic\" | \"Arabic\" | \"ArabicAlgeria\" | \"ArabicBahrain\" | \"ArabicEgypt\" | \"ArabicIraq\" | \"ArabicJordan\" | \"ArabicKuwait\" | \"ArabicLebanon\" | \"ArabicLibya\" | \"ArabicMorocco\" | \"ArabicOman\" | \"ArabicQatar\" | \"ArabicSyria\" | \"ArabicTunisia\" | \"ArabicUAE\" | \"ArabicYemen\" | \"Armenian\" | \"Assamese\" | \"AzeriCyrillic\" | \"AzeriLatin\" | \"Basque\" | \"BelgianDutch\" | \"BelgianFrench\" | \"Bengali\" | \"Bulgarian\" | \"Burmese\" | \"Belarusian\" | \"Catalan\" | \"Cherokee\" | \"ChineseHongKongSAR\" | \"ChineseMacaoSAR\" | \"ChineseSingapore\" | \"Croatian\" | \"Czech\" | \"Danish\" | \"Divehi\" | \"Dutch\" | \"Edo\" | \"EnglishAUS\" | \"EnglishBelize\" | \"EnglishCanadian\" | \"EnglishCaribbean\" | \"EnglishIndonesia\" | \"EnglishIreland\" | \"EnglishJamaica\" | \"EnglishNewZealand\" | \"EnglishPhilippines\" | \"EnglishSouthAfrica\" | \"EnglishTrinidadTobago\" | \"EnglishUK\" | \"EnglishUS\" | \"EnglishZimbabwe\" | \"Estonian\" | \"Faeroese\" | \"Filipino\" | \"Finnish\" | \"French\" | \"FrenchCameroon\" | \"FrenchCanadian\" | \"FrenchCongoDRC\" | \"FrenchCotedIvoire\" | \"FrenchHaiti\" | \"FrenchLuxembourg\" | \"FrenchMali\" | \"FrenchMonaco\" | \"FrenchMorocco\" | \"FrenchReunion\" | \"FrenchSenegal\" | \"FrenchWestIndies\" | \"FrisianNetherlands\" | \"Fulfulde\" | \"GaelicIreland\" | \"GaelicScotland\" | \"Galician\" | \"Georgian\" | \"German\" | \"GermanAustria\" | \"GermanLiechtenstein\" | \"GermanLuxembourg\" | \"Greek\" | \"Guarani\" | \"Gujarati\" | \"Hausa\" | \"Hawaiian\" | \"Hebrew\" | \"Hindi\" | \"Hungarian\" | \"Ibibio\" | \"Icelandic\" | \"Igbo\" | \"Indonesian\" | \"Inuktitut\" | \"Italian\" | \"Japanese\" | \"Kannada\" | \"Kanuri\" | \"Kashmiri\" | \"Kazakh\" | \"Khmer\" | \"Kirghiz\" | \"Konkani\" | \"Korean\" | \"Kyrgyz\" | \"LanguageNone\" | \"Lao\" | \"Latin\" | \"Latvian\" | \"Lithuanian\" | \"MacedonianFYROM\" | \"Malayalam\" | \"MalayBruneiDarussalam\" | \"Malaysian\" | \"Maltese\" | \"Manipuri\" | \"Marathi\" | \"MexicanSpanish\" | \"Mongolian\" | \"Nepali\" | \"NoProofing\" | \"NorwegianBokmol\" | \"NorwegianNynorsk\" | \"Oriya\" | \"Oromo\" | \"Pashto\" | \"Persian\" | \"Polish\" | \"Portuguese\" | \"PortugueseBrazil\" | \"Punjabi\" | \"RhaetoRomanic\" | \"Romanian\" | \"RomanianMoldova\" | \"Russian\" | \"RussianMoldova\" | \"SamiLappish\" | \"Sanskrit\" | \"SerbianCyrillic\" | \"SerbianLatin\" | \"Sesotho\" | \"SimplifiedChinese\" | \"Sindhi\" | \"SindhiPakistan\" | \"Sinhalese\" | \"Slovak\" | \"Slovenian\" | \"Somali\" | \"Sorbian\" | \"Spanish\" | \"SpanishArgentina\" | \"SpanishBolivia\" | \"SpanishChile\" | \"SpanishColombia\" | \"SpanishCostaRica\" | \"SpanishDominicanRepublic\" | \"SpanishEcuador\" | \"SpanishElSalvador\" | \"SpanishGuatemala\" | \"SpanishHonduras\" | \"SpanishModernSort\" | \"SpanishNicaragua\" | \"SpanishPanama\" | \"SpanishParaguay\" | \"SpanishPeru\" | \"SpanishPuertoRico\" | \"SpanishUruguay\" | \"SpanishVenezuela\" | \"Sutu\" | \"Swahili\" | \"Swedish\" | \"SwedishFinland\" | \"SwissFrench\" | \"SwissGerman\" | \"SwissItalian\" | \"Syriac\" | \"Tajik\" | \"Tamazight\" | \"TamazightLatin\" | \"Tamil\" | \"Tatar\" | \"Telugu\" | \"Thai\" | \"Tibetan\" | \"TigrignaEritrea\" | \"TigrignaEthiopic\" | \"TraditionalChinese\" | \"Tsonga\" | \"Tswana\" | \"Turkish\" | \"Turkmen\" | \"Ukrainian\" | \"Urdu\" | \"UzbekCyrillic\" | \"UzbekLatin\" | \"Venda\" | \"Vietnamese\" | \"Welsh\" | \"Xhosa\" | \"Yi\" | \"Yiddish\" | \"Yoruba\" | \"Zulu\"",
+      "description": "Gets a `LanguageId` value that represents the language selected for the Microsoft Word user interface.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Display the current language of the Word user interface in a message to the user",
+          "usage_code": "await Word.run(async (context) => {\n    const application = context.application;\n    application.load(\"language\");\n    \n    await context.sync();\n    \n    console.log(`Current Word UI language: ${application.language}`);\n    \n    // You can also use the language value for conditional logic\n    if (application.language === \"EnglishUS\" || application.language === \"EnglishUK\") {\n        console.log(\"English language detected\");\n    }\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "templates",
+      "type": "Word.TemplateCollection",
+      "description": "Returns a `TemplateCollection` object that represents all the available templates: global templates and those attached to open documents.",
+      "since": "WordApi BETA (PREVIEW ONLY)",
+      "examples": [
+        {
+          "description": "Get the count of all available templates (global templates and those attached to open documents) and display it in the console.",
+          "usage_code": "await Word.run(async (context) => {\n    const templates = context.application.templates;\n    templates.load(\"count\");\n    \n    await context.sync();\n    \n    console.log(`Total number of available templates: ${templates.count}`);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "createDocument",
+      "kind": "create",
+      "description": "Creates a new document by using an optional Base64-encoded .docx file.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": false,
+              "description": "Optional. The Base64-encoded .docx file. The default value is null."
+            }
+          ],
+          "returns": {
+            "type": "Word.DocumentCreated",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Insert the text content from an external Base64-encoded Word document at the beginning of the current document's body.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml\n\n// Updates the text of the current document with the text from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  // Use the Base64-encoded string representation of the selected .docx file.\n  const externalDoc: Word.DocumentCreated = context.application.createDocument(externalDocument);\n  await context.sync();\n\n  if (!Office.context.requirements.isSetSupported(\"WordApiHiddenDocument\", \"1.3\")) {\n    console.warn(\"The WordApiHiddenDocument 1.3 requirement set isn't supported on this client so can't proceed. Try this action on a platform that supports this requirement set.\");\n    return;\n  }\n\n  const externalDocBody: Word.Body = externalDoc.body;\n  externalDocBody.load(\"text\");\n  await context.sync();\n\n  // Insert the external document's text at the beginning of the current document's body.\n  const externalDocBodyText = externalDocBody.text;\n  const currentDocBody: Word.Body = context.document.body;\n  currentDocBody.insertText(externalDocBodyText, Word.InsertLocation.start);\n  await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "kind": "load",
+      "description": "Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "options",
+              "type": "Word.Interfaces.ApplicationLoadOptions",
+              "required": false,
+              "description": "Provides options for which properties of the object to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Application",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNames",
+              "type": "string | string[]",
+              "required": false,
+              "description": "A comma-delimited string or an array of strings that specify the properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Application",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "propertyNamesAndPaths",
+              "type": "{ select?: string; expand?: string; }",
+              "required": false,
+              "description": "`propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load."
+            }
+          ],
+          "returns": {
+            "type": "Word.Application",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Load and display the application's name and version properties",
+          "usage_code": "await Word.run(async (context) => {\n    const app = context.application;\n    \n    // Load specific properties of the application\n    app.load(\"name, version\");\n    \n    await context.sync();\n    \n    console.log(`Application: ${app.name}`);\n    console.log(`Version: ${app.version}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "newObject",
+      "kind": "create",
+      "description": "Create a new instance of the `Word.Application` object.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "context",
+              "type": "OfficeExtension.ClientRequestContext",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "Word.Application",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Access the application object to check the Word application's name property",
+          "usage_code": "await Word.run(async (context) => {\n    const app = context.application;\n    app.load(\"name\");\n    \n    await context.sync();\n    \n    console.log(`Application name: ${app.name}`);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "openDocument",
+      "kind": null,
+      "description": "Opens a document and displays it in a new tab or window. The following are examples for the various supported clients and platforms.\n- Remote or cloud location example: `https://microsoft.sharepoint.com/some/path/Document.docx`\n- Local location examples for Windows: `C:\\Users\\Someone\\Documents\\Document.docx` (includes required escaped backslashes), `file://mycomputer/myfolder/Document.docx`\n- Local location example for Mac and iOS: `/User/someone/document.docx`",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "filePath",
+              "type": "string",
+              "required": true,
+              "description": "Required. The absolute path of the .docx file. Word on the web only supports remote (cloud) locations, while Word on Windows, on Mac, and on iOS support local and remote locations."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Open a document from a SharePoint location and display it in a new tab",
+          "usage_code": "await Word.run(async (context) => {\n    const app = context.application;\n    \n    // Open a document from SharePoint\n    app.openDocument(\"https://microsoft.sharepoint.com/sites/team/Documents/Report.docx\");\n    \n    await context.sync();\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "retrieveStylesFromBase64",
+      "kind": null,
+      "description": "Parse styles from template Base64 file and return JSON format of retrieved styles as a string.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "base64File",
+              "type": "string",
+              "required": true,
+              "description": "Required. The template file."
+            }
+          ],
+          "returns": {
+            "type": "OfficeExtension.ClientResult<string>",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Retrieve style definitions from an external Word document provided as a Base64-encoded string and log them to the console.",
+          "usage_code": "// Link to full sample: https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/get-external-styles.yaml\n\n// Gets style info from another document passed in as a Base64-encoded string.\nawait Word.run(async (context) => {\n  const retrievedStyles = context.application.retrieveStylesFromBase64(externalDocument);\n  await context.sync();\n\n  console.log(\"Styles from the other document:\", retrievedStyles.value);\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "set",
+      "kind": "write",
+      "description": "Sets multiple properties of an object at the same time. You can pass either a plain object with the appropriate properties, or another API object of the same type.",
+      "signatures": [
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Interfaces.ApplicationUpdateData",
+              "required": true,
+              "description": "A JavaScript object with properties that are structured isomorphically to the properties of the object on which the method is called."
+            },
+            {
+              "name": "options",
+              "type": "OfficeExtension.UpdateOptions",
+              "required": false,
+              "description": "Provides an option to suppress errors if the properties object tries to set any read-only properties."
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        },
+        {
+          "params": [
+            {
+              "name": "properties",
+              "type": "Word.Application",
+              "required": true,
+              "description": null
+            }
+          ],
+          "returns": {
+            "type": "void",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Configure multiple application-level settings at once, including showing the task pane and enabling screen updating",
+          "usage_code": "await Word.run(async (context) => {\n    const app = context.application;\n    \n    // Set multiple application properties at once\n    app.set({\n        showTaskpane: true,\n        screenUpdating: true\n    });\n    \n    await context.sync();\n    console.log(\"Application settings updated successfully\");\n});",
+          "output_code": null
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "kind": "serialize",
+      "description": "Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.) Whereas the original `Word.Application` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.ApplicationData`) that contains shallow copies of any loaded child properties from the original object.",
+      "signatures": [
+        {
+          "params": [],
+          "returns": {
+            "type": "Word.Interfaces.ApplicationData",
+            "description": null
+          }
+        }
+      ],
+      "examples": [
+        {
+          "description": "Serialize the Word application object to JSON format to inspect its properties and log them to the console.",
+          "usage_code": "await Word.run(async (context) => {\n    // Get the application object\n    const application = context.application;\n    \n    // Load properties you want to serialize\n    application.load(\"name\");\n    \n    await context.sync();\n    \n    // Convert the application object to a plain JavaScript object\n    const applicationJSON = application.toJSON();\n    \n    // Log the serialized object\n    console.log(\"Application as JSON:\", JSON.stringify(applicationJSON, null, 2));\n    console.log(\"Application name:\", applicationJSON.name);\n});",
+          "output_code": null
+        }
+      ]
+    }
+  ],
+  "source": {
+    "urls": [
+      "/en-us/javascript/api/word",
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/insert-external-document.yaml",
+      "https://raw.githubusercontent.com/OfficeDev/office-js-snippets/prod/samples/word/50-document/get-external-styles.yaml"
+    ]
+  }
+}
